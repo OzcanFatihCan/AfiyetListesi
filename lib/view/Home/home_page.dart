@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomePageView extends StatefulWidget {
   const HomePageView({super.key});
@@ -11,7 +12,9 @@ class _HomePageViewState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Scaffold samples')),
+      appBar: AppBar(
+        title: const Text('Scaffold samples'),
+      ),
       body: const Text('merhaba'),
       backgroundColor: Colors.blue,
       extendBody: true,
