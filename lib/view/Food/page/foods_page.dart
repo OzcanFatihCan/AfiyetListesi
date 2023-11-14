@@ -1,12 +1,11 @@
+import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:flutter/material.dart';
 
 class FoodsPageView extends StatelessWidget {
   const FoodsPageView({super.key});
+
   final double spaceObjects = 20;
-  final String title = 'Yemek';
-  final String title2 = 'Turşu';
-  final String title3 = 'Reçel';
-  final String title4 = 'İçecek';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,27 +16,12 @@ class FoodsPageView extends StatelessWidget {
           children: [
             const FoodPageHeadText(),
             SizedBox(height: spaceObjects),
-            const Padding(
-              padding: _FoodPagePaddings.pagePaddingx,
-              child: FoodPageSearchBarWidget(),
-            ),
+            const FoodPageSearchBarWidget(),
             SizedBox(height: spaceObjects),
-            SingleChildScrollView(
+            const SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FoodPageButton(title: title, onPressed: () {}),
-                  FoodPageButton(title: title2, onPressed: () {}),
-                  FoodPageButton(title: title3, onPressed: () {}),
-                  FoodPageButton(title: title4, onPressed: () {}),
-                  FoodPageButton(title: title2, onPressed: () {}),
-                  FoodPageButton(title: title3, onPressed: () {}),
-                  FoodPageButton(title: title4, onPressed: () {}),
-                  FoodPageButton(title: title, onPressed: () {}),
-                ],
-              ),
-            )
+              child: FoodPageContentButton(),
+            ),
           ],
         ),
       ),
@@ -48,21 +32,70 @@ class FoodsPageView extends StatelessWidget {
   }
 }
 
+class FoodPageContentButton extends StatefulWidget {
+  const FoodPageContentButton({
+    super.key,
+  });
+
+  @override
+  State<FoodPageContentButton> createState() => _FoodPageContentButtonState();
+}
+
+class _FoodPageContentButtonState extends State<FoodPageContentButton> {
+  late int selectedButtonIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedButtonIndex = 0;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final List<String> buttonTitles = [
+      'Yemekler',
+      'Tatlılar',
+      'Turşular',
+      'Reçeller',
+      'İçecekler',
+    ];
+    return Row(
+      children: List.generate(5, (index) {
+        return Padding(
+          padding: _FoodPagePaddings.buttonPaddingx,
+          child: FoodPageButton(
+            //buton isimleri yemek, turşu, içecek, reçel, tatlı,
+            title: buttonTitles[index],
+            onPressed: () {
+              setState(() {
+                selectedButtonIndex = index;
+              });
+            },
+            isSelected: selectedButtonIndex == index,
+          ),
+        );
+      }),
+    );
+  }
+}
+
 class FoodPageSearchBarWidget extends StatelessWidget {
   const FoodPageSearchBarWidget({
     super.key,
   });
-  final String textHint = "Yemek ara";
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.search_rounded),
-        hintText: textHint,
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(30),
+    return const SizedBox(
+      height: 50,
+      child: TextField(
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.search_rounded),
+          hintText: ProjectWords.searchHint,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(30),
+            ),
           ),
         ),
       ),
@@ -73,12 +106,11 @@ class FoodPageSearchBarWidget extends StatelessWidget {
 class FoodPageHeadText extends StatelessWidget
     with _FoodPageColors, _FoodPageFont {
   const FoodPageHeadText({super.key});
-  final String headText = "Hamidenin Lezzet Listesi";
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      headText,
+      ProjectWords.headText,
       style: Theme.of(context).textTheme.headlineMedium?.copyWith(
             color: _FoodPageColors.headColor,
             fontWeight: _FoodPageFont.headFont,
@@ -89,31 +121,46 @@ class FoodPageHeadText extends StatelessWidget
 
 mixin _FoodPageColors {
   static const Color headColor = Colors.black;
-  static const Color buttonColor = Colors.red;
-  static const Color buttonForeColor = Colors.white;
+  static const Color activeButtonColor = Colors.red;
+  static const Color deactivedButtonColor = Colors.transparent;
+  static const Color activeButtonForeColor = Colors.white;
+  static const Color deactiveButtonForeColor = Colors.grey;
 }
 
 mixin _FoodPagePaddings {
   static const EdgeInsets pagePaddingx = EdgeInsets.all(8.0);
   static const EdgeInsets pagePadding2x = EdgeInsets.all(16.0);
+  static const EdgeInsets buttonPaddingx = EdgeInsets.symmetric(horizontal: 15);
 }
 
 mixin _FoodPageFont {
   static const headFont = FontWeight.w500;
+  static const buttonFont = FontWeight.bold;
 }
 
 class FoodPageButton extends StatelessWidget
     with _FoodPageColors, _FoodPagePaddings {
-  FoodPageButton({Key? key, required this.title, required this.onPressed})
-      : super(key: key);
+  FoodPageButton({
+    Key? key,
+    required this.title,
+    required this.onPressed,
+    this.isSelected = true,
+  }) : super(key: key);
+
   final String title;
   final void Function() onPressed;
+  final bool isSelected;
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
+        //side: const BorderSide(color: _FoodPageColors.headColor),
         shape: const StadiumBorder(),
-        backgroundColor: _FoodPageColors.buttonColor,
+        elevation: 0,
+        backgroundColor: isSelected
+            ? _FoodPageColors.activeButtonColor
+            : _FoodPageColors.deactivedButtonColor,
       ),
       onPressed: onPressed,
       child: Padding(
@@ -121,8 +168,10 @@ class FoodPageButton extends StatelessWidget
         child: Text(
           title,
           style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              color: _FoodPageColors.buttonForeColor,
-              fontWeight: FontWeight.bold),
+              color: isSelected
+                  ? _FoodPageColors.activeButtonForeColor
+                  : _FoodPageColors.deactiveButtonForeColor,
+              fontWeight: _FoodPageFont.buttonFont),
         ),
       ),
     );
