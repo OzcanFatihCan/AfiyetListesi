@@ -11,21 +11,58 @@ class FoodsPageView extends StatelessWidget {
     return Scaffold(
       backgroundColor: PageColors.mainPageColor,
       appBar: AppBar(),
-      body: const Padding(
-        padding: FoodPagePaddings.pagePadding2x,
+      body: Padding(
+        padding: PageItemSize.pagePadding2x,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            FoodPageHeadText(),
-            SizedBox(height: PageItemSize.spaceObjects),
-            FoodPageSearchBarWidget(),
-            SizedBox(height: PageItemSize.spaceObjects),
-            SingleChildScrollView(
+            const FoodPageHeadText(),
+            const SizedBox(height: PageItemSize.spaceObjects),
+            const FoodPageSearchBarWidget(),
+            const SizedBox(height: PageItemSize.spaceObjects),
+            const SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: FoodPageContentButton(),
             ),
-            SizedBox(height: PageItemSize.spaceObjects),
-            FoodPageIntermediateText(),
+            const SizedBox(height: PageItemSize.spaceObjectsMin),
+            const FoodPageIntermediateText(),
+            const SizedBox(height: PageItemSize.spaceObjects),
+            SizedBox(
+              height: 280,
+              width: 200,
+              child: Card(
+                shape: const RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.black),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15),
+                  ),
+                ),
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: PageItemSize.pagePadding2x,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        child: Image.network(
+                          'https://cdn.yemek.com/mncrop/940/625/uploads/2015/05/bulgur-pilavi-yemekcom.jpg',
+                          height: 150,
+                          width: 150,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        'Yemek İsmi',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),

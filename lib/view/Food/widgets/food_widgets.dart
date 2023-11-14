@@ -34,7 +34,7 @@ class _FoodPageContentButtonState extends State<FoodPageContentButton> {
     return Row(
       children: List.generate(5, (index) {
         return Padding(
-          padding: FoodPagePaddings.buttonPaddingx,
+          padding: PageItemSize.buttonPaddingx,
           child: FoodPageButton(
             //buton isimleri yemek, turşu, içecek, reçel, tatlı,
             title: buttonTitles[index],
@@ -98,7 +98,7 @@ class FoodPageIntermediateText extends StatelessWidget
   }
 }
 
-class FoodPageButton extends StatelessWidget with PageColors, FoodPagePaddings {
+class FoodPageButton extends StatelessWidget with PageColors, PageItemSize {
   FoodPageButton({
     Key? key,
     required this.title,
@@ -123,7 +123,7 @@ class FoodPageButton extends StatelessWidget with PageColors, FoodPagePaddings {
       ),
       onPressed: onPressed,
       child: Padding(
-        padding: FoodPagePaddings.pagePaddingx,
+        padding: PageItemSize.pagePaddingx,
         child: Text(
           title,
           style: Theme.of(context).textTheme.titleSmall?.copyWith(
@@ -135,12 +135,6 @@ class FoodPageButton extends StatelessWidget with PageColors, FoodPagePaddings {
       ),
     );
   }
-}
-
-mixin FoodPagePaddings {
-  static const EdgeInsets pagePaddingx = EdgeInsets.all(8.0);
-  static const EdgeInsets pagePadding2x = EdgeInsets.all(16.0);
-  static const EdgeInsets buttonPaddingx = EdgeInsets.symmetric(horizontal: 15);
 }
 
 mixin FoodPageFont {
