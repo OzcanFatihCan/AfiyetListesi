@@ -1,5 +1,6 @@
-import 'package:afiyetlistesi/view/Food/page/foods_page.dart';
-//import 'package:afiyetlistesi/view/Home/home_page.dart';
+//import 'package:afiyetlistesi/view/Food/page/foods_page.dart';
+import 'package:afiyetlistesi/view/Home/page/home_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -23,7 +24,7 @@ class AfiyetListesi extends StatelessWidget {
         elevation: 0,
         foregroundColor: Colors.black,
       )),
-      home: const FoodsPageView(),
+      home: const HomePageView(),
     );
   }
 }
