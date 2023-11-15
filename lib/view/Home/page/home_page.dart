@@ -14,16 +14,14 @@ class HomePageView extends StatelessWidget {
         children: [
           const BackGroundWidget(),
           Positioned(
-            bottom: 140, // Yüksekliği ayarlayabilirsiniz
+            bottom: 140,
             left: 1,
             right: 1,
             child: ButtonBar(
               alignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () {
-                    // Butona tıklanınca yapılacak işlemler
-                  },
+                  onPressed: () {},
                   child: Text('Giriş Yap'),
                 ),
               ],

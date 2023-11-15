@@ -12,7 +12,7 @@ class FoodsPageView extends StatelessWidget {
     return Scaffold(
       backgroundColor: PageColors.mainPageColor,
       appBar: AppBar(),
-      body: const Padding(
+      body: Padding(
         padding: PageItemSize.pagePadding2x,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,6 +31,40 @@ class FoodsPageView extends StatelessWidget {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: FoodPagePopular(),
+            ),
+            SizedBox(height: PageItemSize.spaceObjectsMin),
+            SizedBox(
+              height: 70,
+              width: 370,
+              child: Padding(
+                padding: PageItemSize.cardPaddingx,
+                child: Card(
+                  color: PageColors.cardColor,
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.restaurant_menu_rounded),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.favorite_rounded),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.person),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.person),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

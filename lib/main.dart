@@ -1,4 +1,4 @@
-//import 'package:afiyetlistesi/view/Food/page/foods_page.dart';
+import 'package:afiyetlistesi/view/Food/page/foods_page.dart';
 import 'package:afiyetlistesi/view/Home/page/home_page.dart';
 
 import 'package:flutter/material.dart';
