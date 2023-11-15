@@ -1,4 +1,7 @@
+import 'package:afiyetlistesi/core/button_decoration.dart';
+import 'package:afiyetlistesi/core/card_decoration.dart';
 import 'package:afiyetlistesi/core/color_set.dart';
+import 'package:afiyetlistesi/core/font_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/core/text_field_decoration.dart';
 import 'package:afiyetlistesi/product/project_words.dart';
@@ -35,7 +38,7 @@ class _FoodPageContentButtonState extends State<FoodPageContentButton> {
       children: List.generate(5, (index) {
         return Padding(
           padding: PageItemSize.buttonPaddingx,
-          child: FoodPageButton(
+          child: ButtonDecorationWidget(
             //buton isimleri yemek, turşu, içecek, reçel, tatlı,
             title: buttonTitles[index],
             onPressed: () {
@@ -98,47 +101,33 @@ class FoodPageIntermediateText extends StatelessWidget
   }
 }
 
-class FoodPageButton extends StatelessWidget with PageColors, PageItemSize {
-  FoodPageButton({
-    Key? key,
-    required this.title,
-    required this.onPressed,
-    this.isSelected = true,
-  }) : super(key: key);
-
-  final String title;
-  final void Function() onPressed;
-  final bool isSelected;
+class FoodPagePopular extends StatefulWidget {
+  const FoodPagePopular({
+    super.key,
+  });
 
   @override
+  State<FoodPagePopular> createState() => _FoodPagePopularState();
+}
+
+class _FoodPagePopularState extends State<FoodPagePopular> {
+  @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        //side: const BorderSide(color: _FoodPageColors.headColor),
-        shape: const StadiumBorder(),
-        elevation: 0,
-        backgroundColor: isSelected
-            ? PageColors.activeButtonColor
-            : PageColors.deactivedButtonColor,
-      ),
-      onPressed: onPressed,
-      child: Padding(
-        padding: PageItemSize.pagePaddingx,
-        child: Text(
-          title,
-          style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              color: isSelected
-                  ? PageColors.activeButtonForeColor
-                  : PageColors.deactiveButtonForeColor,
-              fontWeight: FoodPageFont.buttonFont),
+    return Row(
+      children: List.generate(
+        3,
+        (index) => InkWell(
+          onTap: () {},
+          child: const Padding(
+            padding: PageItemSize.cardPaddingx,
+            child: SizedBox(
+              height: PageItemSize.cardHeightSize,
+              width: PageItemSize.cardWidthSize,
+              child: CardDecorationWidget(),
+            ),
+          ),
         ),
       ),
     );
   }
-}
-
-mixin FoodPageFont {
-  static const headFont = FontWeight.w500;
-  static const buttonFont = FontWeight.bold;
-  static const cardTextFont = FontWeight.w800;
 }
