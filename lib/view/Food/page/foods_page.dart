@@ -1,5 +1,6 @@
 import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
+import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:afiyetlistesi/view/Food/widgets/food_widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -27,39 +28,64 @@ class FoodsPageView extends StatelessWidget {
             const SizedBox(height: PageItemSize.spaceObjectsMin),
             const FoodPageIntermediateText(),
             const SizedBox(height: PageItemSize.spaceObjects),
-            SizedBox(
-              height: 280,
-              width: 200,
-              child: Card(
-                shape: const RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.black),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15),
+            InkWell(
+              onTap: () {},
+              child: SizedBox(
+                height: PageItemSize.cardHeightSize,
+                width: PageItemSize.cardWidthSize,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      PageItemSize.halfRadius(),
+                    ),
                   ),
-                ),
-                color: Colors.white,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: PageItemSize.pagePadding2x,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        child: Image.network(
-                          'https://cdn.yemek.com/mncrop/940/625/uploads/2015/05/bulgur-pilavi-yemekcom.jpg',
-                          height: 150,
-                          width: 150,
-                          fit: BoxFit.fitHeight,
+                  elevation: 8,
+                  color: PageColors.cardColor,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: PageItemSize.pagePadding2x,
+                        child: ClipRRect(
+                            borderRadius:
+                                BorderRadius.all(PageItemSize.halfRadius()),
+                            child: ProjectWords.photoUrl.isNotEmpty
+                                ? Image.network(
+                                    ProjectWords.photoUrl,
+                                    height: PageItemSize.foodPhotoHeightSize,
+                                    width: PageItemSize.foodPhotoWidthSize,
+                                    fit: BoxFit.fitHeight,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return const SizedBox(
+                                        width: PageItemSize.foodPhotoWidthSize,
+                                        height:
+                                            PageItemSize.foodPhotoHeightSize,
+                                        child: Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      );
+                                    },
+                                  )
+                                : const SizedBox(
+                                    height: PageItemSize.foodPhotoHeightSize,
+                                    width: PageItemSize.foodPhotoWidthSize,
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  )),
+                      ),
+                      Padding(
+                        padding: PageItemSize.objectPadding2x,
+                        child: Text(
+                          'Yemek İsmi',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: PageColors.blackColor,
+                                    fontWeight: FoodPageFont.cardTextFont,
+                                  ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        'Yemek İsmi',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
