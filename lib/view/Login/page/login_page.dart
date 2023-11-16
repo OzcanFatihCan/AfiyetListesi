@@ -1,5 +1,7 @@
+import 'package:afiyetlistesi/core/button_decoration.dart';
 import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/product/project_words.dart';
+
 import 'package:flutter/material.dart';
 
 class LoginPageView extends StatelessWidget {
@@ -19,12 +21,7 @@ class LoginPageView extends StatelessWidget {
             right: 1,
             child: ButtonBar(
               alignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Giriş Yap'),
-                ),
-              ],
+              children: [ButtonDecoration(onPressed: () {})],
             ),
           ),
         ],

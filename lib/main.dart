@@ -1,3 +1,4 @@
+import 'package:afiyetlistesi/view/Login/page/login_page.dart';
 import 'package:afiyetlistesi/view/PageControl/page/control_page.dart';
 
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class AfiyetListesi extends StatelessWidget {
         elevation: 0,
         foregroundColor: Colors.black,
       )),
-      home: const PageControlView(),
+      home: const LoginPageView(),
     );
   }
 }

@@ -9,6 +9,7 @@ mixin PageItemSize {
   static const double foodPhotoWidthSize = 120;
   static const double cardHeightSize = 250;
   static const double cardWidthSize = 170;
+  static const double bottomNavHeight = 60;
 
 //padding
   static const EdgeInsets pagePaddingx = EdgeInsets.all(8.0);
@@ -24,7 +25,6 @@ mixin PageItemSize {
   static Radius halfRadius() => const Radius.circular(15);
   static Radius fullRadius() => const Radius.circular(30);
 
+//elevation
   static const double elevationValue = 8;
-
-  static const double bottomNavHeight = 60;
 }

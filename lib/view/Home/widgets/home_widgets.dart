@@ -1,4 +1,3 @@
-import 'package:afiyetlistesi/core/button_decoration.dart';
 import 'package:afiyetlistesi/core/card_decoration.dart';
 import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/font_set.dart';
@@ -38,7 +37,7 @@ class _HomePageContentButtonState extends State<HomePageContentButton> {
       children: List.generate(5, (index) {
         return Padding(
           padding: PageItemSize.buttonPaddingx,
-          child: ButtonDecorationWidget(
+          child: HomePageButtonWidget(
             //buton isimleri yemek, turşu, içecek, reçel, tatlı,
             title: buttonTitles[index],
             onPressed: () {
@@ -110,6 +109,46 @@ class _HomePagePopularState extends State<HomePagePopular> {
               child: CardDecorationWidget(),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class HomePageButtonWidget extends StatelessWidget
+    with PageColors, PageItemSize {
+  HomePageButtonWidget({
+    Key? key,
+    required this.title,
+    required this.onPressed,
+    this.isSelected = true,
+  }) : super(key: key);
+
+  final String title;
+  final void Function() onPressed;
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        //side: const BorderSide(color: _FoodPageColors.headColor),
+        shape: const StadiumBorder(),
+        elevation: 0,
+        backgroundColor: isSelected
+            ? PageColors.activeButtonColor
+            : PageColors.deactivedButtonColor,
+      ),
+      onPressed: onPressed,
+      child: Padding(
+        padding: PageItemSize.pagePaddingx,
+        child: Text(
+          title,
+          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+              color: isSelected
+                  ? PageColors.activeButtonForeColor
+                  : PageColors.deactiveButtonForeColor,
+              fontWeight: PageFont.buttonFont),
         ),
       ),
     );
