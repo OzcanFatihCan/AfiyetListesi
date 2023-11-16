@@ -3,20 +3,20 @@ import 'package:afiyetlistesi/core/card_decoration.dart';
 import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/font_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
-import 'package:afiyetlistesi/core/text_field_decoration.dart';
+
 import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:flutter/material.dart';
 
-class FoodPageContentButton extends StatefulWidget {
-  const FoodPageContentButton({
+class HomePageContentButton extends StatefulWidget {
+  const HomePageContentButton({
     super.key,
   });
 
   @override
-  State<FoodPageContentButton> createState() => _FoodPageContentButtonState();
+  State<HomePageContentButton> createState() => _HomePageContentButtonState();
 }
 
-class _FoodPageContentButtonState extends State<FoodPageContentButton> {
+class _HomePageContentButtonState extends State<HomePageContentButton> {
   late int selectedButtonIndex;
 
   @override
@@ -54,24 +54,8 @@ class _FoodPageContentButtonState extends State<FoodPageContentButton> {
   }
 }
 
-class FoodPageSearchBarWidget extends StatelessWidget {
-  const FoodPageSearchBarWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: PageItemSize.textFieldSize,
-      child: TextField(
-        decoration: privTextFieldDecoration(),
-      ),
-    );
-  }
-}
-
-class FoodPageHeadText extends StatelessWidget with PageColors, FoodPageFont {
-  const FoodPageHeadText({super.key});
+class HomePageHeadText extends StatelessWidget with PageColors, PageFont {
+  const HomePageHeadText({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -79,15 +63,15 @@ class FoodPageHeadText extends StatelessWidget with PageColors, FoodPageFont {
       ProjectWords.foodHeadText,
       style: Theme.of(context).textTheme.headlineMedium?.copyWith(
             color: PageColors.blackColor,
-            fontWeight: FoodPageFont.headFont,
+            fontWeight: PageFont.headFont,
           ),
     );
   }
 }
 
-class FoodPageIntermediateText extends StatelessWidget
-    with PageColors, FoodPageFont {
-  const FoodPageIntermediateText({super.key});
+class HomePageIntermediateText extends StatelessWidget
+    with PageColors, PageFont {
+  const HomePageIntermediateText({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -95,22 +79,22 @@ class FoodPageIntermediateText extends StatelessWidget
       ProjectWords.foodIntermediateText,
       style: Theme.of(context).textTheme.headlineSmall?.copyWith(
             color: PageColors.blackColor,
-            fontWeight: FoodPageFont.headFont,
+            fontWeight: PageFont.headFont,
           ),
     );
   }
 }
 
-class FoodPagePopular extends StatefulWidget {
-  const FoodPagePopular({
+class HomePagePopular extends StatefulWidget {
+  const HomePagePopular({
     super.key,
   });
 
   @override
-  State<FoodPagePopular> createState() => _FoodPagePopularState();
+  State<HomePagePopular> createState() => _HomePagePopularState();
 }
 
-class _FoodPagePopularState extends State<FoodPagePopular> {
+class _HomePagePopularState extends State<HomePagePopular> {
   @override
   Widget build(BuildContext context) {
     return Row(

@@ -1,5 +1,8 @@
 import 'package:afiyetlistesi/core/color_set.dart';
-import 'package:afiyetlistesi/product/project_words.dart';
+import 'package:afiyetlistesi/core/item_size.dart';
+import 'package:afiyetlistesi/core/search_decoration.dart';
+
+import 'package:afiyetlistesi/view/Home/widgets/home_widgets.dart';
 import 'package:flutter/material.dart';
 
 class HomePageView extends StatelessWidget {
@@ -8,43 +11,32 @@ class HomePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: PageColors.deactivedScafooldColor,
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          const BackGroundWidget(),
-          Positioned(
-            bottom: 140,
-            left: 1,
-            right: 1,
-            child: ButtonBar(
-              alignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Giriş Yap'),
-                ),
-              ],
-            ),
+      resizeToAvoidBottomInset: true,
+      backgroundColor: PageColors.mainPageColor,
+      body: const SingleChildScrollView(
+        child: Padding(
+          padding: PageItemSize.pagePadding2x,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              HomePageHeadText(),
+              SizedBox(height: PageItemSize.spaceObjects),
+              SearchBarWidget(),
+              SizedBox(height: PageItemSize.spaceObjects),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: HomePageContentButton(),
+              ),
+              SizedBox(height: PageItemSize.spaceObjectsMin),
+              HomePageIntermediateText(),
+              SizedBox(height: PageItemSize.spaceObjects),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: HomePagePopular(),
+              ),
+              SizedBox(height: PageItemSize.spaceObjectsMin),
+            ],
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class BackGroundWidget extends StatelessWidget {
-  const BackGroundWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(ProjectWords.wallpapeUrl),
-          fit: BoxFit.fitHeight,
         ),
       ),
     );

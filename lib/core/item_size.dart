@@ -20,4 +20,6 @@ mixin PageItemSize {
 
   static const double cardHeightSize = 250;
   static const double cardWidthSize = 170;
+
+  static double get elevationValue => 8;
 }

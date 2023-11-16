@@ -36,7 +36,7 @@ class ButtonDecorationWidget extends StatelessWidget
               color: isSelected
                   ? PageColors.activeButtonForeColor
                   : PageColors.deactiveButtonForeColor,
-              fontWeight: FoodPageFont.buttonFont),
+              fontWeight: PageFont.buttonFont),
         ),
       ),
     );

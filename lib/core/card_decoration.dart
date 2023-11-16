@@ -17,7 +17,7 @@ class CardDecorationWidget extends StatelessWidget {
           PageItemSize.halfRadius(),
         ),
       ),
-      elevation: 8,
+      elevation: PageItemSize.elevationValue,
       color: PageColors.cardColor,
       child: Column(
         children: [
@@ -55,7 +55,7 @@ class CardDecorationWidget extends StatelessWidget {
               'Yemek İsmi',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: PageColors.blackColor,
-                    fontWeight: FoodPageFont.cardTextFont,
+                    fontWeight: PageFont.cardTextFont,
                   ),
             ),
           ),
