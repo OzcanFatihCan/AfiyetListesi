@@ -10,4 +10,6 @@ mixin PageColors {
   static final Color textFieldColor = Colors.grey.shade600;
   static const Color cardColor = Colors.white;
   static const Color deactivedScafooldColor = Colors.transparent;
+  static const Color activeIconColor = Colors.red;
+  static const Color deactiveIconColor = Colors.grey;
 }

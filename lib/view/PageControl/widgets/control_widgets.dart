@@ -1,51 +1,6 @@
 import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:flutter/material.dart';
-import 'package:afiyetlistesi/view/Favorite/page/favorite_page.dart';
-import 'package:afiyetlistesi/view/Food/page/food_page.dart';
-import 'package:afiyetlistesi/view/Home/page/home_page.dart';
-import 'package:afiyetlistesi/view/Person/page/persone_page.dart';
-
-class PageControlView extends StatefulWidget {
-  const PageControlView({Key? key}) : super(key: key);
-
-  @override
-  State<PageControlView> createState() => _PageControlViewState();
-}
-
-class _PageControlViewState extends State<PageControlView> {
-  final _pageController = PageController(viewportFraction: 1.0);
-  int _currentPage = 0; // Başlangıçta ilk sayfa (Home) görüntülenecek.
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: PageColors.mainPageColor,
-      appBar: AppBar(),
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: (int index) {
-          setState(() {
-            _currentPage = index;
-          });
-        },
-        children: const [
-          HomePageView(),
-          FavoritePageView(),
-          PersonPageView(),
-          FoodPageView(),
-        ],
-      ),
-      bottomNavigationBar: CardBottomNav(
-        pageController: _pageController,
-        currentPage: _currentPage,
-      ),
-      drawer: Drawer(
-        backgroundColor: PageColors.mainPageColor,
-      ),
-    );
-  }
-}
 
 class CardBottomNav extends StatelessWidget {
   const CardBottomNav({
@@ -131,8 +86,3 @@ bottomNavIconItem(
     ),
   );
 }
- /*
-                buildNavBarItem(0, Icons.home_rounded),
-                buildNavBarItem(1, Icons.favorite_rounded),
-                buildNavBarItem(2, Icons.person),
-                buildNavBarItem(3, Icons.restaurant_rounded),*/
