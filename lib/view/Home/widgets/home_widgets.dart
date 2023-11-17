@@ -59,6 +59,7 @@ class HomePageHeadText extends StatelessWidget with PageColors, PageFont {
   @override
   Widget build(BuildContext context) {
     return Text(
+      softWrap: true,
       ProjectWords.foodHeadText,
       style: Theme.of(context).textTheme.headlineMedium?.copyWith(
             color: PageColors.blackColor,
@@ -68,9 +69,8 @@ class HomePageHeadText extends StatelessWidget with PageColors, PageFont {
   }
 }
 
-class HomePageIntermediateText extends StatelessWidget
-    with PageColors, PageFont {
-  const HomePageIntermediateText({super.key});
+class HomePageMiddleWidget extends StatelessWidget with PageColors, PageFont {
+  const HomePageMiddleWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -116,12 +116,14 @@ class _HomePagePopularState extends State<HomePagePopular> {
         3,
         (index) => InkWell(
           onTap: () {},
-          child: const Padding(
+          child: Padding(
             padding: PageItemSize.cardPaddingx,
             child: SizedBox(
-              height: PageItemSize.cardHeightSize,
-              width: PageItemSize.cardWidthSize,
-              child: CardDecorationWidget(),
+              height: MediaQuery.of(context).size.height *
+                  0.43, //PageItemSize.cardHeightSize,
+              width: MediaQuery.of(context).size.width *
+                  0.5, //PageItemSize.cardWidthSize,
+              child: const CardDecorationWidget(),
             ),
           ),
         ),

@@ -28,7 +28,10 @@ class SearchBarWidget extends StatelessWidget {
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: PageColors.textFieldColor),
+            borderSide: BorderSide(
+              color: PageColors.textFieldColor,
+              width: PageItemSize.textFieldBorderSize,
+            ),
             borderRadius: BorderRadius.all(
               PageItemSize.fullRadius(),
             ),

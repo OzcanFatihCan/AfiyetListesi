@@ -14,6 +14,7 @@ class HomePageView extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       backgroundColor: PageColors.mainPageColor,
       body: SingleChildScrollView(
+        padding: EdgeInsets.zero,
         child: Padding(
           padding: PageItemSize.pagePadding2x,
           child: Column(
@@ -28,7 +29,7 @@ class HomePageView extends StatelessWidget {
                 child: HomePageContentButton(),
               ),
               SizedBox(height: PageItemSize.spaceObjectsMin),
-              HomePageIntermediateText(),
+              HomePageMiddleWidget(),
               SizedBox(height: PageItemSize.spaceObjects),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,

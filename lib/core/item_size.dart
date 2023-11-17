@@ -8,8 +8,6 @@ mixin PageItemSize {
   static const double spaceObjectsMin = 10;
   static const double foodPhotoHeightSize = 130;
   static const double foodPhotoWidthSize = 120;
-  static const double cardHeightSize = 250;
-  static const double cardWidthSize = 170;
   static const double bottomNavHeight = 60;
   static const double loginButtonPositionBot = 140;
   static const double loginButtonSymetric = 1;
@@ -22,6 +20,8 @@ mixin PageItemSize {
   static const EdgeInsets cardPaddingx = EdgeInsets.symmetric(horizontal: 5);
   static const EdgeInsets bottomPadding =
       EdgeInsets.only(bottom: 25, right: 20, left: 20);
+  static const EdgeInsets imagePadding =
+      EdgeInsets.only(bottom: 16, right: 16, left: 16, top: 32);
 
 //radius
   static Radius halfRadius() => const Radius.circular(15);

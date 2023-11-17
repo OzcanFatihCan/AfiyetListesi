@@ -22,7 +22,7 @@ class CardDecorationWidget extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: PageItemSize.pagePadding2x,
+            padding: PageItemSize.imagePadding,
             child: ClipRRect(
                 borderRadius: BorderRadius.all(PageItemSize.halfRadius()),
                 child: ProjectWords.photoUrl.isNotEmpty
@@ -52,8 +52,9 @@ class CardDecorationWidget extends StatelessWidget {
           Padding(
             padding: PageItemSize.objectPadding2x,
             child: Text(
+              softWrap: true,
               'Yemek İsmi',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: PageColors.blackColor,
                     fontWeight: PageFont.cardTextFont,
                   ),

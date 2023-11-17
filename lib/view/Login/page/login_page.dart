@@ -1,4 +1,5 @@
 import 'package:afiyetlistesi/core/color_set.dart';
+import 'package:afiyetlistesi/core/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:afiyetlistesi/view/Login/widgets/login_widgets.dart';
 import 'package:flutter/material.dart';
