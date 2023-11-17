@@ -1,4 +1,6 @@
 import 'package:afiyetlistesi/core/color_set.dart';
+import 'package:afiyetlistesi/core/draver_decoration.dart';
+import 'package:afiyetlistesi/product/project_words.dart';
 
 import 'package:afiyetlistesi/view/PageControl/widgets/control_widgets.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +30,10 @@ class _PageControlViewState extends State<PageControlView> {
         pageController: _pageController,
         currentPage: _currentPage,
       ),
-      drawer: const Drawer(
-        backgroundColor: PageColors.mainPageColor,
+      drawer: const DrawerDecoration(
+        profilName: ProjectWords.profilName,
+        profilEmail: ProjectWords.profilEmail,
+        imageUrl: ProjectWords.profilPhotoUrl,
       ),
     );
   }

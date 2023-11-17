@@ -7,4 +7,9 @@ class ProjectWords {
   static const wallpapeUrl = 'assets/picture/Wallpaper.png';
   static const loginButton = "Giriş Yap";
   static const allFood = "Tümünü Gör";
+  static const profilName = "Elizabeth Olsen";
+  static const profilEmail = "ElizabethOlsen@gmail.com";
+  static const profilPhotoUrl =
+      "https://image.tmdb.org/t/p/original/mbMsmQE5CyMVTIGMGCw2XpcPCOc.jpg";
+  static const profilBannerUrl = 'assets/picture/ProfilBanner.png';
 }

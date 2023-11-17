@@ -12,4 +12,5 @@ mixin PageColors {
   static const Color deactivedScafooldColor = Colors.transparent;
   static const Color activeIconColor = Colors.red;
   static const Color deactiveIconColor = Colors.grey;
+  static const Color profilTextColor = Colors.white;
 }
