@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 mixin PageItemSize {
   //obj
   static const double textFieldSize = 50;
+  static const double textFieldBorderSize = 3;
   static const double spaceObjects = 20;
   static const double spaceObjectsMin = 10;
   static const double foodPhotoHeightSize = 130;

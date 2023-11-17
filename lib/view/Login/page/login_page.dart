@@ -1,4 +1,5 @@
 import 'package:afiyetlistesi/core/color_set.dart';
+import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:afiyetlistesi/view/Login/widgets/login_widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,9 @@ class LoginPageView extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          BackGroundWidget(),
+          BackGroundWidget(
+            wallpaperUrl: ProjectWords.wallpapeUrl,
+          ),
           LoginButtonWidget(),
         ],
       ),

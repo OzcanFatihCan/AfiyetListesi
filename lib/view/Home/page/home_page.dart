@@ -10,10 +10,10 @@ class HomePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: PageColors.mainPageColor,
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
           padding: PageItemSize.pagePadding2x,
           child: Column(

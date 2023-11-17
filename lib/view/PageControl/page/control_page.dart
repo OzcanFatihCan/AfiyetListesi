@@ -23,27 +23,31 @@ class _PageControlViewState extends State<PageControlView> {
     return Scaffold(
       backgroundColor: PageColors.mainPageColor,
       appBar: AppBar(),
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: (int index) {
-          setState(() {
-            _currentPage = index;
-          });
-        },
-        children: const [
-          HomePageView(),
-          FavoritePageView(),
-          PersonPageView(),
-          FoodPageView(),
-        ],
-      ),
+      body: controlPageViewFunc(),
       bottomNavigationBar: CardBottomNav(
         pageController: _pageController,
         currentPage: _currentPage,
       ),
-      drawer: Drawer(
+      drawer: const Drawer(
         backgroundColor: PageColors.mainPageColor,
       ),
+    );
+  }
+
+  PageView controlPageViewFunc() {
+    return PageView(
+      controller: _pageController,
+      onPageChanged: (int index) {
+        setState(() {
+          _currentPage = index;
+        });
+      },
+      children: const [
+        HomePageView(),
+        FavoritePageView(),
+        PersonPageView(),
+        FoodPageView(),
+      ],
     );
   }
 }

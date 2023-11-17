@@ -19,7 +19,10 @@ class SearchBarWidget extends StatelessWidget {
           hintText: ProjectWords.searchHint,
           hintStyle: TextStyle(color: PageColors.textFieldColor),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: PageColors.textFieldColor),
+            borderSide: BorderSide(
+              color: PageColors.textFieldColor,
+              width: PageItemSize.textFieldBorderSize,
+            ),
             borderRadius: BorderRadius.all(
               PageItemSize.fullRadius(),
             ),

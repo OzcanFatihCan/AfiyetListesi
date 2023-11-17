@@ -6,7 +6,7 @@ mixin PageColors {
   static const Color deactivedButtonColor = Colors.transparent;
   static const Color activeButtonForeColor = Colors.white;
   static const Color deactiveButtonForeColor = Colors.grey;
-  static final Color mainPageColor = Colors.blueGrey.shade100;
+  static const Color mainPageColor = Color(0xFFF4E1E7);
   static final Color textFieldColor = Colors.grey.shade600;
   static const Color cardColor = Colors.white;
   static const Color deactivedScafooldColor = Colors.transparent;
