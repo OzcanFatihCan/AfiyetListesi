@@ -6,4 +6,5 @@ class ProjectWords {
       "https://cdn.yemek.com/mncrop/940/625/uploads/2015/05/bulgur-pilavi-yemekcom.jpg";
   static const wallpapeUrl = 'assets/picture/Wallpaper.png';
   static const loginButton = "Giriş Yap";
+  static const allFood = "Tümünü Gör";
 }

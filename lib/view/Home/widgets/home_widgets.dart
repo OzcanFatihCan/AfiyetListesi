@@ -74,12 +74,27 @@ class HomePageIntermediateText extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      ProjectWords.foodIntermediateText,
-      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-            color: PageColors.blackColor,
-            fontWeight: PageFont.headFont,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          ProjectWords.foodIntermediateText,
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                color: PageColors.blackColor,
+                fontWeight: PageFont.headFont,
+              ),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: Text(
+            ProjectWords.allFood,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: PageColors.activeButtonColor,
+                  fontWeight: PageFont.headFont,
+                ),
           ),
+        )
+      ],
     );
   }
 }
