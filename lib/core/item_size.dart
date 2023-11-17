@@ -10,7 +10,8 @@ mixin PageItemSize {
   static const double cardHeightSize = 250;
   static const double cardWidthSize = 170;
   static const double bottomNavHeight = 60;
-
+  static const double loginButtonPositionBot = 140;
+  static const double loginButtonSymetric = 1;
 //padding
   static const EdgeInsets pagePaddingx = EdgeInsets.all(8.0);
   static const EdgeInsets pagePadding2x = EdgeInsets.all(16.0);
