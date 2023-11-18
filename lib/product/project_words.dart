@@ -12,4 +12,11 @@ class ProjectWords {
   static const profilPhotoUrl =
       "https://image.tmdb.org/t/p/original/mbMsmQE5CyMVTIGMGCw2XpcPCOc.jpg";
   static const profilBannerUrl = 'assets/picture/ProfilBanner.png';
+  static const drawerListItem = [
+    'Yemek Ekle',
+    'Yemeklerim',
+    'Favorilerim',
+    'Ayarlar',
+    'Çıkış Yap'
+  ];
 }

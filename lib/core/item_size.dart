@@ -11,6 +11,7 @@ mixin PageItemSize {
   static const double bottomNavHeight = 60;
   static const double loginButtonPositionBot = 140;
   static const double loginButtonSymetric = 1;
+  static const int drawerLines = 1;
 //padding
   static const EdgeInsets pagePaddingx = EdgeInsets.all(8.0);
   static const EdgeInsets pagePadding2x = EdgeInsets.all(16.0);
@@ -18,6 +19,7 @@ mixin PageItemSize {
   static const EdgeInsets objectPadding2x = EdgeInsets.all(16.0);
   static const EdgeInsets buttonPaddingx = EdgeInsets.symmetric(horizontal: 15);
   static const EdgeInsets cardPaddingx = EdgeInsets.symmetric(horizontal: 5);
+  static const EdgeInsets listPaddingx = EdgeInsets.symmetric(horizontal: 10);
   static const EdgeInsets bottomPadding =
       EdgeInsets.only(bottom: 25, right: 20, left: 20);
   static const EdgeInsets imagePadding =
@@ -29,4 +31,5 @@ mixin PageItemSize {
 
 //elevation
   static const double elevationValue = 8;
+  static const double elevationValueOff = 0;
 }
