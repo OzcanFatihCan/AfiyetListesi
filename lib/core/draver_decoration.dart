@@ -37,43 +37,39 @@ class _DrawerDecorationState extends State<DrawerDecoration> {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text(
-              widget.profilName,
-              overflow: TextOverflow.ellipsis,
-              maxLines: PageItemSize.drawerLines,
-              softWrap: true,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: PageColors.profilTextColor,
-                    fontWeight: PageFont.cardTextFont,
-                  ),
+            accountName: const DrawerText(
+              title: ProjectWords.profilName,
+              limit: PageItemSize.textLimitx,
             ),
-            accountEmail: Text(
-              widget.profilEmail,
-              softWrap: true,
-              overflow: TextOverflow.ellipsis,
-              maxLines: PageItemSize.drawerLines,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: PageColors.profilTextColor,
-                    fontWeight: PageFont.cardTextFont,
-                  ),
+            accountEmail: const DrawerText(
+              title: ProjectWords.profilEmail,
+              limit: PageItemSize.textLimit2x,
             ),
-            currentAccountPicture: CircleAvatar(
-              child: ClipOval(
-                child: AspectRatio(
-                  aspectRatio: 1,
-                  child: widget.imageUrl.isNotEmpty
-                      ? Image.network(
-                          widget.imageUrl,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          },
-                        )
-                      : const Center(
-                          child: CircularProgressIndicator(),
-                        ),
+            currentAccountPicture: Card(
+              shape: const CircleBorder(
+                side: BorderSide(
+                  color: PageColors.activeIconColor,
+                  width: PageItemSize.textFieldBorderSize,
+                ),
+              ),
+              child: CircleAvatar(
+                child: ClipOval(
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: widget.imageUrl.isNotEmpty
+                        ? Image.network(
+                            widget.imageUrl,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                          )
+                        : const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                  ),
                 ),
               ),
             ),
@@ -85,7 +81,7 @@ class _DrawerDecorationState extends State<DrawerDecoration> {
             ),
           ),
           Padding(
-            padding: PageItemSize.listPaddingx,
+            padding: PageItemSize.listPadding2x,
             child: Column(
               children: [
                 const Divider(
@@ -138,6 +134,34 @@ class _DrawerDecorationState extends State<DrawerDecoration> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class DrawerText extends StatelessWidget {
+  final String title;
+  final int limit;
+
+  const DrawerText({
+    Key? key,
+    required this.title,
+    required this.limit,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: PageItemSize.listPaddingx,
+      child: Text(
+        title.length <= limit ? title : '${title.substring(0, limit)}...',
+        overflow: TextOverflow.ellipsis,
+        maxLines: PageItemSize.drawerLines,
+        softWrap: true,
+        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: PageColors.profilTextColor,
+              fontWeight: PageFont.cardTextFont,
+            ),
       ),
     );
   }

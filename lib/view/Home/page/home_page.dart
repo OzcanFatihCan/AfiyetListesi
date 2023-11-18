@@ -1,6 +1,7 @@
 import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
-import 'package:afiyetlistesi/core/search_decoration.dart';
+import 'package:afiyetlistesi/core/inputbar_widget.dart';
+import 'package:afiyetlistesi/product/project_words.dart';
 
 import 'package:afiyetlistesi/view/Home/widgets/home_widgets.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,10 @@ class HomePageView extends StatelessWidget {
             children: [
               HomePageHeadText(),
               SizedBox(height: PageItemSize.spaceObjects),
-              SearchBarWidget(),
+              InputBarWidget(
+                hint: ProjectWords.searchHint,
+                icon: Icons.search_rounded,
+              ),
               SizedBox(height: PageItemSize.spaceObjects),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,

@@ -55,7 +55,6 @@ class _HomePageContentButtonState extends State<HomePageContentButton> {
 
 class HomePageHeadText extends StatelessWidget with PageColors, PageFont {
   const HomePageHeadText({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -120,9 +119,9 @@ class _HomePagePopularState extends State<HomePagePopular> {
             padding: PageItemSize.cardPaddingx,
             child: SizedBox(
               height: MediaQuery.of(context).size.height *
-                  0.43, //PageItemSize.cardHeightSize,
+                  0.37, //PageItemSize.cardHeightSize,
               width: MediaQuery.of(context).size.width *
-                  0.5, //PageItemSize.cardWidthSize,
+                  0.48, //PageItemSize.cardWidthSize,
               child: const CardDecorationWidget(),
             ),
           ),
