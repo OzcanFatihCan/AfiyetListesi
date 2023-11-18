@@ -4,7 +4,7 @@ import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:flutter/material.dart';
 
-class DrawerDecoration extends StatelessWidget {
+class DrawerDecoration extends StatefulWidget {
   final String profilName;
   final String profilEmail;
   final String imageUrl;
@@ -17,6 +17,19 @@ class DrawerDecoration extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<DrawerDecoration> createState() => _DrawerDecorationState();
+}
+
+class _DrawerDecorationState extends State<DrawerDecoration> {
+  int selectedOptionIndex = -1;
+
+  void _updateSelectedOption(int index) {
+    setState(() {
+      selectedOptionIndex = index;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: PageColors.mainPageColor,
@@ -25,7 +38,7 @@ class DrawerDecoration extends StatelessWidget {
         children: [
           UserAccountsDrawerHeader(
             accountName: Text(
-              profilName,
+              widget.profilName,
               overflow: TextOverflow.ellipsis,
               maxLines: PageItemSize.drawerLines,
               softWrap: true,
@@ -35,7 +48,7 @@ class DrawerDecoration extends StatelessWidget {
                   ),
             ),
             accountEmail: Text(
-              profilEmail,
+              widget.profilEmail,
               softWrap: true,
               overflow: TextOverflow.ellipsis,
               maxLines: PageItemSize.drawerLines,
@@ -48,9 +61,9 @@ class DrawerDecoration extends StatelessWidget {
               child: ClipOval(
                 child: AspectRatio(
                   aspectRatio: 1,
-                  child: imageUrl.isNotEmpty
+                  child: widget.imageUrl.isNotEmpty
                       ? Image.network(
-                          imageUrl,
+                          widget.imageUrl,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) {
                             return const Center(
@@ -84,27 +97,42 @@ class DrawerDecoration extends StatelessWidget {
                 DrawerOptions(
                   drawerIcon: Icons.assignment_add,
                   drawerChoice: ProjectWords.drawerListItem[0],
-                  onTap: () {},
+                  onTap: () {
+                    _updateSelectedOption(0);
+                  },
+                  isSelected: selectedOptionIndex == 0,
                 ),
                 DrawerOptions(
                   drawerIcon: Icons.local_restaurant_rounded,
                   drawerChoice: ProjectWords.drawerListItem[1],
-                  onTap: () {},
+                  onTap: () {
+                    _updateSelectedOption(1);
+                  },
+                  isSelected: selectedOptionIndex == 1,
                 ),
                 DrawerOptions(
                   drawerIcon: Icons.favorite_rounded,
                   drawerChoice: ProjectWords.drawerListItem[2],
-                  onTap: () {},
+                  onTap: () {
+                    _updateSelectedOption(2);
+                  },
+                  isSelected: selectedOptionIndex == 2,
                 ),
                 DrawerOptions(
                   drawerIcon: Icons.settings_rounded,
                   drawerChoice: ProjectWords.drawerListItem[3],
-                  onTap: () {},
+                  onTap: () {
+                    _updateSelectedOption(3);
+                  },
+                  isSelected: selectedOptionIndex == 3,
                 ),
                 DrawerOptions(
                   drawerIcon: Icons.exit_to_app_rounded,
                   drawerChoice: ProjectWords.drawerListItem[4],
-                  onTap: () {},
+                  onTap: () {
+                    _updateSelectedOption(4);
+                  },
+                  isSelected: selectedOptionIndex == 4,
                 ),
               ],
             ),
@@ -117,15 +145,17 @@ class DrawerDecoration extends StatelessWidget {
 
 class DrawerOptions extends StatelessWidget {
   const DrawerOptions({
-    super.key,
+    Key? key,
     required this.drawerIcon,
     required this.drawerChoice,
     required this.onTap,
-  });
+    required this.isSelected,
+  }) : super(key: key);
 
   final IconData drawerIcon;
   final String drawerChoice;
   final void Function() onTap;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +169,7 @@ class DrawerOptions extends StatelessWidget {
           PageItemSize.halfRadius(),
         ),
       ),
-      color: PageColors.deactivedButtonColor,
+      color: isSelected ? Colors.white : PageColors.deactivedButtonColor,
       elevation: PageItemSize.elevationValueOff,
       child: ListTile(
         leading: Icon(drawerIcon, color: PageColors.profilTextColor),
