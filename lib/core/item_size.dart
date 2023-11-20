@@ -11,8 +11,12 @@ mixin PageItemSize {
   static const double foodPhotoHeightSize = 130;
   static const double foodPhotoWidthSize = 120;
   static const double bottomNavHeight = 60;
-  static const double loginButtonPositionBot = 140;
-  static const double loginButtonSymetric = 1;
+  static const double loginButtonPositionBot = 175;
+  static const double loginButtonSymetric = 15;
+  static const double alternativeLoginPositionBot = 5;
+  static const double firstInputBarPositionBot = 360;
+  static const double secondInputBarPositionBot = 290;
+  static const double inputBarSymetric = 15;
   static const int drawerLines = 1;
 
 //padding

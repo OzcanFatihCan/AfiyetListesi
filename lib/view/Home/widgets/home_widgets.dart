@@ -143,6 +143,7 @@ class HomePagePopular extends StatefulWidget {
   State<HomePagePopular> createState() => _HomePagePopularState();
 }
 
+//popülerleri dışarıdan çekerken kontrol edilecek.
 class _HomePagePopularState extends State<HomePagePopular> {
   @override
   Widget build(BuildContext context) {

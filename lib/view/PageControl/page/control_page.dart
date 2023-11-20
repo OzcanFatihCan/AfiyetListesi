@@ -1,5 +1,5 @@
 import 'package:afiyetlistesi/core/color_set.dart';
-import 'package:afiyetlistesi/core/draver_decoration.dart';
+import 'package:afiyetlistesi/core/drawer_decoration.dart';
 import 'package:afiyetlistesi/product/project_words.dart';
 
 import 'package:afiyetlistesi/view/PageControl/widgets/control_widgets.dart';

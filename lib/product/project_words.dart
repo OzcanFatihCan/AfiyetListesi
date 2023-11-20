@@ -1,9 +1,13 @@
 class ProjectWords {
   static const foodHeadText = "Hamide'nin Lezzet Listesi";
   static const searchHint = "Yemek ara";
+  static const mailHint = "Mail";
+  static const passwordHint = "Parola";
   static const foodIntermediateText = "En Sevilenler";
   static const loginButton = "Giriş Yap";
+  static const registerButton = "Kayıt Ol";
   static const allFood = "Tümünü Gör";
+  static const alternativeLoginButton = "Alternatif Giriş";
   static const profilName = "Elizabeth Olsen";
   static const profilEmail = "ElizabethOlsen@gmail.com";
   static const drawerListItem = [
