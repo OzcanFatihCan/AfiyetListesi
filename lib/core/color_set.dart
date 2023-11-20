@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 mixin PageColors {
   static const Color blackColor = Colors.black;
   static const Color activeButtonColor = Colors.red;
+  static const Color activeButtonColor2 = Colors.white;
   static const Color deactivedButtonColor = Colors.transparent;
   static const Color activeButtonForeColor = Colors.white;
   static const Color deactiveButtonForeColor = Colors.grey;

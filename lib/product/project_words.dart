@@ -13,7 +13,13 @@ class ProjectWords {
     'Ayarlar',
     'Çıkış Yap'
   ];
-
+  static const contentButtonTitles = [
+    'Yemekler',
+    'Tatlılar',
+    'Turşular',
+    'Reçeller',
+    'İçecekler',
+  ];
   //PhotoUrl
   static const profilPhotoUrl =
       "https://image.tmdb.org/t/p/original/mbMsmQE5CyMVTIGMGCw2XpcPCOc.jpg";

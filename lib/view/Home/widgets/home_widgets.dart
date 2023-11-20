@@ -26,20 +26,14 @@ class _HomePageContentButtonState extends State<HomePageContentButton> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> buttonTitles = [
-      'Yemekler',
-      'Tatlılar',
-      'Turşular',
-      'Reçeller',
-      'İçecekler',
-    ];
     return Row(
-      children: List.generate(5, (index) {
+      //kategoriler internetten çekildiğinde düzenlenecek.
+      children: List.generate(ProjectWords.contentButtonTitles.length, (index) {
         return Padding(
           padding: PageItemSize.buttonPaddingx,
           child: HomePageButtonWidget(
             //buton isimleri yemek, turşu, içecek, reçel, tatlı,
-            title: buttonTitles[index],
+            title: ProjectWords.contentButtonTitles[index],
             onPressed: () {
               setState(() {
                 selectedButtonIndex = index;
@@ -53,17 +47,59 @@ class _HomePageContentButtonState extends State<HomePageContentButton> {
   }
 }
 
+class HomePageButtonWidget extends StatelessWidget
+    with PageColors, PageItemSize {
+  HomePageButtonWidget({
+    Key? key,
+    required this.title,
+    required this.onPressed,
+    this.isSelected = true,
+  }) : super(key: key);
+
+  final String title;
+  final void Function() onPressed;
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        //side: const BorderSide(color: _FoodPageColors.headColor),
+        shape: const StadiumBorder(),
+        elevation: PageItemSize.elevationValueOff,
+        backgroundColor: isSelected
+            ? PageColors.activeButtonColor
+            : PageColors.deactivedButtonColor,
+      ),
+      onPressed: onPressed,
+      child: Padding(
+        padding: PageItemSize.pagePaddingx,
+        child: Text(
+          title,
+          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+              color: isSelected
+                  ? PageColors.activeButtonForeColor
+                  : PageColors.deactiveButtonForeColor,
+              fontWeight: PageFont.buttonFont),
+        ),
+      ),
+    );
+  }
+}
+
 class HomePageHeadText extends StatelessWidget with PageColors, PageFont {
   const HomePageHeadText({super.key});
   @override
   Widget build(BuildContext context) {
-    return Text(
-      softWrap: true,
-      ProjectWords.foodHeadText,
-      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-            color: PageColors.blackColor,
-            fontWeight: PageFont.headFont,
-          ),
+    return FittedBox(
+      child: Text(
+        softWrap: true,
+        ProjectWords.foodHeadText,
+        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+              color: PageColors.blackColor,
+              fontWeight: PageFont.headFont,
+            ),
+      ),
     );
   }
 }
@@ -125,46 +161,6 @@ class _HomePagePopularState extends State<HomePagePopular> {
               child: const CardDecorationWidget(),
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class HomePageButtonWidget extends StatelessWidget
-    with PageColors, PageItemSize {
-  HomePageButtonWidget({
-    Key? key,
-    required this.title,
-    required this.onPressed,
-    this.isSelected = true,
-  }) : super(key: key);
-
-  final String title;
-  final void Function() onPressed;
-  final bool isSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        //side: const BorderSide(color: _FoodPageColors.headColor),
-        shape: const StadiumBorder(),
-        elevation: 0,
-        backgroundColor: isSelected
-            ? PageColors.activeButtonColor
-            : PageColors.deactivedButtonColor,
-      ),
-      onPressed: onPressed,
-      child: Padding(
-        padding: PageItemSize.pagePaddingx,
-        child: Text(
-          title,
-          style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              color: isSelected
-                  ? PageColors.activeButtonForeColor
-                  : PageColors.deactiveButtonForeColor,
-              fontWeight: PageFont.buttonFont),
         ),
       ),
     );

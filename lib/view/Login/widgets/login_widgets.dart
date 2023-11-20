@@ -1,6 +1,7 @@
 import 'package:afiyetlistesi/core/button_decoration.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
-import 'package:afiyetlistesi/view/Login/page/user_login_page.dart';
+//import 'package:afiyetlistesi/view/Login/page/user_login_page.dart';
+import 'package:afiyetlistesi/view/PageControl/page/control_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginButtonWidget extends StatelessWidget {
@@ -22,7 +23,8 @@ class LoginButtonWidget extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const UserLoginView(),
+                  builder: (context) =>
+                      const PageControlView(), //const UserLoginView(),
                 ),
               );
             },

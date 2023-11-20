@@ -92,43 +92,53 @@ class _DrawerDecorationState extends State<DrawerDecoration> {
                 ),
                 DrawerOptions(
                   drawerIcon: Icons.assignment_add,
-                  drawerChoice: ProjectWords.drawerListItem[0],
+                  drawerChoice: ProjectWords
+                      .drawerListItem[_ListItemName.yemekEkle.index],
                   onTap: () {
-                    _updateSelectedOption(0);
+                    _updateSelectedOption(_ListItemName.yemekEkle.index);
                   },
-                  isSelected: selectedOptionIndex == 0,
+                  isSelected:
+                      selectedOptionIndex == _ListItemName.yemekEkle.index,
                 ),
                 DrawerOptions(
                   drawerIcon: Icons.local_restaurant_rounded,
-                  drawerChoice: ProjectWords.drawerListItem[1],
+                  drawerChoice: ProjectWords
+                      .drawerListItem[_ListItemName.yemeklerim.index],
                   onTap: () {
-                    _updateSelectedOption(1);
+                    _updateSelectedOption(_ListItemName.yemeklerim.index);
                   },
-                  isSelected: selectedOptionIndex == 1,
+                  isSelected:
+                      selectedOptionIndex == _ListItemName.yemeklerim.index,
                 ),
                 DrawerOptions(
                   drawerIcon: Icons.favorite_rounded,
-                  drawerChoice: ProjectWords.drawerListItem[2],
+                  drawerChoice: ProjectWords
+                      .drawerListItem[_ListItemName.favorilerim.index],
                   onTap: () {
-                    _updateSelectedOption(2);
+                    _updateSelectedOption(_ListItemName.favorilerim.index);
                   },
-                  isSelected: selectedOptionIndex == 2,
+                  isSelected:
+                      selectedOptionIndex == _ListItemName.favorilerim.index,
                 ),
                 DrawerOptions(
                   drawerIcon: Icons.settings_rounded,
-                  drawerChoice: ProjectWords.drawerListItem[3],
+                  drawerChoice:
+                      ProjectWords.drawerListItem[_ListItemName.ayarlar.index],
                   onTap: () {
-                    _updateSelectedOption(3);
+                    _updateSelectedOption(_ListItemName.ayarlar.index);
                   },
-                  isSelected: selectedOptionIndex == 3,
+                  isSelected:
+                      selectedOptionIndex == _ListItemName.ayarlar.index,
                 ),
                 DrawerOptions(
                   drawerIcon: Icons.exit_to_app_rounded,
-                  drawerChoice: ProjectWords.drawerListItem[4],
+                  drawerChoice:
+                      ProjectWords.drawerListItem[_ListItemName.cikisYap.index],
                   onTap: () {
-                    _updateSelectedOption(4);
+                    _updateSelectedOption(_ListItemName.cikisYap.index);
                   },
-                  isSelected: selectedOptionIndex == 4,
+                  isSelected:
+                      selectedOptionIndex == _ListItemName.cikisYap.index,
                 ),
               ],
             ),
@@ -193,7 +203,9 @@ class DrawerOptions extends StatelessWidget {
           PageItemSize.halfRadius(),
         ),
       ),
-      color: isSelected ? Colors.white : PageColors.deactivedButtonColor,
+      color: isSelected
+          ? PageColors.activeButtonColor2
+          : PageColors.deactivedButtonColor,
       elevation: PageItemSize.elevationValueOff,
       child: ListTile(
         leading: Icon(drawerIcon, color: PageColors.profilTextColor),
@@ -210,3 +222,5 @@ class DrawerOptions extends StatelessWidget {
     );
   }
 }
+
+enum _ListItemName { yemekEkle, yemeklerim, favorilerim, ayarlar, cikisYap }
