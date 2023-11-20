@@ -14,8 +14,9 @@ mixin PageItemSize {
   static const double loginButtonPositionBot = 175;
   static const double loginButtonSymetric = 15;
   static const double alternativeLoginPositionBot = 5;
-  static const double firstInputBarPositionBot = 360;
-  static const double secondInputBarPositionBot = 290;
+  static const double firstInputBarPositionBot = 430;
+  static const double secondInputBarPositionBot = 360;
+  static const double thirdInputBarPositinBot = 290;
   static const double inputBarSymetric = 15;
   static const int drawerLines = 1;
 

@@ -3,6 +3,7 @@ class ProjectWords {
   static const searchHint = "Yemek ara";
   static const mailHint = "Mail";
   static const passwordHint = "Parola";
+  static const profilHint = "Ad Soyad";
   static const foodIntermediateText = "En Sevilenler";
   static const loginButton = "Giriş Yap";
   static const registerButton = "Kayıt Ol";
