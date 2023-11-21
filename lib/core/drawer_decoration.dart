@@ -1,6 +1,7 @@
 import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/font_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
+import 'package:afiyetlistesi/product/project_photo.dart';
 import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:flutter/material.dart';
 
@@ -76,7 +77,7 @@ class _DrawerDecorationState extends State<DrawerDecoration> {
             decoration: const BoxDecoration(
               color: Colors.pinkAccent,
               image: DecorationImage(
-                  image: AssetImage(ProjectWords.profilBannerUrl),
+                  image: AssetImage(ProjectPhotos.profilBannerUrl),
                   fit: BoxFit.cover),
             ),
           ),

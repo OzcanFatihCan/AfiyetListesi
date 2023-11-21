@@ -5,6 +5,7 @@ class ProjectWords {
   static const passwordHint = "Parola";
   static const profilHint = "Ad Soyad";
   static const foodIntermediateText = "En Sevilenler";
+  static const subtitleText = "Yemek tarifi için tıklayınız";
   static const loginButton = "Giriş Yap";
   static const registerButton = "Kayıt Ol";
   static const allFood = "Tümünü Gör";
@@ -28,13 +29,10 @@ class ProjectWords {
   //PhotoUrl
   static const profilPhotoUrl =
       "https://image.tmdb.org/t/p/original/mbMsmQE5CyMVTIGMGCw2XpcPCOc.jpg";
-  static const profilBannerUrl = 'assets/picture/ProfilBanner.png';
   static const photoUrl =
       "https://cdn.yemek.com/mncrop/940/625/uploads/2015/05/bulgur-pilavi-yemekcom.jpg";
   static const photoUrl2 =
       "https://cdn.yemek.com/mnresize/940/940/uploads/2015/03/ytk-firin-sutlac-site.jpg";
   static const photoUrl3 =
       "https://www.diyetkolik.com/site_media/media/foodrecipe_images/tazefasulyeyemegi_1.jpg";
-  static const wallpapeUrl = 'assets/picture/Wallpaper.png';
-  static const loginWallpapeUrl = 'assets/picture/LoginWallPaper.png';
 }

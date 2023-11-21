@@ -3,9 +3,10 @@ import 'package:afiyetlistesi/core/font_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:flutter/material.dart';
 
-class ButtonDecoration extends StatelessWidget with PageColors, PageItemSize {
-  final buttonTitle;
-  ButtonDecoration({
+class ButtonDecorationWidget extends StatelessWidget
+    with PageColors, PageItemSize {
+  final String buttonTitle;
+  ButtonDecorationWidget({
     Key? key,
     required this.onPressed,
     required this.buttonTitle,

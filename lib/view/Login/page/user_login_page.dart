@@ -4,6 +4,7 @@ import 'package:afiyetlistesi/core/font_set.dart';
 import 'package:afiyetlistesi/core/inputbar_widget.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/core/wallpaper_widget.dart';
+import 'package:afiyetlistesi/product/project_photo.dart';
 import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:afiyetlistesi/view/Login/page/user_alternative_login.dart';
 import 'package:afiyetlistesi/view/Login/page/user_register_page.dart';
@@ -23,7 +24,7 @@ class UserLoginView extends StatelessWidget with NavigatorManager {
         fit: StackFit.expand,
         children: [
           const BackGroundWidget(
-            wallpaperUrl: ProjectWords.loginWallpapeUrl,
+            wallpaperUrl: ProjectPhotos.loginWallpapeUrl,
           ),
           _buildMailInput(),
           _buildPasswordInput(),
@@ -71,13 +72,13 @@ class UserLoginView extends StatelessWidget with NavigatorManager {
       child: ButtonBar(
         alignment: MainAxisAlignment.center,
         children: [
-          ButtonDecoration(
+          ButtonDecorationWidget(
             buttonTitle: ProjectWords.loginButton,
             onPressed: () {
               navigateToWidget(context, const PageControlView());
             },
           ),
-          ButtonDecoration(
+          ButtonDecorationWidget(
             buttonTitle: ProjectWords.registerButton,
             onPressed: () {
               navigateToWidget(context, const UserRegisterView());

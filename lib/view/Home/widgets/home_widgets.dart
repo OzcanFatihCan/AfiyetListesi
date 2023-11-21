@@ -1,7 +1,8 @@
-import 'package:afiyetlistesi/core/card_decoration.dart';
 import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/font_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
+import 'package:afiyetlistesi/model/popular_food_model.dart';
+import 'package:afiyetlistesi/product/error_text.dart';
 
 import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:flutter/material.dart';
@@ -145,14 +146,149 @@ class HomePagePopular extends StatefulWidget {
 
 //popülerleri dışarıdan çekerken kontrol edilecek.
 class _HomePagePopularState extends State<HomePagePopular> {
+  late List<PopularFavoriteModel> _cardItems;
+  @override
+  void initState() {
+    super.initState();
+    _cardItems = PopularFavoriteItems().cardItems;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: List.generate(
-        3,
-        (index) => InkWell(
-          onTap: () {},
-          child: Padding(
+    return Padding(
+      padding: PageItemSize.listPaddingx,
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.39,
+        width: MediaQuery.of(context).size.width * 0.86,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: _cardItems.length,
+          itemBuilder: (context, index) {
+            return BuildPopularCard(model: _cardItems[index]);
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class BuildPopularCard extends StatelessWidget {
+  const BuildPopularCard({
+    super.key,
+    required PopularFavoriteModel model,
+  }) : _model = model;
+
+  final PopularFavoriteModel _model;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.48,
+      child: InkWell(
+        onTap: () {},
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              PageItemSize.halfRadius(),
+            ),
+          ),
+          color: PageColors.cardColor,
+          child: Column(
+            children: [
+              Padding(
+                padding: PageItemSize.imagePadding,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(PageItemSize.halfRadius()),
+                  child: _model.imagePath.isNotEmpty
+                      ? Image.network(
+                          _model.imagePath,
+                          height: PageItemSize.foodPhotoHeightSize,
+                          width: PageItemSize.foodPhotoWidthSize,
+                          fit: BoxFit.fitHeight,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const SizedBox(
+                              width: PageItemSize.foodPhotoWidthSize,
+                              height: PageItemSize.foodPhotoHeightSize,
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            );
+                          },
+                        )
+                      : const SizedBox(
+                          height: PageItemSize.foodPhotoHeightSize,
+                          width: PageItemSize.foodPhotoWidthSize,
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                ),
+              ),
+              const SizedBox(
+                height: PageItemSize.spaceObjects,
+              ),
+              Padding(
+                padding: PageItemSize.objectPadding2x,
+                child: Text(
+                  softWrap: true,
+                  _model.title.isNotEmpty
+                      ? _model.title
+                      : ProjectErrorText.foodNotFound,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: PageColors.blackColor,
+                        fontWeight: PageFont.textFont,
+                      ),
+                ),
+              ),
+              Padding(
+                padding: PageItemSize.objectPadding2x,
+                child: Text(
+                  ProjectWords.subtitleText,
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: PageColors.blackColor,
+                      fontWeight: PageFont.subtitleFont),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PopularFavoriteItems {
+  late List<PopularFavoriteModel> cardItems;
+  PopularFavoriteItems() {
+    cardItems = [
+      PopularFavoriteModel(
+          imagePath: ProjectWords.photoUrl,
+          title: "Bulgur Pilavı",
+          category: 1),
+      PopularFavoriteModel(
+          imagePath: ProjectWords.photoUrl2, title: "Sütlaç", category: 2),
+      PopularFavoriteModel(
+          imagePath: ProjectWords.photoUrl3,
+          title: "Taze Fasulye",
+          category: 1),
+      PopularFavoriteModel(
+          imagePath: ProjectWords.photoUrl,
+          title: "Bulgur Pilavı",
+          category: 1),
+      PopularFavoriteModel(
+          imagePath: ProjectWords.photoUrl2, title: "Sütlaç", category: 2),
+      PopularFavoriteModel(
+          imagePath: ProjectWords.photoUrl3,
+          title: "Taze Fasulye",
+          category: 1),
+    ];
+  }
+}
+
+
+
+/*
+Padding(
             padding: PageItemSize.cardPaddingx,
             child: SizedBox(
               height: MediaQuery.of(context).size.height *
@@ -162,8 +298,4 @@ class _HomePagePopularState extends State<HomePagePopular> {
               child: const CardDecorationWidget(),
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
+ */

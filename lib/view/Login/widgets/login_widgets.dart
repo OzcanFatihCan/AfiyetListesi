@@ -19,7 +19,7 @@ class LoginButtonWidget extends StatelessWidget {
       child: ButtonBar(
         alignment: MainAxisAlignment.center,
         children: [
-          ButtonDecoration(
+          ButtonDecorationWidget(
             buttonTitle: ProjectWords.loginButton,
             onPressed: () {
               Navigator.push(

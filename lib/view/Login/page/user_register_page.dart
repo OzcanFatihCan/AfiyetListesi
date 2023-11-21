@@ -3,6 +3,7 @@ import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/inputbar_widget.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/core/wallpaper_widget.dart';
+import 'package:afiyetlistesi/product/project_photo.dart';
 import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:afiyetlistesi/view/PageControl/page/control_page.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class UserRegisterView extends StatelessWidget with NavigatorManager {
         fit: StackFit.expand,
         children: [
           const BackGroundWidget(
-            wallpaperUrl: ProjectWords.loginWallpapeUrl,
+            wallpaperUrl: ProjectPhotos.loginWallpapeUrl,
           ),
           _buildNameInput(),
           _buildMailInput(),
@@ -81,7 +82,7 @@ class UserRegisterView extends StatelessWidget with NavigatorManager {
       child: ButtonBar(
         alignment: MainAxisAlignment.center,
         children: [
-          ButtonDecoration(
+          ButtonDecorationWidget(
             buttonTitle: ProjectWords.registerButton,
             onPressed: () {
               navigateToWidget(context, const PageControlView());
