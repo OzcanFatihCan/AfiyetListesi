@@ -10,6 +10,8 @@ mixin PageItemSize {
   static const double spaceObjectsMin = 10;
   static const double foodPhotoHeightSize = 130;
   static const double foodPhotoWidthSize = 120;
+  static const double listPhotoHeightSize = 60;
+  static const double listPhotoWidthSize = 80;
   static const double bottomNavHeight = 60;
   static const double loginButtonPositionBot = 175;
   static const double loginButtonSymetric = 15;

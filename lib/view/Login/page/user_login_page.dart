@@ -104,7 +104,7 @@ class UserLoginView extends StatelessWidget with NavigatorManager {
               ProjectWords.alternativeLoginButton,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: PageColors.blackColor,
-                    fontWeight: PageFont.cardTextFont,
+                    fontWeight: PageFont.textFont,
                   ),
             ),
           ),

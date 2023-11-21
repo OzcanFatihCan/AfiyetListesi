@@ -1,3 +1,6 @@
+import 'package:afiyetlistesi/core/color_set.dart';
+import 'package:afiyetlistesi/core/font_set.dart';
+import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/view/Login/page/login_page.dart';
 
 import 'package:flutter/material.dart';
@@ -16,13 +19,18 @@ class AfiyetListesi extends StatelessWidget {
       title: 'Afiyet Listesi',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light().copyWith(
-          appBarTheme: const AppBarTheme(
-        centerTitle: true,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        foregroundColor: Colors.black,
-      )),
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+          systemOverlayStyle: SystemUiOverlayStyle.light,
+          backgroundColor: PageColors.deactivedScafooldColor,
+          elevation: PageItemSize.elevationValueOff,
+          foregroundColor: PageColors.blackColor,
+          titleTextStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                color: PageColors.blackColor,
+                fontWeight: PageFont.headFont,
+              ),
+        ),
+      ),
       home: const LoginPageView(),
     );
   }

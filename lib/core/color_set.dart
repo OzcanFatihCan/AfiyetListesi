@@ -16,4 +16,5 @@ mixin PageColors {
   static const Color activeIconColor = Colors.red;
   static const Color deactiveIconColor = Colors.grey;
   static const Color profilTextColor = Colors.red;
+  static const Color subtitleColor = Colors.grey;
 }

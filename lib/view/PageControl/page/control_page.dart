@@ -24,7 +24,9 @@ class _PageControlViewState extends State<PageControlView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: PageColors.mainPageColor,
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(_getPageTitle(_currentPage)),
+      ),
       body: controlPageViewFunc(),
       bottomNavigationBar: CardBottomNav(
         pageController: _pageController,
@@ -53,5 +55,20 @@ class _PageControlViewState extends State<PageControlView> {
         FoodPageView(),
       ],
     );
+  }
+
+  String _getPageTitle(int page) {
+    switch (page) {
+      case 0:
+        return 'Ana Sayfa';
+      case 1:
+        return 'Favoriler';
+      case 2:
+        return 'Profil';
+      case 3:
+        return 'Yemekler';
+      default:
+        return '';
+    }
   }
 }

@@ -31,6 +31,10 @@ class ProjectWords {
   static const profilBannerUrl = 'assets/picture/ProfilBanner.png';
   static const photoUrl =
       "https://cdn.yemek.com/mncrop/940/625/uploads/2015/05/bulgur-pilavi-yemekcom.jpg";
+  static const photoUrl2 =
+      "https://cdn.yemek.com/mnresize/940/940/uploads/2015/03/ytk-firin-sutlac-site.jpg";
+  static const photoUrl3 =
+      "https://www.diyetkolik.com/site_media/media/foodrecipe_images/tazefasulyeyemegi_1.jpg";
   static const wallpapeUrl = 'assets/picture/Wallpaper.png';
   static const loginWallpapeUrl = 'assets/picture/LoginWallPaper.png';
 }

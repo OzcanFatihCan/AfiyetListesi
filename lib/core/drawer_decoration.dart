@@ -170,7 +170,7 @@ class DrawerText extends StatelessWidget {
         softWrap: true,
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
               color: PageColors.profilTextColor,
-              fontWeight: PageFont.cardTextFont,
+              fontWeight: PageFont.textFont,
             ),
       ),
     );
@@ -214,7 +214,7 @@ class DrawerOptions extends StatelessWidget {
           softWrap: true,
           style: Theme.of(context).textTheme.titleSmall?.copyWith(
                 color: PageColors.profilTextColor,
-                fontWeight: PageFont.cardTextFont,
+                fontWeight: PageFont.textFont,
               ),
         ),
         onTap: onTap,
