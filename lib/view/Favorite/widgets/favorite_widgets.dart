@@ -82,21 +82,46 @@ class FavoriteItems {
   late List<FavoriteModel> cardItems;
   FavoriteItems() {
     cardItems = [
-      FavoriteModel(imagePath: ProjectWords.photoUrl, title: "Bulgur Pilavı"),
-      FavoriteModel(imagePath: ProjectWords.photoUrl2, title: "Sütlaç"),
-      FavoriteModel(imagePath: ProjectWords.photoUrl3, title: "Taze Fasulye"),
-      FavoriteModel(imagePath: ProjectWords.photoUrl, title: "Bulgur Pilavı"),
-      FavoriteModel(imagePath: ProjectWords.photoUrl2, title: "Sütlaç"),
-      FavoriteModel(imagePath: ProjectWords.photoUrl3, title: "Taze Fasulye"),
-      FavoriteModel(imagePath: ProjectWords.photoUrl, title: "Bulgur Pilavı"),
-      FavoriteModel(imagePath: ProjectWords.photoUrl2, title: "Sütlaç"),
-      FavoriteModel(imagePath: ProjectWords.photoUrl3, title: "Taze Fasulye"),
-      FavoriteModel(imagePath: ProjectWords.photoUrl, title: "Bulgur Pilavı"),
-      FavoriteModel(imagePath: ProjectWords.photoUrl2, title: "Sütlaç"),
-      FavoriteModel(imagePath: ProjectWords.photoUrl3, title: "Taze Fasulye"),
-      FavoriteModel(imagePath: ProjectWords.photoUrl, title: "Bulgur Pilavı"),
-      FavoriteModel(imagePath: ProjectWords.photoUrl2, title: "Sütlaç"),
-      FavoriteModel(imagePath: ProjectWords.photoUrl3, title: "Taze Fasulye"),
+      FavoriteModel(
+          imagePath: ProjectWords.photoUrl,
+          title: "Bulgur Pilavı",
+          category: 1),
+      FavoriteModel(
+          imagePath: ProjectWords.photoUrl2, title: "Sütlaç", category: 2),
+      FavoriteModel(
+          imagePath: ProjectWords.photoUrl3,
+          title: "Taze Fasulye",
+          category: 1),
+      FavoriteModel(
+          imagePath: ProjectWords.photoUrl,
+          title: "Bulgur Pilavı",
+          category: 1),
+      FavoriteModel(
+          imagePath: ProjectWords.photoUrl2, title: "Sütlaç", category: 2),
+      FavoriteModel(
+          imagePath: ProjectWords.photoUrl3,
+          title: "Taze Fasulye",
+          category: 1),
+      FavoriteModel(
+          imagePath: ProjectWords.photoUrl,
+          title: "Bulgur Pilavı",
+          category: 1),
+      FavoriteModel(
+          imagePath: ProjectWords.photoUrl2, title: "Sütlaç", category: 2),
+      FavoriteModel(
+          imagePath: ProjectWords.photoUrl3,
+          title: "Taze Fasulye",
+          category: 1),
+      FavoriteModel(
+          imagePath: ProjectWords.photoUrl,
+          title: "Bulgur Pilavı",
+          category: 1),
+      FavoriteModel(
+          imagePath: ProjectWords.photoUrl2, title: "Sütlaç", category: 2),
+      FavoriteModel(
+          imagePath: ProjectWords.photoUrl3,
+          title: "Taze Fasulye",
+          category: 1),
     ];
   }
 }
