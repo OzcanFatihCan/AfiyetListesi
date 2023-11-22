@@ -1,3 +1,4 @@
+import 'package:afiyetlistesi/view/FoodDetail/page/food_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
@@ -6,6 +7,7 @@ import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:afiyetlistesi/core/font_set.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
 import 'package:afiyetlistesi/product/error_text.dart';
+import 'package:flutter/scheduler.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({super.key});
@@ -212,7 +214,10 @@ class _BuildPopularCard extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.48,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          timeDilation = 10.0;
+          _gotoDetailsPage(context, FoodDetailPage(model: _model));
+        },
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
@@ -221,7 +226,7 @@ class _BuildPopularCard extends StatelessWidget {
           ),
           color: PageColors.cardColor,
           child: Column(
-            children: [
+            children: <Widget>[
               Padding(
                 padding: PageItemSize.imagePadding,
                 child: ClipRRect(
@@ -284,27 +289,43 @@ class _BuildPopularCard extends StatelessWidget {
   }
 }
 
+void _gotoDetailsPage(BuildContext context, Widget widget) {
+  Navigator.of(context).push(
+    MaterialPageRoute<void>(builder: (BuildContext context) => widget),
+  );
+}
+
 class PopularFavoriteItems {
   late List<PopularFavoriteModel> cardItems;
   PopularFavoriteItems() {
     cardItems = [
       PopularFavoriteModel(
+          id: 1,
           imagePath: ProjectWords.photoUrl,
           title: "Bulgur Pilavı",
           category: 1),
       PopularFavoriteModel(
-          imagePath: ProjectWords.photoUrl2, title: "Sütlaç", category: 2),
+          id: 2,
+          imagePath: ProjectWords.photoUrl2,
+          title: "Sütlaç",
+          category: 2),
       PopularFavoriteModel(
+          id: 3,
           imagePath: ProjectWords.photoUrl3,
           title: "Taze Fasulye",
           category: 1),
       PopularFavoriteModel(
+          id: 4,
           imagePath: ProjectWords.photoUrl,
           title: "Bulgur Pilavı",
           category: 1),
       PopularFavoriteModel(
-          imagePath: ProjectWords.photoUrl2, title: "Sütlaç", category: 2),
+          id: 5,
+          imagePath: ProjectWords.photoUrl2,
+          title: "Sütlaç",
+          category: 2),
       PopularFavoriteModel(
+          id: 6,
           imagePath: ProjectWords.photoUrl3,
           title: "Taze Fasulye",
           category: 1),

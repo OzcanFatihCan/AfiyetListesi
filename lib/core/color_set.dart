@@ -12,9 +12,11 @@ mixin PageColors {
   static const Color textFieldContentOnColor = Colors.white;
   static const Color textFieldContentOffColor = Colors.transparent;
   static const Color cardColor = Colors.white;
+  static const Color cardColor2 = Colors.red;
   static const Color deactivedScafooldColor = Colors.transparent;
   static const Color activeIconColor = Colors.red;
   static const Color deactiveIconColor = Colors.grey;
   static const Color profilTextColor = Colors.red;
   static const Color subtitleColor = Colors.grey;
+  static const Color backButtonColor = Color.fromARGB(121, 160, 158, 158);
 }

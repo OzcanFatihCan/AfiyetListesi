@@ -12,44 +12,39 @@ class LoginPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: PageColors.deactivedScafooldColor,
       body: Stack(
         fit: StackFit.expand,
         children: [
-          BackGroundWidget(
+          const BackGroundWidget(
             wallpaperUrl: ProjectPhotos.wallpapeUrl,
           ),
-          _BuildLoginButtonWidget(),
+          _buildLoginButtoWidget(context)
         ],
       ),
     );
   }
 }
 
-class _BuildLoginButtonWidget extends StatelessWidget {
-  const _BuildLoginButtonWidget();
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      bottom: PageItemSize.loginButtonPositionBot,
-      left: PageItemSize.loginButtonSymetric,
-      right: PageItemSize.loginButtonSymetric,
-      child: Container(
-        alignment: Alignment.center,
-        child: ButtonDecorationWidget(
-          buttonTitle: ProjectWords.loginButton,
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const UserLoginView(),
-              ),
-            );
-          },
-        ),
+Positioned _buildLoginButtoWidget(BuildContext context) {
+  return Positioned(
+    bottom: PageItemSize.loginButtonPositionBot,
+    left: PageItemSize.loginButtonSymetric,
+    right: PageItemSize.loginButtonSymetric,
+    child: Container(
+      alignment: Alignment.center,
+      child: ButtonDecorationWidget(
+        buttonTitle: ProjectWords.loginButton,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const UserLoginView(),
+            ),
+          );
+        },
       ),
-    );
-  }
+    ),
+  );
 }

@@ -12,7 +12,7 @@ import 'package:afiyetlistesi/view/PageControl/page/control_page.dart';
 
 import 'package:flutter/material.dart';
 
-class UserLoginView extends StatelessWidget with NavigatorManager {
+class UserLoginView extends StatelessWidget with _NavigatorManager {
   const UserLoginView({super.key});
 
   @override
@@ -115,7 +115,7 @@ class UserLoginView extends StatelessWidget with NavigatorManager {
   }
 }
 
-mixin NavigatorManager {
+mixin _NavigatorManager {
   void navigateToWidget(BuildContext context, Widget widget) {
     Navigator.of(context).push(
       MaterialPageRoute(

@@ -39,6 +39,10 @@ mixin PageItemSize {
 //radius
   static Radius halfRadius() => const Radius.circular(15);
   static Radius fullRadius() => const Radius.circular(30);
+  static BorderRadius foodDetailRadius() => const BorderRadius.only(
+        bottomLeft: Radius.circular(30),
+        bottomRight: Radius.circular(30),
+      );
 
 //elevation
   static const double elevationValue = 8;
