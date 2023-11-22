@@ -8,7 +8,7 @@ import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:afiyetlistesi/view/PageControl/page/control_page.dart';
 import 'package:flutter/material.dart';
 
-class UserRegisterView extends StatelessWidget with NavigatorManager {
+class UserRegisterView extends StatelessWidget with _NavigatorManager {
   const UserRegisterView({super.key});
 
   @override
@@ -94,7 +94,7 @@ class UserRegisterView extends StatelessWidget with NavigatorManager {
   }
 }
 
-mixin NavigatorManager {
+mixin _NavigatorManager {
   void navigateToWidget(BuildContext context, Widget widget) {
     Navigator.of(context).push(
       MaterialPageRoute(
