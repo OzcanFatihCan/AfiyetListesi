@@ -3,13 +3,15 @@ class PopularFavoriteModel {
   final String imagePath;
   final String title;
   final int category;
-  final String recipe;
+  final List<dynamic> materialsFood;
+  final List<dynamic> recipe;
 
   PopularFavoriteModel({
     required this.id,
     required this.imagePath,
     required this.title,
     required this.category,
-    this.recipe = "",
+    this.materialsFood = const [],
+    this.recipe = const [],
   });
 }

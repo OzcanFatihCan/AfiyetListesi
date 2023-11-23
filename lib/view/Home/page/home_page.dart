@@ -183,6 +183,8 @@ class _BuildPopularWidgetState extends State<_BuildPopularWidget> {
     _cardItems = PopularFavoriteItems().cardItems;
   }
 
+  //örnek popülerden çekilen loading + veri işlemi burada yapılacak.
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -290,8 +292,14 @@ class _BuildPopularCard extends StatelessWidget {
 }
 
 void _gotoDetailsPage(BuildContext context, Widget widget) {
-  Navigator.of(context).push(
+  Navigator.of(context)
+      .push(
     MaterialPageRoute<void>(builder: (BuildContext context) => widget),
+  )
+      .then(
+    (_) {
+      timeDilation = 1.0;
+    },
   );
 }
 
@@ -300,10 +308,13 @@ class PopularFavoriteItems {
   PopularFavoriteItems() {
     cardItems = [
       PopularFavoriteModel(
-          id: 1,
-          imagePath: ProjectWords.photoUrl,
-          title: "Bulgur Pilavı",
-          category: 1),
+        id: 1,
+        imagePath: ProjectWords.photoUrl,
+        title: "Bulgur Pilavı",
+        category: 1,
+        materialsFood: ProjectWords.materialsFood,
+        recipe: ProjectWords.cookingRecipe,
+      ),
       PopularFavoriteModel(
           id: 2,
           imagePath: ProjectWords.photoUrl2,

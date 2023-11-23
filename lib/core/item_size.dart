@@ -31,6 +31,7 @@ mixin PageItemSize {
   static const EdgeInsets cardPaddingx = EdgeInsets.symmetric(horizontal: 5);
   static const EdgeInsets listPadding2x = EdgeInsets.symmetric(horizontal: 15);
   static const EdgeInsets listPaddingx = EdgeInsets.symmetric(horizontal: 10);
+
   static const EdgeInsets bottomPadding =
       EdgeInsets.only(bottom: 25, right: 20, left: 20);
   static const EdgeInsets imagePadding =

@@ -3,6 +3,7 @@ import 'package:afiyetlistesi/core/font_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
 import 'package:afiyetlistesi/product/error_text.dart';
+import 'package:afiyetlistesi/product/project_words.dart';
 
 import 'package:flutter/material.dart';
 
@@ -44,8 +45,78 @@ class FoodDetailPage extends StatelessWidget {
               ],
             ),
           ),
-          const Spacer(
+          Expanded(
             flex: 6,
+            child: Padding(
+              padding: PageItemSize.pagePadding2x,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      ProjectWords.materialFoodText,
+                      textAlign: TextAlign.start,
+                      style:
+                          Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                color: PageColors.blackColor,
+                                fontWeight: PageFont.headFont,
+                              ),
+                    ),
+                    const SizedBox(
+                      height: PageItemSize.spaceObjectsMin,
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Text(
+                          _model.materialsFood.isNotEmpty
+                              ? _model.materialsFood.join('\n')
+                              : ProjectErrorText.foodNotFound,
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    color: PageColors.blackColor,
+                                  ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: PageItemSize.spaceObjectsMin,
+                    ),
+                    Text(
+                      ProjectWords.recipeText,
+                      style:
+                          Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                color: PageColors.blackColor,
+                                fontWeight: PageFont.headFont,
+                              ),
+                    ),
+                    const SizedBox(
+                      height: PageItemSize.spaceObjects,
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Text(
+                          _model.recipe.isNotEmpty
+                              ? _model.recipe.join('\n')
+                              : ProjectErrorText.foodNotFound,
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    color: PageColors.blackColor,
+                                  ),
+                        ),
+                      ),
+                    ),
+                    Spacer(
+                      flex: 3,
+                    )
+                  ],
+                ),
+              ),
+            ),
           )
         ],
       ),
@@ -62,8 +133,6 @@ class FoodDetailPage extends StatelessWidget {
       color: PageColors.cardColor2,
       child: Center(
         child: Text(
-          softWrap: true,
-          maxLines: 2,
           _model.title.isNotEmpty
               ? _model.title
               : ProjectErrorText.foodNotFound,
@@ -71,6 +140,8 @@ class FoodDetailPage extends StatelessWidget {
                 color: PageColors.textFieldContentOnColor,
                 fontWeight: PageFont.textFont,
               ),
+          softWrap: true,
+          maxLines: 2,
         ),
       ),
     );
