@@ -27,7 +27,7 @@ class ButtonDecorationWidget extends StatelessWidget
         padding: PageItemSize.pagePaddingx,
         child: Text(
           buttonTitle,
-          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
               color: PageColors.activeButtonForeColor,
               fontWeight: PageFont.buttonFont),
         ),

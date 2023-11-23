@@ -7,7 +7,6 @@ import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:afiyetlistesi/core/font_set.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
 import 'package:afiyetlistesi/product/error_text.dart';
-import 'package:flutter/scheduler.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({super.key});
@@ -217,7 +216,6 @@ class _BuildPopularCard extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.48,
       child: InkWell(
         onTap: () {
-          timeDilation = 10.0;
           _gotoDetailsPage(context, FoodDetailPage(model: _model));
         },
         child: Card(
@@ -292,14 +290,8 @@ class _BuildPopularCard extends StatelessWidget {
 }
 
 void _gotoDetailsPage(BuildContext context, Widget widget) {
-  Navigator.of(context)
-      .push(
+  Navigator.of(context).push(
     MaterialPageRoute<void>(builder: (BuildContext context) => widget),
-  )
-      .then(
-    (_) {
-      timeDilation = 1.0;
-    },
   );
 }
 
