@@ -18,7 +18,14 @@ class PageControlView extends StatefulWidget {
 
 class _PageControlViewState extends State<PageControlView> {
   final _pageController = PageController(viewportFraction: 1.0);
-  int _currentPage = 0;
+  int _currentPage = _PageName.home.index;
+  bool _isEditing = false;
+
+  void _changeLoading() {
+    setState(() {
+      _isEditing = !_isEditing;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +33,18 @@ class _PageControlViewState extends State<PageControlView> {
       backgroundColor: PageColors.mainPageColor,
       appBar: AppBar(
         title: Text(_getPageTitle(_currentPage)),
+        actions: _currentPage == _PageName.profile.index // Profil sayfası
+            ? [
+                IconButton(
+                  icon: _isEditing
+                      ? const Icon(Icons.check_rounded)
+                      : const Icon(Icons.edit_rounded),
+                  onPressed: () {
+                    _changeLoading();
+                  },
+                ),
+              ]
+            : [],
       ),
       body: _buildPageViewFunc(),
       bottomNavigationBar: _BuildCardBottomNavWidget(
@@ -49,11 +68,13 @@ class _PageControlViewState extends State<PageControlView> {
           _currentPage = index;
         });
       },
-      children: const [
-        HomePageView(),
-        FavoritePageView(),
-        PersonPageView(),
-        FoodPageView(),
+      children: [
+        const HomePageView(),
+        const FavoritePageView(),
+        PersonPageView(
+          isEditing: _isEditing,
+        ),
+        const FoodPageView(),
       ],
     );
   }
@@ -207,9 +228,9 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget> {
                 ),
               ),
               child: CircleAvatar(
-                child: ClipOval(
-                  child: AspectRatio(
-                    aspectRatio: 1,
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: ClipOval(
                     child: widget.imageUrl.isNotEmpty
                         ? Image.network(
                             widget.imageUrl,

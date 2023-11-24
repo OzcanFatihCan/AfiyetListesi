@@ -3,8 +3,11 @@ import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:flutter/material.dart';
 
 class MailTextField extends StatefulWidget {
-  const MailTextField({Key? key, this.controller}) : super(key: key);
   final TextEditingController? controller;
+  final bool isEditing;
+  const MailTextField({Key? key, this.controller, this.isEditing = true})
+      : super(key: key);
+
   @override
   State<MailTextField> createState() => _MailTextFieldState();
 }
@@ -19,6 +22,7 @@ class _MailTextFieldState extends State<MailTextField> {
         autofillHints: const [AutofillHints.email],
         keyboardType: TextInputType.emailAddress,
         decoration: _mailTextDecoration(),
+        enabled: widget.isEditing,
       ),
     );
   }

@@ -7,7 +7,9 @@ class InputBarWidget extends StatelessWidget {
   final IconData icon;
   final TextInputType keyboardType;
   final Color fillColor;
-  final bool isPasw;
+  final bool isEditing;
+
+  final TextEditingController? controller;
 
   const InputBarWidget({
     Key? key,
@@ -15,7 +17,8 @@ class InputBarWidget extends StatelessWidget {
     required this.icon,
     this.keyboardType = TextInputType.text,
     this.fillColor = PageColors.textFieldContentOffColor,
-    this.isPasw = false,
+    this.controller,
+    this.isEditing = true,
   }) : super(key: key);
 
   @override
@@ -23,7 +26,8 @@ class InputBarWidget extends StatelessWidget {
     return SizedBox(
       height: PageItemSize.textFieldSize,
       child: TextField(
-        obscureText: isPasw,
+        controller: controller,
+        enabled: isEditing,
         keyboardType: keyboardType,
         decoration: InputDecoration(
           filled: true,

@@ -29,6 +29,7 @@ class ProjectWords {
     'İçecekler',
   ];
   //PhotoUrl
+  //https://image.tmdb.org/t/p/original/mbMsmQE5CyMVTIGMGCw2XpcPCOc.jpg
   static const profilPhotoUrl =
       "https://image.tmdb.org/t/p/original/mbMsmQE5CyMVTIGMGCw2XpcPCOc.jpg";
   static const photoUrl =

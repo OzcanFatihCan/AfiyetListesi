@@ -3,8 +3,11 @@ import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:flutter/material.dart';
 
 class PasswordTextField extends StatefulWidget {
-  const PasswordTextField({Key? key, this.controller}) : super(key: key);
+  final bool isEditing;
   final TextEditingController? controller;
+  const PasswordTextField({Key? key, this.controller, this.isEditing = true})
+      : super(key: key);
+
   @override
   State<PasswordTextField> createState() => _PasswordTextFieldState();
 }
@@ -29,6 +32,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         keyboardType: TextInputType.visiblePassword,
         obscureText: _isSecure,
         decoration: _paswTextDecoration(),
+        enabled: widget.isEditing,
       ),
     );
   }

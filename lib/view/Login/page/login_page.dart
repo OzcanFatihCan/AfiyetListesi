@@ -13,6 +13,7 @@ class LoginPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: PageColors.deactivedScafooldColor,
       body: Stack(
         fit: StackFit.expand,
