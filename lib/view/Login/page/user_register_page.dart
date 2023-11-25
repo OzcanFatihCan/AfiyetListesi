@@ -7,7 +7,7 @@ import 'package:afiyetlistesi/core/password_text_field.dart';
 import 'package:afiyetlistesi/core/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/project_photo.dart';
 import 'package:afiyetlistesi/product/project_words.dart';
-import 'package:afiyetlistesi/view/PageControl/page/control_page.dart';
+import 'package:afiyetlistesi/view/Home/page/home_page.dart';
 import 'package:flutter/material.dart';
 
 class UserRegisterView extends StatelessWidget with _NavigatorManager {

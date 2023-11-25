@@ -9,7 +9,7 @@ import 'package:afiyetlistesi/product/project_photo.dart';
 import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:afiyetlistesi/view/Login/page/user_alternative_login.dart';
 import 'package:afiyetlistesi/view/Login/page/user_register_page.dart';
-import 'package:afiyetlistesi/view/PageControl/page/control_page.dart';
+import 'package:afiyetlistesi/view/Home/page/home_page.dart';
 
 import 'package:flutter/material.dart';
 
