@@ -1,4 +1,5 @@
 import 'package:afiyetlistesi/core/font_set.dart';
+import 'package:afiyetlistesi/externalPackage/dotted_frame.dart';
 import 'package:afiyetlistesi/product/project_photo.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/core/color_set.dart';
@@ -21,19 +22,13 @@ class _PageControlViewState extends State<PageControlView> {
   int _currentPage = _PageName.home.index;
   bool _isEditing = false;
 
-  void _changeLoading() {
-    setState(() {
-      _isEditing = !_isEditing;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: PageColors.mainPageColor,
       appBar: AppBar(
         title: Text(_getPageTitle(_currentPage)),
-        actions: _currentPage == _PageName.profile.index // Profil sayfası
+        actions: _currentPage == _PageName.profile.index
             ? [
                 IconButton(
                   icon: _isEditing
@@ -46,37 +41,54 @@ class _PageControlViewState extends State<PageControlView> {
               ]
             : [],
       ),
-      body: _buildPageViewFunc(),
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: _pageController,
+        onPageChanged: (int index) {
+          _pageChange(index);
+        },
+        children: [
+          const HomePageView(),
+          const FavoritePageView(),
+          PersonPageView(
+            isEditing: _isEditing,
+          ),
+          const FoodPageView(),
+        ],
+      ),
       bottomNavigationBar: _BuildCardBottomNavWidget(
         pageController: _pageController,
         currentPage: _currentPage,
       ),
-      drawer: const _BuildDrawerWidget(
+      drawer: _BuildDrawerWidget(
         profilName: ProjectWords.profilName,
         profilEmail: ProjectWords.profilEmail,
         imageUrl: ProjectWords.profilPhotoUrl,
+        onTap: () {
+          _profilOpen(_PageName.profile.index);
+        },
       ),
     );
   }
 
-  PageView _buildPageViewFunc() {
-    return PageView(
-      physics: const NeverScrollableScrollPhysics(),
-      controller: _pageController,
-      onPageChanged: (int index) {
-        setState(() {
-          _currentPage = index;
-        });
-      },
-      children: [
-        const HomePageView(),
-        const FavoritePageView(),
-        PersonPageView(
-          isEditing: _isEditing,
-        ),
-        const FoodPageView(),
-      ],
-    );
+  //profil func
+  void _profilOpen(int index) {
+    setState(() {
+      _pageChange(index);
+    });
+  }
+
+  //profil func
+  void _changeLoading() {
+    setState(() {
+      _isEditing = !_isEditing;
+    });
+  }
+
+  void _pageChange(int index) {
+    setState(() {
+      _currentPage = index;
+    });
   }
 
   String _getPageTitle(int page) {
@@ -97,10 +109,12 @@ class _PageControlViewState extends State<PageControlView> {
 
 class _BuildCardBottomNavWidget extends StatelessWidget {
   const _BuildCardBottomNavWidget({
+    Key? key,
     required PageController pageController,
     required int currentPage,
   })  : _pageController = pageController,
-        _currentPage = currentPage;
+        _currentPage = currentPage,
+        super(key: key);
 
   final PageController _pageController;
   final int _currentPage;
@@ -152,43 +166,45 @@ class _BuildCardBottomNavWidget extends StatelessWidget {
       ),
     );
   }
-}
 
-_bottomNavIconItem(
-  int pageIndex,
-  IconData icon,
-  PageController pageControl,
-  int current,
-) {
-  final pageController = pageControl;
-  final currentPage = current;
-  return IconButton(
-    onPressed: () {
-      pageController.animateToPage(
-        pageIndex,
-        duration: const Duration(seconds: 1),
-        curve: Curves.decelerate,
-      );
-    },
-    icon: Icon(
-      icon,
-      color: currentPage == pageIndex
-          ? PageColors.activeIconColor
-          : PageColors.deactiveIconColor,
-    ),
-  );
+  _bottomNavIconItem(
+    int pageIndex,
+    IconData icon,
+    PageController pageControl,
+    int current,
+  ) {
+    final pageController = pageControl;
+    final currentPage = current;
+    return IconButton(
+      onPressed: () {
+        pageController.animateToPage(
+          pageIndex,
+          duration: const Duration(seconds: 1),
+          curve: Curves.decelerate,
+        );
+      },
+      icon: Icon(
+        icon,
+        color: currentPage == pageIndex
+            ? PageColors.activeIconColor
+            : PageColors.deactiveIconColor,
+      ),
+    );
+  }
 }
 
 class _BuildDrawerWidget extends StatefulWidget {
   final String profilName;
   final String profilEmail;
   final String imageUrl;
+  final void Function() onTap;
 
   const _BuildDrawerWidget({
     Key? key,
     required this.profilName,
     required this.profilEmail,
     required this.imageUrl,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -220,30 +236,42 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget> {
               title: ProjectWords.profilEmail,
               limit: PageItemSize.textLimit2x,
             ),
-            currentAccountPicture: Card(
-              shape: const CircleBorder(
-                side: BorderSide(
-                  color: PageColors.activeIconColor,
-                  width: PageItemSize.textFieldBorderSize,
-                ),
-              ),
-              child: CircleAvatar(
-                child: AspectRatio(
-                  aspectRatio: 1,
-                  child: ClipOval(
-                    child: widget.imageUrl.isNotEmpty
-                        ? Image.network(
-                            widget.imageUrl,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            },
-                          )
-                        : const Center(
-                            child: CircularProgressIndicator(),
-                          ),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: PageColors.deactivedButtonColor,
+              child: DottedFrame(
+                child: ClipOval(
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: InkWell(
+                      onTap: () {
+                        widget.onTap();
+                        Navigator.pop(context);
+                      },
+                      child: widget.imageUrl.isNotEmpty
+                          ? Image.network(
+                              widget.imageUrl,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              },
+                            )
+                          : Center(
+                              child: SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.3,
+                                width: MediaQuery.of(context).size.width * 0.80,
+                                child: const CircleAvatar(
+                                  backgroundColor:
+                                      PageColors.deactivedButtonColor,
+                                  backgroundImage: AssetImage(
+                                    ProjectPhotos.profilPhotoUpdateUrl,
+                                  ),
+                                ),
+                              ),
+                            ),
+                    ),
                   ),
                 ),
               ),

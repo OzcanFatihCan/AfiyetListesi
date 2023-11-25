@@ -3,6 +3,7 @@ import 'package:afiyetlistesi/core/inputbar_widget.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/core/mail_text_field.dart';
 import 'package:afiyetlistesi/core/password_text_field.dart';
+import 'package:afiyetlistesi/externalPackage/dotted_frame.dart';
 import 'package:afiyetlistesi/product/project_photo.dart';
 import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:flutter/material.dart';
@@ -30,33 +31,39 @@ class _PersonPageViewState extends State<PersonPageView> {
                 height: MediaQuery.of(context).size.height * 0.30,
                 width: MediaQuery.of(context).size.width * 0.80,
                 child: CircleAvatar(
-                  child: ClipOval(
-                    child: InkWell(
-                      onTap: () {},
+                  backgroundColor: PageColors.deactivedButtonColor,
+                  child: DottedFrame(
+                    child: ClipOval(
                       child: AspectRatio(
                         aspectRatio: 1,
-                        child: ProjectWords.profilPhotoUrl.isNotEmpty
-                            ? Image.network(
-                                ProjectWords.profilPhotoUrl,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                },
-                              )
-                            : Center(
-                                child: SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.30,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.80,
-                                  child: const CircleAvatar(
-                                    backgroundImage: AssetImage(
-                                        ProjectPhotos.profilPhotoUpdateUrl),
+                        child: InkWell(
+                          onTap: () {},
+                          child: ProjectWords.profilPhotoUrl.isNotEmpty
+                              ? Image.network(
+                                  ProjectWords.profilPhotoUrl,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  },
+                                )
+                              : Center(
+                                  child: SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.3,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.80,
+                                    child: const CircleAvatar(
+                                      backgroundColor:
+                                          PageColors.deactivedButtonColor,
+                                      backgroundImage: AssetImage(
+                                        ProjectPhotos.profilPhotoUpdateUrl,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                        ),
                       ),
                     ),
                   ),
