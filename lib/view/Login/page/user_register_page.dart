@@ -1,8 +1,8 @@
 import 'package:afiyetlistesi/core/button_decoration.dart';
 import 'package:afiyetlistesi/core/color_set.dart';
-import 'package:afiyetlistesi/core/inputbar_widget.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/core/mail_text_field.dart';
+import 'package:afiyetlistesi/core/name_text_field.dart';
 import 'package:afiyetlistesi/core/password_text_field.dart';
 import 'package:afiyetlistesi/core/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/project_photo.dart';
@@ -38,12 +38,7 @@ class UserRegisterView extends StatelessWidget with _NavigatorManager {
       bottom: PageItemSize.firstInputBarPositionBot,
       left: PageItemSize.inputBarSymetric,
       right: PageItemSize.inputBarSymetric,
-      child: InputBarWidget(
-        hint: ProjectWords.profilHint,
-        icon: Icons.person,
-        keyboardType: TextInputType.text,
-        fillColor: PageColors.textFieldContentOnColor,
-      ),
+      child: NameTextField(),
     );
   }
 

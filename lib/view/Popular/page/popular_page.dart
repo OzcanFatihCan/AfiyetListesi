@@ -25,10 +25,7 @@ class PopularPageView extends StatelessWidget {
             children: [
               _buildHeadTextWidget(context),
               const SizedBox(height: PageItemSize.spaceObjects),
-              const InputBarWidget(
-                hint: ProjectWords.searchHint,
-                icon: Icons.search_rounded,
-              ),
+              const SearchTextField(),
               const SizedBox(height: PageItemSize.spaceObjects),
               const SingleChildScrollView(
                 scrollDirection: Axis.horizontal,

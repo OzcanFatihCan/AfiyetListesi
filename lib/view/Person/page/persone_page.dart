@@ -1,7 +1,7 @@
 import 'package:afiyetlistesi/core/color_set.dart';
-import 'package:afiyetlistesi/core/inputbar_widget.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/core/mail_text_field.dart';
+import 'package:afiyetlistesi/core/name_text_field.dart';
 import 'package:afiyetlistesi/core/password_text_field.dart';
 import 'package:afiyetlistesi/externalPackage/dotted_frame.dart';
 import 'package:afiyetlistesi/product/project_photo.dart';
@@ -77,12 +77,8 @@ class _PersonPageViewState extends State<PersonPageView> {
                 thickness: 2,
               ),
               const SizedBox(height: PageItemSize.spaceObjects),
-              InputBarWidget(
+              NameTextField(
                 isEditing: widget.isEditing,
-                hint: "Ad-Soyad",
-                icon: Icons.person,
-                keyboardType: TextInputType.text,
-                fillColor: PageColors.textFieldContentOnColor,
               ),
               const SizedBox(height: PageItemSize.spaceObjects),
               MailTextField(isEditing: widget.isEditing),

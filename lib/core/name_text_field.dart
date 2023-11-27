@@ -2,44 +2,37 @@ import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:flutter/material.dart';
 
-class MailTextField extends StatefulWidget {
-  const MailTextField({
+class NameTextField extends StatelessWidget {
+  const NameTextField({
     Key? key,
     this.controller,
     this.isEditing = true,
   }) : super(key: key);
 
-  final TextEditingController? controller;
   final bool isEditing;
+  final TextEditingController? controller;
 
-  @override
-  State<MailTextField> createState() => _MailTextFieldState();
-}
-
-class _MailTextFieldState extends State<MailTextField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: PageItemSize.textFieldSize,
       child: TextField(
-        controller: widget.controller,
+        controller: controller,
+        enabled: isEditing,
+        keyboardType: TextInputType.name,
         textInputAction: TextInputAction.next,
-        autofillHints: const [AutofillHints.email],
-        keyboardType: TextInputType.emailAddress,
-        decoration: _mailTextDecoration(),
-        enabled: widget.isEditing,
+        decoration: _nameDecoration(),
       ),
     );
   }
 
-  InputDecoration _mailTextDecoration() {
+  InputDecoration _nameDecoration() {
     return InputDecoration(
-      border: const UnderlineInputBorder(),
-      hintText: 'Email',
       filled: true,
       fillColor: PageColors.textFieldContentOnColor,
       prefixIconColor: PageColors.textFieldColor,
-      prefixIcon: const Icon(Icons.mail_rounded),
+      prefixIcon: const Icon(Icons.person),
+      hintText: "Ad Soyad",
       hintStyle: const TextStyle(color: PageColors.textFieldColor),
       focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(
