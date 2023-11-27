@@ -14,13 +14,7 @@ class ProjectWords {
   static const profilEmail = "ElizabethOlsen@gmail.com";
   static const materialFoodText = "Malzemeler";
   static const recipeText = "Yapılışı";
-  static const drawerListItem = [
-    'Yemek Ekle',
-    'Yemeklerim',
-    'Favorilerim',
-    'Ayarlar',
-    'Çıkış Yap'
-  ];
+
   static const contentButtonTitles = [
     'Yemekler',
     'Tatlılar',

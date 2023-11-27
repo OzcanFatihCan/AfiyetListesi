@@ -1,3 +1,4 @@
+import 'package:afiyetlistesi/view/Favorite/state/state_manage_favorite.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/font_set.dart';
@@ -13,15 +14,7 @@ class FavoritePageView extends StatefulWidget {
   State<FavoritePageView> createState() => _FavoritePageViewState();
 }
 
-class _FavoritePageViewState extends State<FavoritePageView> {
-  late List<FavoriteModel> _cardItems;
-
-  @override
-  void initState() {
-    super.initState();
-    _cardItems = FavoriteItems().cardItems;
-  }
-
+class _FavoritePageViewState extends StateManageFavorite {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,9 +22,9 @@ class _FavoritePageViewState extends State<FavoritePageView> {
       body: Padding(
         padding: PageItemSize.pagePadding2x,
         child: ListView.builder(
-          itemCount: _cardItems.length,
+          itemCount: cardItems.length,
           itemBuilder: (context, index) {
-            return _BuildFavoriteCard(model: _cardItems[index]);
+            return _BuildFavoriteCard(model: cardItems[index]);
           },
         ),
       ),
@@ -107,53 +100,5 @@ class _BuildFavoriteCard extends StatelessWidget {
         onTap: () {},
       ),
     );
-  }
-}
-
-class FavoriteItems {
-  late List<FavoriteModel> cardItems;
-  FavoriteItems() {
-    cardItems = [
-      FavoriteModel(
-          imagePath: ProjectWords.photoUrl,
-          title: "Bulgur Pilavı",
-          category: 1),
-      FavoriteModel(
-          imagePath: ProjectWords.photoUrl2, title: "Sütlaç", category: 2),
-      FavoriteModel(
-          imagePath: ProjectWords.photoUrl3,
-          title: "Taze Fasulye",
-          category: 1),
-      FavoriteModel(
-          imagePath: ProjectWords.photoUrl,
-          title: "Bulgur Pilavı",
-          category: 1),
-      FavoriteModel(
-          imagePath: ProjectWords.photoUrl2, title: "Sütlaç", category: 2),
-      FavoriteModel(
-          imagePath: ProjectWords.photoUrl3,
-          title: "Taze Fasulye",
-          category: 1),
-      FavoriteModel(
-          imagePath: ProjectWords.photoUrl,
-          title: "Bulgur Pilavı",
-          category: 1),
-      FavoriteModel(
-          imagePath: ProjectWords.photoUrl2, title: "Sütlaç", category: 2),
-      FavoriteModel(
-          imagePath: ProjectWords.photoUrl3,
-          title: "Taze Fasulye",
-          category: 1),
-      FavoriteModel(
-          imagePath: ProjectWords.photoUrl,
-          title: "Bulgur Pilavı",
-          category: 1),
-      FavoriteModel(
-          imagePath: ProjectWords.photoUrl2, title: "Sütlaç", category: 2),
-      FavoriteModel(
-          imagePath: ProjectWords.photoUrl3,
-          title: "Taze Fasulye",
-          category: 1),
-    ];
   }
 }

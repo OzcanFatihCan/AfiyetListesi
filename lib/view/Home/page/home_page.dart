@@ -1,6 +1,7 @@
 import 'package:afiyetlistesi/core/font_set.dart';
 import 'package:afiyetlistesi/externalPackage/dotted_frame.dart';
 import 'package:afiyetlistesi/product/project_photo.dart';
+import 'package:afiyetlistesi/view/Home/state/state_manage_home.dart';
 import 'package:afiyetlistesi/view/Popular/page/popular_page.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/core/color_set.dart';
@@ -18,33 +19,14 @@ class PageControlView extends StatefulWidget {
   State<PageControlView> createState() => _PageControlViewState();
 }
 
-class _PageControlViewState extends State<PageControlView> {
-  final _pageController = PageController(viewportFraction: 1.0);
-  int _currentPage = _PageName.popular.index;
-  bool _isEditing = false;
-
-//profil func
-  void _changeLoading() {
-    setState(() {
-      _isEditing = !_isEditing;
-    });
-  }
-
-  void _pageChange(int index) {
-    setState(
-      () {
-        _currentPage = index;
-      },
-    );
-  }
-
+class _PageControlViewState extends StateManageHome {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: PageColors.mainPageColor,
       appBar: AppBar(
-        title: Text(_getPageTitle(_currentPage)),
-        actions: _currentPage == _PageName.profile.index
+        title: Text(PageName.values[currentPage].getPageTitle()),
+        actions: currentPage == PageName.profile.index
             ? [
                 _buildProfileAppbar(),
               ]
@@ -52,25 +34,25 @@ class _PageControlViewState extends State<PageControlView> {
       ),
       body: _buildPageViewWidget(),
       bottomNavigationBar: _BottomNavigationBarWidget(
-        pageController: _pageController,
-        currentPage: _currentPage,
+        pageController: pageController,
+        currentPage: currentPage,
       ),
       drawer: _BuildDrawerWidget(
         profilName: ProjectWords.profilName,
         profilEmail: ProjectWords.profilEmail,
         imageUrl: ProjectWords.profilPhotoUrl,
-        pageController: _pageController,
+        pageController: pageController,
       ),
     );
   }
 
   IconButton _buildProfileAppbar() {
     return IconButton(
-      icon: _isEditing
+      icon: isEditing
           ? const Icon(Icons.check_rounded)
           : const Icon(Icons.edit_rounded),
       onPressed: () {
-        _changeLoading();
+        changeLoading();
       },
     );
   }
@@ -78,34 +60,19 @@ class _PageControlViewState extends State<PageControlView> {
   PageView _buildPageViewWidget() {
     return PageView(
       physics: const NeverScrollableScrollPhysics(),
-      controller: _pageController,
+      controller: pageController,
       onPageChanged: (int index) {
-        _pageChange(index);
+        pageChange(index);
       },
       children: [
         const PopularPageView(),
         const FavoritePageView(),
         PersonPageView(
-          isEditing: _isEditing,
+          isEditing: isEditing,
         ),
         const FoodPageView(),
       ],
     );
-  }
-
-  String _getPageTitle(int page) {
-    switch (page) {
-      case 0:
-        return 'Anasayfa';
-      case 1:
-        return 'Favoriler';
-      case 2:
-        return 'Profil';
-      case 3:
-        return 'Yemekler';
-      default:
-        return '';
-    }
   }
 }
 
@@ -157,44 +124,44 @@ class _BottomNavigationBarWidgetState
             children: [
               IconButton(
                 onPressed: () {
-                  _pageChangeBottomNav(_PageName.popular.index);
+                  _pageChangeBottomNav(PageName.popular.index);
                 },
                 icon: Icon(
                   Icons.home_rounded,
-                  color: widget._currentPage == _PageName.popular.index
+                  color: widget._currentPage == PageName.popular.index
                       ? PageColors.activeIconColor
                       : PageColors.deactiveIconColor,
                 ),
               ),
               IconButton(
                 onPressed: () {
-                  _pageChangeBottomNav(_PageName.favorite.index);
+                  _pageChangeBottomNav(PageName.favorite.index);
                 },
                 icon: Icon(
                   Icons.favorite_rounded,
-                  color: widget._currentPage == _PageName.favorite.index
+                  color: widget._currentPage == PageName.favorite.index
                       ? PageColors.activeIconColor
                       : PageColors.deactiveIconColor,
                 ),
               ),
               IconButton(
                 onPressed: () {
-                  _pageChangeBottomNav(_PageName.profile.index);
+                  _pageChangeBottomNav(PageName.profile.index);
                 },
                 icon: Icon(
                   Icons.person,
-                  color: widget._currentPage == _PageName.profile.index
+                  color: widget._currentPage == PageName.profile.index
                       ? PageColors.activeIconColor
                       : PageColors.deactiveIconColor,
                 ),
               ),
               IconButton(
                 onPressed: () {
-                  _pageChangeBottomNav(_PageName.foods.index);
+                  _pageChangeBottomNav(PageName.foods.index);
                 },
                 icon: Icon(
                   Icons.restaurant_rounded,
-                  color: widget._currentPage == _PageName.foods.index
+                  color: widget._currentPage == PageName.foods.index
                       ? PageColors.activeIconColor
                       : PageColors.deactiveIconColor,
                 ),
@@ -228,7 +195,7 @@ class _BuildDrawerWidget extends StatefulWidget {
 
 class _BuildDrawerWidgetState extends State<_BuildDrawerWidget> {
   int _selectedOptionIndex = -1;
-
+  final double aspectValue = 1;
   void _updateSelectedOption(int index) {
     setState(() {
       _selectedOptionIndex = index;
@@ -263,46 +230,7 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget> {
               title: widget.profilEmail,
               limit: PageItemSize.textLimit2x,
             ),
-            currentAccountPicture: CircleAvatar(
-              backgroundColor: PageColors.deactivedButtonColor,
-              child: DottedFrame(
-                child: ClipOval(
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: InkWell(
-                      onTap: () {
-                        _pageChangeDrawer(_PageName.profile.index);
-                        Navigator.pop(context);
-                      },
-                      child: widget.imageUrl.isNotEmpty
-                          ? Image.network(
-                              widget.imageUrl,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              },
-                            )
-                          : Center(
-                              child: SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.3,
-                                width: MediaQuery.of(context).size.width * 0.80,
-                                child: const CircleAvatar(
-                                  backgroundColor:
-                                      PageColors.deactivedButtonColor,
-                                  backgroundImage: AssetImage(
-                                    ProjectPhotos.profilPhotoUpdateUrl,
-                                  ),
-                                ),
-                              ),
-                            ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            currentAccountPicture: _buildDrawerPhoto(context),
             decoration: const BoxDecoration(
               color: Colors.pinkAccent,
               image: DecorationImage(
@@ -322,62 +250,106 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget> {
                 ),
                 _BuildDrawerOptions(
                   drawerIcon: Icons.assignment_add,
-                  drawerChoice: ProjectWords
-                      .drawerListItem[_ListItemName.yemekEkle.index],
+                  drawerChoice: ListItemName
+                      .values[ListItemName.yemekEkle.index]
+                      .getListTitle(),
                   onTap: () {
-                    _updateSelectedOption(_ListItemName.yemekEkle.index);
+                    _updateSelectedOption(ListItemName.yemekEkle.index);
                   },
                   isSelected:
-                      _selectedOptionIndex == _ListItemName.yemekEkle.index,
+                      _selectedOptionIndex == ListItemName.yemekEkle.index,
                 ),
                 _BuildDrawerOptions(
                   drawerIcon: Icons.local_restaurant_rounded,
-                  drawerChoice: ProjectWords
-                      .drawerListItem[_ListItemName.yemeklerim.index],
+                  drawerChoice: ListItemName
+                      .values[ListItemName.yemeklerim.index]
+                      .getListTitle(),
                   onTap: () {
-                    _updateSelectedOption(_ListItemName.yemeklerim.index);
+                    _updateSelectedOption(ListItemName.yemeklerim.index);
                   },
                   isSelected:
-                      _selectedOptionIndex == _ListItemName.yemeklerim.index,
+                      _selectedOptionIndex == ListItemName.yemeklerim.index,
                 ),
                 _BuildDrawerOptions(
                   drawerIcon: Icons.favorite_rounded,
-                  drawerChoice: ProjectWords
-                      .drawerListItem[_ListItemName.favorilerim.index],
+                  drawerChoice: ListItemName
+                      .values[ListItemName.favorilerim.index]
+                      .getListTitle(),
                   onTap: () {
-                    _updateSelectedOption(_ListItemName.favorilerim.index);
-                    _pageChangeDrawer(_PageName.favorite.index);
+                    _updateSelectedOption(ListItemName.favorilerim.index);
+                    _pageChangeDrawer(PageName.favorite.index);
                     Navigator.pop(context);
                   },
                   isSelected:
-                      _selectedOptionIndex == _ListItemName.favorilerim.index,
+                      _selectedOptionIndex == ListItemName.favorilerim.index,
                 ),
                 _BuildDrawerOptions(
                   drawerIcon: Icons.settings_rounded,
-                  drawerChoice:
-                      ProjectWords.drawerListItem[_ListItemName.ayarlar.index],
+                  drawerChoice: ListItemName.values[ListItemName.ayarlar.index]
+                      .getListTitle(),
                   onTap: () {
-                    _updateSelectedOption(_ListItemName.ayarlar.index);
-                    _pageChangeDrawer(_PageName.profile.index);
+                    _updateSelectedOption(ListItemName.ayarlar.index);
+                    _pageChangeDrawer(PageName.profile.index);
                     Navigator.pop(context);
                   },
                   isSelected:
-                      _selectedOptionIndex == _ListItemName.ayarlar.index,
+                      _selectedOptionIndex == ListItemName.ayarlar.index,
                 ),
                 _BuildDrawerOptions(
                   drawerIcon: Icons.exit_to_app_rounded,
-                  drawerChoice:
-                      ProjectWords.drawerListItem[_ListItemName.cikisYap.index],
+                  drawerChoice: ListItemName.values[ListItemName.cikisYap.index]
+                      .getListTitle(),
                   onTap: () {
-                    _updateSelectedOption(_ListItemName.cikisYap.index);
+                    _updateSelectedOption(ListItemName.cikisYap.index);
                   },
                   isSelected:
-                      _selectedOptionIndex == _ListItemName.cikisYap.index,
+                      _selectedOptionIndex == ListItemName.cikisYap.index,
                 ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  CircleAvatar _buildDrawerPhoto(BuildContext context) {
+    return CircleAvatar(
+      backgroundColor: PageColors.deactivedButtonColor,
+      child: DottedFrame(
+        child: ClipOval(
+          child: AspectRatio(
+            aspectRatio: aspectValue,
+            child: InkWell(
+              onTap: () {
+                _pageChangeDrawer(PageName.profile.index);
+                Navigator.pop(context);
+              },
+              child: widget.imageUrl.isNotEmpty
+                  ? Image.network(
+                      widget.imageUrl,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                    )
+                  : Center(
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.3,
+                        width: MediaQuery.of(context).size.width * 0.80,
+                        child: const CircleAvatar(
+                          backgroundColor: PageColors.deactivedButtonColor,
+                          backgroundImage: AssetImage(
+                            ProjectPhotos.profilPhotoUpdateUrl,
+                          ),
+                        ),
+                      ),
+                    ),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -456,7 +428,3 @@ class _BuildDrawerOptions extends StatelessWidget {
     );
   }
 }
-
-enum _PageName { popular, favorite, profile, foods }
-
-enum _ListItemName { yemekEkle, yemeklerim, favorilerim, ayarlar, cikisYap }

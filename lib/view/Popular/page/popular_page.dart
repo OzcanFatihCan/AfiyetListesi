@@ -2,7 +2,7 @@ import 'package:afiyetlistesi/view/FoodDetail/page/food_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
-import 'package:afiyetlistesi/core/inputbar_widget.dart';
+import 'package:afiyetlistesi/core/search_text_field.dart';
 import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:afiyetlistesi/core/font_set.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';

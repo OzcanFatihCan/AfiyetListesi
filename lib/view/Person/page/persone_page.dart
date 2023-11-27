@@ -17,6 +17,7 @@ class PersonPageView extends StatefulWidget {
 }
 
 class _PersonPageViewState extends State<PersonPageView> {
+  final double aspectValue = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +36,7 @@ class _PersonPageViewState extends State<PersonPageView> {
                   child: DottedFrame(
                     child: ClipOval(
                       child: AspectRatio(
-                        aspectRatio: 1,
+                        aspectRatio: aspectValue,
                         child: InkWell(
                           onTap: () {},
                           child: ProjectWords.profilPhotoUrl.isNotEmpty
