@@ -1,5 +1,6 @@
 import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
+import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class SearchTextField extends StatelessWidget {
@@ -18,17 +19,17 @@ class SearchTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         keyboardType: TextInputType.text,
-        decoration: _inputDecoration(hintText),
+        decoration: _inputDecoration(hintText, context),
       ),
     );
   }
 
-  InputDecoration _inputDecoration(String hintText) {
+  InputDecoration _inputDecoration(String hintText, BuildContext context) {
     return InputDecoration(
       prefixIconColor: PageColors.textFieldColor,
       prefixIcon: const Icon(Icons.search_rounded),
       hintText: hintText,
-      hintStyle: const TextStyle(color: PageColors.textFieldColor),
+      hintStyle: AppTheme().customTextTheme().labelLarge,
       focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(
           color: PageColors.textFieldColor,

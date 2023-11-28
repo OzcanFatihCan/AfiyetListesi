@@ -1,10 +1,10 @@
+import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:afiyetlistesi/view/FoodDetail/page/food_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/core/search_text_field.dart';
 import 'package:afiyetlistesi/product/project_words.dart';
-import 'package:afiyetlistesi/core/font_set.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
 import 'package:afiyetlistesi/product/error_text.dart';
 
@@ -52,10 +52,7 @@ FittedBox _buildHeadTextWidget(BuildContext context) {
     child: Text(
       softWrap: true,
       ProjectWords.foodHeadText,
-      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-            color: PageColors.blackColor,
-            fontWeight: PageFont.headFont,
-          ),
+      style: Theme.of(context).textTheme.headlineSmall,
     ),
   );
 }
@@ -127,11 +124,9 @@ class _ButtonWidget extends StatelessWidget {
         padding: PageItemSize.pagePaddingx,
         child: Text(
           title,
-          style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              color: isSelected
-                  ? PageColors.activeButtonForeColor
-                  : PageColors.deactiveButtonForeColor,
-              fontWeight: PageFont.buttonFont),
+          style: isSelected
+              ? AppTheme().customTextTheme().bodySmall
+              : Theme.of(context).textTheme.bodySmall,
         ),
       ),
     );
@@ -144,19 +139,13 @@ Row _buildMiddleTextWidget(BuildContext context) {
     children: [
       Text(
         ProjectWords.foodIntermediateText,
-        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              color: PageColors.blackColor,
-              fontWeight: PageFont.headFont,
-            ),
+        style: Theme.of(context).textTheme.titleMedium,
       ),
       TextButton(
         onPressed: () {},
         child: Text(
           ProjectWords.allFood,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: PageColors.activeButtonColor,
-                fontWeight: PageFont.headFont,
-              ),
+          style: AppTheme().customTextTheme().labelMedium,
         ),
       )
     ],
@@ -252,26 +241,18 @@ class _BuildPopularCard extends StatelessWidget {
               const SizedBox(
                 height: PageItemSize.spaceObjects,
               ),
-              Padding(
-                padding: PageItemSize.objectPadding2x,
-                child: Text(
-                  softWrap: true,
-                  _model.title.isNotEmpty
-                      ? _model.title
-                      : ProjectErrorText.foodNotFound,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: PageColors.blackColor,
-                        fontWeight: PageFont.textFont,
-                      ),
-                ),
+              Text(
+                softWrap: true,
+                _model.title.isNotEmpty
+                    ? _model.title
+                    : ProjectErrorText.foodNotFound,
+                style: Theme.of(context).textTheme.labelLarge,
               ),
               Padding(
                 padding: PageItemSize.objectPadding2x,
                 child: Text(
                   ProjectWords.subtitleText,
-                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: PageColors.blackColor,
-                      fontWeight: PageFont.subtitleFont),
+                  style: Theme.of(context).textTheme.labelSmall,
                 ),
               ),
             ],

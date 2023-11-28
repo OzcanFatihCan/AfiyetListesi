@@ -1,5 +1,6 @@
 import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
+import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class MailTextField extends StatefulWidget {
@@ -41,7 +42,7 @@ class _MailTextFieldState extends State<MailTextField> {
       fillColor: PageColors.textFieldContentOnColor,
       prefixIconColor: PageColors.textFieldColor,
       prefixIcon: const Icon(Icons.mail_rounded),
-      hintStyle: const TextStyle(color: PageColors.textFieldColor),
+      hintStyle: AppTheme().customTextTheme().labelLarge,
       focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(
           color: PageColors.textFieldColor,

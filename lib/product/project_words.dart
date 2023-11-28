@@ -5,7 +5,7 @@ class ProjectWords {
   static const passwordHint = "Parola";
   static const profilHint = "Ad Soyad";
   static const foodIntermediateText = "En Sevilenler";
-  static const subtitleText = "Yemek tarifi için tıklayınız";
+  static const subtitleText = "Tarif için tıkla";
   static const loginButton = "Giriş Yap";
   static const registerButton = "Kayıt Ol";
   static const allFood = "Tümünü Gör";

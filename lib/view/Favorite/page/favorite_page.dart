@@ -1,8 +1,6 @@
-import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:afiyetlistesi/view/Favorite/state/state_manage_favorite.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/core/color_set.dart';
-import 'package:afiyetlistesi/core/font_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/model/favorite_model.dart';
 import 'package:afiyetlistesi/product/error_text.dart';
@@ -78,15 +76,11 @@ class _BuildFavoriteCard extends StatelessWidget {
           _model.title.isNotEmpty
               ? _model.title
               : ProjectErrorText.foodNotFound,
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: PageColors.blackColor,
-                fontWeight: PageFont.textFont,
-              ),
+          style: Theme.of(context).textTheme.labelLarge,
         ),
         subtitle: Text(
           ProjectWords.subtitleText,
-          style: Theme.of(context).textTheme.labelMedium?.copyWith(
-              color: PageColors.blackColor, fontWeight: PageFont.subtitleFont),
+          style: Theme.of(context).textTheme.labelSmall,
         ),
         trailing: IconButton(
           icon: const Icon(

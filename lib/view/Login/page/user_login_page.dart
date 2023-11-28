@@ -1,6 +1,5 @@
 import 'package:afiyetlistesi/core/button_decoration.dart';
 import 'package:afiyetlistesi/core/color_set.dart';
-import 'package:afiyetlistesi/core/font_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/core/mail_text_field.dart';
 import 'package:afiyetlistesi/core/password_text_field.dart';
@@ -93,10 +92,7 @@ class UserLoginView extends StatelessWidget with _NavigatorManager {
             },
             child: Text(
               ProjectWords.alternativeLoginButton,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: PageColors.blackColor,
-                    fontWeight: PageFont.textFont,
-                  ),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
         ],

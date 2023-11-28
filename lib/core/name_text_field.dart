@@ -1,5 +1,6 @@
 import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
+import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class NameTextField extends StatelessWidget {
@@ -34,7 +35,7 @@ class NameTextField extends StatelessWidget {
       prefixIconColor: PageColors.textFieldColor,
       prefixIcon: const Icon(Icons.person),
       hintText: hintText,
-      hintStyle: const TextStyle(color: PageColors.textFieldColor),
+      hintStyle: AppTheme().customTextTheme().labelLarge,
       focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(
           color: PageColors.textFieldColor,

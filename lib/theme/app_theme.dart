@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 class AppTheme {
   final _themeColor = _ThemeColors();
   final _themeSize = _ThemeSizes();
-  //final _themeFont = _ThemeFonts();
+  final _themeFont = _ThemeFonts();
   late ThemeData theme;
 
   AppTheme() {
@@ -16,8 +16,69 @@ class AppTheme {
         elevation: _themeSize.elevationValueOff,
         foregroundColor: _themeColor.blackColor,
       ),
-      //TextTheme yap
-
+      textTheme: TextTheme(
+        bodySmall: TextStyle(
+          color: _themeColor.blackColor,
+          fontWeight: _themeFont.w4Font,
+          fontSize: _themeSize.fontSizeMin3,
+        ),
+        bodyMedium: TextStyle(
+          color: _themeColor.blackColor,
+          fontWeight: _themeFont.w5Font,
+          fontSize: _themeSize.fontSizeMid,
+        ),
+        bodyLarge: TextStyle(
+          color: _themeColor.blackColor,
+          fontWeight: _themeFont.w6Font,
+          fontSize: _themeSize.fontSizeMid,
+        ),
+        //subtitle
+        labelSmall: TextStyle(
+          color: _themeColor.blackColor,
+          fontWeight: _themeFont.w4Font,
+          fontSize: _themeSize.fontSizeMin,
+        ),
+        labelMedium: TextStyle(
+          color: _themeColor.blackColor,
+          fontWeight: _themeFont.w4Font,
+          fontSize: _themeSize.fontSizeMin3,
+        ),
+        labelLarge: TextStyle(
+          color: _themeColor.blackColor,
+          fontWeight: _themeFont.w5Font,
+          fontSize: _themeSize.fontSizeMin3,
+        ),
+        titleSmall: TextStyle(
+          color: _themeColor.blackColor,
+          fontWeight: _themeFont.w6Font,
+          fontSize: _themeSize.fontSizeMid,
+        ),
+        titleMedium: TextStyle(
+          color: _themeColor.blackColor,
+          fontWeight: _themeFont.w7Font,
+          fontSize: _themeSize.fontSizeMid2,
+        ),
+        titleLarge: TextStyle(
+          color: _themeColor.blackColor,
+          fontWeight: _themeFont.w8Font,
+          fontSize: _themeSize.fontSizeMid,
+        ),
+        headlineSmall: TextStyle(
+          color: _themeColor.blackColor,
+          fontWeight: _themeFont.w7Font,
+          fontSize: _themeSize.fontSizeMax3,
+        ),
+        headlineMedium: TextStyle(
+          color: _themeColor.blackColor,
+          fontWeight: _themeFont.w8Font,
+          fontSize: _themeSize.fontSizeMax3,
+        ),
+        headlineLarge: TextStyle(
+          color: _themeColor.blackColor,
+          fontWeight: _themeFont.w9Font,
+          fontSize: _themeSize.fontSizeMax3,
+        ),
+      ),
       cardTheme: CardTheme(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
@@ -41,18 +102,80 @@ class AppTheme {
       color: _themeColor.cardColor,
     );
   }
+
+  TextTheme customTextTheme() {
+    return TextTheme(
+      bodySmall: TextStyle(
+        color: _themeColor.whiteColor,
+        fontWeight: _themeFont.w4Font,
+        fontSize: _themeSize.fontSizeMin3,
+      ),
+      bodyMedium: TextStyle(
+        color: _themeColor.whiteColor,
+        fontWeight: _themeFont.w5Font,
+        fontSize: _themeSize.fontSizeMid,
+      ),
+      bodyLarge: TextStyle(
+        color: _themeColor.blackColor,
+        fontWeight: _themeFont.w6Font,
+        fontSize: _themeSize.fontSizeMid,
+      ),
+      labelSmall: TextStyle(
+        color: _themeColor.blackColor,
+        fontWeight: _themeFont.w3Font,
+        fontSize: _themeSize.fontSizeMin2,
+      ),
+      labelMedium: TextStyle(
+        color: _themeColor.redColor,
+        fontWeight: _themeFont.w4Font,
+        fontSize: _themeSize.fontSizeMin3,
+      ),
+      labelLarge: TextStyle(
+        color: _themeColor.redColor,
+        fontWeight: _themeFont.w5Font,
+        fontSize: _themeSize.fontSizeMin3,
+      ),
+      titleSmall: TextStyle(
+        color: _themeColor.blackColor,
+        fontWeight: _themeFont.w6Font,
+        fontSize: _themeSize.fontSizeMid,
+      ),
+      titleMedium: TextStyle(
+        color: _themeColor.whiteColor,
+        fontWeight: _themeFont.w7Font,
+        fontSize: _themeSize.fontSizeMid2,
+      ),
+      titleLarge: TextStyle(
+        color: _themeColor.blackColor,
+        fontWeight: _themeFont.w8Font,
+        fontSize: _themeSize.fontSizeMid3,
+      ),
+      headlineSmall: TextStyle(
+        color: _themeColor.blackColor,
+        fontWeight: _themeFont.w7Font,
+        fontSize: _themeSize.fontSizeMax,
+      ),
+      headlineMedium: TextStyle(
+        color: _themeColor.blackColor,
+        fontWeight: _themeFont.w8Font,
+        fontSize: _themeSize.fontSizeMax2,
+      ),
+      headlineLarge: TextStyle(
+        color: _themeColor.blackColor,
+        fontWeight: _themeFont.w9Font,
+        fontSize: _themeSize.fontSizeMax3,
+      ),
+    );
+  }
 }
 
-/*
-ThemeData.light().textTheme.copyWith(
-            headlineMedium: TextStyle(
-              fontWeight: _themeFont.headFont,
-              color: _themeColor.blackColor,
-            ),
-          ),
- */
 class _ThemeColors {
   final Color blackColor = Colors.black;
+  final Color millionGrey = const Color(0xFF999999);
+  final Color whiteColor = Colors.white;
+  final Color cardColor = Colors.red;
+  final Color redColor = Colors.red;
+
   final Color activeButtonColor = Colors.red;
   final Color activeButtonColor2 = Colors.white;
   final Color deactivedButtonColor = Colors.transparent;
@@ -63,7 +186,6 @@ class _ThemeColors {
   final Color textFieldContentOnColor = Colors.white;
   final Color textFieldContentOffColor = Colors.transparent;
 
-  final Color cardColor = Colors.red;
   final Color deactivedScafooldColor = Colors.transparent;
   final Color activeIconColor = Colors.red;
   final Color deactiveIconColor = Colors.grey;
@@ -73,6 +195,17 @@ class _ThemeColors {
 }
 
 class _ThemeSizes {
+  final double fontSubtitle = 11;
+  final double fontSizeMin = 14;
+  final double fontSizeMin2 = 16;
+  final double fontSizeMin3 = 18;
+  final double fontSizeMid = 20;
+  final double fontSizeMid2 = 22;
+  final double fontSizeMid3 = 24;
+  final double fontSizeMax = 26;
+  final double fontSizeMax2 = 28;
+  final double fontSizeMax3 = 30;
+
   //obj
   final double textFieldSize = 50;
   final double textFieldBorderSize = 3;
@@ -130,8 +263,13 @@ class _ThemeSizes {
 }
 
 class _ThemeFonts {
-  final headFont = FontWeight.w500;
-  final buttonFont = FontWeight.bold;
-  final textFont = FontWeight.w800;
-  final subtitleFont = FontWeight.w500;
+  final w1Font = FontWeight.w100;
+  final w2Font = FontWeight.w200;
+  final w3Font = FontWeight.w300;
+  final w4Font = FontWeight.w400;
+  final w5Font = FontWeight.w500;
+  final w6Font = FontWeight.w600;
+  final w7Font = FontWeight.w700;
+  final w8Font = FontWeight.w800;
+  final w9Font = FontWeight.w900;
 }

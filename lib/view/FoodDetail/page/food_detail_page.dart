@@ -2,7 +2,6 @@ import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/core/button_decoration.dart';
 import 'package:afiyetlistesi/core/color_set.dart';
-import 'package:afiyetlistesi/core/font_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
 import 'package:afiyetlistesi/product/error_text.dart';
@@ -164,10 +163,7 @@ class _BuildCardFoodTitle extends StatelessWidget {
           _model.title.isNotEmpty
               ? _model.title
               : ProjectErrorText.foodNotFound,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: PageColors.textFieldContentOnColor,
-                fontWeight: PageFont.textFont,
-              ),
+          style: AppTheme().customTextTheme().titleMedium,
           softWrap: true,
           maxLines: 2,
         ),
@@ -180,10 +176,7 @@ Text _buildMaterialTitle(BuildContext context) {
   return Text(
     ProjectWords.materialFoodText,
     textAlign: TextAlign.start,
-    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-          color: PageColors.blackColor,
-          fontWeight: PageFont.headFont,
-        ),
+    style: Theme.of(context).textTheme.titleMedium,
   );
 }
 
@@ -211,9 +204,7 @@ class _BuildMaterials extends StatelessWidget {
                 _model.materialsFood.isNotEmpty
                     ? _model.materialsFood.join('\n')
                     : ProjectErrorText.foodMaterialNotFound,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: PageColors.blackColor,
-                    ),
+                style: Theme.of(context).textTheme.labelLarge,
               ),
             ),
           ),
@@ -226,10 +217,7 @@ class _BuildMaterials extends StatelessWidget {
 Text _buildRecipeTitle(BuildContext context) {
   return Text(
     ProjectWords.recipeText,
-    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-          color: PageColors.blackColor,
-          fontWeight: PageFont.headFont,
-        ),
+    style: Theme.of(context).textTheme.titleMedium,
   );
 }
 
@@ -257,9 +245,7 @@ class _BuildRecipe extends StatelessWidget {
                 _model.recipe.isNotEmpty
                     ? _model.recipe.join('\n')
                     : ProjectErrorText.foodRecipeNotFound,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: PageColors.blackColor,
-                    ),
+                style: Theme.of(context).textTheme.labelLarge,
               ),
             ),
           ),

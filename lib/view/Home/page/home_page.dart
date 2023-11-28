@@ -1,4 +1,3 @@
-import 'package:afiyetlistesi/core/font_set.dart';
 import 'package:afiyetlistesi/externalPackage/dotted_frame.dart';
 import 'package:afiyetlistesi/product/project_photo.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
@@ -28,6 +27,7 @@ class _PageControlViewState extends StateManageHome {
       appBar: AppBar(
         title: Text(
           PageName.values[currentPage].getPageTitle(),
+          style: Theme.of(context).textTheme.titleMedium,
         ),
         actions: currentPage == PageName.profile.index
             ? [
@@ -374,10 +374,7 @@ class _BuildDrawerText extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         maxLines: PageItemSize.drawerLines,
         softWrap: true,
-        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: PageColors.profilTextColor,
-              fontWeight: PageFont.textFont,
-            ),
+        style: AppTheme().customTextTheme().labelMedium,
       ),
     );
   }
@@ -408,10 +405,7 @@ class _BuildDrawerOptions extends StatelessWidget {
         title: Text(
           drawerChoice,
           softWrap: true,
-          style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                color: PageColors.profilTextColor,
-                fontWeight: PageFont.textFont,
-              ),
+          style: AppTheme().customTextTheme().labelLarge,
         ),
         onTap: onTap,
       ),
