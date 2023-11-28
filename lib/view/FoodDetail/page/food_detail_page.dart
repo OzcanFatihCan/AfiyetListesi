@@ -1,3 +1,4 @@
+import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/core/button_decoration.dart';
 import 'package:afiyetlistesi/core/color_set.dart';
@@ -19,15 +20,11 @@ class FoodDetailPage extends StatefulWidget {
   State<FoodDetailPage> createState() => _FoodDetailPageState();
 }
 
-class _FoodDetailPageState extends State<FoodDetailPage> {
-  final _cardHeight = 70.0;
-  final _cardWidth = 230.0;
-  final _cardBottom = 0.0;
-  final _backLeft = 20.0;
-  final _backBottom = 200.0;
+class _FoodDetailPageState extends State<FoodDetailPage> with _cardSize {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: PageColors.mainPageColor,
       body: Column(
         children: [
           Expanded(
@@ -161,7 +158,7 @@ class _BuildCardFoodTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: Theme.of(context).cardTheme.shape,
-      color: PageColors.cardColor2,
+      color: AppTheme().customCardTheme().color,
       child: Center(
         child: Text(
           _model.title.isNotEmpty
@@ -204,13 +201,8 @@ class _BuildMaterials extends StatelessWidget {
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(PageItemSize.halfRadius()),
-            side: const BorderSide(
-              color: PageColors.cardColor2,
-              width: PageItemSize.textFieldBorderSize,
-            ),
-          ),
+          shape: AppTheme().customCardTheme().shape,
+          color: Theme.of(context).cardTheme.color,
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Padding(
@@ -255,13 +247,8 @@ class _BuildRecipe extends StatelessWidget {
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(PageItemSize.halfRadius()),
-            side: const BorderSide(
-              color: PageColors.cardColor2,
-              width: PageItemSize.textFieldBorderSize,
-            ),
-          ),
+          shape: AppTheme().customCardTheme().shape,
+          color: Theme.of(context).cardTheme.color,
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Padding(
@@ -301,4 +288,12 @@ class _BuildFavoriteButton extends StatelessWidget {
       ),
     );
   }
+}
+
+mixin _cardSize {
+  final _cardHeight = 70.0;
+  final _cardWidth = 230.0;
+  final _cardBottom = 0.0;
+  final _backLeft = 20.0;
+  final _backBottom = 200.0;
 }

@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 class AppTheme {
   final _themeColor = _ThemeColors();
   final _themeSize = _ThemeSizes();
-  final _themeFont = _ThemeFonts();
+  //final _themeFont = _ThemeFonts();
   late ThemeData theme;
 
   AppTheme() {
@@ -16,24 +16,41 @@ class AppTheme {
         elevation: _themeSize.elevationValueOff,
         foregroundColor: _themeColor.blackColor,
       ),
-      textTheme: ThemeData.light().textTheme.copyWith(
-            headlineMedium: TextStyle(
-              fontWeight: _themeFont.headFont,
-              color: _themeColor.blackColor,
-            ),
-          ),
+      //TextTheme yap
+
       cardTheme: CardTheme(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             _themeSize.halfRadius(),
           ),
         ),
-        color: _themeColor.cardColor,
       ),
+    );
+  }
+  CardTheme customCardTheme() {
+    return CardTheme(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          _themeSize.halfRadius(),
+        ),
+        side: BorderSide(
+          color: _themeColor.cardColor,
+          width: _themeSize.textFieldBorderSize,
+        ),
+      ),
+      color: _themeColor.cardColor,
     );
   }
 }
 
+/*
+ThemeData.light().textTheme.copyWith(
+            headlineMedium: TextStyle(
+              fontWeight: _themeFont.headFont,
+              color: _themeColor.blackColor,
+            ),
+          ),
+ */
 class _ThemeColors {
   final Color blackColor = Colors.black;
   final Color activeButtonColor = Colors.red;
@@ -45,8 +62,8 @@ class _ThemeColors {
   final Color textFieldColor = Colors.red;
   final Color textFieldContentOnColor = Colors.white;
   final Color textFieldContentOffColor = Colors.transparent;
-  final Color cardColor = Colors.white;
-  final Color cardColor2 = Colors.red;
+
+  final Color cardColor = Colors.red;
   final Color deactivedScafooldColor = Colors.transparent;
   final Color activeIconColor = Colors.red;
   final Color deactiveIconColor = Colors.grey;

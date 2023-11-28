@@ -17,7 +17,6 @@ class PersonPageView extends StatefulWidget {
 }
 
 class _PersonPageViewState extends State<PersonPageView> {
-  final double aspectValue = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,48 +27,7 @@ class _PersonPageViewState extends State<PersonPageView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.30,
-                width: MediaQuery.of(context).size.width * 0.80,
-                child: CircleAvatar(
-                  backgroundColor: PageColors.deactivedButtonColor,
-                  child: DottedFrame(
-                    child: ClipOval(
-                      child: AspectRatio(
-                        aspectRatio: aspectValue,
-                        child: InkWell(
-                          onTap: () {},
-                          child: ProjectWords.profilPhotoUrl.isNotEmpty
-                              ? Image.network(
-                                  ProjectWords.profilPhotoUrl,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  },
-                                )
-                              : Center(
-                                  child: SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.3,
-                                    width: MediaQuery.of(context).size.width *
-                                        0.80,
-                                    child: const CircleAvatar(
-                                      backgroundColor:
-                                          PageColors.deactivedButtonColor,
-                                      backgroundImage: AssetImage(
-                                        ProjectPhotos.profilPhotoUpdateUrl,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              const _BuildProfilPhoto(),
               const SizedBox(height: PageItemSize.spaceObjects),
               const Divider(
                 color: Colors.red,
@@ -86,6 +44,54 @@ class _PersonPageViewState extends State<PersonPageView> {
               const SizedBox(height: PageItemSize.spaceObjects),
               PasswordTextField(isEditing: widget.isEditing),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _BuildProfilPhoto extends StatelessWidget {
+  const _BuildProfilPhoto();
+
+  @override
+  Widget build(BuildContext context) {
+    const double aspectValue = 1;
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.30,
+      width: MediaQuery.of(context).size.width * 0.80,
+      child: CircleAvatar(
+        backgroundColor: PageColors.deactivedButtonColor,
+        child: DottedFrame(
+          child: ClipOval(
+            child: AspectRatio(
+              aspectRatio: aspectValue,
+              child: InkWell(
+                onTap: () {},
+                child: ProjectWords.profilPhotoUrl.isNotEmpty
+                    ? Image.network(
+                        ProjectWords.profilPhotoUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+                      )
+                    : Center(
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          width: MediaQuery.of(context).size.width * 0.80,
+                          child: const CircleAvatar(
+                            backgroundColor: PageColors.deactivedButtonColor,
+                            backgroundImage: AssetImage(
+                              ProjectPhotos.profilPhotoUpdateUrl,
+                            ),
+                          ),
+                        ),
+                      ),
+              ),
+            ),
           ),
         ),
       ),

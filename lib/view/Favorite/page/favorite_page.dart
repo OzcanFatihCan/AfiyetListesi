@@ -1,3 +1,4 @@
+import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:afiyetlistesi/view/Favorite/state/state_manage_favorite.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/core/color_set.dart';

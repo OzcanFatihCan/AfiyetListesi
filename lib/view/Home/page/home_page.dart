@@ -1,6 +1,7 @@
 import 'package:afiyetlistesi/core/font_set.dart';
 import 'package:afiyetlistesi/externalPackage/dotted_frame.dart';
 import 'package:afiyetlistesi/product/project_photo.dart';
+import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:afiyetlistesi/view/Home/state/state_manage_home.dart';
 import 'package:afiyetlistesi/view/Popular/page/popular_page.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,6 @@ class _PageControlViewState extends StateManageHome {
       appBar: AppBar(
         title: Text(
           PageName.values[currentPage].getPageTitle(),
-          style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
         actions: currentPage == PageName.profile.index
             ? [
@@ -117,11 +117,8 @@ class _BottomNavigationBarWidgetState
         height: PageItemSize.bottomNavHeight,
         child: Card(
           elevation: PageItemSize.elevationValue,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              PageItemSize.fullRadius(),
-            ),
-          ),
+          shape: Theme.of(context).cardTheme.shape,
+          color: Theme.of(context).cardTheme.color,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -403,18 +400,8 @@ class _BuildDrawerOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(
-        side: const BorderSide(
-          color: PageColors.cardColor,
-          width: PageItemSize.textFieldBorderSize,
-        ),
-        borderRadius: BorderRadius.all(
-          PageItemSize.halfRadius(),
-        ),
-      ),
-      color: isSelected
-          ? PageColors.activeButtonColor2
-          : PageColors.deactivedButtonColor,
+      shape: AppTheme().customCardTheme().shape,
+      color: Theme.of(context).cardTheme.color,
       elevation: PageItemSize.elevationValueOff,
       child: ListTile(
         leading: Icon(drawerIcon, color: PageColors.profilTextColor),
