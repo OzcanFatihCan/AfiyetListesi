@@ -42,11 +42,8 @@ class _BuildFavoriteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          PageItemSize.halfRadius(),
-        ),
-      ),
+      shape: Theme.of(context).cardTheme.shape,
+      color: Theme.of(context).cardColor,
       child: ListTile(
         leading: ClipRRect(
           borderRadius: BorderRadius.all(

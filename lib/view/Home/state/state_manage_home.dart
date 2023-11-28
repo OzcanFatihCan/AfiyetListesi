@@ -5,9 +5,16 @@ abstract class StateManageHome extends State<PageControlView> {
   final pageController = PageController(viewportFraction: 1.0);
   int currentPage = PageName.popular.index;
   bool isEditing = false;
+  bool isLoading = false;
+
+  void changeLoading() {
+    setState(() {
+      isLoading = !isLoading;
+    });
+  }
 
 //profil func
-  void changeLoading() {
+  void changeEditing() {
     setState(() {
       isEditing = !isEditing;
     });

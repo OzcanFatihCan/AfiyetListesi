@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 class ButtonDecorationWidget extends StatelessWidget
     with PageColors, PageItemSize {
-  final String buttonTitle;
   ButtonDecorationWidget({
     Key? key,
     required this.onPressed,
@@ -13,7 +12,7 @@ class ButtonDecorationWidget extends StatelessWidget
   }) : super(key: key);
 
   final void Function() onPressed;
-
+  final String buttonTitle;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(

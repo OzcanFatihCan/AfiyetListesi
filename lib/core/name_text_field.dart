@@ -14,6 +14,7 @@ class NameTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const hintText = "Ad Soyad";
     return SizedBox(
       height: PageItemSize.textFieldSize,
       child: TextField(
@@ -21,18 +22,18 @@ class NameTextField extends StatelessWidget {
         enabled: isEditing,
         keyboardType: TextInputType.name,
         textInputAction: TextInputAction.next,
-        decoration: _nameDecoration(),
+        decoration: _nameDecoration(hintText),
       ),
     );
   }
 
-  InputDecoration _nameDecoration() {
+  InputDecoration _nameDecoration(String hintText) {
     return InputDecoration(
       filled: true,
       fillColor: PageColors.textFieldContentOnColor,
       prefixIconColor: PageColors.textFieldColor,
       prefixIcon: const Icon(Icons.person),
-      hintText: "Ad Soyad",
+      hintText: hintText,
       hintStyle: const TextStyle(color: PageColors.textFieldColor),
       focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(

@@ -19,6 +19,7 @@ class MailTextField extends StatefulWidget {
 class _MailTextFieldState extends State<MailTextField> {
   @override
   Widget build(BuildContext context) {
+    const hintText = "Email";
     return SizedBox(
       height: PageItemSize.textFieldSize,
       child: TextField(
@@ -26,16 +27,16 @@ class _MailTextFieldState extends State<MailTextField> {
         textInputAction: TextInputAction.next,
         autofillHints: const [AutofillHints.email],
         keyboardType: TextInputType.emailAddress,
-        decoration: _mailTextDecoration(),
+        decoration: _mailTextDecoration(hintText),
         enabled: widget.isEditing,
       ),
     );
   }
 
-  InputDecoration _mailTextDecoration() {
+  InputDecoration _mailTextDecoration(String hintText) {
     return InputDecoration(
       border: const UnderlineInputBorder(),
-      hintText: 'Email',
+      hintText: hintText,
       filled: true,
       fillColor: PageColors.textFieldContentOnColor,
       prefixIconColor: PageColors.textFieldColor,

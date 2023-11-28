@@ -160,11 +160,7 @@ class _BuildCardFoodTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          PageItemSize.halfRadius(),
-        ),
-      ),
+      shape: Theme.of(context).cardTheme.shape,
       color: PageColors.cardColor2,
       child: Center(
         child: Text(

@@ -1,4 +1,4 @@
-import 'package:afiyetlistesi/theme/theme_page.dart';
+import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:afiyetlistesi/view/Login/page/login_page.dart';
 
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ class AfiyetListesi extends StatelessWidget {
     return MaterialApp(
       title: 'Afiyet Listesi',
       debugShowCheckedModeBanner: false,
-      theme: ThemePage().theme,
+      theme: AppTheme().theme,
       home: const LoginPageView(),
     );
   }

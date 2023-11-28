@@ -216,12 +216,8 @@ class _BuildPopularCard extends StatelessWidget {
           _gotoDetailsPage(context, FoodDetailPage(model: _model));
         },
         child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              PageItemSize.halfRadius(),
-            ),
-          ),
-          color: PageColors.cardColor,
+          shape: Theme.of(context).cardTheme.shape,
+          color: Theme.of(context).cardTheme.color,
           child: Column(
             children: <Widget>[
               Padding(

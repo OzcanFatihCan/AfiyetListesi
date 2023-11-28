@@ -28,6 +28,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
 
   @override
   Widget build(BuildContext context) {
+    const hintText = "Parola";
     return SizedBox(
       height: PageItemSize.textFieldSize,
       child: TextField(
@@ -36,16 +37,16 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         autofillHints: const [AutofillHints.password],
         keyboardType: TextInputType.visiblePassword,
         obscureText: _isSecure,
-        decoration: _paswTextDecoration(),
+        decoration: _paswTextDecoration(hintText),
         enabled: widget.isEditing,
       ),
     );
   }
 
-  InputDecoration _paswTextDecoration() {
+  InputDecoration _paswTextDecoration(String hintText) {
     return InputDecoration(
       border: const UnderlineInputBorder(),
-      hintText: 'Parola',
+      hintText: hintText,
       suffixIcon: _onVisiblityIcon(),
       filled: true,
       fillColor: PageColors.textFieldContentOnColor,

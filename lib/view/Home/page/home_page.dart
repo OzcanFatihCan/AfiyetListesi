@@ -25,7 +25,10 @@ class _PageControlViewState extends StateManageHome {
     return Scaffold(
       backgroundColor: PageColors.mainPageColor,
       appBar: AppBar(
-        title: Text(PageName.values[currentPage].getPageTitle()),
+        title: Text(
+          PageName.values[currentPage].getPageTitle(),
+          style: Theme.of(context).appBarTheme.titleTextStyle,
+        ),
         actions: currentPage == PageName.profile.index
             ? [
                 _buildProfileAppbar(),
@@ -52,7 +55,7 @@ class _PageControlViewState extends StateManageHome {
           ? const Icon(Icons.check_rounded)
           : const Icon(Icons.edit_rounded),
       onPressed: () {
-        changeLoading();
+        changeEditing();
       },
     );
   }

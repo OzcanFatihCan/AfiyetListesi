@@ -5,11 +5,17 @@ import 'package:flutter/material.dart';
 
 abstract class StateManageFavorite extends State<FavoritePageView> {
   late List<FavoriteModel> cardItems;
-
+  bool isLoading = false;
   @override
   void initState() {
     super.initState();
     cardItems = FavoriteItems().cardItems;
+  }
+
+  void changeLoading() {
+    setState(() {
+      isLoading = !isLoading;
+    });
   }
 }
 
