@@ -4,19 +4,34 @@ import 'package:afiyetlistesi/core/mail_text_field.dart';
 import 'package:afiyetlistesi/core/name_text_field.dart';
 import 'package:afiyetlistesi/core/password_text_field.dart';
 import 'package:afiyetlistesi/externalPackage/dotted_frame.dart';
+
 import 'package:afiyetlistesi/product/project_photo.dart';
 import 'package:afiyetlistesi/product/project_words.dart';
+import 'package:afiyetlistesi/view/Profile/state/state_manage_profile.dart';
 import 'package:flutter/material.dart';
 
-class PersonPageView extends StatefulWidget {
+class ProfilePageView extends StatefulWidget {
+  const ProfilePageView({
+    super.key,
+    required this.isEditing,
+  });
+  //final AppBarManager appBarManager;
   final bool isEditing;
-  const PersonPageView({super.key, required this.isEditing});
-
+  //required this.appBarManager,
   @override
-  State<PersonPageView> createState() => _PersonPageViewState();
+  State<ProfilePageView> createState() => _ProfilePageViewState();
 }
 
-class _PersonPageViewState extends State<PersonPageView> {
+class _ProfilePageViewState extends StateManageProfile {
+  /*
+  late AppBarManager appBarManager;
+
+  @override
+  void initState() {
+    super.initState();
+    appBarManager = widget.appBarManager;
+  }*/
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,12 +52,12 @@ class _PersonPageViewState extends State<PersonPageView> {
               ),
               const SizedBox(height: PageItemSize.spaceObjects),
               NameTextField(
-                isEditing: widget.isEditing,
+                isEditing: widget.isEditing, // isEditing
               ),
               const SizedBox(height: PageItemSize.spaceObjects),
-              MailTextField(isEditing: widget.isEditing),
+              MailTextField(isEditing: widget.isEditing), //isEditing),
               const SizedBox(height: PageItemSize.spaceObjects),
-              PasswordTextField(isEditing: widget.isEditing),
+              PasswordTextField(isEditing: widget.isEditing), //isEditing),
             ],
           ),
         ),

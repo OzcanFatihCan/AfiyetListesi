@@ -71,7 +71,7 @@ class UserRegisterView extends StatelessWidget with _NavigatorManager {
           ButtonDecorationWidget(
             buttonTitle: ProjectWords.registerButton,
             onPressed: () {
-              navigateToWidget(context, const PageControlView());
+              navigateToWidget(context, const HomePageView());
             },
           ),
         ],

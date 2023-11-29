@@ -64,7 +64,7 @@ class UserLoginView extends StatelessWidget with _NavigatorManager {
           ButtonDecorationWidget(
             buttonTitle: ProjectWords.loginButton,
             onPressed: () {
-              navigateToWidget(context, const PageControlView());
+              navigateToWidget(context, const HomePageView());
             },
           ),
           ButtonDecorationWidget(

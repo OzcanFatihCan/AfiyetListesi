@@ -10,16 +10,16 @@ import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:afiyetlistesi/view/Favorite/page/favorite_page.dart';
 import 'package:afiyetlistesi/view/Food/page/food_page.dart';
 
-import 'package:afiyetlistesi/view/Person/page/persone_page.dart';
+import 'package:afiyetlistesi/view/Profile/page/profile_page.dart';
 
-class PageControlView extends StatefulWidget {
-  const PageControlView({Key? key}) : super(key: key);
+class HomePageView extends StatefulWidget {
+  const HomePageView({Key? key}) : super(key: key);
 
   @override
-  State<PageControlView> createState() => _PageControlViewState();
+  State<HomePageView> createState() => _HomePageState();
 }
 
-class _PageControlViewState extends StateManageHome {
+class _HomePageState extends StateManageHome {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,11 +29,8 @@ class _PageControlViewState extends StateManageHome {
           PageName.values[currentPage].getPageTitle(),
           style: Theme.of(context).textTheme.headlineSmall,
         ),
-        actions: currentPage == PageName.profile.index
-            ? [
-                _buildProfileAppbar(),
-              ]
-            : [],
+        actions: appBarManager.buildActionsForPage(
+            currentPage: PageName.values[currentPage]),
       ),
       body: _buildPageViewWidget(),
       bottomNavigationBar: _BottomNavigationBarWidget(
@@ -49,17 +46,6 @@ class _PageControlViewState extends StateManageHome {
     );
   }
 
-  IconButton _buildProfileAppbar() {
-    return IconButton(
-      icon: isEditing
-          ? const Icon(Icons.check_rounded)
-          : const Icon(Icons.edit_rounded),
-      onPressed: () {
-        changeEditing();
-      },
-    );
-  }
-
   PageView _buildPageViewWidget() {
     return PageView(
       physics: const NeverScrollableScrollPhysics(),
@@ -70,7 +56,7 @@ class _PageControlViewState extends StateManageHome {
       children: [
         const PopularPageView(),
         const FavoritePageView(),
-        PersonPageView(
+        ProfilePageView(
           isEditing: isEditing,
         ),
         const FoodPageView(),
