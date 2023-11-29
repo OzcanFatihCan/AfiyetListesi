@@ -163,7 +163,7 @@ class _BuildCardFoodTitle extends StatelessWidget {
           _model.title.isNotEmpty
               ? _model.title
               : ProjectErrorText.foodNotFound,
-          style: AppTheme().customTextTheme().titleMedium,
+          style: AppTheme().customTextTheme().headlineSmall,
           softWrap: true,
           maxLines: 2,
         ),
@@ -176,7 +176,7 @@ Text _buildMaterialTitle(BuildContext context) {
   return Text(
     ProjectWords.materialFoodText,
     textAlign: TextAlign.start,
-    style: Theme.of(context).textTheme.titleMedium,
+    style: Theme.of(context).textTheme.headlineMedium,
   );
 }
 
@@ -204,7 +204,7 @@ class _BuildMaterials extends StatelessWidget {
                 _model.materialsFood.isNotEmpty
                     ? _model.materialsFood.join('\n')
                     : ProjectErrorText.foodMaterialNotFound,
-                style: Theme.of(context).textTheme.labelLarge,
+                style: AppTheme().customTextTheme().labelMedium,
               ),
             ),
           ),
@@ -217,7 +217,7 @@ class _BuildMaterials extends StatelessWidget {
 Text _buildRecipeTitle(BuildContext context) {
   return Text(
     ProjectWords.recipeText,
-    style: Theme.of(context).textTheme.titleMedium,
+    style: Theme.of(context).textTheme.headlineMedium,
   );
 }
 
@@ -245,7 +245,7 @@ class _BuildRecipe extends StatelessWidget {
                 _model.recipe.isNotEmpty
                     ? _model.recipe.join('\n')
                     : ProjectErrorText.foodRecipeNotFound,
-                style: Theme.of(context).textTheme.labelLarge,
+                style: AppTheme().customTextTheme().labelMedium,
               ),
             ),
           ),

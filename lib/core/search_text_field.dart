@@ -29,7 +29,7 @@ class SearchTextField extends StatelessWidget {
       prefixIconColor: PageColors.textFieldColor,
       prefixIcon: const Icon(Icons.search_rounded),
       hintText: hintText,
-      hintStyle: AppTheme().customTextTheme().labelLarge,
+      hintStyle: AppTheme().customTextTheme().titleMedium,
       focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(
           color: PageColors.textFieldColor,

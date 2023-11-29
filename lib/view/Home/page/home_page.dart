@@ -27,7 +27,7 @@ class _PageControlViewState extends StateManageHome {
       appBar: AppBar(
         title: Text(
           PageName.values[currentPage].getPageTitle(),
-          style: Theme.of(context).textTheme.titleMedium,
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         actions: currentPage == PageName.profile.index
             ? [
@@ -374,7 +374,7 @@ class _BuildDrawerText extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         maxLines: PageItemSize.drawerLines,
         softWrap: true,
-        style: AppTheme().customTextTheme().labelMedium,
+        style: AppTheme().customTextTheme().titleSmall,
       ),
     );
   }
@@ -405,7 +405,7 @@ class _BuildDrawerOptions extends StatelessWidget {
         title: Text(
           drawerChoice,
           softWrap: true,
-          style: AppTheme().customTextTheme().labelLarge,
+          style: AppTheme().customTextTheme().titleLarge,
         ),
         onTap: onTap,
       ),

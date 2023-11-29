@@ -53,7 +53,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       fillColor: PageColors.textFieldContentOnColor,
       prefixIconColor: PageColors.textFieldColor,
       prefixIcon: const Icon(Icons.password_rounded),
-      hintStyle: AppTheme().customTextTheme().labelLarge,
+      hintStyle: AppTheme().customTextTheme().titleMedium,
       focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(
           color: PageColors.textFieldColor,

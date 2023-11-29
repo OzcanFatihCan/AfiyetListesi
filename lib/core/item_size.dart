@@ -15,7 +15,7 @@ mixin PageItemSize {
   static const double bottomNavHeight = 60;
   static const double loginButtonPositionBot = 175;
   static const double loginButtonSymetric = 15;
-  static const double alternativeLoginPositionBot = 5;
+  static const double alternativeLoginPositionBot = 20;
   static const double firstInputBarPositionBot = 430;
   static const double secondInputBarPositionBot = 360;
   static const double thirdInputBarPositinBot = 290;

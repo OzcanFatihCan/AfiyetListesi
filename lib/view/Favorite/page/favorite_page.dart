@@ -76,11 +76,11 @@ class _BuildFavoriteCard extends StatelessWidget {
           _model.title.isNotEmpty
               ? _model.title
               : ProjectErrorText.foodNotFound,
-          style: Theme.of(context).textTheme.labelLarge,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         subtitle: Text(
           ProjectWords.subtitleText,
-          style: Theme.of(context).textTheme.labelSmall,
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
         trailing: IconButton(
           icon: const Icon(

@@ -52,7 +52,7 @@ FittedBox _buildHeadTextWidget(BuildContext context) {
     child: Text(
       softWrap: true,
       ProjectWords.foodHeadText,
-      style: Theme.of(context).textTheme.headlineSmall,
+      style: Theme.of(context).textTheme.headlineLarge,
     ),
   );
 }
@@ -125,8 +125,8 @@ class _ButtonWidget extends StatelessWidget {
         child: Text(
           title,
           style: isSelected
-              ? AppTheme().customTextTheme().bodySmall
-              : Theme.of(context).textTheme.bodySmall,
+              ? AppTheme().customTextTheme().labelLarge
+              : Theme.of(context).textTheme.labelLarge,
         ),
       ),
     );
@@ -139,13 +139,13 @@ Row _buildMiddleTextWidget(BuildContext context) {
     children: [
       Text(
         ProjectWords.foodIntermediateText,
-        style: Theme.of(context).textTheme.titleMedium,
+        style: Theme.of(context).textTheme.headlineMedium,
       ),
       TextButton(
         onPressed: () {},
         child: Text(
           ProjectWords.allFood,
-          style: AppTheme().customTextTheme().labelMedium,
+          style: Theme.of(context).textTheme.titleSmall,
         ),
       )
     ],
@@ -246,13 +246,13 @@ class _BuildPopularCard extends StatelessWidget {
                 _model.title.isNotEmpty
                     ? _model.title
                     : ProjectErrorText.foodNotFound,
-                style: Theme.of(context).textTheme.labelLarge,
+                style: Theme.of(context).textTheme.labelMedium,
               ),
               Padding(
                 padding: PageItemSize.objectPadding2x,
                 child: Text(
                   ProjectWords.subtitleText,
-                  style: Theme.of(context).textTheme.labelSmall,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ),
             ],

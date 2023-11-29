@@ -92,7 +92,7 @@ class UserLoginView extends StatelessWidget with _NavigatorManager {
             },
             child: Text(
               ProjectWords.alternativeLoginButton,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
           ),
         ],

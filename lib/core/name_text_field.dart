@@ -35,7 +35,7 @@ class NameTextField extends StatelessWidget {
       prefixIconColor: PageColors.textFieldColor,
       prefixIcon: const Icon(Icons.person),
       hintText: hintText,
-      hintStyle: AppTheme().customTextTheme().labelLarge,
+      hintStyle: AppTheme().customTextTheme().titleMedium,
       focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(
           color: PageColors.textFieldColor,

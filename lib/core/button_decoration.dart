@@ -1,6 +1,5 @@
 import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
-import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class ButtonDecorationWidget extends StatelessWidget
@@ -26,7 +25,7 @@ class ButtonDecorationWidget extends StatelessWidget
         padding: PageItemSize.pagePaddingx,
         child: Text(
           buttonTitle,
-          style: AppTheme().customTextTheme().bodyMedium,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
     );

@@ -20,62 +20,69 @@ class AppTheme {
         bodySmall: TextStyle(
           color: _themeColor.blackColor,
           fontWeight: _themeFont.w4Font,
-          fontSize: _themeSize.fontSizeMin3,
+          fontSize: _themeSize.fontSizeMin,
         ),
         bodyMedium: TextStyle(
-          color: _themeColor.blackColor,
-          fontWeight: _themeFont.w5Font,
-          fontSize: _themeSize.fontSizeMid,
-        ),
-        bodyLarge: TextStyle(
-          color: _themeColor.blackColor,
-          fontWeight: _themeFont.w6Font,
-          fontSize: _themeSize.fontSizeMid,
-        ),
-        //subtitle
-        labelSmall: TextStyle(
           color: _themeColor.blackColor,
           fontWeight: _themeFont.w4Font,
           fontSize: _themeSize.fontSizeMin,
         ),
-        labelMedium: TextStyle(
+        //card subtitle
+        bodyLarge: TextStyle(
           color: _themeColor.blackColor,
           fontWeight: _themeFont.w4Font,
-          fontSize: _themeSize.fontSizeMin3,
+          fontSize: _themeSize.fontSizeMin2,
         ),
-        labelLarge: TextStyle(
+        labelSmall: TextStyle(
+          color: _themeColor.blackColor,
+          fontWeight: _themeFont.w5Font,
+          fontSize: _themeSize.fontSizeMin2,
+        ),
+        //card header
+        labelMedium: TextStyle(
           color: _themeColor.blackColor,
           fontWeight: _themeFont.w5Font,
           fontSize: _themeSize.fontSizeMin3,
         ),
-        titleSmall: TextStyle(
+        //contentbutton custom and main
+        labelLarge: TextStyle(
           color: _themeColor.blackColor,
+          fontWeight: _themeFont.w5Font,
+          fontSize: _themeSize.fontSizeMid,
+        ),
+        //textbutton popular
+        titleSmall: TextStyle(
+          color: _themeColor.redColor,
           fontWeight: _themeFont.w6Font,
           fontSize: _themeSize.fontSizeMid,
         ),
+        //normalbutton
         titleMedium: TextStyle(
-          color: _themeColor.blackColor,
-          fontWeight: _themeFont.w7Font,
+          color: _themeColor.whiteColor,
+          fontWeight: _themeFont.w6Font,
           fontSize: _themeSize.fontSizeMid2,
         ),
         titleLarge: TextStyle(
           color: _themeColor.blackColor,
-          fontWeight: _themeFont.w8Font,
-          fontSize: _themeSize.fontSizeMid,
+          fontWeight: _themeFont.w6Font,
+          fontSize: _themeSize.fontSizeMid3,
         ),
+        //appbar
         headlineSmall: TextStyle(
           color: _themeColor.blackColor,
           fontWeight: _themeFont.w7Font,
-          fontSize: _themeSize.fontSizeMax3,
+          fontSize: _themeSize.fontSizeMax,
         ),
+        //second header / food detail header
         headlineMedium: TextStyle(
           color: _themeColor.blackColor,
-          fontWeight: _themeFont.w8Font,
-          fontSize: _themeSize.fontSizeMax3,
+          fontWeight: _themeFont.w7Font,
+          fontSize: _themeSize.fontSizeMax2,
         ),
+        //first header
         headlineLarge: TextStyle(
           color: _themeColor.blackColor,
-          fontWeight: _themeFont.w9Font,
+          fontWeight: _themeFont.w7Font,
           fontSize: _themeSize.fontSizeMax3,
         ),
       ),
@@ -122,47 +129,53 @@ class AppTheme {
       ),
       labelSmall: TextStyle(
         color: _themeColor.blackColor,
-        fontWeight: _themeFont.w3Font,
+        fontWeight: _themeFont.w5Font,
         fontSize: _themeSize.fontSizeMin2,
       ),
+      //fooddetail text
       labelMedium: TextStyle(
-        color: _themeColor.redColor,
-        fontWeight: _themeFont.w4Font,
-        fontSize: _themeSize.fontSizeMin3,
-      ),
-      labelLarge: TextStyle(
-        color: _themeColor.redColor,
+        color: _themeColor.blackColor,
         fontWeight: _themeFont.w5Font,
         fontSize: _themeSize.fontSizeMin3,
       ),
+      //contentbutton custom and main
+      labelLarge: TextStyle(
+        color: _themeColor.whiteColor,
+        fontWeight: _themeFont.w5Font,
+        fontSize: _themeSize.fontSizeMin3,
+      ),
+      //drawer info
       titleSmall: TextStyle(
-        color: _themeColor.blackColor,
+        color: _themeColor.redColor,
         fontWeight: _themeFont.w6Font,
         fontSize: _themeSize.fontSizeMid,
       ),
+      //input, search
       titleMedium: TextStyle(
-        color: _themeColor.whiteColor,
-        fontWeight: _themeFont.w7Font,
+        color: _themeColor.redColor,
+        fontWeight: _themeFont.w6Font,
         fontSize: _themeSize.fontSizeMid2,
       ),
+      //drawer Button
       titleLarge: TextStyle(
-        color: _themeColor.blackColor,
-        fontWeight: _themeFont.w8Font,
+        color: _themeColor.redColor,
+        fontWeight: _themeFont.w6Font,
         fontSize: _themeSize.fontSizeMid3,
       ),
+      //foodname
       headlineSmall: TextStyle(
-        color: _themeColor.blackColor,
+        color: _themeColor.whiteColor,
         fontWeight: _themeFont.w7Font,
         fontSize: _themeSize.fontSizeMax,
       ),
       headlineMedium: TextStyle(
         color: _themeColor.blackColor,
-        fontWeight: _themeFont.w8Font,
+        fontWeight: _themeFont.w7Font,
         fontSize: _themeSize.fontSizeMax2,
       ),
       headlineLarge: TextStyle(
         color: _themeColor.blackColor,
-        fontWeight: _themeFont.w9Font,
+        fontWeight: _themeFont.w7Font,
         fontSize: _themeSize.fontSizeMax3,
       ),
     );
@@ -196,15 +209,15 @@ class _ThemeColors {
 
 class _ThemeSizes {
   final double fontSubtitle = 11;
-  final double fontSizeMin = 14;
-  final double fontSizeMin2 = 16;
-  final double fontSizeMin3 = 18;
-  final double fontSizeMid = 20;
-  final double fontSizeMid2 = 22;
-  final double fontSizeMid3 = 24;
-  final double fontSizeMax = 26;
-  final double fontSizeMax2 = 28;
-  final double fontSizeMax3 = 30;
+  final double fontSizeMin = 12;
+  final double fontSizeMin2 = 14;
+  final double fontSizeMin3 = 16;
+  final double fontSizeMid = 17;
+  final double fontSizeMid2 = 19;
+  final double fontSizeMid3 = 21;
+  final double fontSizeMax = 24;
+  final double fontSizeMax2 = 26;
+  final double fontSizeMax3 = 28;
 
   //obj
   final double textFieldSize = 50;
