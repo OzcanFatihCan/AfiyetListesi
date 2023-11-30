@@ -1,18 +1,17 @@
 import 'package:afiyetlistesi/core/button_decoration.dart';
-import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/core/mail_text_field.dart';
 import 'package:afiyetlistesi/core/password_text_field.dart';
 import 'package:afiyetlistesi/core/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/project_photo.dart';
-import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:afiyetlistesi/view/Login/page/user_alternative_login.dart';
 import 'package:afiyetlistesi/view/Login/page/user_register_page.dart';
 import 'package:afiyetlistesi/view/Home/page/home_page.dart';
 
 import 'package:flutter/material.dart';
 
-class UserLoginView extends StatelessWidget with _NavigatorManager {
-  const UserLoginView({super.key});
+class UserLoginView extends StatelessWidget
+    with _NavigatorManager, _pageSize, _pageWord {
+  UserLoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,41 +34,41 @@ class UserLoginView extends StatelessWidget with _NavigatorManager {
   }
 
   Positioned _buildMailInput() {
-    return const Positioned(
-      bottom: PageItemSize.secondInputBarPositionBot,
-      left: PageItemSize.inputBarSymetric,
-      right: PageItemSize.inputBarSymetric,
-      child: MailTextField(),
+    return Positioned(
+      bottom: secondInputBarPositionBot,
+      left: inputBarSymetric,
+      right: inputBarSymetric,
+      child: const MailTextField(),
     );
   }
 
   Positioned _buildPasswordInput() {
-    return const Positioned(
-      bottom: PageItemSize.thirdInputBarPositinBot,
-      left: PageItemSize.inputBarSymetric,
-      right: PageItemSize.inputBarSymetric,
-      child: PasswordTextField(),
+    return Positioned(
+      bottom: thirdInputBarPositinBot,
+      left: inputBarSymetric,
+      right: inputBarSymetric,
+      child: const PasswordTextField(),
     );
   }
 
   Positioned _buildNavigateButton(BuildContext context) {
     return Positioned(
-      bottom: PageItemSize.loginButtonPositionBot,
-      left: PageItemSize.loginButtonSymetric,
-      right: PageItemSize.loginButtonSymetric,
+      bottom: loginButtonPositionBot,
+      left: loginButtonSymetric,
+      right: loginButtonSymetric,
       child: ButtonBar(
         alignment: MainAxisAlignment.center,
         children: [
           ButtonDecorationWidget(
-            buttonTitle: ProjectWords.loginButton,
+            buttonTitle: loginButton,
             onPressed: () {
               navigateToWidget(context, const HomePageView());
             },
           ),
           ButtonDecorationWidget(
-            buttonTitle: ProjectWords.registerButton,
+            buttonTitle: registerButton,
             onPressed: () {
-              navigateToWidget(context, const UserRegisterView());
+              navigateToWidget(context, UserRegisterView());
             },
           ),
         ],
@@ -79,9 +78,9 @@ class UserLoginView extends StatelessWidget with _NavigatorManager {
 
   Positioned _buildAlternativeLoginButton(BuildContext context) {
     return Positioned(
-      bottom: PageItemSize.alternativeLoginPositionBot,
-      left: PageItemSize.loginButtonSymetric,
-      right: PageItemSize.loginButtonSymetric,
+      bottom: alternativeLoginPositionBot,
+      left: loginButtonSymetric,
+      right: loginButtonSymetric,
       child: ButtonBar(
         alignment: MainAxisAlignment.center,
         children: [
@@ -90,7 +89,7 @@ class UserLoginView extends StatelessWidget with _NavigatorManager {
               navigateToWidget(context, const AlternativeLoginPageView());
             },
             child: Text(
-              ProjectWords.alternativeLoginButton,
+              alternativeLoginButton,
               style: Theme.of(context).textTheme.titleSmall,
             ),
           ),
@@ -111,4 +110,18 @@ mixin _NavigatorManager {
       ),
     );
   }
+}
+
+mixin _pageSize {
+  final double loginButtonPositionBot = 175;
+  final double loginButtonSymetric = 15;
+  final double alternativeLoginPositionBot = 20;
+  final double secondInputBarPositionBot = 360;
+  final double thirdInputBarPositinBot = 290;
+  final double inputBarSymetric = 15;
+}
+mixin _pageWord {
+  final alternativeLoginButton = "Alternatif Giriş";
+  final loginButton = "Giriş Yap";
+  final registerButton = "Kayıt Ol";
 }

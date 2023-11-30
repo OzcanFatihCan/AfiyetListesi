@@ -1,10 +1,7 @@
 import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/core/button_decoration.dart';
-import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
-import 'package:afiyetlistesi/product/error_text.dart';
-import 'package:afiyetlistesi/product/project_words.dart';
 
 class FoodDetailPage extends StatefulWidget {
   const FoodDetailPage({
@@ -18,7 +15,8 @@ class FoodDetailPage extends StatefulWidget {
   State<FoodDetailPage> createState() => _FoodDetailPageState();
 }
 
-class _FoodDetailPageState extends State<FoodDetailPage> with _cardSize {
+class _FoodDetailPageState extends State<FoodDetailPage>
+    with _pageSize, _pageWord {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,18 +29,18 @@ class _FoodDetailPageState extends State<FoodDetailPage> with _cardSize {
               alignment: Alignment.center,
               children: <Widget>[
                 Positioned.fill(
-                  bottom: _cardHeight / 2,
+                  bottom: cardHeight / 2,
                   child: _BuildFoodPhoto(model: widget._model),
                 ),
                 Positioned(
-                    height: _cardHeight,
-                    width: _cardWidth,
-                    bottom: _cardBottom,
+                    height: cardHeight,
+                    width: cardWidth,
+                    bottom: cardBottom,
                     child: _BuildCardFoodTitle(model: widget._model)),
                 Positioned(
                   top: MediaQuery.of(context).padding.top,
-                  left: _backLeft,
-                  bottom: _backBottom,
+                  left: backLeft,
+                  bottom: backBottom,
                   child: const _BackButtonWidget(),
                 )
               ],
@@ -51,21 +49,21 @@ class _FoodDetailPageState extends State<FoodDetailPage> with _cardSize {
           Expanded(
             flex: 6,
             child: Padding(
-              padding: PageItemSize.pagePadding2x,
+              padding: pagePadding2x,
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    _buildMaterialTitle(context),
-                    const SizedBox(height: PageItemSize.spaceObjectsMin),
+                    _buildMaterialTitle(context, materialFoodText),
+                    SizedBox(height: spaceObjectsMin),
                     _BuildMaterials(model: widget._model),
-                    const SizedBox(height: PageItemSize.spaceObjectsMin),
-                    _buildRecipeTitle(context),
-                    const SizedBox(height: PageItemSize.spaceObjectsMin),
+                    SizedBox(height: spaceObjectsMin),
+                    _buildRecipeTitle(context, recipeText),
+                    SizedBox(height: spaceObjectsMin),
                     _BuildRecipe(model: widget._model),
-                    const SizedBox(height: PageItemSize.spaceObjectsMin),
-                    const _BuildFavoriteButton()
+                    SizedBox(height: spaceObjectsMin),
+                    _BuildFavoriteButton()
                   ],
                 ),
               ),
@@ -77,8 +75,8 @@ class _FoodDetailPageState extends State<FoodDetailPage> with _cardSize {
   }
 }
 
-class _BuildFoodPhoto extends StatelessWidget {
-  const _BuildFoodPhoto({
+class _BuildFoodPhoto extends StatelessWidget with _pageSize, _pageWord {
+  _BuildFoodPhoto({
     required PopularFavoriteModel model,
   }) : _model = model;
 
@@ -95,27 +93,27 @@ class _BuildFoodPhoto extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * 0.40,
         child: ClipRRect(
-          borderRadius: PageItemSize.foodDetailRadius(),
+          borderRadius: foodDetailRadius,
           child: _model.imagePath.isNotEmpty
               ? Image.network(
                   _model.imagePath,
-                  height: PageItemSize.foodPhotoHeightSize,
-                  width: PageItemSize.foodPhotoWidthSize,
+                  height: foodPhotoHeightSize,
+                  width: foodPhotoWidthSize,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
-                    return const SizedBox(
-                      width: PageItemSize.foodPhotoWidthSize,
-                      height: PageItemSize.foodPhotoHeightSize,
-                      child: Center(
+                    return SizedBox(
+                      width: foodPhotoWidthSize,
+                      height: foodPhotoHeightSize,
+                      child: const Center(
                         child: CircularProgressIndicator(),
                       ),
                     );
                   },
                 )
-              : const SizedBox(
-                  height: PageItemSize.foodPhotoHeightSize,
-                  width: PageItemSize.foodPhotoWidthSize,
-                  child: Center(
+              : SizedBox(
+                  height: foodPhotoHeightSize,
+                  width: foodPhotoWidthSize,
+                  child: const Center(
                     child: CircularProgressIndicator(),
                   ),
                 ),
@@ -145,8 +143,8 @@ class _BackButtonWidget extends StatelessWidget {
   }
 }
 
-class _BuildCardFoodTitle extends StatelessWidget {
-  const _BuildCardFoodTitle({
+class _BuildCardFoodTitle extends StatelessWidget with _pageSize, _pageWord {
+  _BuildCardFoodTitle({
     required PopularFavoriteModel model,
   }) : _model = model;
 
@@ -159,28 +157,26 @@ class _BuildCardFoodTitle extends StatelessWidget {
       color: AppTheme().customCardTheme().color,
       child: Center(
         child: Text(
-          _model.title.isNotEmpty
-              ? _model.title
-              : ProjectErrorText.foodNotFound,
+          _model.title.isNotEmpty ? _model.title : foodNotFound,
           style: AppTheme().customTextTheme().headlineSmall,
           softWrap: true,
-          maxLines: 2,
+          maxLines: maxLines,
         ),
       ),
     );
   }
 }
 
-Text _buildMaterialTitle(BuildContext context) {
+Text _buildMaterialTitle(BuildContext context, String materialFoodText) {
   return Text(
-    ProjectWords.materialFoodText,
+    materialFoodText,
     textAlign: TextAlign.start,
     style: Theme.of(context).textTheme.headlineMedium,
   );
 }
 
-class _BuildMaterials extends StatelessWidget {
-  const _BuildMaterials({
+class _BuildMaterials extends StatelessWidget with _pageSize, _pageWord {
+  _BuildMaterials({
     required PopularFavoriteModel model,
   }) : _model = model;
 
@@ -198,11 +194,11 @@ class _BuildMaterials extends StatelessWidget {
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Padding(
-              padding: PageItemSize.objectPadding2x,
+              padding: objectPadding2x,
               child: Text(
                 _model.materialsFood.isNotEmpty
                     ? _model.materialsFood.join('\n')
-                    : ProjectErrorText.foodMaterialNotFound,
+                    : foodMaterialNotFound,
                 style: AppTheme().customTextTheme().labelMedium,
               ),
             ),
@@ -213,15 +209,15 @@ class _BuildMaterials extends StatelessWidget {
   }
 }
 
-Text _buildRecipeTitle(BuildContext context) {
+Text _buildRecipeTitle(BuildContext context, String recipeText) {
   return Text(
-    ProjectWords.recipeText,
+    recipeText,
     style: Theme.of(context).textTheme.headlineMedium,
   );
 }
 
-class _BuildRecipe extends StatelessWidget {
-  const _BuildRecipe({
+class _BuildRecipe extends StatelessWidget with _pageSize, _pageWord {
+  _BuildRecipe({
     required PopularFavoriteModel model,
   }) : _model = model;
 
@@ -239,11 +235,11 @@ class _BuildRecipe extends StatelessWidget {
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Padding(
-              padding: PageItemSize.objectPadding2x,
+              padding: objectPadding2x,
               child: Text(
                 _model.recipe.isNotEmpty
                     ? _model.recipe.join('\n')
-                    : ProjectErrorText.foodRecipeNotFound,
+                    : foodRecipeNotFound,
                 style: AppTheme().customTextTheme().labelMedium,
               ),
             ),
@@ -254,8 +250,8 @@ class _BuildRecipe extends StatelessWidget {
   }
 }
 
-class _BuildFavoriteButton extends StatelessWidget {
-  const _BuildFavoriteButton();
+class _BuildFavoriteButton extends StatelessWidget with _pageWord {
+  _BuildFavoriteButton();
 
   @override
   Widget build(BuildContext context) {
@@ -267,7 +263,7 @@ class _BuildFavoriteButton extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           child: ButtonDecorationWidget(
             onPressed: () {},
-            buttonTitle: "Favoriye Ekle",
+            buttonTitle: buttonTitle,
           ),
         ),
       ),
@@ -275,10 +271,34 @@ class _BuildFavoriteButton extends StatelessWidget {
   }
 }
 
-mixin _cardSize {
-  final _cardHeight = 70.0;
-  final _cardWidth = 230.0;
-  final _cardBottom = 0.0;
-  final _backLeft = 20.0;
-  final _backBottom = 200.0;
+mixin _pageSize {
+  //obj
+  final cardHeight = 70.0;
+  final cardWidth = 230.0;
+  final cardBottom = 0.0;
+  final backLeft = 20.0;
+  final backBottom = 200.0;
+  final maxLines = 2;
+  final double foodPhotoHeightSize = 130;
+  final double foodPhotoWidthSize = 120;
+  final double spaceObjectsMin = 10;
+  //radius
+  final halfRadius = const Radius.circular(15);
+  final foodDetailRadius = const BorderRadius.only(
+    bottomLeft: Radius.circular(30),
+    bottomRight: Radius.circular(30),
+  );
+  //padding
+  final pagePadding2x = const EdgeInsets.all(16.0);
+  final objectPadding2x = const EdgeInsets.all(16.0);
+}
+
+mixin _pageWord {
+  final subtitleText = "Tarif için tıkla";
+  final foodNotFound = "Yemek adı yükleniyor...";
+  final foodRecipeNotFound = "Yemek tarifi yükleniyor...";
+  final buttonTitle = "Favoriye Ekle";
+  final materialFoodText = "Malzemeler";
+  final recipeText = "Yapılışı";
+  final foodMaterialNotFound = "Yemek malzeme yükleniyor...";
 }

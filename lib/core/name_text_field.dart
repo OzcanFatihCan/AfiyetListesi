@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 
 class NameTextField extends StatefulWidget {
@@ -16,12 +15,12 @@ class NameTextField extends StatefulWidget {
   State<NameTextField> createState() => _NameTextFieldState();
 }
 
-class _NameTextFieldState extends State<NameTextField> {
+class _NameTextFieldState extends State<NameTextField> with _pageSize {
   @override
   Widget build(BuildContext context) {
     const hintText = "Ad Soyad";
     return SizedBox(
-      height: PageItemSize.textFieldSize,
+      height: textFieldSize,
       child: TextField(
         controller: widget.controller,
         enabled: widget.isEditing,
@@ -43,21 +42,29 @@ class _NameTextFieldState extends State<NameTextField> {
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: Theme.of(context).colorScheme.onPrimary,
-          width: PageItemSize.textFieldBorderSize,
+          width: textFieldBorderSize,
         ),
         borderRadius: BorderRadius.all(
-          PageItemSize.fullRadius(),
+          fullRadius,
         ),
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: Theme.of(context).colorScheme.onPrimary,
-          width: PageItemSize.textFieldBorderSize,
+          width: textFieldBorderSize,
         ),
         borderRadius: BorderRadius.all(
-          PageItemSize.fullRadius(),
+          fullRadius,
         ),
       ),
     );
   }
+}
+
+mixin _pageSize {
+  //obj
+  final double textFieldSize = 50;
+  final double textFieldBorderSize = 3;
+  //radius
+  final fullRadius = const Radius.circular(30);
 }

@@ -16,7 +16,7 @@ class AfiyetListesi extends StatelessWidget {
       title: 'Afiyet Listesi',
       debugShowCheckedModeBanner: false,
       theme: AppTheme().theme,
-      home: const LoginPageView(),
+      home: LoginPageView(),
     );
   }
 }

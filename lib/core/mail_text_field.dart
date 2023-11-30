@@ -1,4 +1,3 @@
-import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -16,12 +15,12 @@ class MailTextField extends StatefulWidget {
   State<MailTextField> createState() => _MailTextFieldState();
 }
 
-class _MailTextFieldState extends State<MailTextField> {
+class _MailTextFieldState extends State<MailTextField> with _pageSize {
   @override
   Widget build(BuildContext context) {
     const hintText = "Email";
     return SizedBox(
-      height: PageItemSize.textFieldSize,
+      height: textFieldSize,
       child: TextField(
         controller: widget.controller,
         textInputAction: TextInputAction.next,
@@ -45,21 +44,29 @@ class _MailTextFieldState extends State<MailTextField> {
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: Theme.of(context).colorScheme.onPrimary,
-          width: PageItemSize.textFieldBorderSize,
+          width: textFieldBorderSize,
         ),
         borderRadius: BorderRadius.all(
-          PageItemSize.fullRadius(),
+          fullRadius,
         ),
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: Theme.of(context).colorScheme.onPrimary,
-          width: PageItemSize.textFieldBorderSize,
+          width: textFieldBorderSize,
         ),
         borderRadius: BorderRadius.all(
-          PageItemSize.fullRadius(),
+          fullRadius,
         ),
       ),
     );
   }
+}
+
+mixin _pageSize {
+  //obj
+  final double textFieldSize = 50;
+  final double textFieldBorderSize = 3;
+  //radius
+  final fullRadius = const Radius.circular(30);
 }

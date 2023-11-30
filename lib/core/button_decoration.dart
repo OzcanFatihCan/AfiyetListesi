@@ -1,7 +1,6 @@
-import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:flutter/material.dart';
 
-class ButtonDecorationWidget extends StatelessWidget with PageItemSize {
+class ButtonDecorationWidget extends StatelessWidget with _pageSize {
   ButtonDecorationWidget({
     Key? key,
     required this.onPressed,
@@ -19,7 +18,7 @@ class ButtonDecorationWidget extends StatelessWidget with PageItemSize {
       ),
       onPressed: onPressed,
       child: Padding(
-        padding: PageItemSize.pagePaddingx,
+        padding: pagePadding,
         child: Text(
           buttonTitle,
           style: Theme.of(context).textTheme.titleMedium,
@@ -27,4 +26,8 @@ class ButtonDecorationWidget extends StatelessWidget with PageItemSize {
       ),
     );
   }
+}
+
+mixin _pageSize {
+  final pagePadding = const EdgeInsets.all(8.0);
 }

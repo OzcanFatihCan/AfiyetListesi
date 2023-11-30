@@ -2,14 +2,11 @@ import 'package:afiyetlistesi/externalPackage/dotted_frame.dart';
 
 import 'package:afiyetlistesi/product/project_photo.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
+import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/view/Home/state/state_manage_home.dart';
 import 'package:afiyetlistesi/view/Popular/page/popular_page.dart';
-import 'package:flutter/material.dart';
-import 'package:afiyetlistesi/core/item_size.dart';
-import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:afiyetlistesi/view/Favorite/page/favorite_page.dart';
 import 'package:afiyetlistesi/view/Food/page/food_page.dart';
-
 import 'package:afiyetlistesi/view/Profile/page/profile_page.dart';
 
 class HomePageView extends StatefulWidget {
@@ -19,7 +16,7 @@ class HomePageView extends StatefulWidget {
   State<HomePageView> createState() => _HomePageState();
 }
 
-class _HomePageState extends StateManageHome {
+class _HomePageState extends StateManageHome with _pageWords {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,9 +33,9 @@ class _HomePageState extends StateManageHome {
         currentPage: currentPage,
       ),
       drawer: BuildDrawerWidget(
-        profilName: ProjectWords.profilName,
-        profilEmail: ProjectWords.profilEmail,
-        imageUrl: ProjectWords.profilPhotoUrl,
+        profilName: profilName,
+        profilEmail: profilEmail,
+        imageUrl: profilPhotoUrl,
         pageController: pageController,
       ),
     );
@@ -77,13 +74,14 @@ class BottomNavigationBarWidget extends StatefulWidget {
       _BottomNavigationBarWidgetState();
 }
 
-class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
+class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
+    with _pageSize, _pageDuration {
   void _pageChangeBottomNav(int index) {
     setState(
       () {
         widget._pageController.animateToPage(
           index,
-          duration: const Duration(seconds: 1),
+          duration: Duration(seconds: duration),
           curve: Curves.decelerate,
         );
       },
@@ -93,12 +91,12 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: PageItemSize.bottomPadding,
+      padding: bottomPadding,
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
-        height: PageItemSize.bottomNavHeight,
+        height: bottomNavHeight,
         child: Card(
-          elevation: PageItemSize.elevationValue,
+          elevation: elevationValue,
           shape: Theme.of(context).cardTheme.shape,
           color: Theme.of(context).cardTheme.color,
           child: Row(
@@ -175,9 +173,9 @@ class BuildDrawerWidget extends StatefulWidget {
   State<BuildDrawerWidget> createState() => BuildDrawerWidgetState();
 }
 
-class BuildDrawerWidgetState extends State<BuildDrawerWidget> {
+class BuildDrawerWidgetState extends State<BuildDrawerWidget>
+    with _pageSize, _pageDuration {
   int _selectedOptionIndex = -1;
-  final double aspectValue = 1;
   void _updateSelectedOption(int index) {
     setState(() {
       _selectedOptionIndex = index;
@@ -189,7 +187,7 @@ class BuildDrawerWidgetState extends State<BuildDrawerWidget> {
       () {
         widget._pageController.animateToPage(
           index,
-          duration: const Duration(seconds: 1),
+          duration: Duration(seconds: duration),
           curve: Curves.decelerate,
         );
       },
@@ -206,11 +204,11 @@ class BuildDrawerWidgetState extends State<BuildDrawerWidget> {
           UserAccountsDrawerHeader(
             accountName: _BuildDrawerText(
               title: widget.profilName,
-              limit: PageItemSize.textLimitx,
+              limit: textLimitx,
             ),
             accountEmail: _BuildDrawerText(
               title: widget.profilEmail,
-              limit: PageItemSize.textLimit2x,
+              limit: textLimit2x,
             ),
             currentAccountPicture: _buildDrawerPhoto(context),
             decoration: BoxDecoration(
@@ -221,14 +219,14 @@ class BuildDrawerWidgetState extends State<BuildDrawerWidget> {
             ),
           ),
           Padding(
-            padding: PageItemSize.listPadding2x,
+            padding: listPadding2x,
             child: Column(
               children: [
                 Divider(
                   color: Theme.of(context).colorScheme.onPrimary,
                 ),
-                const SizedBox(
-                  height: PageItemSize.spaceObjects,
+                SizedBox(
+                  height: spaceObjects,
                 ),
                 _BuildDrawerOptions(
                   drawerIcon: Icons.assignment_add,
@@ -338,11 +336,11 @@ class BuildDrawerWidgetState extends State<BuildDrawerWidget> {
   }
 }
 
-class _BuildDrawerText extends StatelessWidget {
+class _BuildDrawerText extends StatelessWidget with _pageSize {
   final String title;
   final int limit;
 
-  const _BuildDrawerText({
+  _BuildDrawerText({
     Key? key,
     required this.title,
     required this.limit,
@@ -351,11 +349,11 @@ class _BuildDrawerText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: PageItemSize.listPaddingx,
+      padding: listPaddingx,
       child: Text(
         title.length <= limit ? title : '${title.substring(0, limit)}...',
         overflow: TextOverflow.ellipsis,
-        maxLines: PageItemSize.drawerLines,
+        maxLines: drawerLines,
         softWrap: true,
         style: AppTheme().customTextTheme().titleSmall,
       ),
@@ -363,8 +361,8 @@ class _BuildDrawerText extends StatelessWidget {
   }
 }
 
-class _BuildDrawerOptions extends StatelessWidget {
-  const _BuildDrawerOptions({
+class _BuildDrawerOptions extends StatelessWidget with _pageSize {
+  _BuildDrawerOptions({
     Key? key,
     required this.drawerIcon,
     required this.drawerChoice,
@@ -382,7 +380,7 @@ class _BuildDrawerOptions extends StatelessWidget {
     return Card(
       shape: AppTheme().customCardTheme().shape,
       color: Theme.of(context).cardTheme.color,
-      elevation: PageItemSize.elevationValueOff,
+      elevation: elevationValueOff,
       child: ListTile(
         leading: Icon(
           drawerIcon,
@@ -397,4 +395,33 @@ class _BuildDrawerOptions extends StatelessWidget {
       ),
     );
   }
+}
+
+mixin _pageSize {
+  //obj
+  final int drawerLines = 1;
+  final double spaceObjects = 20;
+  final int textLimitx = 35;
+  final int textLimit2x = 50;
+  final double bottomNavHeight = 60;
+  final double aspectValue = 1;
+//padding
+  final listPadding2x = const EdgeInsets.symmetric(horizontal: 15);
+  final listPaddingx = const EdgeInsets.symmetric(horizontal: 10);
+  final bottomPadding = const EdgeInsets.only(bottom: 25, right: 20, left: 20);
+
+  //elevation
+  final double elevationValueOff = 0;
+  final double elevationValue = 8;
+}
+
+mixin _pageDuration {
+  final duration = 1;
+}
+
+mixin _pageWords {
+  final profilName = "Elizabeth Olsen";
+  final profilEmail = "ElizabethOlsen@gmail.com";
+  final profilPhotoUrl =
+      "https://image.tmdb.org/t/p/original/mbMsmQE5CyMVTIGMGCw2XpcPCOc.jpg";
 }

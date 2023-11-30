@@ -1,10 +1,9 @@
-import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/core/mail_text_field.dart';
 import 'package:afiyetlistesi/core/name_text_field.dart';
 import 'package:afiyetlistesi/core/password_text_field.dart';
 import 'package:afiyetlistesi/externalPackage/dotted_frame.dart';
 import 'package:afiyetlistesi/product/project_photo.dart';
-import 'package:afiyetlistesi/product/project_words.dart';
+
 import 'package:afiyetlistesi/view/Profile/state/state_manage_profile.dart';
 import 'package:flutter/material.dart';
 
@@ -17,33 +16,33 @@ class ProfilePageView extends StatefulWidget {
   State<ProfilePageView> createState() => _ProfilePageViewState();
 }
 
-class _ProfilePageViewState extends StateManageProfile {
+class _ProfilePageViewState extends StateManageProfile with _pageSize {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Padding(
-        padding: PageItemSize.pagePadding2x,
+        padding: pagePadding2x,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               _buildEditButton(),
-              const _BuildProfilPhoto(),
-              const SizedBox(height: PageItemSize.spaceObjects),
+              _BuildProfilPhoto(),
+              SizedBox(height: spaceObjects),
               Divider(
                 color: Theme.of(context).colorScheme.onPrimary,
-                endIndent: 30,
-                indent: 30,
-                thickness: 2,
+                endIndent: indent,
+                indent: indent,
+                thickness: thickness,
               ),
-              const SizedBox(height: PageItemSize.spaceObjects),
+              SizedBox(height: spaceObjects),
               NameTextField(
                 isEditing: isEditing,
               ),
-              const SizedBox(height: PageItemSize.spaceObjects),
+              SizedBox(height: spaceObjects),
               MailTextField(isEditing: isEditing),
-              const SizedBox(height: PageItemSize.spaceObjects),
+              SizedBox(height: spaceObjects),
               PasswordTextField(isEditing: isEditing),
             ],
           ),
@@ -69,8 +68,8 @@ class _ProfilePageViewState extends StateManageProfile {
   }
 }
 
-class _BuildProfilPhoto extends StatelessWidget {
-  const _BuildProfilPhoto();
+class _BuildProfilPhoto extends StatelessWidget with _pageWord {
+  _BuildProfilPhoto();
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +85,9 @@ class _BuildProfilPhoto extends StatelessWidget {
               aspectRatio: aspectValue,
               child: InkWell(
                 onTap: () {},
-                child: ProjectWords.profilPhotoUrl.isNotEmpty
+                child: profilPhotoUrl.isNotEmpty
                     ? Image.network(
-                        ProjectWords.profilPhotoUrl,
+                        profilPhotoUrl,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return const Center(
@@ -116,4 +115,17 @@ class _BuildProfilPhoto extends StatelessWidget {
       ),
     );
   }
+}
+
+mixin _pageSize {
+  //obj
+  final double spaceObjects = 20;
+  final double indent = 30;
+  final double thickness = 2;
+  //padding
+  final pagePadding2x = const EdgeInsets.all(16.0);
+}
+mixin _pageWord {
+  final profilPhotoUrl =
+      "https://image.tmdb.org/t/p/original/mbMsmQE5CyMVTIGMGCw2XpcPCOc.jpg";
 }

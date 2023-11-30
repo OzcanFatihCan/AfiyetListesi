@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 
 class PasswordTextField extends StatefulWidget {
@@ -16,7 +15,7 @@ class PasswordTextField extends StatefulWidget {
   State<PasswordTextField> createState() => _PasswordTextFieldState();
 }
 
-class _PasswordTextFieldState extends State<PasswordTextField> {
+class _PasswordTextFieldState extends State<PasswordTextField> with _pageSize {
   final int _animatedDuration = 2;
   bool _isSecure = true;
 
@@ -30,7 +29,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
   Widget build(BuildContext context) {
     const hintText = "Parola";
     return SizedBox(
-      height: PageItemSize.textFieldSize,
+      height: textFieldSize,
       child: TextField(
         textInputAction: TextInputAction.next,
         controller: widget.controller,
@@ -56,19 +55,19 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: Theme.of(context).colorScheme.onPrimary,
-          width: PageItemSize.textFieldBorderSize,
+          width: textFieldBorderSize,
         ),
         borderRadius: BorderRadius.all(
-          PageItemSize.fullRadius(),
+          fullRadius,
         ),
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: Theme.of(context).colorScheme.onPrimary,
-          width: PageItemSize.textFieldBorderSize,
+          width: textFieldBorderSize,
         ),
         borderRadius: BorderRadius.all(
-          PageItemSize.fullRadius(),
+          fullRadius,
         ),
       ),
     );
@@ -87,4 +86,12 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       ),
     );
   }
+}
+
+mixin _pageSize {
+  //obj
+  final double textFieldSize = 50;
+  final double textFieldBorderSize = 3;
+  //radius
+  final fullRadius = const Radius.circular(30);
 }
