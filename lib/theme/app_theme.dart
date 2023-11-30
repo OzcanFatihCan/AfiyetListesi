@@ -12,9 +12,22 @@ class AppTheme {
       appBarTheme: AppBarTheme(
         centerTitle: true,
         systemOverlayStyle: SystemUiOverlayStyle.light,
-        backgroundColor: _themeColor.deactivedScafooldColor,
+        backgroundColor: _themeColor.transparentColor,
         elevation: _themeSize.elevationValueOff,
         foregroundColor: _themeColor.blackColor,
+      ),
+      colorScheme: ColorScheme(
+        brightness: Brightness.light,
+        primary: _themeColor.blackColor,
+        onPrimary: _themeColor.redColor,
+        secondary: _themeColor.whiteColor,
+        onSecondary: _themeColor.greyColor,
+        error: _themeColor.redColor,
+        onError: _themeColor.redColor2,
+        background: _themeColor.mainColor,
+        onBackground: _themeColor.mainColor,
+        surface: _themeColor.transparentColor,
+        onSurface: _themeColor.millionGrey,
       ),
       textTheme: TextTheme(
         bodySmall: TextStyle(
@@ -102,11 +115,11 @@ class AppTheme {
           _themeSize.halfRadius(),
         ),
         side: BorderSide(
-          color: _themeColor.cardColor,
+          color: _themeColor.redColor,
           width: _themeSize.textFieldBorderSize,
         ),
       ),
-      color: _themeColor.cardColor,
+      color: _themeColor.redColor,
     );
   }
 
@@ -183,28 +196,14 @@ class AppTheme {
 }
 
 class _ThemeColors {
+  final Color mainColor = const Color.fromARGB(255, 244, 225, 231);
   final Color blackColor = Colors.black;
-  final Color millionGrey = const Color(0xFF999999);
-  final Color whiteColor = Colors.white;
-  final Color cardColor = Colors.red;
   final Color redColor = Colors.red;
-
-  final Color activeButtonColor = Colors.red;
-  final Color activeButtonColor2 = Colors.white;
-  final Color deactivedButtonColor = Colors.transparent;
-  final Color activeButtonForeColor = Colors.white;
-  final Color deactiveButtonForeColor = Colors.grey;
-  final Color mainPageColor = const Color.fromARGB(255, 244, 225, 231);
-  final Color textFieldColor = Colors.red;
-  final Color textFieldContentOnColor = Colors.white;
-  final Color textFieldContentOffColor = Colors.transparent;
-
-  final Color deactivedScafooldColor = Colors.transparent;
-  final Color activeIconColor = Colors.red;
-  final Color deactiveIconColor = Colors.grey;
-  final Color profilTextColor = Colors.red;
-  final Color subtitleColor = Colors.grey;
-  final Color backButtonColor = const Color.fromARGB(121, 160, 158, 158);
+  final Color redColor2 = const Color.fromARGB(255, 233, 104, 94);
+  final Color whiteColor = Colors.white;
+  final Color greyColor = Colors.grey;
+  final Color transparentColor = Colors.transparent;
+  final Color millionGrey = const Color(0xFF999999);
 }
 
 class _ThemeSizes {

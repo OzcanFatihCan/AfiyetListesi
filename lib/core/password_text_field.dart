@@ -1,7 +1,6 @@
-import 'package:afiyetlistesi/core/color_set.dart';
+import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
-import 'package:flutter/material.dart';
 
 class PasswordTextField extends StatefulWidget {
   const PasswordTextField({
@@ -50,13 +49,13 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       hintText: hintText,
       suffixIcon: _onVisiblityIcon(),
       filled: true,
-      fillColor: PageColors.textFieldContentOnColor,
-      prefixIconColor: PageColors.textFieldColor,
+      fillColor: Theme.of(context).colorScheme.secondary,
+      prefixIconColor: Theme.of(context).colorScheme.onPrimary,
       prefixIcon: const Icon(Icons.password_rounded),
       hintStyle: AppTheme().customTextTheme().titleMedium,
       focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(
-          color: PageColors.textFieldColor,
+        borderSide: BorderSide(
+          color: Theme.of(context).colorScheme.onPrimary,
           width: PageItemSize.textFieldBorderSize,
         ),
         borderRadius: BorderRadius.all(
@@ -64,8 +63,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         ),
       ),
       enabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(
-          color: PageColors.textFieldColor,
+        borderSide: BorderSide(
+          color: Theme.of(context).colorScheme.onPrimary,
           width: PageItemSize.textFieldBorderSize,
         ),
         borderRadius: BorderRadius.all(
@@ -78,7 +77,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
   IconButton _onVisiblityIcon() {
     return IconButton(
       onPressed: _changeLoading,
-      color: PageColors.activeButtonColor,
+      color: Theme.of(context).colorScheme.onPrimary,
       icon: AnimatedCrossFade(
         firstChild: const Icon(Icons.visibility_outlined),
         secondChild: const Icon(Icons.visibility_off_outlined),

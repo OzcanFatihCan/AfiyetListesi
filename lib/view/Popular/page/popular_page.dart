@@ -1,21 +1,27 @@
 import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:afiyetlistesi/view/FoodDetail/page/food_detail_page.dart';
 import 'package:flutter/material.dart';
-import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/core/search_text_field.dart';
 import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
 import 'package:afiyetlistesi/product/error_text.dart';
 
-class PopularPageView extends StatelessWidget {
-  const PopularPageView({super.key});
+class PopularPageView extends StatefulWidget {
+  const PopularPageView({
+    super.key,
+  });
 
+  @override
+  State<PopularPageView> createState() => _PopularPageViewState();
+}
+
+class _PopularPageViewState extends State<PopularPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: PageColors.mainPageColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SingleChildScrollView(
         padding: EdgeInsets.zero,
         child: Padding(
@@ -116,8 +122,8 @@ class _ButtonWidget extends StatelessWidget {
         shape: const StadiumBorder(),
         elevation: PageItemSize.elevationValueOff,
         backgroundColor: isSelected
-            ? PageColors.activeButtonColor
-            : PageColors.deactivedButtonColor,
+            ? Theme.of(context).colorScheme.onPrimary
+            : Theme.of(context).colorScheme.surface,
       ),
       onPressed: onPressed,
       child: Padding(

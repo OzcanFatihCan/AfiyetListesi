@@ -1,11 +1,10 @@
-import 'package:afiyetlistesi/manager/appbar_manager.dart';
 import 'package:afiyetlistesi/view/Home/page/home_page.dart';
 
 import 'package:flutter/material.dart';
 
 abstract class StateManageHome extends State<HomePageView> {
   final pageController = PageController(viewportFraction: 1.0);
-  late AppBarManager appBarManager;
+
   int currentPage = PageName.popular.index;
   bool isEditing = false;
   bool isLoading = false;
@@ -14,15 +13,6 @@ abstract class StateManageHome extends State<HomePageView> {
     setState(
       () {
         isLoading = !isLoading;
-      },
-    );
-  }
-
-//profil func
-  void changeEditing() {
-    setState(
-      () {
-        isEditing = !isEditing;
       },
     );
   }
@@ -46,16 +36,7 @@ abstract class StateManageHome extends State<HomePageView> {
           ),
         ];
       case PageName.profile:
-        return [
-          IconButton(
-            icon: isEditing
-                ? const Icon(Icons.check_rounded)
-                : const Icon(Icons.edit_rounded),
-            onPressed: () {
-              changeEditing();
-            },
-          ),
-        ];
+        return [];
       default:
         return [];
     }

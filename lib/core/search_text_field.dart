@@ -1,9 +1,8 @@
-import 'package:afiyetlistesi/core/color_set.dart';
+import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
-import 'package:flutter/material.dart';
 
-class SearchTextField extends StatelessWidget {
+class SearchTextField extends StatefulWidget {
   const SearchTextField({
     Key? key,
     this.controller,
@@ -12,12 +11,17 @@ class SearchTextField extends StatelessWidget {
   final TextEditingController? controller;
 
   @override
+  State<SearchTextField> createState() => _SearchTextFieldState();
+}
+
+class _SearchTextFieldState extends State<SearchTextField> {
+  @override
   Widget build(BuildContext context) {
     const hintText = "Yemek ara";
     return SizedBox(
       height: PageItemSize.textFieldSize,
       child: TextField(
-        controller: controller,
+        controller: widget.controller,
         keyboardType: TextInputType.text,
         decoration: _inputDecoration(hintText, context),
       ),
@@ -26,13 +30,13 @@ class SearchTextField extends StatelessWidget {
 
   InputDecoration _inputDecoration(String hintText, BuildContext context) {
     return InputDecoration(
-      prefixIconColor: PageColors.textFieldColor,
+      prefixIconColor: Theme.of(context).colorScheme.onPrimary,
       prefixIcon: const Icon(Icons.search_rounded),
       hintText: hintText,
       hintStyle: AppTheme().customTextTheme().titleMedium,
       focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(
-          color: PageColors.textFieldColor,
+        borderSide: BorderSide(
+          color: Theme.of(context).colorScheme.onPrimary,
           width: PageItemSize.textFieldBorderSize,
         ),
         borderRadius: BorderRadius.all(
@@ -40,8 +44,8 @@ class SearchTextField extends StatelessWidget {
         ),
       ),
       enabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(
-          color: PageColors.textFieldColor,
+        borderSide: BorderSide(
+          color: Theme.of(context).colorScheme.onPrimary,
           width: PageItemSize.textFieldBorderSize,
         ),
         borderRadius: BorderRadius.all(

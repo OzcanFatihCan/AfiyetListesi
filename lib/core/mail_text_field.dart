@@ -1,4 +1,3 @@
-import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -39,13 +38,13 @@ class _MailTextFieldState extends State<MailTextField> {
       border: const UnderlineInputBorder(),
       hintText: hintText,
       filled: true,
-      fillColor: PageColors.textFieldContentOnColor,
-      prefixIconColor: PageColors.textFieldColor,
+      fillColor: Theme.of(context).colorScheme.secondary,
+      prefixIconColor: Theme.of(context).colorScheme.onPrimary,
       prefixIcon: const Icon(Icons.mail_rounded),
       hintStyle: AppTheme().customTextTheme().titleMedium,
       focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(
-          color: PageColors.textFieldColor,
+        borderSide: BorderSide(
+          color: Theme.of(context).colorScheme.onPrimary,
           width: PageItemSize.textFieldBorderSize,
         ),
         borderRadius: BorderRadius.all(
@@ -53,8 +52,8 @@ class _MailTextFieldState extends State<MailTextField> {
         ),
       ),
       enabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(
-          color: PageColors.textFieldColor,
+        borderSide: BorderSide(
+          color: Theme.of(context).colorScheme.onPrimary,
           width: PageItemSize.textFieldBorderSize,
         ),
         borderRadius: BorderRadius.all(

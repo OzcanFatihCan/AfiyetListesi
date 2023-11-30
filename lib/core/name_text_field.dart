@@ -1,9 +1,8 @@
-import 'package:afiyetlistesi/core/color_set.dart';
+import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
-import 'package:flutter/material.dart';
 
-class NameTextField extends StatelessWidget {
+class NameTextField extends StatefulWidget {
   const NameTextField({
     Key? key,
     this.controller,
@@ -14,13 +13,18 @@ class NameTextField extends StatelessWidget {
   final TextEditingController? controller;
 
   @override
+  State<NameTextField> createState() => _NameTextFieldState();
+}
+
+class _NameTextFieldState extends State<NameTextField> {
+  @override
   Widget build(BuildContext context) {
     const hintText = "Ad Soyad";
     return SizedBox(
       height: PageItemSize.textFieldSize,
       child: TextField(
-        controller: controller,
-        enabled: isEditing,
+        controller: widget.controller,
+        enabled: widget.isEditing,
         keyboardType: TextInputType.name,
         textInputAction: TextInputAction.next,
         decoration: _nameDecoration(hintText),
@@ -31,14 +35,14 @@ class NameTextField extends StatelessWidget {
   InputDecoration _nameDecoration(String hintText) {
     return InputDecoration(
       filled: true,
-      fillColor: PageColors.textFieldContentOnColor,
-      prefixIconColor: PageColors.textFieldColor,
+      fillColor: Theme.of(context).colorScheme.secondary,
+      prefixIconColor: Theme.of(context).colorScheme.onPrimary,
       prefixIcon: const Icon(Icons.person),
       hintText: hintText,
       hintStyle: AppTheme().customTextTheme().titleMedium,
       focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(
-          color: PageColors.textFieldColor,
+        borderSide: BorderSide(
+          color: Theme.of(context).colorScheme.onPrimary,
           width: PageItemSize.textFieldBorderSize,
         ),
         borderRadius: BorderRadius.all(
@@ -46,8 +50,8 @@ class NameTextField extends StatelessWidget {
         ),
       ),
       enabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(
-          color: PageColors.textFieldColor,
+        borderSide: BorderSide(
+          color: Theme.of(context).colorScheme.onPrimary,
           width: PageItemSize.textFieldBorderSize,
         ),
         borderRadius: BorderRadius.all(

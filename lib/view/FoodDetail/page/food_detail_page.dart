@@ -1,7 +1,6 @@
 import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/core/button_decoration.dart';
-import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
 import 'package:afiyetlistesi/product/error_text.dart';
@@ -23,7 +22,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> with _cardSize {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: PageColors.mainPageColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
         children: [
           Expanded(
@@ -132,11 +131,11 @@ class _BackButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      backgroundColor: PageColors.backButtonColor,
+      backgroundColor: Theme.of(context).colorScheme.onSurface,
       child: IconButton(
-        icon: const Icon(
+        icon: Icon(
           Icons.arrow_back_ios_new_rounded,
-          color: PageColors.activeButtonColor,
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
         onPressed: () {
           Navigator.of(context).pop();

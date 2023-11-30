@@ -1,5 +1,4 @@
 import 'package:afiyetlistesi/core/button_decoration.dart';
-import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/core/mail_text_field.dart';
 import 'package:afiyetlistesi/core/name_text_field.dart';
@@ -16,7 +15,7 @@ class UserRegisterView extends StatelessWidget with _NavigatorManager {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: PageColors.deactivedScafooldColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       resizeToAvoidBottomInset: false,
       body: Stack(
         fit: StackFit.expand,

@@ -1,5 +1,4 @@
 import 'package:afiyetlistesi/core/button_decoration.dart';
-import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/core/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/project_photo.dart';
@@ -14,7 +13,7 @@ class LoginPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: PageColors.deactivedScafooldColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Stack(
         fit: StackFit.expand,
         children: [

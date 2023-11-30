@@ -1,9 +1,7 @@
-import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:flutter/material.dart';
 
-class ButtonDecorationWidget extends StatelessWidget
-    with PageColors, PageItemSize {
+class ButtonDecorationWidget extends StatelessWidget with PageItemSize {
   ButtonDecorationWidget({
     Key? key,
     required this.onPressed,
@@ -16,9 +14,8 @@ class ButtonDecorationWidget extends StatelessWidget
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        //side: const BorderSide(color: _FoodPageColors.headColor),
         shape: const StadiumBorder(),
-        backgroundColor: PageColors.activeButtonColor,
+        backgroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
       onPressed: onPressed,
       child: Padding(

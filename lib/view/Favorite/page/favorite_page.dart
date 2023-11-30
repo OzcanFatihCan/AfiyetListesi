@@ -1,6 +1,5 @@
 import 'package:afiyetlistesi/view/Favorite/state/state_manage_favorite.dart';
 import 'package:flutter/material.dart';
-import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/model/favorite_model.dart';
 import 'package:afiyetlistesi/product/error_text.dart';
@@ -17,7 +16,7 @@ class _FavoritePageViewState extends StateManageFavorite {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: PageColors.mainPageColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Padding(
         padding: PageItemSize.pagePadding2x,
         child: ListView.builder(
@@ -83,9 +82,9 @@ class _BuildFavoriteCard extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         trailing: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.delete_forever_rounded,
-            color: PageColors.activeButtonColor,
+            color: Theme.of(context).colorScheme.onPrimary,
           ),
           onPressed: () {},
         ),

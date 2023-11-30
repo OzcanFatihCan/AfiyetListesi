@@ -1,4 +1,3 @@
-import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:flutter/material.dart';
 
 class FoodPageView extends StatelessWidget {
@@ -6,9 +5,9 @@ class FoodPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: PageColors.mainPageColor,
-      body: Center(
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: const Center(
         child: Text("Yemekler Sayfası"),
       ),
     );

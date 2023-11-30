@@ -1,10 +1,10 @@
 import 'package:afiyetlistesi/externalPackage/dotted_frame.dart';
+
 import 'package:afiyetlistesi/product/project_photo.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:afiyetlistesi/view/Home/state/state_manage_home.dart';
 import 'package:afiyetlistesi/view/Popular/page/popular_page.dart';
 import 'package:flutter/material.dart';
-import 'package:afiyetlistesi/core/color_set.dart';
 import 'package:afiyetlistesi/core/item_size.dart';
 import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:afiyetlistesi/view/Favorite/page/favorite_page.dart';
@@ -23,21 +23,19 @@ class _HomePageState extends StateManageHome {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: PageColors.mainPageColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: Text(
           PageName.values[currentPage].getPageTitle(),
           style: Theme.of(context).textTheme.headlineSmall,
         ),
-        actions: appBarManager.buildActionsForPage(
-            currentPage: PageName.values[currentPage]),
       ),
       body: _buildPageViewWidget(),
-      bottomNavigationBar: _BottomNavigationBarWidget(
+      bottomNavigationBar: BottomNavigationBarWidget(
         pageController: pageController,
         currentPage: currentPage,
       ),
-      drawer: _BuildDrawerWidget(
+      drawer: BuildDrawerWidget(
         profilName: ProjectWords.profilName,
         profilEmail: ProjectWords.profilEmail,
         imageUrl: ProjectWords.profilPhotoUrl,
@@ -53,35 +51,33 @@ class _HomePageState extends StateManageHome {
       onPageChanged: (int index) {
         pageChange(index);
       },
-      children: [
-        const PopularPageView(),
-        const FavoritePageView(),
-        ProfilePageView(
-          isEditing: isEditing,
-        ),
-        const FoodPageView(),
+      children: const [
+        PopularPageView(),
+        FavoritePageView(),
+        ProfilePageView(),
+        FoodPageView(),
       ],
     );
   }
 }
 
-class _BottomNavigationBarWidget extends StatefulWidget {
-  final PageController _pageController;
-  final int _currentPage;
-
-  const _BottomNavigationBarWidget({
+class BottomNavigationBarWidget extends StatefulWidget {
+  const BottomNavigationBarWidget({
+    super.key,
     required PageController pageController,
     required int currentPage,
   })  : _pageController = pageController,
         _currentPage = currentPage;
 
+  final PageController _pageController;
+  final int _currentPage;
+
   @override
-  State<_BottomNavigationBarWidget> createState() =>
+  State<BottomNavigationBarWidget> createState() =>
       _BottomNavigationBarWidgetState();
 }
 
-class _BottomNavigationBarWidgetState
-    extends State<_BottomNavigationBarWidget> {
+class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
   void _pageChangeBottomNav(int index) {
     setState(
       () {
@@ -115,8 +111,8 @@ class _BottomNavigationBarWidgetState
                 icon: Icon(
                   Icons.home_rounded,
                   color: widget._currentPage == PageName.popular.index
-                      ? PageColors.activeIconColor
-                      : PageColors.deactiveIconColor,
+                      ? Theme.of(context).colorScheme.onPrimary
+                      : Theme.of(context).colorScheme.onSecondary,
                 ),
               ),
               IconButton(
@@ -126,8 +122,8 @@ class _BottomNavigationBarWidgetState
                 icon: Icon(
                   Icons.favorite_rounded,
                   color: widget._currentPage == PageName.favorite.index
-                      ? PageColors.activeIconColor
-                      : PageColors.deactiveIconColor,
+                      ? Theme.of(context).colorScheme.onPrimary
+                      : Theme.of(context).colorScheme.onSecondary,
                 ),
               ),
               IconButton(
@@ -137,8 +133,8 @@ class _BottomNavigationBarWidgetState
                 icon: Icon(
                   Icons.person,
                   color: widget._currentPage == PageName.profile.index
-                      ? PageColors.activeIconColor
-                      : PageColors.deactiveIconColor,
+                      ? Theme.of(context).colorScheme.onPrimary
+                      : Theme.of(context).colorScheme.onSecondary,
                 ),
               ),
               IconButton(
@@ -148,8 +144,8 @@ class _BottomNavigationBarWidgetState
                 icon: Icon(
                   Icons.restaurant_rounded,
                   color: widget._currentPage == PageName.foods.index
-                      ? PageColors.activeIconColor
-                      : PageColors.deactiveIconColor,
+                      ? Theme.of(context).colorScheme.onPrimary
+                      : Theme.of(context).colorScheme.onSecondary,
                 ),
               ),
             ],
@@ -160,13 +156,13 @@ class _BottomNavigationBarWidgetState
   }
 }
 
-class _BuildDrawerWidget extends StatefulWidget {
+class BuildDrawerWidget extends StatefulWidget {
   final String profilName;
   final String profilEmail;
   final String imageUrl;
   final PageController _pageController;
 
-  const _BuildDrawerWidget({
+  const BuildDrawerWidget({
     Key? key,
     required this.profilName,
     required this.profilEmail,
@@ -176,10 +172,10 @@ class _BuildDrawerWidget extends StatefulWidget {
         super(key: key);
 
   @override
-  State<_BuildDrawerWidget> createState() => _BuildDrawerWidgetState();
+  State<BuildDrawerWidget> createState() => BuildDrawerWidgetState();
 }
 
-class _BuildDrawerWidgetState extends State<_BuildDrawerWidget> {
+class BuildDrawerWidgetState extends State<BuildDrawerWidget> {
   int _selectedOptionIndex = -1;
   final double aspectValue = 1;
   void _updateSelectedOption(int index) {
@@ -203,7 +199,7 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: PageColors.mainPageColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -217,9 +213,9 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget> {
               limit: PageItemSize.textLimit2x,
             ),
             currentAccountPicture: _buildDrawerPhoto(context),
-            decoration: const BoxDecoration(
-              color: Colors.pinkAccent,
-              image: DecorationImage(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.onPrimary,
+              image: const DecorationImage(
                   image: AssetImage(ProjectPhotos.profilBannerUrl),
                   fit: BoxFit.cover),
             ),
@@ -228,8 +224,8 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget> {
             padding: PageItemSize.listPadding2x,
             child: Column(
               children: [
-                const Divider(
-                  color: PageColors.profilTextColor,
+                Divider(
+                  color: Theme.of(context).colorScheme.onPrimary,
                 ),
                 const SizedBox(
                   height: PageItemSize.spaceObjects,
@@ -301,7 +297,7 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget> {
 
   CircleAvatar _buildDrawerPhoto(BuildContext context) {
     return CircleAvatar(
-      backgroundColor: PageColors.deactivedButtonColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       child: DottedFrame(
         child: ClipOval(
           child: AspectRatio(
@@ -325,9 +321,10 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget> {
                       child: SizedBox(
                         height: MediaQuery.of(context).size.height * 0.3,
                         width: MediaQuery.of(context).size.width * 0.80,
-                        child: const CircleAvatar(
-                          backgroundColor: PageColors.deactivedButtonColor,
-                          backgroundImage: AssetImage(
+                        child: CircleAvatar(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.surface,
+                          backgroundImage: const AssetImage(
                             ProjectPhotos.profilPhotoUpdateUrl,
                           ),
                         ),
@@ -387,7 +384,10 @@ class _BuildDrawerOptions extends StatelessWidget {
       color: Theme.of(context).cardTheme.color,
       elevation: PageItemSize.elevationValueOff,
       child: ListTile(
-        leading: Icon(drawerIcon, color: PageColors.profilTextColor),
+        leading: Icon(
+          drawerIcon,
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
         title: Text(
           drawerChoice,
           softWrap: true,
