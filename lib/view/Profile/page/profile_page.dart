@@ -7,6 +7,8 @@ import 'package:afiyetlistesi/product/project_photo.dart';
 import 'package:afiyetlistesi/view/Profile/state/state_manage_profile.dart';
 import 'package:flutter/material.dart';
 
+part '../widget/profil_photo_widget.dart';
+
 class ProfilePageView extends StatefulWidget {
   const ProfilePageView({
     super.key,
@@ -64,55 +66,6 @@ class _ProfilePageViewState extends StateManageProfile with _pageSize {
           },
         ),
       ],
-    );
-  }
-}
-
-class _BuildProfilPhoto extends StatelessWidget with _pageWord {
-  _BuildProfilPhoto();
-
-  @override
-  Widget build(BuildContext context) {
-    const double aspectValue = 1;
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.30,
-      width: MediaQuery.of(context).size.width * 0.80,
-      child: CircleAvatar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        child: DottedFrame(
-          child: ClipOval(
-            child: AspectRatio(
-              aspectRatio: aspectValue,
-              child: InkWell(
-                onTap: () {},
-                child: profilPhotoUrl.isNotEmpty
-                    ? Image.network(
-                        profilPhotoUrl,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        },
-                      )
-                    : Center(
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.3,
-                          width: MediaQuery.of(context).size.width * 0.80,
-                          child: CircleAvatar(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.surface,
-                            backgroundImage: const AssetImage(
-                              ProjectPhotos.profilPhotoUpdateUrl,
-                            ),
-                          ),
-                        ),
-                      ),
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

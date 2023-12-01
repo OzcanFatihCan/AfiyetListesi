@@ -1,6 +1,8 @@
-import 'package:afiyetlistesi/view/Favorite/state/state_manage_favorite.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/model/favorite_model.dart';
+import 'package:afiyetlistesi/view/Favorite/state/state_manage_favorite.dart';
+
+part '../widget/favorite_card_widget.dart';
 
 class FavoritePageView extends StatefulWidget {
   const FavoritePageView({super.key});
@@ -27,68 +29,6 @@ class _FavoritePageViewState extends StateManageFavorite with _pageSize {
   }
 }
 
-class _BuildFavoriteCard extends StatelessWidget with _pageSize {
-  _BuildFavoriteCard({
-    required FavoriteModel model,
-  }) : _model = model;
-
-  final FavoriteModel _model;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: Theme.of(context).cardTheme.shape,
-      color: Theme.of(context).cardColor,
-      child: ListTile(
-        leading: ClipRRect(
-          borderRadius: BorderRadius.all(
-            halfRadius,
-          ),
-          child: _model.imagePath.isNotEmpty
-              ? Image.network(
-                  _model.imagePath,
-                  height: listPhotoHeightSize,
-                  width: listPhotoWidthSize,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return SizedBox(
-                      height: listPhotoHeightSize,
-                      width: listPhotoWidthSize,
-                      child: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  },
-                )
-              : SizedBox(
-                  height: listPhotoHeightSize,
-                  width: listPhotoWidthSize,
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
-        ),
-        title: Text(
-          _model.title.isNotEmpty ? _model.title : _pageWord.foodNotFound,
-          style: Theme.of(context).textTheme.labelMedium,
-        ),
-        subtitle: Text(
-          _pageWord.subtitleText,
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
-        trailing: IconButton(
-          icon: Icon(
-            Icons.delete_forever_rounded,
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-          onPressed: () {},
-        ),
-        onTap: () {},
-      ),
-    );
-  }
-}
-
 mixin _pageSize {
   //obj
   final double listPhotoHeightSize = 60;
@@ -100,6 +40,6 @@ mixin _pageSize {
 }
 
 mixin _pageWord {
-  static String subtitleText = "Tarif için tıkla";
-  static const foodNotFound = "Yemek adı yükleniyor...";
+  final subtitleText = "Tarif için tıkla";
+  final foodNotFound = "Yemek adı yükleniyor...";
 }

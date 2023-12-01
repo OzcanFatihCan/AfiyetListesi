@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/core/button_decoration.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
 
+part '../widget/food_photo_widget.dart';
+part '../widget/back_button_widget.dart';
+part '../widget/favorite_button_widget.dart';
+part '../widget/materials_content_widget.dart';
+part '../widget/recipe_content_widget.dart';
+
 class FoodDetailPage extends StatefulWidget {
   const FoodDetailPage({
     super.key,
@@ -36,7 +42,7 @@ class _FoodDetailPageState extends State<FoodDetailPage>
                     height: cardHeight,
                     width: cardWidth,
                     bottom: cardBottom,
-                    child: _BuildCardFoodTitle(model: widget._model)),
+                    child: _buildFoodTitle(context)),
                 Positioned(
                   top: MediaQuery.of(context).padding.top,
                   left: backLeft,
@@ -73,91 +79,14 @@ class _FoodDetailPageState extends State<FoodDetailPage>
       ),
     );
   }
-}
 
-class _BuildFoodPhoto extends StatelessWidget with _pageSize, _pageWord {
-  _BuildFoodPhoto({
-    required PopularFavoriteModel model,
-  }) : _model = model;
-
-  final PopularFavoriteModel _model;
-
-  @override
-  Widget build(BuildContext context) {
-    return Hero(
-      tag: 'food-image-${_model.imagePath}',
-      createRectTween: (Rect? begin, Rect? end) {
-        return MaterialRectCenterArcTween(begin: end, end: begin);
-      },
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.40,
-        child: ClipRRect(
-          borderRadius: foodDetailRadius,
-          child: _model.imagePath.isNotEmpty
-              ? Image.network(
-                  _model.imagePath,
-                  height: foodPhotoHeightSize,
-                  width: foodPhotoWidthSize,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return SizedBox(
-                      width: foodPhotoWidthSize,
-                      height: foodPhotoHeightSize,
-                      child: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  },
-                )
-              : SizedBox(
-                  height: foodPhotoHeightSize,
-                  width: foodPhotoWidthSize,
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
-        ),
-      ),
-    );
-  }
-}
-
-class _BackButtonWidget extends StatelessWidget {
-  const _BackButtonWidget();
-
-  @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: Theme.of(context).colorScheme.onSurface,
-      child: IconButton(
-        icon: Icon(
-          Icons.arrow_back_ios_new_rounded,
-          color: Theme.of(context).colorScheme.onPrimary,
-        ),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-      ),
-    );
-  }
-}
-
-class _BuildCardFoodTitle extends StatelessWidget with _pageSize, _pageWord {
-  _BuildCardFoodTitle({
-    required PopularFavoriteModel model,
-  }) : _model = model;
-
-  final PopularFavoriteModel _model;
-
-  @override
-  Widget build(BuildContext context) {
+  Card _buildFoodTitle(BuildContext context) {
     return Card(
       shape: Theme.of(context).cardTheme.shape,
       color: AppTheme().customCardTheme().color,
       child: Center(
         child: Text(
-          _model.title.isNotEmpty ? _model.title : foodNotFound,
+          widget._model.title.isNotEmpty ? widget._model.title : foodNotFound,
           style: AppTheme().customTextTheme().headlineSmall,
           softWrap: true,
           maxLines: maxLines,
@@ -165,111 +94,19 @@ class _BuildCardFoodTitle extends StatelessWidget with _pageSize, _pageWord {
       ),
     );
   }
-}
 
-Text _buildMaterialTitle(BuildContext context, String materialFoodText) {
-  return Text(
-    materialFoodText,
-    textAlign: TextAlign.start,
-    style: Theme.of(context).textTheme.headlineMedium,
-  );
-}
-
-class _BuildMaterials extends StatelessWidget with _pageSize, _pageWord {
-  _BuildMaterials({
-    required PopularFavoriteModel model,
-  }) : _model = model;
-
-  final PopularFavoriteModel _model;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      flex: 4,
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: Card(
-          shape: AppTheme().customCardTheme().shape,
-          color: Theme.of(context).cardTheme.color,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Padding(
-              padding: objectPadding2x,
-              child: Text(
-                _model.materialsFood.isNotEmpty
-                    ? _model.materialsFood.join('\n')
-                    : foodMaterialNotFound,
-                style: AppTheme().customTextTheme().labelMedium,
-              ),
-            ),
-          ),
-        ),
-      ),
+  Text _buildMaterialTitle(BuildContext context, String materialFoodText) {
+    return Text(
+      materialFoodText,
+      textAlign: TextAlign.start,
+      style: Theme.of(context).textTheme.headlineMedium,
     );
   }
-}
 
-Text _buildRecipeTitle(BuildContext context, String recipeText) {
-  return Text(
-    recipeText,
-    style: Theme.of(context).textTheme.headlineMedium,
-  );
-}
-
-class _BuildRecipe extends StatelessWidget with _pageSize, _pageWord {
-  _BuildRecipe({
-    required PopularFavoriteModel model,
-  }) : _model = model;
-
-  final PopularFavoriteModel _model;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      flex: 6,
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: Card(
-          shape: AppTheme().customCardTheme().shape,
-          color: Theme.of(context).cardTheme.color,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Padding(
-              padding: objectPadding2x,
-              child: Text(
-                _model.recipe.isNotEmpty
-                    ? _model.recipe.join('\n')
-                    : foodRecipeNotFound,
-                style: AppTheme().customTextTheme().labelMedium,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _BuildFavoriteButton extends StatelessWidget
-    with _pageWord, _pageDuration {
-  _BuildFavoriteButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      flex: 3,
-      child: Center(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: ButtonDecorationWidget(
-            onPressed: () async {
-              await Future.delayed(Duration(seconds: duration));
-            },
-            buttonTitle: buttonTitle,
-          ),
-        ),
-      ),
+  Text _buildRecipeTitle(BuildContext context, String recipeText) {
+    return Text(
+      recipeText,
+      style: Theme.of(context).textTheme.headlineMedium,
     );
   }
 }
