@@ -4,7 +4,8 @@ import 'package:afiyetlistesi/product/project_photo.dart';
 import 'package:afiyetlistesi/view/Login/page/user_login_page.dart';
 import 'package:flutter/material.dart';
 
-class LoginPageView extends StatelessWidget with _pageSize, _pageWord {
+class LoginPageView extends StatelessWidget
+    with _pageSize, _pageWord, _pageDuration {
   LoginPageView({super.key});
 
   @override
@@ -35,16 +36,18 @@ class LoginPageView extends StatelessWidget with _pageSize, _pageWord {
       right: loginButtonSymetric,
       child: Container(
         alignment: Alignment.center,
-        child: ButtonDecorationWidget(
-          buttonTitle: loginButton,
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => UserLoginView(),
-              ),
-            );
-          },
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.07,
+          width: MediaQuery.of(context).size.width * 0.35,
+          child: ButtonDecorationWidget(
+            buttonTitle: loginButton,
+            onPressed: () async {
+              await Future.delayed(Duration(seconds: duration));
+              () {
+                _gotoDetailsPage(context, UserLoginView());
+              }();
+            },
+          ),
         ),
       ),
     );
@@ -58,4 +61,14 @@ mixin _pageSize {
 
 mixin _pageWord {
   final loginButton = "Giriş Yap";
+}
+
+mixin _pageDuration {
+  final int duration = 1;
+}
+
+void _gotoDetailsPage(BuildContext context, Widget widget) {
+  Navigator.of(context).push(
+    MaterialPageRoute<void>(builder: (BuildContext context) => widget),
+  );
 }

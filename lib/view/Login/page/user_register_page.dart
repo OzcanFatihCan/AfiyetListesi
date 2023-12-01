@@ -8,7 +8,7 @@ import 'package:afiyetlistesi/view/Home/page/home_page.dart';
 import 'package:flutter/material.dart';
 
 class UserRegisterView extends StatelessWidget
-    with _NavigatorManager, _pageSize, _pageWord {
+    with _NavigatorManager, _pageSize, _pageWord, _pageDuration {
   UserRegisterView({super.key});
 
   @override
@@ -66,11 +66,18 @@ class UserRegisterView extends StatelessWidget
       child: ButtonBar(
         alignment: MainAxisAlignment.center,
         children: [
-          ButtonDecorationWidget(
-            buttonTitle: registerButton,
-            onPressed: () {
-              navigateToWidget(context, const HomePageView());
-            },
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.07,
+            width: MediaQuery.of(context).size.width * 0.35,
+            child: ButtonDecorationWidget(
+              buttonTitle: registerButton,
+              onPressed: () async {
+                await Future.delayed(Duration(seconds: duration));
+                () {
+                  navigateToWidget(context, const HomePageView());
+                }();
+              },
+            ),
           ),
         ],
       ),
@@ -101,4 +108,8 @@ mixin _pageSize {
 }
 mixin _pageWord {
   final registerButton = "Kayıt Ol";
+}
+
+mixin _pageDuration {
+  final int duration = 1;
 }

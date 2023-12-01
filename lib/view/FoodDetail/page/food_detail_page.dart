@@ -250,7 +250,8 @@ class _BuildRecipe extends StatelessWidget with _pageSize, _pageWord {
   }
 }
 
-class _BuildFavoriteButton extends StatelessWidget with _pageWord {
+class _BuildFavoriteButton extends StatelessWidget
+    with _pageWord, _pageDuration {
   _BuildFavoriteButton();
 
   @override
@@ -262,7 +263,9 @@ class _BuildFavoriteButton extends StatelessWidget with _pageWord {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: ButtonDecorationWidget(
-            onPressed: () {},
+            onPressed: () async {
+              await Future.delayed(Duration(seconds: duration));
+            },
             buttonTitle: buttonTitle,
           ),
         ),
@@ -301,4 +304,8 @@ mixin _pageWord {
   final materialFoodText = "Malzemeler";
   final recipeText = "Yapılışı";
   final foodMaterialNotFound = "Yemek malzeme yükleniyor...";
+}
+
+mixin _pageDuration {
+  final int duration = 1;
 }

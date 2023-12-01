@@ -10,7 +10,7 @@ import 'package:afiyetlistesi/view/Home/page/home_page.dart';
 import 'package:flutter/material.dart';
 
 class UserLoginView extends StatelessWidget
-    with _NavigatorManager, _pageSize, _pageWord {
+    with _NavigatorManager, _pageSize, _pageWord, _pageDuration {
   UserLoginView({super.key});
 
   @override
@@ -59,17 +59,31 @@ class UserLoginView extends StatelessWidget
       child: ButtonBar(
         alignment: MainAxisAlignment.center,
         children: [
-          ButtonDecorationWidget(
-            buttonTitle: loginButton,
-            onPressed: () {
-              navigateToWidget(context, const HomePageView());
-            },
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.07,
+            width: MediaQuery.of(context).size.width * 0.35,
+            child: ButtonDecorationWidget(
+              buttonTitle: loginButton,
+              onPressed: () async {
+                await Future.delayed(Duration(seconds: duration));
+                () {
+                  navigateToWidget(context, const HomePageView());
+                }();
+              },
+            ),
           ),
-          ButtonDecorationWidget(
-            buttonTitle: registerButton,
-            onPressed: () {
-              navigateToWidget(context, UserRegisterView());
-            },
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.07,
+            width: MediaQuery.of(context).size.width * 0.35,
+            child: ButtonDecorationWidget(
+              buttonTitle: registerButton,
+              onPressed: () async {
+                await Future.delayed(Duration(seconds: duration));
+                () {
+                  navigateToWidget(context, UserRegisterView());
+                }();
+              },
+            ),
           ),
         ],
       ),
@@ -124,4 +138,8 @@ mixin _pageWord {
   final alternativeLoginButton = "Alternatif Giriş";
   final loginButton = "Giriş Yap";
   final registerButton = "Kayıt Ol";
+}
+
+mixin _pageDuration {
+  final int duration = 1;
 }
