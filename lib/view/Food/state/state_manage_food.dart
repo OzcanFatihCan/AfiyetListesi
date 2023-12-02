@@ -1,9 +1,9 @@
 import 'package:afiyetlistesi/model/favorite_model.dart';
 import 'package:afiyetlistesi/product/project_words.dart';
-import 'package:afiyetlistesi/view/Favorite/page/favorite_page.dart';
+import 'package:afiyetlistesi/view/Food/page/food_page.dart';
 import 'package:flutter/material.dart';
 
-abstract class StateManageFavorite extends State<FavoritePageView> {
+abstract class StateManageFood extends State<FoodPageView> {
   PageController pageController = PageController();
   late List<FavoriteModel> cardItems;
   bool isLoading = false;

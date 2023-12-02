@@ -27,6 +27,7 @@ class _NameTextFieldState extends State<NameTextField> with _pageSize {
         keyboardType: TextInputType.name,
         textInputAction: TextInputAction.next,
         decoration: _nameDecoration(hintText),
+        style: Theme.of(context).textTheme.labelSmall,
       ),
     );
   }

@@ -19,7 +19,6 @@ class _FavoritePageViewState extends StateManageFavorite with _pageSize {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
         children: [
-          //_buildContentButton(context),
           _BuildContentButton(
             currentFav: currentFav,
             contentChange: contentChange,

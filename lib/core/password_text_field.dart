@@ -38,6 +38,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> with _pageSize {
         obscureText: _isSecure,
         decoration: _paswTextDecoration(hintText),
         enabled: widget.isEditing,
+        style: Theme.of(context).textTheme.labelSmall,
       ),
     );
   }

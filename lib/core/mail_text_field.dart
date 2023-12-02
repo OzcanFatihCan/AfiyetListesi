@@ -28,6 +28,7 @@ class _MailTextFieldState extends State<MailTextField> with _pageSize {
         keyboardType: TextInputType.emailAddress,
         decoration: _mailTextDecoration(hintText),
         enabled: widget.isEditing,
+        style: Theme.of(context).textTheme.labelSmall,
       ),
     );
   }

@@ -46,6 +46,7 @@ class AppTheme {
           fontWeight: _themeFont.w4Font,
           fontSize: _themeSize.fontSizeMin2,
         ),
+        //input text
         labelSmall: TextStyle(
           color: _themeColor.blackColor,
           fontWeight: _themeFont.w5Font,

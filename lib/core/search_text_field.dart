@@ -23,6 +23,7 @@ class _SearchTextFieldState extends State<SearchTextField> with _pageSize {
         controller: widget.controller,
         keyboardType: TextInputType.text,
         decoration: _inputDecoration(hintText, context),
+        style: Theme.of(context).textTheme.labelSmall,
       ),
     );
   }
