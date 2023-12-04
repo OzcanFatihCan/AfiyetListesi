@@ -13,7 +13,67 @@ class _BuildFavoriteCard extends StatelessWidget with _pageSize, _pageWord {
       shape: Theme.of(context).cardTheme.shape,
       color: Theme.of(context).cardColor,
       child: ListTile(
-        leading: ClipRRect(
+        title: Padding(
+          padding: foodPadding,
+          child: Column(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.all(
+                  halfRadius,
+                ),
+                child: _model.imagePath.isNotEmpty
+                    ? Image.network(
+                        _model.imagePath,
+                        height: MediaQuery.of(context).size.height * 0.13,
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.13,
+                            width: MediaQuery.of(context).size.width,
+                            child: const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        },
+                      )
+                    : SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.13,
+                        width: MediaQuery.of(context).size.width,
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+              ),
+              Padding(
+                padding: foodTextPadding,
+                child: Text(
+                  _model.title.isNotEmpty ? _model.title : foodNotFound,
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
+              ),
+              Text(
+                subtitleText,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ],
+          ),
+        ),
+        onTap: () {},
+      ),
+    );
+  }
+}
+
+/*
+ subtitle: Text(
+          subtitleText,
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
+ */
+
+/*
+ClipRRect(
           borderRadius: BorderRadius.all(
             halfRadius,
           ),
@@ -41,23 +101,15 @@ class _BuildFavoriteCard extends StatelessWidget with _pageSize, _pageWord {
                   ),
                 ),
         ),
-        title: Text(
+
+
+ */
+
+
+/*
+Text(
           _model.title.isNotEmpty ? _model.title : foodNotFound,
           style: Theme.of(context).textTheme.labelMedium,
         ),
-        subtitle: Text(
-          subtitleText,
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
-        trailing: IconButton(
-          icon: Icon(
-            Icons.delete_forever_rounded,
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-          onPressed: () {},
-        ),
-        onTap: () {},
-      ),
-    );
-  }
-}
+
+ */

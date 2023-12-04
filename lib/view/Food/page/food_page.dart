@@ -43,7 +43,10 @@ class _FoodPageViewState extends StateManageFood with _pageSize {
             itemBuilder: (context, index) {
               List<FavoriteModel> filteredModels = getFilteredModels(index + 1);
 
-              return ListView.builder(
+              return GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: foodColumn,
+                ),
                 itemCount: filteredModels.length,
                 itemBuilder: (context, modelIndex) {
                   return _BuildFavoriteCard(model: filteredModels[modelIndex]);
@@ -65,12 +68,15 @@ mixin _pageSize {
   final double contentButtonWidght = 100;
   final double optionDot = 7;
   final double cardLineThickness = 3;
+  final int foodColumn = 2;
   //radius
   final halfRadius = const Radius.circular(15);
   final buttonOnRadius = BorderRadius.circular(15);
   final buttonOffRadius = BorderRadius.circular(7);
   //padding - margin
   final pagePadding2x = const EdgeInsets.all(16.0);
+  final foodPadding = const EdgeInsets.only(top: 10);
+  final foodTextPadding = const EdgeInsets.only(top: 3, bottom: 8);
   final contentButtonPadding = const EdgeInsets.symmetric(horizontal: 16);
   final contentButtonMargin = const EdgeInsets.all(5);
 
