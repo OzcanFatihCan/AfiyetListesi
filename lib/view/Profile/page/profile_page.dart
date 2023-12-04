@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:afiyetlistesi/core/mail_text_field.dart';
 import 'package:afiyetlistesi/core/name_text_field.dart';
 import 'package:afiyetlistesi/core/password_text_field.dart';
