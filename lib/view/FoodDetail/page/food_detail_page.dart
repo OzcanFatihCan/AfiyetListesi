@@ -83,7 +83,7 @@ class _FoodDetailPageState extends State<FoodDetailPage>
   Card _buildFoodTitle(BuildContext context) {
     return Card(
       shape: Theme.of(context).cardTheme.shape,
-      color: AppTheme().customCardTheme().color,
+      color: Theme.of(context).colorScheme.onPrimary,
       child: Center(
         child: Text(
           widget._model.title.isNotEmpty ? widget._model.title : foodNotFound,

@@ -9,14 +9,14 @@ class _BuildProfilPhoto extends StatelessWidget with _pageWord {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.30,
       width: MediaQuery.of(context).size.width * 0.80,
-      child: CircleAvatar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        child: DottedFrame(
-          child: ClipOval(
-            child: AspectRatio(
-              aspectRatio: aspectValue,
-              child: InkWell(
-                onTap: () {},
+      child: GestureDetector(
+        onTap: () {},
+        child: CircleAvatar(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          child: DottedFrame(
+            child: ClipOval(
+              child: AspectRatio(
+                aspectRatio: aspectValue,
                 child: profilPhotoUrl.isNotEmpty
                     ? Image.network(
                         profilPhotoUrl,

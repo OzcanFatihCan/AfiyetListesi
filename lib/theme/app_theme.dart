@@ -120,7 +120,6 @@ class AppTheme {
           width: _themeSize.textFieldBorderSize,
         ),
       ),
-      color: _themeColor.redColor,
     );
   }
 
