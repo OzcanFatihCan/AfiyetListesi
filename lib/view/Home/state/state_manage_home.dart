@@ -24,23 +24,6 @@ abstract class StateManageHome extends State<HomePageView> {
       },
     );
   }
-
-  //sayfa işlevleri yaparken IconButtonları ilgili sayfanın page stateinden çek.
-  List<Widget> buildActionsForPage(PageName currentPage) {
-    switch (currentPage) {
-      case PageName.favorite:
-        return [
-          IconButton(
-            icon: const Icon(Icons.filter_alt_rounded),
-            onPressed: () {},
-          ),
-        ];
-      case PageName.profile:
-        return [];
-      default:
-        return [];
-    }
-  }
 }
 
 enum PageName { popular, favorite, profile, foods }

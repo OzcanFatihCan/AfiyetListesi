@@ -91,6 +91,10 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget>
                       .values[ListItemName.yemeklerim.index]
                       .getListTitle(),
                   onTap: () {
+                    _gotoWidgetPage(
+                      context,
+                      const UserFoodPage(),
+                    );
                     _updateSelectedOption(ListItemName.yemeklerim.index);
                   },
                   isSelected:
@@ -229,4 +233,10 @@ class _BuildDrawerOptions extends StatelessWidget with _pageSize {
       ),
     );
   }
+}
+
+void _gotoWidgetPage(BuildContext context, Widget widget) {
+  Navigator.of(context).push(
+    MaterialPageRoute<void>(builder: (BuildContext context) => widget),
+  );
 }

@@ -1,3 +1,4 @@
+import 'package:afiyetlistesi/view/UserFood/page/user_food_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:afiyetlistesi/view/Home/state/state_manage_home.dart';
