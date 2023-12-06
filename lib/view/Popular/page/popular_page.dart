@@ -1,3 +1,4 @@
+import 'package:afiyetlistesi/product/project_control_page.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:afiyetlistesi/view/FoodDetail/page/food_detail_page.dart';
 import 'package:flutter/material.dart';
@@ -9,15 +10,31 @@ part '../widget/popular_card_widget.dart';
 
 class PopularPageView extends StatefulWidget {
   const PopularPageView({
-    super.key,
-  });
+    Key? key,
+    required PageController pageController,
+  })  : _pageController = pageController,
+        super(key: key);
+
+  final PageController _pageController;
 
   @override
   State<PopularPageView> createState() => _PopularPageViewState();
 }
 
 class _PopularPageViewState extends State<PopularPageView>
-    with _pageSize, _pageWord {
+    with _pageSize, _pageWord, _pageDuration {
+  void _pageChangePopular(int index) {
+    setState(
+      () {
+        widget._pageController.animateToPage(
+          index,
+          duration: Duration(seconds: duration),
+          curve: Curves.decelerate,
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +89,9 @@ class _PopularPageViewState extends State<PopularPageView>
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            _pageChangePopular(PageName.foods.index);
+          },
           child: Text(
             allFood,
             style: Theme.of(context).textTheme.titleSmall,
@@ -186,4 +205,8 @@ mixin _pageWord {
     "Bulgurlar göz göz olup suyunu çektiğinde ocağın altını kapatın.",
     "Pilavınızın altını kapatın ve dinlenmeye bırakın.",
   ];
+}
+
+mixin _pageDuration {
+  final duration = 1;
 }

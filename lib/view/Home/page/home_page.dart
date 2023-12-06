@@ -1,3 +1,4 @@
+import 'package:afiyetlistesi/product/project_control_page.dart';
 import 'package:afiyetlistesi/view/UserFood/page/user_food_page.dart';
 import 'package:flutter/material.dart';
 
@@ -53,11 +54,13 @@ class _HomePageState extends StateManageHome with _pageWords {
       onPageChanged: (int index) {
         pageChange(index);
       },
-      children: const [
-        PopularPageView(),
-        FavoritePageView(),
-        ProfilePageView(),
-        FoodPageView(),
+      children: [
+        PopularPageView(
+          pageController: pageController,
+        ),
+        const FavoritePageView(),
+        const ProfilePageView(),
+        const FoodPageView(),
       ],
     );
   }

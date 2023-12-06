@@ -1,3 +1,4 @@
+import 'package:afiyetlistesi/product/project_control_page.dart';
 import 'package:afiyetlistesi/view/Home/page/home_page.dart';
 
 import 'package:flutter/material.dart';
@@ -23,25 +24,6 @@ abstract class StateManageHome extends State<HomePageView> {
         currentPage = index;
       },
     );
-  }
-}
-
-enum PageName { popular, favorite, profile, foods }
-
-extension PageNameExtension on PageName {
-  String getPageTitle() {
-    switch (this) {
-      case PageName.popular:
-        return 'Anasayfa';
-      case PageName.favorite:
-        return 'Favoriler';
-      case PageName.profile:
-        return 'Profil';
-      case PageName.foods:
-        return 'Yemekler';
-      default:
-        return '';
-    }
   }
 }
 
