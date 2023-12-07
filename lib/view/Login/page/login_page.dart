@@ -1,7 +1,8 @@
 import 'package:afiyetlistesi/core/button_decoration.dart';
 import 'package:afiyetlistesi/core/wallpaper_widget.dart';
+import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
+import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/project_photo.dart';
-import 'package:afiyetlistesi/view/Login/page/user_login_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPageView extends StatelessWidget
@@ -43,8 +44,9 @@ class LoginPageView extends StatelessWidget
             buttonTitle: loginButton,
             onPressed: () async {
               await Future.delayed(Duration(seconds: duration));
-              () {
-                _gotoDetailsPage(context, UserLoginView());
+              () async {
+                await NavigatorManager.instance
+                    .pushToPage(NavigateRoutes.login);
               }();
             },
           ),
@@ -60,15 +62,9 @@ mixin _pageSize {
 }
 
 mixin _pageWord {
-  final loginButton = "Giriş Yap";
+  final loginButton = "Giriş";
 }
 
 mixin _pageDuration {
   final int duration = 1;
-}
-
-void _gotoDetailsPage(BuildContext context, Widget widget) {
-  Navigator.of(context).push(
-    MaterialPageRoute<void>(builder: (BuildContext context) => widget),
-  );
 }

@@ -2,11 +2,9 @@ import 'package:afiyetlistesi/core/button_decoration.dart';
 import 'package:afiyetlistesi/core/mail_text_field.dart';
 import 'package:afiyetlistesi/core/password_text_field.dart';
 import 'package:afiyetlistesi/core/wallpaper_widget.dart';
+import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
+import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/project_photo.dart';
-import 'package:afiyetlistesi/view/Login/page/user_alternative_login.dart';
-import 'package:afiyetlistesi/view/Login/page/user_register_page.dart';
-import 'package:afiyetlistesi/view/Home/page/home_page.dart';
-
 import 'package:flutter/material.dart';
 
 class UserLoginView extends StatelessWidget
@@ -66,8 +64,9 @@ class UserLoginView extends StatelessWidget
               buttonTitle: loginButton,
               onPressed: () async {
                 await Future.delayed(Duration(seconds: duration));
-                () {
-                  navigateToWidget(context, const HomePageView());
+                () async {
+                  await NavigatorManager.instance
+                      .pushToPage(NavigateRoutes.home);
                 }();
               },
             ),
@@ -79,8 +78,9 @@ class UserLoginView extends StatelessWidget
               buttonTitle: registerButton,
               onPressed: () async {
                 await Future.delayed(Duration(seconds: duration));
-                () {
-                  navigateToWidget(context, UserRegisterView());
+                () async {
+                  await NavigatorManager.instance
+                      .pushToPage(NavigateRoutes.register);
                 }();
               },
             ),
@@ -99,8 +99,9 @@ class UserLoginView extends StatelessWidget
         alignment: MainAxisAlignment.center,
         children: [
           TextButton(
-            onPressed: () {
-              navigateToWidget(context, const AlternativeLoginPageView());
+            onPressed: () async {
+              await NavigatorManager.instance
+                  .pushToPage(NavigateRoutes.alternativeLogin);
             },
             child: Text(
               alternativeLoginButton,

@@ -90,11 +90,9 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget>
                   drawerChoice: ListItemName
                       .values[ListItemName.yemeklerim.index]
                       .getListTitle(),
-                  onTap: () {
-                    _gotoWidgetPage(
-                      context,
-                      const UserFoodPage(),
-                    );
+                  onTap: () async {
+                    await NavigatorManager.instance
+                        .pushToPage(NavigateRoutes.userFood);
                     _updateSelectedOption(ListItemName.yemeklerim.index);
                   },
                   isSelected:
@@ -233,10 +231,4 @@ class _BuildDrawerOptions extends StatelessWidget with _pageSize {
       ),
     );
   }
-}
-
-void _gotoWidgetPage(BuildContext context, Widget widget) {
-  Navigator.of(context).push(
-    MaterialPageRoute<void>(builder: (BuildContext context) => widget),
-  );
 }

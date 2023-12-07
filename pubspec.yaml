@@ -31,6 +31,9 @@ dependencies:
   flutter:
     sdk: flutter
   
+  #animation
+  lottie: ^2.7.0
+
   #dotted-framer
   dotted_border: ^2.1.0
 

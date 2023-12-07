@@ -1,5 +1,5 @@
-import 'package:afiyetlistesi/product/project_control_page.dart';
-import 'package:afiyetlistesi/view/UserFood/page/user_food_page.dart';
+import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
+import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:flutter/material.dart';
 
 import 'package:afiyetlistesi/view/Home/state/state_manage_home.dart';

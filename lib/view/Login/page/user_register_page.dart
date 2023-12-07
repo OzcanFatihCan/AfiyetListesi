@@ -3,12 +3,13 @@ import 'package:afiyetlistesi/core/mail_text_field.dart';
 import 'package:afiyetlistesi/core/name_text_field.dart';
 import 'package:afiyetlistesi/core/password_text_field.dart';
 import 'package:afiyetlistesi/core/wallpaper_widget.dart';
+import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
+import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/project_photo.dart';
-import 'package:afiyetlistesi/view/Home/page/home_page.dart';
 import 'package:flutter/material.dart';
 
 class UserRegisterView extends StatelessWidget
-    with _NavigatorManager, _pageSize, _pageWord, _pageDuration {
+    with _pageSize, _pageWord, _pageDuration {
   UserRegisterView({super.key});
 
   @override
@@ -73,26 +74,14 @@ class UserRegisterView extends StatelessWidget
               buttonTitle: registerButton,
               onPressed: () async {
                 await Future.delayed(Duration(seconds: duration));
-                () {
-                  navigateToWidget(context, const HomePageView());
+                () async {
+                  await NavigatorManager.instance
+                      .pushToPage(NavigateRoutes.home);
                 }();
               },
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-mixin _NavigatorManager {
-  void navigateToWidget(BuildContext context, Widget widget) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) {
-          return widget;
-        },
-        fullscreenDialog: true,
       ),
     );
   }

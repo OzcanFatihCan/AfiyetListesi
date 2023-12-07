@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 part '../widget/content_ufood_button_widget.dart';
 part '../widget/user_food_card_widget.dart';
 
-class UserFoodPage extends StatefulWidget {
-  const UserFoodPage({super.key});
+class UserFoodPageView extends StatefulWidget {
+  const UserFoodPageView({super.key});
 
   @override
-  State<UserFoodPage> createState() => _UserFoodPageState();
+  State<UserFoodPageView> createState() => _UserFoodPageViewState();
 }
 
-class _UserFoodPageState extends StateManageUserFood with _pageSize {
+class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
   final appText = "Yemeklerim";
   @override
   Widget build(BuildContext context) {

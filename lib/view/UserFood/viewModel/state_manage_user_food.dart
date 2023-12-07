@@ -3,7 +3,7 @@ import 'package:afiyetlistesi/product/project_words.dart';
 import 'package:afiyetlistesi/view/UserFood/page/user_food_page.dart';
 import 'package:flutter/material.dart';
 
-abstract class StateManageUserFood extends State<UserFoodPage> {
+abstract class StateManageUserFood extends State<UserFoodPageView> {
   PageController pageController = PageController();
   late List<FavoriteModel> cardItems;
   bool isLoading = false;

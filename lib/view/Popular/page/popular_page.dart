@@ -1,6 +1,6 @@
-import 'package:afiyetlistesi/product/project_control_page.dart';
+import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
+import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
-import 'package:afiyetlistesi/view/FoodDetail/page/food_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/core/search_text_field.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
@@ -100,12 +100,6 @@ class _PopularPageViewState extends State<PopularPageView>
       ],
     );
   }
-}
-
-void _gotoDetailsPage(BuildContext context, Widget widget) {
-  Navigator.of(context).push(
-    MaterialPageRoute<void>(builder: (BuildContext context) => widget),
-  );
 }
 
 class PopularFavoriteItems with _pageWord {
