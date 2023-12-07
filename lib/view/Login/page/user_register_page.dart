@@ -5,32 +5,39 @@ import 'package:afiyetlistesi/core/password_text_field.dart';
 import 'package:afiyetlistesi/core/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
-import 'package:afiyetlistesi/product/project_photo.dart';
+import 'package:afiyetlistesi/product/constant/project_photo.dart';
+import 'package:afiyetlistesi/view/Loading/loading_page.dart';
+import 'package:afiyetlistesi/view/Login/viewModel/state_manage_user_register.dart';
 import 'package:flutter/material.dart';
 
-class UserRegisterView extends StatelessWidget
-    with _pageSize, _pageWord, _pageDuration {
-  UserRegisterView({super.key});
+class UserRegisterView extends StatefulWidget {
+  const UserRegisterView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          const BackGroundWidget(
-            wallpaperUrl: ProjectPhotos.loginWallpapeUrl,
+  State<UserRegisterView> createState() => _UserRegisterViewState();
+}
+
+class _UserRegisterViewState extends StateManageUserRegister
+    with _pageSize, _pageWord, _pageDuration {
+  @override
+  Widget build(BuildContext context) => isLoading
+      ? const LoadingPageView()
+      : Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          resizeToAvoidBottomInset: false,
+          body: Stack(
+            fit: StackFit.expand,
+            children: [
+              BackGroundWidget(
+                wallpaperUrl: ItemsofAsset.loginWallpaperUrl.fetchPhoto,
+              ),
+              _buildNameInput(),
+              _buildMailInput(),
+              _buildPasswordInput(),
+              _buildNavigateButton(context),
+            ],
           ),
-          _buildNameInput(),
-          _buildMailInput(),
-          _buildPasswordInput(),
-          _buildNavigateButton(context),
-        ],
-      ),
-    );
-  }
+        );
 
   Positioned _buildNameInput() {
     return Positioned(
@@ -73,11 +80,10 @@ class UserRegisterView extends StatelessWidget
             child: ButtonDecorationWidget(
               buttonTitle: registerButton,
               onPressed: () async {
+                changeLoading();
                 await Future.delayed(Duration(seconds: duration));
-                () async {
-                  await NavigatorManager.instance
-                      .pushToPage(NavigateRoutes.home);
-                }();
+                await NavigatorManager.instance.pushToPage(NavigateRoutes.home);
+                changeLoading();
               },
             ),
           ),

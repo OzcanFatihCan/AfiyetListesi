@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'package:afiyetlistesi/view/Home/state/state_manage_home.dart';
 import 'package:afiyetlistesi/externalPackage/dotted_frame.dart';
-import 'package:afiyetlistesi/product/project_photo.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
+import 'package:afiyetlistesi/product/constant/project_photo.dart';
 
 import 'package:afiyetlistesi/view/Popular/page/popular_page.dart';
 import 'package:afiyetlistesi/view/Favorite/page/favorite_page.dart';

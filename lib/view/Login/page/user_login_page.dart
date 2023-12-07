@@ -4,32 +4,40 @@ import 'package:afiyetlistesi/core/password_text_field.dart';
 import 'package:afiyetlistesi/core/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
-import 'package:afiyetlistesi/product/project_photo.dart';
+import 'package:afiyetlistesi/product/constant/project_photo.dart';
+import 'package:afiyetlistesi/view/Loading/loading_page.dart';
+import 'package:afiyetlistesi/view/Login/viewModel/state_manage_user_login.dart';
+
 import 'package:flutter/material.dart';
 
-class UserLoginView extends StatelessWidget
-    with _NavigatorManager, _pageSize, _pageWord, _pageDuration {
-  UserLoginView({super.key});
+class UserLoginView extends StatefulWidget {
+  const UserLoginView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          const BackGroundWidget(
-            wallpaperUrl: ProjectPhotos.loginWallpapeUrl,
+  State<UserLoginView> createState() => _UserLoginViewState();
+}
+
+class _UserLoginViewState extends StateManageUserLogin
+    with _pageSize, _pageWord, _pageDuration {
+  @override
+  Widget build(BuildContext context) => isLoading
+      ? const LoadingPageView()
+      : Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          resizeToAvoidBottomInset: false,
+          body: Stack(
+            fit: StackFit.expand,
+            children: [
+              BackGroundWidget(
+                wallpaperUrl: ItemsofAsset.loginWallpaperUrl.fetchPhoto,
+              ),
+              _buildMailInput(),
+              _buildPasswordInput(),
+              _buildNavigateButton(context),
+              _buildAlternativeLoginButton(context),
+            ],
           ),
-          _buildMailInput(),
-          _buildPasswordInput(),
-          _buildNavigateButton(context),
-          _buildAlternativeLoginButton(context),
-        ],
-      ),
-    );
-  }
+        );
 
   Positioned _buildMailInput() {
     return Positioned(
@@ -63,11 +71,10 @@ class UserLoginView extends StatelessWidget
             child: ButtonDecorationWidget(
               buttonTitle: loginButton,
               onPressed: () async {
+                changeLoading();
                 await Future.delayed(Duration(seconds: duration));
-                () async {
-                  await NavigatorManager.instance
-                      .pushToPage(NavigateRoutes.home);
-                }();
+                await NavigatorManager.instance.pushToPage(NavigateRoutes.home);
+                changeLoading();
               },
             ),
           ),
@@ -77,11 +84,11 @@ class UserLoginView extends StatelessWidget
             child: ButtonDecorationWidget(
               buttonTitle: registerButton,
               onPressed: () async {
+                changeLoading();
                 await Future.delayed(Duration(seconds: duration));
-                () async {
-                  await NavigatorManager.instance
-                      .pushToPage(NavigateRoutes.register);
-                }();
+                await NavigatorManager.instance
+                    .pushToPage(NavigateRoutes.register);
+                changeLoading();
               },
             ),
           ),
@@ -109,19 +116,6 @@ class UserLoginView extends StatelessWidget
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-mixin _NavigatorManager {
-  void navigateToWidget(BuildContext context, Widget widget) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) {
-          return widget;
-        },
-        fullscreenDialog: true,
       ),
     );
   }

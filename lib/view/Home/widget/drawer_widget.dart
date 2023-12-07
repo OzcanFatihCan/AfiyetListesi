@@ -59,8 +59,8 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget>
             currentAccountPicture: _buildDrawerPhoto(context),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.onPrimary,
-              image: const DecorationImage(
-                  image: AssetImage(ProjectPhotos.profilBannerUrl),
+              image: DecorationImage(
+                  image: AssetImage(ItemsofAsset.profilBannerUrl.fetchPhoto),
                   fit: BoxFit.cover),
             ),
           ),
@@ -170,8 +170,8 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget>
                         child: CircleAvatar(
                           backgroundColor:
                               Theme.of(context).colorScheme.surface,
-                          backgroundImage: const AssetImage(
-                            ProjectPhotos.profilPhotoUpdateUrl,
+                          backgroundImage: AssetImage(
+                            ItemsofAsset.profilPhotoUrl.fetchPhoto,
                           ),
                         ),
                       ),

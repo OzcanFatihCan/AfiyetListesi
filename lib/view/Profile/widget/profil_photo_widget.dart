@@ -34,8 +34,8 @@ class _BuildProfilPhoto extends StatelessWidget with _pageWord {
                           child: CircleAvatar(
                             backgroundColor:
                                 Theme.of(context).colorScheme.surface,
-                            backgroundImage: const AssetImage(
-                              ProjectPhotos.profilPhotoUpdateUrl,
+                            backgroundImage: AssetImage(
+                              ItemsofAsset.profilPhotoUrl.fetchPhoto,
                             ),
                           ),
                         ),

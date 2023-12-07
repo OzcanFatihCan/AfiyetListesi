@@ -2,31 +2,38 @@ import 'package:afiyetlistesi/core/button_decoration.dart';
 import 'package:afiyetlistesi/core/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
-import 'package:afiyetlistesi/product/project_photo.dart';
+import 'package:afiyetlistesi/product/constant/project_photo.dart';
+import 'package:afiyetlistesi/view/Loading/loading_page.dart';
 import 'package:flutter/material.dart';
+import 'package:afiyetlistesi/view/Login/viewModel/state_manage_login.dart';
 
-class LoginPageView extends StatelessWidget
-    with _pageSize, _pageWord, _pageDuration {
-  LoginPageView({super.key});
+class LoginPageView extends StatefulWidget {
+  const LoginPageView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          const BackGroundWidget(
-            wallpaperUrl: ProjectPhotos.wallpapeUrl,
+  State<LoginPageView> createState() => _LoginPageViewState();
+}
+
+class _LoginPageViewState extends StateManageLogin
+    with _pageSize, _pageWord, _pageDuration {
+  @override
+  Widget build(BuildContext context) => isLoading
+      ? const LoadingPageView()
+      : Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          body: Stack(
+            fit: StackFit.expand,
+            children: [
+              BackGroundWidget(
+                wallpaperUrl: ItemsofAsset.wallpaperUrl.fetchPhoto,
+              ),
+              _buildLoginButtoWidget(
+                context,
+              )
+            ],
           ),
-          _buildLoginButtoWidget(
-            context,
-          )
-        ],
-      ),
-    );
-  }
+        );
 
   Positioned _buildLoginButtoWidget(
     BuildContext context,
@@ -43,11 +50,10 @@ class LoginPageView extends StatelessWidget
           child: ButtonDecorationWidget(
             buttonTitle: loginButton,
             onPressed: () async {
+              changeLoading();
               await Future.delayed(Duration(seconds: duration));
-              () async {
-                await NavigatorManager.instance
-                    .pushToPage(NavigateRoutes.login);
-              }();
+              await NavigatorManager.instance.pushToPage(NavigateRoutes.login);
+              changeLoading();
             },
           ),
         ),

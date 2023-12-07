@@ -1,6 +1,7 @@
 import 'package:afiyetlistesi/main.dart';
 import 'package:afiyetlistesi/view/Food/page/food_page.dart';
 import 'package:afiyetlistesi/view/Home/page/home_page.dart';
+import 'package:afiyetlistesi/view/Loading/loading_page.dart';
 import 'package:afiyetlistesi/view/Login/page/login_page.dart';
 import 'package:afiyetlistesi/view/Login/page/user_alternative_login.dart';
 import 'package:afiyetlistesi/view/Login/page/user_login_page.dart';
@@ -24,7 +25,7 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
     switch (routes) {
       //arguman yollarsan kontrolünü burada sağla.
       case NavigateRoutes.init:
-        return _navigateToNormal(LoginPageView());
+        return _navigateToNormal(const LoginPageView());
       case NavigateRoutes.login:
         return _navigateToNormal(UserLoginView());
       case NavigateRoutes.register:
@@ -39,6 +40,8 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
         return _navigateToNormal(const FoodPageView());
       case NavigateRoutes.userFood:
         return _navigateToNormal(const UserFoodPageView());
+      case NavigateRoutes.loading:
+        return _navigateToNormal(const LoadingPageView());
     }
 
     return null;
@@ -60,7 +63,8 @@ enum NavigateRoutes {
   home,
   foodAdd,
   foodDetail,
-  userFood
+  userFood,
+  loading
 }
 
 extension NavigateRoutesExtension on NavigateRoutes {

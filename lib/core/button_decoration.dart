@@ -7,7 +7,7 @@ class ButtonDecorationWidget extends StatefulWidget {
     required this.buttonTitle,
   }) : super(key: key);
 
-  final Future<void> Function() onPressed;
+  final Function() onPressed;
   final String buttonTitle;
 
   @override
@@ -16,14 +16,6 @@ class ButtonDecorationWidget extends StatefulWidget {
 
 class _ButtonDecorationWidgetState extends State<ButtonDecorationWidget>
     with _pageSize {
-  bool _isLoading = false;
-
-  void _changeLoading() {
-    setState(() {
-      _isLoading = !_isLoading;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -31,22 +23,13 @@ class _ButtonDecorationWidgetState extends State<ButtonDecorationWidget>
         shape: const StadiumBorder(),
         backgroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
-      onPressed: () async {
-        if (_isLoading) return;
-        _changeLoading();
-        await widget.onPressed.call();
-        _changeLoading();
-      },
+      onPressed: widget.onPressed,
       child: Padding(
         padding: pagePadding,
-        child: _isLoading
-            ? CircularProgressIndicator(
-                color: Theme.of(context).colorScheme.secondary,
-              )
-            : Text(
-                widget.buttonTitle,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+        child: Text(
+          widget.buttonTitle,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
       ),
     );
   }
