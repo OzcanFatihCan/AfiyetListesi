@@ -7,10 +7,9 @@ class TextAnimated extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const fontSize = 40.0;
-    const duration = 200;
-
+    const duration = 180;
     return AnimatedTextKit(
-      isRepeatingAnimation: true,
+      repeatForever: true,
       animatedTexts: [
         WavyAnimatedText(
           speed: const Duration(milliseconds: duration),

@@ -1,16 +1,15 @@
-import 'package:afiyetlistesi/externalPackage/text/text_animation.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class LoadingPageView extends StatefulWidget {
-  const LoadingPageView({super.key});
+class ErrorPageView extends StatefulWidget {
+  const ErrorPageView({super.key});
 
   @override
-  State<LoadingPageView> createState() => _LoadingPageViewState();
+  State<ErrorPageView> createState() => _ErrorPageViewState();
 }
 
-class _LoadingPageViewState extends State<LoadingPageView> with _pageItem {
+class _ErrorPageViewState extends State<ErrorPageView> with _pageItem {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,12 +20,19 @@ class _LoadingPageViewState extends State<LoadingPageView> with _pageItem {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextAnimated(text: appName),
-              Lottie.asset(
-                ItemsofAsset.lottieLoading.fetchLottie,
+              Expanded(
+                child: Lottie.asset(
+                  ItemsofAsset.lottieError.fetchLottie,
+                ),
               ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.15,
+        child: Lottie.asset(
+          ItemsofAsset.lottieForkSpoon.fetchLottie,
         ),
       ),
     );
@@ -36,7 +42,4 @@ class _LoadingPageViewState extends State<LoadingPageView> with _pageItem {
 mixin _pageItem {
   //padding
   final pagePadding2x = const EdgeInsets.all(16);
-
-  //words
-  final appName = "Afiyet Listesi";
 }

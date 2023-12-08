@@ -3,7 +3,10 @@ enum ItemsofAsset {
   loginWallpaperUrl,
   profilBannerUrl,
   profilPhotoUrl,
-  lottieLoading
+  lottieLoading,
+  lottieFood,
+  lottieForkSpoon,
+  lottieError
 }
 
 extension ItemsofAssetExtension on ItemsofAsset {
@@ -19,6 +22,12 @@ extension ItemsofAssetExtension on ItemsofAsset {
         return 'PersonAvatar';
       case ItemsofAsset.lottieLoading:
         return 'LottieLoading';
+      case ItemsofAsset.lottieFood:
+        return 'LottieFood';
+      case ItemsofAsset.lottieForkSpoon:
+        return 'LottieForkSpoon';
+      case ItemsofAsset.lottieError:
+        return 'LottieError';
     }
   }
 

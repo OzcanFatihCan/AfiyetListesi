@@ -1,7 +1,8 @@
 import 'package:afiyetlistesi/main.dart';
+import 'package:afiyetlistesi/view/Error/page/error_page.dart';
 import 'package:afiyetlistesi/view/Food/page/food_page.dart';
 import 'package:afiyetlistesi/view/Home/page/home_page.dart';
-import 'package:afiyetlistesi/view/Loading/loading_page.dart';
+import 'package:afiyetlistesi/view/Loading/page/loading_page.dart';
 import 'package:afiyetlistesi/view/Login/page/login_page.dart';
 import 'package:afiyetlistesi/view/Login/page/user_alternative_login.dart';
 import 'package:afiyetlistesi/view/Login/page/user_login_page.dart';
@@ -14,8 +15,7 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
 
   Route<dynamic>? onGenerateRoute(RouteSettings routeSettings) {
     if (routeSettings.name?.isEmpty == true) {
-      //hata sayfası tanımlanacak
-      // return _navigateToNormal("hata sayfası");
+      return _navigateToError();
     }
 
     final routes = routeSettings.name == _firstUri
@@ -27,9 +27,9 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
       case NavigateRoutes.init:
         return _navigateToNormal(const LoginPageView());
       case NavigateRoutes.login:
-        return _navigateToNormal(UserLoginView());
+        return _navigateToNormal(const UserLoginView());
       case NavigateRoutes.register:
-        return _navigateToNormal(UserRegisterView());
+        return _navigateToNormal(const UserRegisterView());
       case NavigateRoutes.alternativeLogin:
         return _navigateToNormal(const AlternativeLoginPageView());
       case NavigateRoutes.home:
@@ -50,6 +50,12 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
   Route<dynamic>? _navigateToNormal(Widget child) {
     return MaterialPageRoute(builder: (context) {
       return child;
+    });
+  }
+
+  Route<dynamic>? _navigateToError() {
+    return MaterialPageRoute(builder: (context) {
+      return const ErrorPageView();
     });
   }
 }

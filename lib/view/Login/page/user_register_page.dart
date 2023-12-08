@@ -6,7 +6,7 @@ import 'package:afiyetlistesi/product/components/image/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
-import 'package:afiyetlistesi/view/Loading/loading_page.dart';
+import 'package:afiyetlistesi/view/Loading/page/loading_page.dart';
 import 'package:afiyetlistesi/view/Login/viewModel/state_manage_user_register.dart';
 import 'package:flutter/material.dart';
 
@@ -106,5 +106,5 @@ mixin _pageWord {
 }
 
 mixin _pageDuration {
-  final int duration = 1;
+  final int duration = 2;
 }

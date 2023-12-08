@@ -5,7 +5,7 @@ import 'package:afiyetlistesi/product/components/image/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
-import 'package:afiyetlistesi/view/Loading/loading_page.dart';
+import 'package:afiyetlistesi/view/Loading/page/loading_page.dart';
 import 'package:afiyetlistesi/view/Login/viewModel/state_manage_user_login.dart';
 
 import 'package:flutter/material.dart';
@@ -38,7 +38,6 @@ class _UserLoginViewState extends StateManageUserLogin
             ],
           ),
         );
-
   Positioned _buildMailInput() {
     return Positioned(
       bottom: secondInputBarPositionBot,
@@ -84,11 +83,8 @@ class _UserLoginViewState extends StateManageUserLogin
             child: ButtonDecorationWidget(
               buttonTitle: registerButton,
               onPressed: () async {
-                changeLoading();
-                await Future.delayed(Duration(seconds: duration));
                 await NavigatorManager.instance
                     .pushToPage(NavigateRoutes.register);
-                changeLoading();
               },
             ),
           ),
@@ -136,5 +132,5 @@ mixin _pageWord {
 }
 
 mixin _pageDuration {
-  final int duration = 1;
+  final int duration = 2;
 }

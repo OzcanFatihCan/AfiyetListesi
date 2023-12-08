@@ -3,7 +3,6 @@ import 'package:afiyetlistesi/product/components/image/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
-import 'package:afiyetlistesi/view/Loading/loading_page.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/view/Login/viewModel/state_manage_login.dart';
 
@@ -17,23 +16,24 @@ class LoginPageView extends StatefulWidget {
 class _LoginPageViewState extends StateManageLogin
     with _pageSize, _pageWord, _pageDuration {
   @override
-  Widget build(BuildContext context) => isLoading
-      ? const LoadingPageView()
-      : Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          body: Stack(
-            fit: StackFit.expand,
-            children: [
-              BackGroundWidget(
-                wallpaperUrl: ItemsofAsset.wallpaperUrl.fetchPhoto,
-              ),
-              _buildLoginButtoWidget(
-                context,
-              )
-            ],
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          BackGroundWidget(
+            wallpaperUrl: ItemsofAsset.wallpaperUrl.fetchPhoto,
           ),
-        );
+          _buildLoginButtoWidget(
+            context,
+          )
+        ],
+      ),
+    );
+  }
+
   Positioned _buildLoginButtoWidget(
     BuildContext context,
   ) {
@@ -49,10 +49,7 @@ class _LoginPageViewState extends StateManageLogin
           child: ButtonDecorationWidget(
             buttonTitle: loginButton,
             onPressed: () async {
-              changeLoading();
-              await Future.delayed(Duration(seconds: duration));
               await NavigatorManager.instance.pushToPage(NavigateRoutes.login);
-              changeLoading();
             },
           ),
         ),
@@ -71,5 +68,5 @@ mixin _pageWord {
 }
 
 mixin _pageDuration {
-  final int duration = 1;
+  final int duration = 2;
 }
