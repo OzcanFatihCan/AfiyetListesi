@@ -1,6 +1,6 @@
 import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:afiyetlistesi/core/button_decoration.dart';
+import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
 
 part '../widget/food_photo_widget.dart';

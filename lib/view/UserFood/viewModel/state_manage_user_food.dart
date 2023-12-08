@@ -1,5 +1,5 @@
 import 'package:afiyetlistesi/model/favorite_model.dart';
-import 'package:afiyetlistesi/product/constant/project_words.dart';
+import 'package:afiyetlistesi/product/constants/project_words.dart';
 import 'package:afiyetlistesi/view/UserFood/page/user_food_page.dart';
 import 'package:flutter/material.dart';
 

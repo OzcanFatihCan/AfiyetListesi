@@ -1,8 +1,8 @@
-import 'package:afiyetlistesi/core/button_decoration.dart';
-import 'package:afiyetlistesi/core/wallpaper_widget.dart';
+import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
+import 'package:afiyetlistesi/product/components/image/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
-import 'package:afiyetlistesi/product/constant/project_photo.dart';
+import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/view/Loading/loading_page.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/view/Login/viewModel/state_manage_login.dart';
@@ -34,7 +34,6 @@ class _LoginPageViewState extends StateManageLogin
             ],
           ),
         );
-
   Positioned _buildLoginButtoWidget(
     BuildContext context,
   ) {

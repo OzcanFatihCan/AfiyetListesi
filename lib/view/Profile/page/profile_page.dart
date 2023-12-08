@@ -1,8 +1,8 @@
-import 'package:afiyetlistesi/core/mail_text_field.dart';
-import 'package:afiyetlistesi/core/name_text_field.dart';
-import 'package:afiyetlistesi/core/password_text_field.dart';
-import 'package:afiyetlistesi/externalPackage/dotted_frame.dart';
-import 'package:afiyetlistesi/product/constant/project_photo.dart';
+import 'package:afiyetlistesi/product/components/text/mail_text_field.dart';
+import 'package:afiyetlistesi/product/components/text/name_text_field.dart';
+import 'package:afiyetlistesi/product/components/text/password_text_field.dart';
+import 'package:afiyetlistesi/externalPackage/dotted/dotted_frame.dart';
+import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 
 import 'package:afiyetlistesi/view/Profile/state/state_manage_profile.dart';

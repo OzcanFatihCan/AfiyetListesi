@@ -1,10 +1,10 @@
-import 'package:afiyetlistesi/core/button_decoration.dart';
-import 'package:afiyetlistesi/core/mail_text_field.dart';
-import 'package:afiyetlistesi/core/password_text_field.dart';
-import 'package:afiyetlistesi/core/wallpaper_widget.dart';
+import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
+import 'package:afiyetlistesi/product/components/text/mail_text_field.dart';
+import 'package:afiyetlistesi/product/components/text/password_text_field.dart';
+import 'package:afiyetlistesi/product/components/image/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
-import 'package:afiyetlistesi/product/constant/project_photo.dart';
+import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/view/Loading/loading_page.dart';
 import 'package:afiyetlistesi/view/Login/viewModel/state_manage_user_login.dart';
 

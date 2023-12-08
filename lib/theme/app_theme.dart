@@ -187,7 +187,7 @@ class AppTheme {
         fontSize: _themeSize.fontSizeMax2,
       ),
       headlineLarge: TextStyle(
-        color: _themeColor.blackColor,
+        color: _themeColor.redColor,
         fontWeight: _themeFont.w7Font,
         fontSize: _themeSize.fontSizeMax3,
       ),
