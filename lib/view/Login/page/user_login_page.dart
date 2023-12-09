@@ -9,6 +9,7 @@ import 'package:afiyetlistesi/view/Loading/page/loading_page.dart';
 import 'package:afiyetlistesi/view/Login/viewModel/state_manage_user_login.dart';
 
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 class UserLoginView extends StatefulWidget {
   const UserLoginView({super.key});
@@ -21,7 +22,8 @@ class _UserLoginViewState extends StateManageUserLogin
     with _pageSize, _pageWord, _pageDuration {
   @override
   Widget build(BuildContext context) => isLoading
-      ? Scaffold(
+      ? const LoadingPageView()
+      : Scaffold(
           backgroundColor: Theme.of(context).colorScheme.surface,
           resizeToAvoidBottomInset: false,
           body: Stack(
@@ -36,8 +38,7 @@ class _UserLoginViewState extends StateManageUserLogin
               _buildAlternativeLoginButton(context),
             ],
           ),
-        )
-      : const LoadingPageView();
+        );
   Positioned _buildMailInput() {
     return Positioned(
       bottom: secondInputBarPositionBot,
@@ -102,13 +103,50 @@ class _UserLoginViewState extends StateManageUserLogin
         alignment: MainAxisAlignment.center,
         children: [
           TextButton(
-            onPressed: () async {
-              await NavigatorManager.instance
-                  .pushToPage(NavigateRoutes.alternativeLogin);
+            onPressed: () {
+              //await NavigatorManager.instance.pushToPage(NavigateRoutes.alternativeLogin);
+              showModalBottomSheet(
+                backgroundColor: Theme.of(context).colorScheme.background,
+                context: context,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: radiusSheet,
+                  ),
+                ),
+                builder: (context) {
+                  return Padding(
+                    padding: radiusPadding,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Card(
+                          shape: Theme.of(context).cardTheme.shape,
+                          color: Theme.of(context).cardColor,
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.surface,
+                              child: Logo(Logos.google),
+                            ),
+                            title: Text(
+                              loginGoogle,
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                            onTap: () {},
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },
+              );
             },
-            child: Text(
-              alternativeLoginButton,
-              style: Theme.of(context).textTheme.titleSmall,
+            child: Container(
+              color: Theme.of(context).colorScheme.background,
+              child: Text(
+                alternativeLoginButton,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
             ),
           ),
         ],
@@ -118,17 +156,25 @@ class _UserLoginViewState extends StateManageUserLogin
 }
 
 mixin _pageSize {
+  //obj
   final double loginButtonPositionBot = 175;
   final double loginButtonSymetric = 15;
   final double alternativeLoginPositionBot = 20;
   final double secondInputBarPositionBot = 360;
   final double thirdInputBarPositinBot = 290;
   final double inputBarSymetric = 15;
+
+  //radius
+  final Radius radiusSheet = const Radius.circular(30);
+
+  //padding
+  final radiusPadding = const EdgeInsets.all(16);
 }
 mixin _pageWord {
   final alternativeLoginButton = "Alternatif Giriş";
   final loginButton = "Giriş Yap";
   final registerButton = "Kayıt Ol";
+  final loginGoogle = "Google ile giriş yap";
 }
 
 mixin _pageDuration {

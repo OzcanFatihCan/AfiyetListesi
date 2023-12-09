@@ -15,30 +15,38 @@ class _LoadingPageViewState extends State<LoadingPageView> with _pageItem {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Padding(
-        padding: pagePadding2x,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.35,
-                child: Lottie.asset(
-                  ItemsofAsset.lottieFood.fetchLottie,
-                ),
-              ),
-              Lottie.asset(
-                ItemsofAsset.lottieLoading.fetchLottie,
-              ),
-              TextAnimated(text: appName),
-            ],
-          ),
-        ),
+      body: _buildLoadingBody(context),
+      bottomNavigationBar: _buildLoadingBottom(context),
+    );
+  }
+
+  SizedBox _buildLoadingBottom(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.10,
+      child: Lottie.asset(
+        ItemsofAsset.lottieForkSpoon.fetchLottie,
       ),
-      bottomNavigationBar: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.10,
-        child: Lottie.asset(
-          ItemsofAsset.lottieForkSpoon.fetchLottie,
+    );
+  }
+
+  Padding _buildLoadingBody(BuildContext context) {
+    return Padding(
+      padding: pagePadding2x,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.35,
+              child: Lottie.asset(
+                ItemsofAsset.lottieFood.fetchLottie,
+              ),
+            ),
+            Lottie.asset(
+              ItemsofAsset.lottieLoading.fetchLottie,
+            ),
+            TextAnimated(text: appName),
+          ],
         ),
       ),
     );

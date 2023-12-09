@@ -38,6 +38,8 @@ dependencies:
   #dotted-framer
   dotted_border: ^2.1.0
 
+  #Icon
+  icons_plus: ^4.0.0
  
 
   # The following adds the Cupertino Icons font to your application.

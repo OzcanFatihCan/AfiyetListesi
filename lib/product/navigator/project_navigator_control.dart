@@ -5,7 +5,6 @@ import 'package:afiyetlistesi/view/FoodDetail/page/food_detail_page.dart';
 import 'package:afiyetlistesi/view/Home/page/home_page.dart';
 import 'package:afiyetlistesi/view/Loading/page/loading_page.dart';
 import 'package:afiyetlistesi/view/Login/page/login_page.dart';
-import 'package:afiyetlistesi/view/Login/page/user_alternative_login.dart';
 import 'package:afiyetlistesi/view/Login/page/user_login_page.dart';
 import 'package:afiyetlistesi/view/Login/page/user_register_page.dart';
 import 'package:afiyetlistesi/view/UserFood/page/user_food_page.dart';
@@ -31,8 +30,7 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
         return _navigateToNormal(const UserLoginView());
       case NavigateRoutes.register:
         return _navigateToNormal(const UserRegisterView());
-      case NavigateRoutes.alternativeLogin:
-        return _navigateToNormal(const AlternativeLoginPageView());
+
       case NavigateRoutes.home:
         return _navigateToNormal(const HomePageView());
       case NavigateRoutes.foodAdd:
@@ -72,7 +70,6 @@ enum NavigateRoutes {
   init,
   login,
   register,
-  alternativeLogin,
   home,
   foodAdd,
   foodDetail,
