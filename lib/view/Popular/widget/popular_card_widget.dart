@@ -17,8 +17,6 @@ class _BuildPopularWidgetState extends State<_BuildPopularWidget>
     _cardItems = PopularFavoriteItems().cardItems;
   }
 
-  //örnek popülerden çekilen loading + veri işlemi burada yapılacak.
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -51,7 +49,8 @@ class _BuildPopularCard extends StatelessWidget with _pageSize, _pageWord {
       width: MediaQuery.of(context).size.width * 0.48,
       child: InkWell(
         onTap: () async {
-          await NavigatorManager.instance.pushToPage(NavigateRoutes.foodDetail);
+          await NavigatorManager.instance
+              .pushToPage(NavigateRoutes.foodDetail, arguments: _model);
         },
         child: Card(
           shape: Theme.of(context).cardTheme.shape,

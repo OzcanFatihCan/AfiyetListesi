@@ -21,8 +21,7 @@ class _UserLoginViewState extends StateManageUserLogin
     with _pageSize, _pageWord, _pageDuration {
   @override
   Widget build(BuildContext context) => isLoading
-      ? const LoadingPageView()
-      : Scaffold(
+      ? Scaffold(
           backgroundColor: Theme.of(context).colorScheme.surface,
           resizeToAvoidBottomInset: false,
           body: Stack(
@@ -37,7 +36,8 @@ class _UserLoginViewState extends StateManageUserLogin
               _buildAlternativeLoginButton(context),
             ],
           ),
-        );
+        )
+      : const LoadingPageView();
   Positioned _buildMailInput() {
     return Positioned(
       bottom: secondInputBarPositionBot,

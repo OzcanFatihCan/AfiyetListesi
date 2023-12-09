@@ -36,7 +36,7 @@ class _LoadingPageViewState extends State<LoadingPageView> with _pageItem {
         ),
       ),
       bottomNavigationBar: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.15,
+        height: MediaQuery.of(context).size.height * 0.10,
         child: Lottie.asset(
           ItemsofAsset.lottieForkSpoon.fetchLottie,
         ),

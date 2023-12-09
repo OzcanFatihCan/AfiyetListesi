@@ -1,6 +1,7 @@
 import 'package:afiyetlistesi/main.dart';
+import 'package:afiyetlistesi/model/popular_food_model.dart';
 import 'package:afiyetlistesi/view/Error/page/error_page.dart';
-import 'package:afiyetlistesi/view/Food/page/food_page.dart';
+import 'package:afiyetlistesi/view/FoodDetail/page/food_detail_page.dart';
 import 'package:afiyetlistesi/view/Home/page/home_page.dart';
 import 'package:afiyetlistesi/view/Loading/page/loading_page.dart';
 import 'package:afiyetlistesi/view/Login/page/login_page.dart';
@@ -17,7 +18,7 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
     if (routeSettings.name?.isEmpty == true) {
       return _navigateToError();
     }
-
+    final arguments = routeSettings.arguments;
     final routes = routeSettings.name == _firstUri
         ? NavigateRoutes.init
         : NavigateRoutes.values.byName(routeSettings.name!.substring(1));
@@ -37,7 +38,11 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
       case NavigateRoutes.foodAdd:
         break;
       case NavigateRoutes.foodDetail:
-        return _navigateToNormal(const FoodPageView());
+        return _navigateToNormal(
+          FoodDetailPage(
+            model: arguments as PopularFavoriteModel,
+          ),
+        );
       case NavigateRoutes.userFood:
         return _navigateToNormal(const UserFoodPageView());
       case NavigateRoutes.loading:
@@ -48,9 +53,11 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
   }
 
   Route<dynamic>? _navigateToNormal(Widget child) {
-    return MaterialPageRoute(builder: (context) {
-      return child;
-    });
+    return MaterialPageRoute(
+      builder: (context) {
+        return child;
+      },
+    );
   }
 
   Route<dynamic>? _navigateToError() {

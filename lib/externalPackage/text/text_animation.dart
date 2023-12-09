@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 class TextAnimated extends StatelessWidget {
   const TextAnimated({super.key, required this.text});
   final String text;
+
   @override
   Widget build(BuildContext context) {
-    const fontSize = 40.0;
+    const fontSize = 25.0;
     const duration = 180;
     return AnimatedTextKit(
       repeatForever: true,
