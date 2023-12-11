@@ -11,20 +11,23 @@ class _BuildMaterials extends StatelessWidget with _pageSize, _pageWord {
   Widget build(BuildContext context) {
     return Expanded(
       flex: 4,
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: Card(
-          shape: AppTheme().customCardTheme().shape,
-          color: Theme.of(context).cardTheme.color,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Padding(
-              padding: objectPadding2x,
-              child: Text(
-                _model.materialsFood.isNotEmpty
-                    ? _model.materialsFood.join('\n')
-                    : foodMaterialNotFound,
-                style: AppTheme().customTextTheme().labelMedium,
+      child: Padding(
+        padding: spaceObjectsPadding,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Card(
+            shape: AppTheme().customCardTheme().shape,
+            color: Theme.of(context).cardTheme.color,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: objectPadding2x,
+                child: Text(
+                  _model.materialsFood.isNotEmpty
+                      ? _model.materialsFood.join('\n')
+                      : foodMaterialNotFound,
+                  style: AppTheme().customTextTheme().labelMedium,
+                ),
               ),
             ),
           ),

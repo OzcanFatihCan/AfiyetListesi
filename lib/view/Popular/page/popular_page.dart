@@ -48,21 +48,19 @@ class _PopularPageViewState extends State<PopularPageView>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildHeadTextWidget(context),
-              SizedBox(height: spaceObjects),
-              const SearchTextField(),
-              SizedBox(height: spaceObjects),
+              Padding(
+                padding: spaceObjectPadding,
+                child: const SearchTextField(),
+              ),
               const SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: _BuildContentButton(),
               ),
-              SizedBox(height: spaceObjectsMin),
               _buildMiddleTextWidget(context),
-              SizedBox(height: spaceObjects),
               const SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: _BuildPopularWidget(),
               ),
-              SizedBox(height: spaceObjectsMin),
             ],
           ),
         ),
@@ -70,34 +68,40 @@ class _PopularPageViewState extends State<PopularPageView>
     );
   }
 
-  FittedBox _buildHeadTextWidget(BuildContext context) {
-    return FittedBox(
-      child: Text(
-        softWrap: true,
-        foodHeadText,
-        style: Theme.of(context).textTheme.headlineLarge,
+  Padding _buildHeadTextWidget(BuildContext context) {
+    return Padding(
+      padding: spaceObjectPadding,
+      child: FittedBox(
+        child: Text(
+          softWrap: true,
+          foodHeadText,
+          style: Theme.of(context).textTheme.headlineLarge,
+        ),
       ),
     );
   }
 
-  Row _buildMiddleTextWidget(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          foodIntermediateText,
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
-        TextButton(
-          onPressed: () {
-            _pageChangePopular(PageName.foods.index);
-          },
-          child: Text(
-            allFood,
-            style: Theme.of(context).textTheme.titleSmall,
+  Padding _buildMiddleTextWidget(BuildContext context) {
+    return Padding(
+      padding: spaceObjectPaddingMin,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            foodIntermediateText,
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
-        )
-      ],
+          TextButton(
+            onPressed: () {
+              _pageChangePopular(PageName.foods.index);
+            },
+            child: Text(
+              allFood,
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+          )
+        ],
+      ),
     );
   }
 }
@@ -143,6 +147,9 @@ mixin _pageSize {
   final pagePadding2x = const EdgeInsets.all(16.0);
   final buttonPaddingx = const EdgeInsets.symmetric(horizontal: 15);
   final listPaddingx = const EdgeInsets.symmetric(horizontal: 10);
+  final spaceObjectPadding = const EdgeInsets.only(bottom: 20);
+  final spaceObjectPaddingMin = const EdgeInsets.only(bottom: 10);
+
   final imagePadding =
       const EdgeInsets.only(bottom: 16, right: 16, left: 16, top: 32);
 

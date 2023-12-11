@@ -62,13 +62,9 @@ class _FoodDetailPageState extends State<FoodDetailPage>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     _buildMaterialTitle(context, materialFoodText),
-                    SizedBox(height: spaceObjectsMin),
                     _BuildMaterials(model: widget._model),
-                    SizedBox(height: spaceObjectsMin),
                     _buildRecipeTitle(context, recipeText),
-                    SizedBox(height: spaceObjectsMin),
                     _BuildRecipe(model: widget._model),
-                    SizedBox(height: spaceObjectsMin),
                     _BuildFavoriteButton()
                   ],
                 ),
@@ -95,18 +91,24 @@ class _FoodDetailPageState extends State<FoodDetailPage>
     );
   }
 
-  Text _buildMaterialTitle(BuildContext context, String materialFoodText) {
-    return Text(
-      materialFoodText,
-      textAlign: TextAlign.start,
-      style: Theme.of(context).textTheme.headlineMedium,
+  Padding _buildMaterialTitle(BuildContext context, String materialFoodText) {
+    return Padding(
+      padding: spaceObjectsPadding,
+      child: Text(
+        materialFoodText,
+        textAlign: TextAlign.start,
+        style: Theme.of(context).textTheme.headlineMedium,
+      ),
     );
   }
 
-  Text _buildRecipeTitle(BuildContext context, String recipeText) {
-    return Text(
-      recipeText,
-      style: Theme.of(context).textTheme.headlineMedium,
+  Padding _buildRecipeTitle(BuildContext context, String recipeText) {
+    return Padding(
+      padding: spaceObjectsPadding,
+      child: Text(
+        recipeText,
+        style: Theme.of(context).textTheme.headlineMedium,
+      ),
     );
   }
 }
@@ -131,6 +133,7 @@ mixin _pageSize {
   //padding
   final pagePadding2x = const EdgeInsets.all(16.0);
   final objectPadding2x = const EdgeInsets.all(16.0);
+  final spaceObjectsPadding = const EdgeInsets.only(bottom: 7);
 }
 
 mixin _pageWord {

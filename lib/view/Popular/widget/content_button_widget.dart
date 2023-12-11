@@ -19,23 +19,26 @@ class _BuildContentButtonState extends State<_BuildContentButton>
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      //kategoriler internetten çekildiğinde düzenlenecek.
-      children: List.generate(contentButtonTitles.length, (index) {
-        return Padding(
-          padding: buttonPaddingx,
-          child: _ButtonWidget(
-            //buton isimleri yemek, turşu, içecek, reçel, tatlı,
-            title: contentButtonTitles[index],
-            onPressed: () {
-              setState(() {
-                selectedButtonIndex = index;
-              });
-            },
-            isSelected: selectedButtonIndex == index,
-          ),
-        );
-      }),
+    return Padding(
+      padding: spaceObjectPaddingMin,
+      child: Row(
+        //kategoriler internetten çekildiğinde düzenlenecek.
+        children: List.generate(contentButtonTitles.length, (index) {
+          return Padding(
+            padding: buttonPaddingx,
+            child: _ButtonWidget(
+              //buton isimleri yemek, turşu, içecek, reçel, tatlı,
+              title: contentButtonTitles[index],
+              onPressed: () {
+                setState(() {
+                  selectedButtonIndex = index;
+                });
+              },
+              isSelected: selectedButtonIndex == index,
+            ),
+          );
+        }),
+      ),
     );
   }
 }
