@@ -5,12 +5,13 @@ class MailTextField extends StatefulWidget {
   const MailTextField({
     Key? key,
     this.controller,
+    this.validator,
     this.isEditing = true,
   }) : super(key: key);
 
   final TextEditingController? controller;
   final bool isEditing;
-
+  final String? Function(String?)? validator;
   @override
   State<MailTextField> createState() => _MailTextFieldState();
 }
@@ -21,7 +22,7 @@ class _MailTextFieldState extends State<MailTextField> with _pageSize {
     const hintText = "Email";
     return SizedBox(
       height: textFieldSize,
-      child: TextField(
+      child: TextFormField(
         controller: widget.controller,
         textInputAction: TextInputAction.next,
         autofillHints: const [AutofillHints.email],
@@ -29,13 +30,16 @@ class _MailTextFieldState extends State<MailTextField> with _pageSize {
         decoration: _mailTextDecoration(hintText),
         enabled: widget.isEditing,
         style: Theme.of(context).textTheme.labelSmall,
+        validator: widget.validator,
       ),
     );
   }
 
   InputDecoration _mailTextDecoration(String hintText) {
     return InputDecoration(
-      border: const UnderlineInputBorder(),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(fullRadius),
+      ),
       hintText: hintText,
       filled: true,
       fillColor: Theme.of(context).colorScheme.secondary,
@@ -66,7 +70,7 @@ class _MailTextFieldState extends State<MailTextField> with _pageSize {
 
 mixin _pageSize {
   //obj
-  final double textFieldSize = 50;
+  final double textFieldSize = 77;
   final double textFieldBorderSize = 3;
   //radius
   final fullRadius = const Radius.circular(30);

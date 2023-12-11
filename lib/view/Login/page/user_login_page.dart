@@ -2,6 +2,7 @@ import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
 import 'package:afiyetlistesi/product/components/text/mail_text_field.dart';
 import 'package:afiyetlistesi/product/components/text/password_text_field.dart';
 import 'package:afiyetlistesi/product/components/image/wallpaper_widget.dart';
+import 'package:afiyetlistesi/product/constants/project_input_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
@@ -20,40 +21,55 @@ class UserLoginView extends StatefulWidget {
 
 class _UserLoginViewState extends StateManageUserLogin
     with _pageSize, _pageWord, _pageDuration {
+  final GlobalKey<FormState> _formLoginKey = GlobalKey();
   @override
   Widget build(BuildContext context) => isLoading
       ? const LoadingPageView()
       : Scaffold(
           backgroundColor: Theme.of(context).colorScheme.surface,
           resizeToAvoidBottomInset: false,
-          body: Stack(
-            fit: StackFit.expand,
-            children: [
-              BackGroundWidget(
-                wallpaperUrl: ItemsofAsset.loginWallpaperUrl.fetchPhoto,
-              ),
-              _buildMailInput(),
-              _buildPasswordInput(),
-              _buildNavigateButton(context),
-              _buildAlternativeLoginButton(context),
-            ],
+          body: Form(
+            key: _formLoginKey,
+            autovalidateMode: AutovalidateMode.always,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                BackGroundWidget(
+                  wallpaperUrl: ItemsofAsset.loginWallpaperUrl.fetchPhoto,
+                ),
+                _buildInputText(),
+                _buildNavigateButton(context),
+                _buildAlternativeLoginButton(context),
+              ],
+            ),
           ),
         );
-  Positioned _buildMailInput() {
-    return Positioned(
-      bottom: secondInputBarPositionBot,
-      left: inputBarSymetric,
-      right: inputBarSymetric,
-      child: const MailTextField(),
-    );
-  }
 
-  Positioned _buildPasswordInput() {
+  Positioned _buildInputText() {
     return Positioned(
       bottom: thirdInputBarPositinBot,
       left: inputBarSymetric,
       right: inputBarSymetric,
-      child: const PasswordTextField(),
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.25,
+        child: Card(
+          color: Theme.of(context).colorScheme.onBackground,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: MailTextField(
+                  validator: FormFieldValidator().isNotEmptyMail,
+                ),
+              ),
+              PasswordTextField(
+                validator: FormFieldValidator().isNotEmptyPassword,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -116,27 +132,7 @@ class _UserLoginViewState extends StateManageUserLogin
                 builder: (context) {
                   return Padding(
                     padding: radiusPadding,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Card(
-                          shape: Theme.of(context).cardTheme.shape,
-                          color: Theme.of(context).cardColor,
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.surface,
-                              child: Logo(Logos.google),
-                            ),
-                            title: Text(
-                              loginGoogle,
-                              style: Theme.of(context).textTheme.labelMedium,
-                            ),
-                            onTap: () {},
-                          ),
-                        )
-                      ],
-                    ),
+                    child: _buildGoogleLogin(context),
                   );
                 },
               );
@@ -153,6 +149,29 @@ class _UserLoginViewState extends StateManageUserLogin
       ),
     );
   }
+
+  Column _buildGoogleLogin(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Card(
+          shape: Theme.of(context).cardTheme.shape,
+          color: Theme.of(context).cardColor,
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              child: Logo(Logos.google),
+            ),
+            title: Text(
+              loginGoogle,
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+            onTap: () {},
+          ),
+        )
+      ],
+    );
+  }
 }
 
 mixin _pageSize {
@@ -160,8 +179,8 @@ mixin _pageSize {
   final double loginButtonPositionBot = 175;
   final double loginButtonSymetric = 15;
   final double alternativeLoginPositionBot = 20;
-  final double secondInputBarPositionBot = 360;
-  final double thirdInputBarPositinBot = 290;
+
+  double thirdInputBarPositinBot = 250;
   final double inputBarSymetric = 15;
 
   //radius
@@ -179,4 +198,18 @@ mixin _pageWord {
 
 mixin _pageDuration {
   final int duration = 2;
+}
+
+class FormFieldValidator {
+  String? isNotEmptyMail(String? data) {
+    return (data?.isValidEmail ?? false)
+        ? null
+        : "Geçerli bir email adresi giriniz.";
+  }
+
+  String? isNotEmptyPassword(String? data) {
+    return (data?.isValidPassword ?? false)
+        ? null
+        : "En az 8 karakter, büyük küçük harf ve özel karakter olmalıdır.";
+  }
 }

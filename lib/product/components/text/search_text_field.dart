@@ -19,7 +19,7 @@ class _SearchTextFieldState extends State<SearchTextField> with _pageSize {
     const hintText = "Yemek ara";
     return SizedBox(
       height: textFieldSize,
-      child: TextField(
+      child: TextFormField(
         controller: widget.controller,
         keyboardType: TextInputType.text,
         decoration: _inputDecoration(hintText, context),
