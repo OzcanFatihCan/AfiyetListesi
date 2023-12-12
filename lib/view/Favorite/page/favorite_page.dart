@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:afiyetlistesi/model/favorite_model.dart';
+import 'package:afiyetlistesi/model/favorite_model_fake.dart';
 import 'package:afiyetlistesi/view/Favorite/state/state_manage_favorite.dart';
 
 part '../widget/favorite_card_widget.dart';
@@ -41,7 +41,8 @@ class _FavoritePageViewState extends StateManageFavorite with _pageSize {
             controller: pageController,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
-              List<FavoriteModel> filteredModels = getFilteredModels(index + 1);
+              List<FavoriteModell> filteredModels =
+                  getFilteredModels(index + 1);
 
               return ListView.builder(
                 itemCount: filteredModels.length,

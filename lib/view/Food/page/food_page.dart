@@ -1,4 +1,4 @@
-import 'package:afiyetlistesi/model/favorite_model.dart';
+import 'package:afiyetlistesi/model/favorite_model_fake.dart';
 import 'package:afiyetlistesi/view/Food/state/state_manage_food.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +41,8 @@ class _FoodPageViewState extends StateManageFood with _pageSize {
             controller: pageController,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
-              List<FavoriteModel> filteredModels = getFilteredModels(index + 1);
+              List<FavoriteModell> filteredModels =
+                  getFilteredModels(index + 1);
 
               return GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

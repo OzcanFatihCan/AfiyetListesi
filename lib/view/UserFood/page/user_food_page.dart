@@ -1,4 +1,4 @@
-import 'package:afiyetlistesi/model/favorite_model.dart';
+import 'package:afiyetlistesi/model/favorite_model_fake.dart';
 import 'package:afiyetlistesi/view/UserFood/viewModel/state_manage_user_food.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +48,8 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
             controller: pageController,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
-              List<FavoriteModel> filteredModels = getFilteredModels(index + 1);
+              List<FavoriteModell> filteredModels =
+                  getFilteredModels(index + 1);
 
               return ListView.builder(
                 itemCount: filteredModels.length,

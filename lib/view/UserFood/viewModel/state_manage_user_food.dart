@@ -1,11 +1,11 @@
-import 'package:afiyetlistesi/model/favorite_model.dart';
+import 'package:afiyetlistesi/model/favorite_model_fake.dart';
 import 'package:afiyetlistesi/product/constants/project_words.dart';
 import 'package:afiyetlistesi/view/UserFood/page/user_food_page.dart';
 import 'package:flutter/material.dart';
 
 abstract class StateManageUserFood extends State<UserFoodPageView> {
   PageController pageController = PageController();
-  late List<FavoriteModel> cardItems;
+  late List<FavoriteModell> cardItems;
   bool isLoading = false;
   int currentFav = CategoryName.yemek.index;
   final int duration = 1;
@@ -40,7 +40,7 @@ abstract class StateManageUserFood extends State<UserFoodPageView> {
     });
   }
 
-  List<FavoriteModel> getFilteredModels(int category) {
+  List<FavoriteModell> getFilteredModels(int category) {
     return cardItems.where((model) => model.category == category).toList();
   }
 }
@@ -67,118 +67,118 @@ extension CategoryNameExtension on CategoryName {
 }
 
 class FavoriteItems {
-  late List<FavoriteModel> cardItems;
+  late List<FavoriteModell> cardItems;
   FavoriteItems() {
     cardItems = [
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl,
           title: "Bulgur Pilavı",
           category: 1),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl2, title: "Sütlaç", category: 2),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl3,
           title: "Taze Fasulye",
           category: 1),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl,
           title: "Bulgur Pilavı",
           category: 1),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl2, title: "Sütlaç", category: 2),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl3,
           title: "Taze Fasulye",
           category: 1),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl10,
           title: "Vişne Reçeli",
           category: 4),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl11,
           title: "İncir Reçeli",
           category: 4),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl10,
           title: "Vişne Reçeli",
           category: 4),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl11,
           title: "İncir Reçeli",
           category: 4),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl10,
           title: "Vişne Reçeli",
           category: 4),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl11,
           title: "İncir Reçeli",
           category: 4),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl2, title: "Sütlaç", category: 2),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl6, title: "Baklava", category: 2),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl7,
           title: "Biber Turşusu",
           category: 3),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl8,
           title: "Salatalık Turşusu",
           category: 3),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl9,
           title: "Lahana Turşusu",
           category: 3),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl7,
           title: "Biber Turşusu",
           category: 3),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl8,
           title: "Salatalık Turşusu",
           category: 3),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl9,
           title: "Lahana Turşusu",
           category: 3),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl,
           title: "Bulgur Pilavı",
           category: 1),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl2, title: "Sütlaç", category: 2),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl4,
           title: "Erik Kompostosu",
           category: 5),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl5,
           title: "Elma Kompostosu",
           category: 5),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl4,
           title: "Erik Kompostosu",
           category: 5),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl5,
           title: "Elma Kompostosu",
           category: 5),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl4,
           title: "Erik Kompostosu",
           category: 5),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl5,
           title: "Elma Kompostosu",
           category: 5),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl,
           title: "Bulgur Pilavı",
           category: 1),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl6, title: "Baklava", category: 2),
-      FavoriteModel(
+      FavoriteModell(
           imagePath: ProjectWords.photoUrl3,
           title: "Taze Fasulye",
           category: 1),

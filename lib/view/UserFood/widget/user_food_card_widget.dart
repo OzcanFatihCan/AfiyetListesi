@@ -2,10 +2,10 @@ part of '../page/user_food_page.dart';
 
 class _BuildFavoriteCard extends StatelessWidget with _pageSize, _pageWord {
   _BuildFavoriteCard({
-    required FavoriteModel model,
+    required FavoriteModell model,
   }) : _model = model;
 
-  final FavoriteModel _model;
+  final FavoriteModell _model;
 
   @override
   Widget build(BuildContext context) {

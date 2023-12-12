@@ -2,6 +2,7 @@ import 'package:afiyetlistesi/product/components/text/mail_text_field.dart';
 import 'package:afiyetlistesi/product/components/text/name_text_field.dart';
 import 'package:afiyetlistesi/product/components/text/password_text_field.dart';
 import 'package:afiyetlistesi/externalPackage/dotted/dotted_frame.dart';
+import 'package:afiyetlistesi/product/constants/project_input_control.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 
@@ -25,16 +26,20 @@ class _ProfilePageViewState extends StateManageProfile
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Padding(
-        padding: pagePadding2x,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _BuildProfilPhoto(),
-              SizedBox(height: spaceObjects),
-              _buildTextBody(context)
-            ],
+      body: Form(
+        key: formProfileKey,
+        autovalidateMode: AutovalidateMode.always,
+        child: Padding(
+          padding: pagePadding2x,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _BuildProfilPhoto(),
+                SizedBox(height: spaceObjects),
+                _buildTextBody(context)
+              ],
+            ),
           ),
         ),
       ),
@@ -52,16 +57,22 @@ class _ProfilePageViewState extends StateManageProfile
             padding: pagePadding2x,
             child: Column(
               children: [
-                Text(
-                  profileTitle,
-                  style: Theme.of(context).textTheme.headlineMedium,
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: spaceObjects),
+                  child: Text(
+                    profileTitle,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
                 ),
-                SizedBox(height: spaceObjects),
                 NameTextField(isEditing: isEditing),
-                SizedBox(height: spaceObjects),
-                MailTextField(isEditing: isEditing),
-                SizedBox(height: spaceObjects),
-                PasswordTextField(isEditing: isEditing),
+                MailTextField(
+                  isEditing: isEditing,
+                  validator: FormProfilValidator().isNotEmptyMail,
+                ),
+                PasswordTextField(
+                  isEditing: isEditing,
+                  validator: FormProfilValidator().isNotEmptyPassword,
+                ),
               ],
             ),
           ),
@@ -113,4 +124,18 @@ mixin _pageWord {
   final profileTitle = "Profili Düzenle";
   final profilPhotoUrl =
       "https://image.tmdb.org/t/p/original/mbMsmQE5CyMVTIGMGCw2XpcPCOc.jpg";
+}
+
+class FormProfilValidator {
+  String? isNotEmptyMail(String? data) {
+    return (data?.isValidEmail ?? false)
+        ? null
+        : "Geçerli bir email adresi giriniz.";
+  }
+
+  String? isNotEmptyPassword(String? data) {
+    return (data?.isValidPassword ?? false)
+        ? null
+        : "En az 8 karakter, büyük küçük harf ve özel karakter olmalıdır.";
+  }
 }

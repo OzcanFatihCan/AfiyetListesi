@@ -106,10 +106,11 @@ class _UserLoginViewState extends StateManageUserLogin
 
   Positioned _buildAlternativeLoginButton(BuildContext context) {
     return Positioned(
-        bottom: alternativeLoginPositionBot,
-        left: loginButtonSymetric,
-        right: loginButtonSymetric,
-        child: AlternativeLoginPageView());
+      bottom: alternativeLoginPositionBot,
+      left: loginButtonSymetric,
+      right: loginButtonSymetric,
+      child: AlternativeLoginPageView(),
+    );
   }
 }
 
