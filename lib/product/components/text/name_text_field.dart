@@ -40,6 +40,7 @@ class _NameTextFieldState extends State<NameTextField> with _pageSize {
       border: OutlineInputBorder(
         borderRadius: BorderRadius.all(fullRadius),
       ),
+      contentPadding: contentPadding,
       filled: true,
       fillColor: Theme.of(context).colorScheme.secondary,
       prefixIconColor: Theme.of(context).colorScheme.onPrimary,
@@ -74,4 +75,6 @@ mixin _pageSize {
   final double textFieldBorderSize = 3;
   //radius
   final fullRadius = const Radius.circular(30);
+  //padding
+  final EdgeInsets contentPadding = const EdgeInsets.all(10);
 }

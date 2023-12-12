@@ -2,6 +2,7 @@ import 'package:afiyetlistesi/view/Login/page/user_login_page.dart';
 import 'package:flutter/material.dart';
 
 abstract class StateManageUserLogin extends State<UserLoginView> {
+  final GlobalKey<FormState> formLoginKey = GlobalKey();
   bool isLoading = false;
 
   void changeLoading() {

@@ -3,6 +3,7 @@ import 'package:afiyetlistesi/product/components/text/mail_text_field.dart';
 import 'package:afiyetlistesi/product/components/text/name_text_field.dart';
 import 'package:afiyetlistesi/product/components/text/password_text_field.dart';
 import 'package:afiyetlistesi/product/components/image/wallpaper_widget.dart';
+import 'package:afiyetlistesi/product/constants/project_input_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
@@ -25,70 +26,69 @@ class _UserRegisterViewState extends StateManageUserRegister
       : Scaffold(
           backgroundColor: Theme.of(context).colorScheme.surface,
           resizeToAvoidBottomInset: false,
-          body: Stack(
-            fit: StackFit.expand,
-            children: [
-              BackGroundWidget(
-                wallpaperUrl: ItemsofAsset.loginWallpaperUrl.fetchPhoto,
-              ),
-              _buildNameInput(),
-              _buildMailInput(),
-              _buildPasswordInput(),
-              _buildNavigateButton(context),
-            ],
+          body: Form(
+            key: formRegisterKey,
+            autovalidateMode: AutovalidateMode.always,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                BackGroundWidget(
+                  wallpaperUrl: ItemsofAsset.loginWallpaperUrl.fetchPhoto,
+                ),
+                _buildLoginBar(),
+              ],
+            ),
           ),
         );
 
-  Positioned _buildNameInput() {
+  Positioned _buildLoginBar() {
     return Positioned(
-      bottom: firstInputBarPositionBot,
+      bottom: positionBot,
       left: inputBarSymetric,
       right: inputBarSymetric,
-      child: const NameTextField(),
-    );
-  }
-
-  Positioned _buildMailInput() {
-    return Positioned(
-      bottom: secondInputBarPositionBot,
-      left: inputBarSymetric,
-      right: inputBarSymetric,
-      child: const MailTextField(),
-    );
-  }
-
-  Positioned _buildPasswordInput() {
-    return Positioned(
-      bottom: thirdInputBarPositinBot,
-      left: inputBarSymetric,
-      right: inputBarSymetric,
-      child: const PasswordTextField(),
-    );
-  }
-
-  Positioned _buildNavigateButton(BuildContext context) {
-    return Positioned(
-      bottom: loginButtonPositionBot,
-      left: loginButtonSymetric,
-      right: loginButtonSymetric,
-      child: ButtonBar(
-        alignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.07,
-            width: MediaQuery.of(context).size.width * 0.35,
-            child: ButtonDecorationWidget(
-              buttonTitle: registerButton,
-              onPressed: () async {
-                changeLoading();
-                await Future.delayed(Duration(seconds: duration));
-                await NavigatorManager.instance.pushToPage(NavigateRoutes.home);
-                changeLoading();
-              },
-            ),
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.42,
+        child: Card(
+          color: Theme.of(context).colorScheme.onBackground,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: inputPadding,
+                child: const NameTextField(),
+              ),
+              MailTextField(
+                validator: FormRegisterValidator().isNotEmptyMail,
+              ),
+              PasswordTextField(
+                validator: FormRegisterValidator().isNotEmptyPassword,
+              ),
+              _buildNavigateButton(context),
+            ],
           ),
-        ],
+        ),
       ),
+    );
+  }
+
+  ButtonBar _buildNavigateButton(BuildContext context) {
+    return ButtonBar(
+      alignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.06,
+          width: MediaQuery.of(context).size.width * 0.35,
+          child: ButtonDecorationWidget(
+            buttonTitle: registerButton,
+            onPressed: () async {
+              changeLoading();
+              await Future.delayed(Duration(seconds: duration));
+              await NavigatorManager.instance.pushToPage(NavigateRoutes.home);
+              changeLoading();
+            },
+          ),
+        ),
+      ],
     );
   }
 }
@@ -96,10 +96,15 @@ class _UserRegisterViewState extends StateManageUserRegister
 mixin _pageSize {
   final double loginButtonPositionBot = 175;
   final double loginButtonSymetric = 15;
+  final double positionBot = 200;
+
   final double firstInputBarPositionBot = 430;
   final double secondInputBarPositionBot = 360;
   final double thirdInputBarPositinBot = 290;
   final double inputBarSymetric = 15;
+
+  //padding
+  final inputPadding = const EdgeInsets.only(top: 14);
 }
 mixin _pageWord {
   final registerButton = "Kayıt Ol";
@@ -107,4 +112,18 @@ mixin _pageWord {
 
 mixin _pageDuration {
   final int duration = 2;
+}
+
+class FormRegisterValidator {
+  String? isNotEmptyMail(String? data) {
+    return (data?.isValidEmail ?? false)
+        ? null
+        : "Geçerli bir email adresi giriniz.";
+  }
+
+  String? isNotEmptyPassword(String? data) {
+    return (data?.isValidPassword ?? false)
+        ? null
+        : "En az 8 karakter, büyük küçük harf ve özel karakter olmalıdır.";
+  }
 }

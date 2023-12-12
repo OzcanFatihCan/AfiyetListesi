@@ -22,13 +22,22 @@ class _ButtonDecorationWidgetState extends State<ButtonDecorationWidget>
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
         backgroundColor: Theme.of(context).colorScheme.onPrimary,
+        elevation: elevation,
       ),
       onPressed: widget.onPressed,
       child: Padding(
         padding: pagePadding,
         child: Text(
           widget.buttonTitle,
-          style: Theme.of(context).textTheme.titleMedium,
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+            shadows: [
+              Shadow(
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+                offset: buttonOffset,
+                blurRadius: blur,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -37,4 +46,7 @@ class _ButtonDecorationWidgetState extends State<ButtonDecorationWidget>
 
 mixin _pageSize {
   final pagePadding = const EdgeInsets.all(8.0);
+  final double blur = 4;
+  final Offset buttonOffset = const Offset(0, 2);
+  final double elevation = 7;
 }

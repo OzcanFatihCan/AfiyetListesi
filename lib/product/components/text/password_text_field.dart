@@ -51,7 +51,18 @@ class _PasswordTextFieldState extends State<PasswordTextField> with _pageSize {
       border: OutlineInputBorder(
         borderRadius: BorderRadius.all(fullRadius),
       ),
+      errorStyle: TextStyle(
+        fontWeight: FontWeight.bold,
+        shadows: [
+          Shadow(
+            color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+            offset: textOffset,
+            blurRadius: blur,
+          ),
+        ],
+      ),
       hintText: hintText,
+      contentPadding: contentPadding,
       suffixIcon: _onVisiblityIcon(),
       filled: true,
       fillColor: Theme.of(context).colorScheme.secondary,
@@ -98,6 +109,10 @@ mixin _pageSize {
   //obj
   final double textFieldSize = 77;
   final double textFieldBorderSize = 3;
+  final double blur = 2.0;
+  final Offset textOffset = const Offset(0, 1);
   //radius
   final fullRadius = const Radius.circular(30);
+  //padding
+  final EdgeInsets contentPadding = const EdgeInsets.all(10);
 }

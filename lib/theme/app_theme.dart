@@ -25,7 +25,7 @@ class AppTheme {
         error: _themeColor.redColor,
         onError: _themeColor.redColor2,
         background: _themeColor.mainColor,
-        onBackground: _themeColor.lightGreyColor,
+        onBackground: _themeColor.transparent2Color,
         surface: _themeColor.transparentColor,
         onSurface: _themeColor.millionGrey,
       ),
@@ -202,7 +202,7 @@ class _ThemeColors {
   final Color redColor2 = const Color.fromARGB(255, 233, 104, 94);
   final Color whiteColor = Colors.white;
   final Color greyColor = Colors.grey;
-  final Color lightGreyColor = Colors.grey.shade300;
+  final Color transparent2Color = Colors.white38;
   final Color transparentColor = Colors.transparent;
   final Color millionGrey = const Color(0xFF999999);
 }
