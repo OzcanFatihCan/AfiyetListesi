@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1059064637100",
+    "project_id": "afiyetlistesi",
+    "storage_bucket": "afiyetlistesi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059064637100:android:e7195c8429ba1acd8ee109",
+        "android_client_info": {
+          "package_name": "com.example.afiyetlistesi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALUN2MdT31xQeGX2FVwHnhywLWyw10KEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
