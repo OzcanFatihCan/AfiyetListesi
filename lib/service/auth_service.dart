@@ -1,5 +1,6 @@
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
+import 'package:afiyetlistesi/view/Login/bloc/auth_state_manage.dart';
 import 'package:afiyetlistesi/view/Login/model/login_user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,8 +23,8 @@ class AuthService implements IAuthService {
         "name": userModel.userName,
         "password": userModel.userPasw,
       });
-    } catch (e) {
-      return print(e);
+    } on FirebaseAuthException catch (e) {
+      throw e.message!;
     }
   }
 
@@ -44,7 +45,7 @@ class AuthService implements IAuthService {
         ));
       }
     } on FirebaseAuthException catch (e) {
-      return print(e.message);
+      throw e.message!;
     }
   }
 
@@ -59,10 +60,10 @@ class AuthService implements IAuthService {
       if (userCredential.user != null) {
         await NavigatorManager.instance.pushToPage(NavigateRoutes.home);
       } else {
-        return print("giriş sırasında hata yaptınız");
+        throw "Giriş sırasında hata oluştu";
       }
     } on FirebaseAuthException catch (e) {
-      return print(e.message);
+      throw AuthFailure(error: e.message!);
     }
   }
 

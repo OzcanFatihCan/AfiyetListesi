@@ -4,8 +4,6 @@ import 'package:afiyetlistesi/product/components/text/name_text_field.dart';
 import 'package:afiyetlistesi/product/components/text/password_text_field.dart';
 import 'package:afiyetlistesi/product/components/image/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/constants/project_input_control.dart';
-import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
-import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/service/auth_service.dart';
 import 'package:afiyetlistesi/view/Login/model/login_user_model.dart';
@@ -90,8 +88,6 @@ class _UserRegisterViewState extends State<UserRegisterView>
           child: ButtonDecorationWidget(
             buttonTitle: registerButton,
             onPressed: () async {
-              //await Future.delayed(Duration(seconds: duration));
-              //await NavigatorManager.instance.pushToPage(NavigateRoutes.home);
               AuthService().signUpWithEmail(
                 UserModel(
                   userEmail: _emailController.text,
