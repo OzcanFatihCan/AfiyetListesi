@@ -92,11 +92,13 @@ class _UserRegisterViewState extends State<UserRegisterView>
             onPressed: () async {
               //await Future.delayed(Duration(seconds: duration));
               //await NavigatorManager.instance.pushToPage(NavigateRoutes.home);
-              AuthService().registerWithEmail(UserModel(
-                userEmail: _emailController.text,
-                userName: _nameController.text,
-                userPasw: _passwordController.text,
-              ));
+              AuthService().signUpWithEmail(
+                UserModel(
+                  userEmail: _emailController.text,
+                  userPasw: _passwordController.text,
+                  userName: _nameController.text,
+                ),
+              );
             },
           ),
         ),

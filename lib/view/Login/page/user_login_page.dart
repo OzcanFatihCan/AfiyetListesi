@@ -6,7 +6,9 @@ import 'package:afiyetlistesi/product/constants/project_input_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
+import 'package:afiyetlistesi/service/auth_service.dart';
 import 'package:afiyetlistesi/view/Loading/page/loading_page.dart';
+import 'package:afiyetlistesi/view/Login/model/login_user_model.dart';
 import 'package:afiyetlistesi/view/Login/page/user_alternative_login.dart';
 import 'package:afiyetlistesi/view/Login/bloc/state_manage_user_login.dart';
 
@@ -21,27 +23,29 @@ class UserLoginView extends StatefulWidget {
 
 class _UserLoginViewState extends StateManageUserLogin
     with _pageSize, _pageWord, _pageDuration {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   @override
-  Widget build(BuildContext context) => isLoading
-      ? const LoadingPageView()
-      : Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          resizeToAvoidBottomInset: false,
-          body: Form(
-            key: formLoginKey,
-            autovalidateMode: AutovalidateMode.always,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                BackGroundWidget(
-                  wallpaperUrl: ItemsofAsset.loginWallpaperUrl.fetchPhoto,
-                ),
-                _buildLoginBar(),
-                _buildAlternativeLoginButton(context),
-              ],
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      resizeToAvoidBottomInset: false,
+      body: Form(
+        key: formLoginKey,
+        autovalidateMode: AutovalidateMode.always,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            BackGroundWidget(
+              wallpaperUrl: ItemsofAsset.loginWallpaperUrl.fetchPhoto,
             ),
-          ),
-        );
+            _buildLoginBar(),
+            _buildAlternativeLoginButton(context),
+          ],
+        ),
+      ),
+    );
+  }
 
   Positioned _buildLoginBar() {
     return Positioned(
@@ -58,10 +62,12 @@ class _UserLoginViewState extends StateManageUserLogin
               Padding(
                 padding: inputPadding,
                 child: MailTextField(
+                  controller: _emailController,
                   validator: FormLoginValidator().isNotEmptyMail,
                 ),
               ),
               PasswordTextField(
+                controller: _passwordController,
                 validator: FormLoginValidator().isNotEmptyPassword,
               ),
               _buildNavigateButton(context),
@@ -82,10 +88,13 @@ class _UserLoginViewState extends StateManageUserLogin
           child: ButtonDecorationWidget(
             buttonTitle: loginButton,
             onPressed: () async {
-              changeLoading();
-              await Future.delayed(Duration(seconds: duration));
-              await NavigatorManager.instance.pushToPage(NavigateRoutes.home);
-              changeLoading();
+              //await Future.delayed(Duration(seconds: duration));
+              //await NavigatorManager.instance.pushToPage(NavigateRoutes.home);
+
+              AuthService().signInWithEmail(UserModel(
+                userEmail: _emailController.text,
+                userPasw: _passwordController.text,
+              ));
             },
           ),
         ),
