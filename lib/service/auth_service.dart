@@ -1,48 +1,34 @@
+import 'package:afiyetlistesi/view/Login/model/login_user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class IAuthService {
-  Future registerWithEmail(String email, String password, String name);
+  Future<void> registerWithEmail(UserModel userModel);
   Future signInWithEmail(String email, String password);
   Future signOut();
 }
 
 class AuthService implements IAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final _userCollection = FirebaseFirestore.instance.collection("users");
 
   // Kayıt işlemi
   @override
-  Future registerWithEmail(String name, String email, String password) async {
+  Future<void> registerWithEmail(UserModel userModel) async {
     try {
-      UserCredential result = await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-
-      String uid = result.user?.uid ?? "";
-
-      await FirebaseFirestore.instance.collection('users').doc(uid).set({
-        'name': name,
-        'email': email,
+      await _userCollection.doc().set({
+        "email": userModel.userEmail,
+        "name": userModel.userName,
+        "password": userModel.userPasw,
       });
-
-      return null;
     } catch (e) {
-      return e.toString();
+      return print(e);
     }
   }
 
   // Giriş işlemi
   @override
-  Future signInWithEmail(String email, String password) async {
-    try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-
-      return null;
-    } catch (e) {
-      return e.toString();
-    }
-  }
+  Future signInWithEmail(String email, String password) async {}
 
   // Çıkış işlemi
   @override

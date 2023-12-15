@@ -7,6 +7,8 @@ import 'package:afiyetlistesi/product/constants/project_input_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
+import 'package:afiyetlistesi/service/auth_service.dart';
+import 'package:afiyetlistesi/view/Login/model/login_user_model.dart';
 import 'package:flutter/material.dart';
 
 class UserRegisterView extends StatefulWidget {
@@ -88,8 +90,13 @@ class _UserRegisterViewState extends State<UserRegisterView>
           child: ButtonDecorationWidget(
             buttonTitle: registerButton,
             onPressed: () async {
-              await Future.delayed(Duration(seconds: duration));
-              await NavigatorManager.instance.pushToPage(NavigateRoutes.home);
+              //await Future.delayed(Duration(seconds: duration));
+              //await NavigatorManager.instance.pushToPage(NavigateRoutes.home);
+              AuthService().registerWithEmail(UserModel(
+                userEmail: _emailController.text,
+                userName: _nameController.text,
+                userPasw: _passwordController.text,
+              ));
             },
           ),
         ),
