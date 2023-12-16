@@ -1,6 +1,7 @@
 import 'package:afiyetlistesi/main.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
 import 'package:afiyetlistesi/view/Error/page/error_page.dart';
+import 'package:afiyetlistesi/view/FoodAdd/page/food_add_page.dart';
 import 'package:afiyetlistesi/view/FoodDetail/page/food_detail_page.dart';
 import 'package:afiyetlistesi/view/Home/page/home_page.dart';
 import 'package:afiyetlistesi/view/Loading/page/loading_page.dart';
@@ -30,24 +31,20 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
         return _navigateToNormal(const UserLoginView());
       case NavigateRoutes.register:
         return _navigateToNormal(const UserRegisterView());
-
       case NavigateRoutes.home:
         return _navigateToNormal(const HomePageView());
       case NavigateRoutes.foodAdd:
-        break;
+        return _navigateToNormal(const FoodAddPageView());
       case NavigateRoutes.foodDetail:
         return _navigateToNormal(
-          FoodDetailPage(
-            model: arguments as PopularFavoriteModel,
-          ),
-        );
+            FoodDetailPage(model: arguments as PopularFavoriteModel));
       case NavigateRoutes.userFood:
         return _navigateToNormal(const UserFoodPageView());
       case NavigateRoutes.loading:
         return _navigateToNormal(const LoadingPageView());
+      default:
+        return null;
     }
-
-    return null;
   }
 
   Route<dynamic>? _navigateToNormal(Widget child) {

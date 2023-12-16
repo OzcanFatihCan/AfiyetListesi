@@ -6,12 +6,10 @@ import 'package:afiyetlistesi/product/constants/project_input_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
-import 'package:afiyetlistesi/service/auth_service.dart';
 import 'package:afiyetlistesi/view/Loading/page/loading_page.dart';
 import 'package:afiyetlistesi/view/Login/bloc/auth_bloc_manage.dart';
 import 'package:afiyetlistesi/view/Login/bloc/auth_event_manage.dart';
 import 'package:afiyetlistesi/view/Login/bloc/auth_state_manage.dart';
-import 'package:afiyetlistesi/view/Login/model/login_user_model.dart';
 import 'package:afiyetlistesi/view/Login/page/user_alternative_login.dart';
 
 import 'package:flutter/material.dart';
@@ -109,12 +107,14 @@ class _UserLoginViewState extends State<UserLoginView>
           child: ButtonDecorationWidget(
             buttonTitle: loginButton,
             onPressed: () async {
+              /*
               BlocProvider.of<AuthBloc>(context).add(
                 SignInEvent(
                   email: _emailController.text,
                   password: _passwordController.text,
                 ),
-              );
+              );*/
+              await NavigatorManager.instance.pushToPage(NavigateRoutes.home);
             },
           ),
         ),

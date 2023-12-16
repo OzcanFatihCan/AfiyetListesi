@@ -1,7 +1,6 @@
 part of '../page/food_detail_page.dart';
 
-class _BuildFavoriteButton extends StatelessWidget
-    with _pageWord, _pageDuration {
+class _BuildFavoriteButton extends StatelessWidget with _pageWord {
   _BuildFavoriteButton();
 
   @override

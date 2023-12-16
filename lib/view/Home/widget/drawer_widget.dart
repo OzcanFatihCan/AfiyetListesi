@@ -79,7 +79,9 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget>
                   drawerChoice: ListItemName
                       .values[ListItemName.yemekEkle.index]
                       .getListTitle(),
-                  onTap: () {
+                  onTap: () async {
+                    await NavigatorManager.instance
+                        .pushToPage(NavigateRoutes.foodAdd);
                     _updateSelectedOption(ListItemName.yemekEkle.index);
                   },
                   isSelected:
