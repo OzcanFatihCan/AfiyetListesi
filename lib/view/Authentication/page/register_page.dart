@@ -1,25 +1,23 @@
 import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
-import 'package:afiyetlistesi/product/components/text/mail_text_field.dart';
-import 'package:afiyetlistesi/product/components/text/password_text_field.dart';
+import 'package:afiyetlistesi/product/components/text/input_text_field.dart';
 import 'package:afiyetlistesi/product/components/image/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/constants/project_input_control.dart';
-import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
-import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
-import 'package:afiyetlistesi/view/Login/page/user_alternative_login.dart';
 
 import 'package:flutter/material.dart';
 
-class UserLoginView extends StatefulWidget {
-  const UserLoginView({super.key});
+class RegisterPageView extends StatefulWidget {
+  const RegisterPageView({super.key});
 
   @override
-  State<UserLoginView> createState() => _UserLoginViewState();
+  State<RegisterPageView> createState() => _RegisterPageViewState();
 }
 
-class _UserLoginViewState extends State<UserLoginView>
+class _RegisterPageViewState extends State<RegisterPageView>
     with _pageSize, _pageWord, _pageDuration {
-  final GlobalKey<FormState> _formLoginKey = GlobalKey();
+  final GlobalKey<FormState> formRegisterKey = GlobalKey();
+
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   @override
@@ -28,7 +26,7 @@ class _UserLoginViewState extends State<UserLoginView>
       backgroundColor: Theme.of(context).colorScheme.surface,
       resizeToAvoidBottomInset: false,
       body: Form(
-        key: _formLoginKey,
+        key: formRegisterKey,
         autovalidateMode: AutovalidateMode.always,
         child: Stack(
           fit: StackFit.expand,
@@ -37,7 +35,6 @@ class _UserLoginViewState extends State<UserLoginView>
               wallpaperUrl: ItemsofAsset.loginWallpaperUrl.fetchPhoto,
             ),
             _buildLoginBar(),
-            _buildAlternativeLoginButton(context),
           ],
         ),
       ),
@@ -50,7 +47,7 @@ class _UserLoginViewState extends State<UserLoginView>
       left: inputBarSymetric,
       right: inputBarSymetric,
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.35,
+        height: MediaQuery.of(context).size.height * 0.42,
         child: Card(
           color: Theme.of(context).colorScheme.onBackground,
           child: Column(
@@ -58,14 +55,28 @@ class _UserLoginViewState extends State<UserLoginView>
             children: [
               Padding(
                 padding: inputPadding,
-                child: MailTextField(
-                  controller: _emailController,
-                  validator: FormLoginValidator().isNotEmptyMail,
+                child: InputTextField(
+                  controller: _nameController,
+                  hintText: hintTextName,
+                  prefixIcon: const Icon(Icons.person),
+                  keyboardType: TextInputType.name,
                 ),
               ),
-              PasswordTextField(
+              InputTextField(
+                controller: _emailController,
+                hintText: hintTextEmail,
+                prefixIcon: const Icon(Icons.mail_rounded),
+                keyboardType: TextInputType.emailAddress,
+                autofillHints: const [AutofillHints.email],
+                validator: FormRegisterValidator().isNotEmptyMail,
+              ),
+              InputTextField(
                 controller: _passwordController,
-                validator: FormLoginValidator().isNotEmptyPassword,
+                hintText: hintTextPassword,
+                prefixIcon: const Icon(Icons.password_rounded),
+                keyboardType: TextInputType.visiblePassword,
+                autofillHints: const [AutofillHints.password],
+                validator: FormRegisterValidator().isNotEmptyPassword,
               ),
               _buildNavigateButton(context),
             ],
@@ -83,56 +94,40 @@ class _UserLoginViewState extends State<UserLoginView>
           height: MediaQuery.of(context).size.height * 0.06,
           width: MediaQuery.of(context).size.width * 0.35,
           child: ButtonDecorationWidget(
-            buttonTitle: loginButton,
-            onPressed: () async {},
-          ),
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.06,
-          width: MediaQuery.of(context).size.width * 0.35,
-          child: ButtonDecorationWidget(
             buttonTitle: registerButton,
-            onPressed: () async {
-              await NavigatorManager.instance
-                  .pushToPage(NavigateRoutes.register);
-            },
+            onPressed: () async {},
           ),
         ),
       ],
     );
   }
-
-  Positioned _buildAlternativeLoginButton(BuildContext context) {
-    return Positioned(
-      bottom: alternativeLoginPositionBot,
-      left: loginButtonSymetric,
-      right: loginButtonSymetric,
-      child: AlternativeLoginPageView(),
-    );
-  }
 }
 
 mixin _pageSize {
-  //obj
+  final double loginButtonPositionBot = 175;
   final double loginButtonSymetric = 15;
-  final double alternativeLoginPositionBot = 20;
   final double positionBot = 200;
+
+  final double firstInputBarPositionBot = 430;
+  final double secondInputBarPositionBot = 360;
+  final double thirdInputBarPositinBot = 290;
   final double inputBarSymetric = 15;
 
   //padding
   final inputPadding = const EdgeInsets.only(top: 14);
 }
 mixin _pageWord {
-  final loginButton = "Giriş Yap";
   final registerButton = "Kayıt Ol";
-  final loginGoogle = "Google ile giriş yap";
+  final hintTextEmail = "Email";
+  final hintTextPassword = "Parola";
+  final hintTextName = "Adınız";
 }
 
 mixin _pageDuration {
   final int duration = 2;
 }
 
-class FormLoginValidator {
+class FormRegisterValidator {
   String? isNotEmptyMail(String? data) {
     return (data?.isValidEmail ?? false)
         ? null

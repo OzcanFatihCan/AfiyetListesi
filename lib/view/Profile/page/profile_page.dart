@@ -1,7 +1,5 @@
-import 'package:afiyetlistesi/product/components/text/mail_text_field.dart';
-import 'package:afiyetlistesi/product/components/text/name_text_field.dart';
-import 'package:afiyetlistesi/product/components/text/password_text_field.dart';
-import 'package:afiyetlistesi/projectPackages/dotted/dotted_frame.dart';
+import 'package:afiyetlistesi/product/components/text/input_text_field.dart';
+import 'package:afiyetlistesi/product/package/dotted/dotted_frame.dart';
 import 'package:afiyetlistesi/product/constants/project_input_control.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
@@ -64,13 +62,26 @@ class _ProfilePageViewState extends StateManageProfile
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                 ),
-                NameTextField(isEditing: isEditing),
-                MailTextField(
+                InputTextField(
                   isEditing: isEditing,
+                  hintText: hintTextName,
+                  prefixIcon: const Icon(Icons.person),
+                  keyboardType: TextInputType.name,
+                ),
+                InputTextField(
+                  isEditing: isEditing,
+                  hintText: hintTextEmail,
+                  prefixIcon: const Icon(Icons.mail_rounded),
+                  keyboardType: TextInputType.emailAddress,
+                  autofillHints: const [AutofillHints.email],
                   validator: FormProfilValidator().isNotEmptyMail,
                 ),
-                PasswordTextField(
+                InputTextField(
                   isEditing: isEditing,
+                  hintText: hintTextPassword,
+                  prefixIcon: const Icon(Icons.password_rounded),
+                  keyboardType: TextInputType.visiblePassword,
+                  autofillHints: const [AutofillHints.password],
                   validator: FormProfilValidator().isNotEmptyPassword,
                 ),
               ],
@@ -124,6 +135,10 @@ mixin _pageWord {
   final profileTitle = "Profili Düzenle";
   final profilPhotoUrl =
       "https://image.tmdb.org/t/p/original/mbMsmQE5CyMVTIGMGCw2XpcPCOc.jpg";
+
+  final hintTextEmail = "Email";
+  final hintTextPassword = "Parola";
+  final hintTextName = "Adınız";
 }
 
 class FormProfilValidator {

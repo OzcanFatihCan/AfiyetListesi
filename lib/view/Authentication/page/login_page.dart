@@ -1,25 +1,24 @@
 import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
-import 'package:afiyetlistesi/product/components/text/mail_text_field.dart';
-import 'package:afiyetlistesi/product/components/text/name_text_field.dart';
-import 'package:afiyetlistesi/product/components/text/password_text_field.dart';
+import 'package:afiyetlistesi/product/components/text/input_text_field.dart';
 import 'package:afiyetlistesi/product/components/image/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/constants/project_input_control.dart';
+import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
+import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
+import 'package:afiyetlistesi/view/Authentication/page/alternative_login_page.dart';
 
 import 'package:flutter/material.dart';
 
-class UserRegisterView extends StatefulWidget {
-  const UserRegisterView({super.key});
+class LoginPageView extends StatefulWidget {
+  const LoginPageView({super.key});
 
   @override
-  State<UserRegisterView> createState() => _UserRegisterViewState();
+  State<LoginPageView> createState() => _LoginPageViewState();
 }
 
-class _UserRegisterViewState extends State<UserRegisterView>
+class _LoginPageViewState extends State<LoginPageView>
     with _pageSize, _pageWord, _pageDuration {
-  final GlobalKey<FormState> formRegisterKey = GlobalKey();
-
-  final TextEditingController _nameController = TextEditingController();
+  final GlobalKey<FormState> _formLoginKey = GlobalKey();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   @override
@@ -28,7 +27,7 @@ class _UserRegisterViewState extends State<UserRegisterView>
       backgroundColor: Theme.of(context).colorScheme.surface,
       resizeToAvoidBottomInset: false,
       body: Form(
-        key: formRegisterKey,
+        key: _formLoginKey,
         autovalidateMode: AutovalidateMode.always,
         child: Stack(
           fit: StackFit.expand,
@@ -37,6 +36,7 @@ class _UserRegisterViewState extends State<UserRegisterView>
               wallpaperUrl: ItemsofAsset.loginWallpaperUrl.fetchPhoto,
             ),
             _buildLoginBar(),
+            _buildAlternativeLoginButton(context),
           ],
         ),
       ),
@@ -49,7 +49,7 @@ class _UserRegisterViewState extends State<UserRegisterView>
       left: inputBarSymetric,
       right: inputBarSymetric,
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.42,
+        height: MediaQuery.of(context).size.height * 0.35,
         child: Card(
           color: Theme.of(context).colorScheme.onBackground,
           child: Column(
@@ -57,17 +57,22 @@ class _UserRegisterViewState extends State<UserRegisterView>
             children: [
               Padding(
                 padding: inputPadding,
-                child: NameTextField(
-                  controller: _nameController,
+                child: InputTextField(
+                  controller: _emailController,
+                  hintText: hintTextEmail,
+                  prefixIcon: const Icon(Icons.mail_rounded),
+                  keyboardType: TextInputType.emailAddress,
+                  autofillHints: const [AutofillHints.email],
+                  validator: FormLoginValidator().isNotEmptyMail,
                 ),
               ),
-              MailTextField(
-                controller: _emailController,
-                validator: FormRegisterValidator().isNotEmptyMail,
-              ),
-              PasswordTextField(
+              InputTextField(
                 controller: _passwordController,
-                validator: FormRegisterValidator().isNotEmptyPassword,
+                hintText: hintTextPassword,
+                prefixIcon: const Icon(Icons.password_rounded),
+                keyboardType: TextInputType.visiblePassword,
+                autofillHints: const [AutofillHints.password],
+                validator: FormLoginValidator().isNotEmptyPassword,
               ),
               _buildNavigateButton(context),
             ],
@@ -85,37 +90,58 @@ class _UserRegisterViewState extends State<UserRegisterView>
           height: MediaQuery.of(context).size.height * 0.06,
           width: MediaQuery.of(context).size.width * 0.35,
           child: ButtonDecorationWidget(
-            buttonTitle: registerButton,
+            buttonTitle: loginButton,
             onPressed: () async {},
+          ),
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.06,
+          width: MediaQuery.of(context).size.width * 0.35,
+          child: ButtonDecorationWidget(
+            buttonTitle: registerButton,
+            onPressed: () async {
+              await NavigatorManager.instance
+                  .pushToPage(NavigateRoutes.register);
+            },
           ),
         ),
       ],
     );
   }
+
+  Positioned _buildAlternativeLoginButton(BuildContext context) {
+    return Positioned(
+      bottom: alternativeLoginPositionBot,
+      left: loginButtonSymetric,
+      right: loginButtonSymetric,
+      child: AlternativeLoginPageView(),
+    );
+  }
 }
 
 mixin _pageSize {
-  final double loginButtonPositionBot = 175;
+  //obj
   final double loginButtonSymetric = 15;
+  final double alternativeLoginPositionBot = 20;
   final double positionBot = 200;
-
-  final double firstInputBarPositionBot = 430;
-  final double secondInputBarPositionBot = 360;
-  final double thirdInputBarPositinBot = 290;
   final double inputBarSymetric = 15;
 
   //padding
   final inputPadding = const EdgeInsets.only(top: 14);
 }
 mixin _pageWord {
+  final loginButton = "Giriş Yap";
   final registerButton = "Kayıt Ol";
+  final loginGoogle = "Google ile giriş yap";
+  final hintTextEmail = "Email";
+  final hintTextPassword = "Parola";
 }
 
 mixin _pageDuration {
   final int duration = 2;
 }
 
-class FormRegisterValidator {
+class FormLoginValidator {
   String? isNotEmptyMail(String? data) {
     return (data?.isValidEmail ?? false)
         ? null

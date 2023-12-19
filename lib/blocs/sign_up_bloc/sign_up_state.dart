@@ -13,4 +13,4 @@ class SignUpSuccess extends SignUpState {}
 
 class SignUpFailure extends SignUpState {}
 
-class SignUpProcess extends SignUpState {}
+class SignUpProcess extends SignUpState {}//loading page entry

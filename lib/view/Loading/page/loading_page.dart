@@ -1,4 +1,4 @@
-import 'package:afiyetlistesi/externalPackage/text/text_animation.dart';
+import 'package:afiyetlistesi/product/package/text/text_animation.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';

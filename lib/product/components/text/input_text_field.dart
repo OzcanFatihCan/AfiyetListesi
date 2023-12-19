@@ -1,25 +1,35 @@
-import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
+import 'package:flutter/material.dart';
 
-class PasswordTextField extends StatefulWidget {
-  const PasswordTextField({
+class InputTextField extends StatefulWidget {
+  const InputTextField({
     Key? key,
     this.controller,
     this.validator,
     this.isEditing = true,
     this.onChanged,
+    required this.prefixIcon,
+    required this.hintText,
+    this.autofillHints,
+    required this.keyboardType,
+    this.errorMsg,
   }) : super(key: key);
 
-  final bool isEditing;
   final TextEditingController? controller;
+  final bool isEditing;
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
+  final Iterable<String>? autofillHints;
+  final TextInputType? keyboardType;
+  final String? hintText;
+  final Widget? prefixIcon;
+  final String? errorMsg;
 
   @override
-  State<PasswordTextField> createState() => _PasswordTextFieldState();
+  State<InputTextField> createState() => _InputTextFieldState();
 }
 
-class _PasswordTextFieldState extends State<PasswordTextField> with _pageSize {
+class _InputTextFieldState extends State<InputTextField> with _pageSize {
   final int _animatedDuration = 2;
   bool _isSecure = true;
 
@@ -31,25 +41,24 @@ class _PasswordTextFieldState extends State<PasswordTextField> with _pageSize {
 
   @override
   Widget build(BuildContext context) {
-    const hintText = "Parola";
     return SizedBox(
       height: textFieldSize,
       child: TextFormField(
-        textInputAction: TextInputAction.next,
         controller: widget.controller,
-        autofillHints: const [AutofillHints.password],
-        keyboardType: TextInputType.visiblePassword,
-        obscureText: _isSecure,
-        validator: widget.validator,
-        decoration: _paswTextDecoration(hintText),
+        textInputAction: TextInputAction.next,
+        autofillHints: widget.autofillHints,
+        keyboardType: widget.keyboardType,
+        decoration: _mailTextDecoration(),
+        obscureText: widget.hintText == "Parola" ? _isSecure : false,
         enabled: widget.isEditing,
         style: Theme.of(context).textTheme.labelSmall,
+        validator: widget.validator,
         onChanged: widget.onChanged,
       ),
     );
   }
 
-  InputDecoration _paswTextDecoration(String hintText) {
+  InputDecoration _mailTextDecoration() {
     return InputDecoration(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.all(fullRadius),
@@ -64,13 +73,14 @@ class _PasswordTextFieldState extends State<PasswordTextField> with _pageSize {
           ),
         ],
       ),
-      hintText: hintText,
+      hintText: widget.hintText,
       contentPadding: contentPadding,
-      suffixIcon: _onVisiblityIcon(),
       filled: true,
       fillColor: Theme.of(context).colorScheme.secondary,
       prefixIconColor: Theme.of(context).colorScheme.onPrimary,
-      prefixIcon: const Icon(Icons.password_rounded),
+      prefixIcon: widget.prefixIcon,
+      suffixIcon:
+          widget.hintText == "Parola" ? _onVisiblityIcon() : const SizedBox(),
       hintStyle: AppTheme().customTextTheme().titleMedium,
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
@@ -90,6 +100,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> with _pageSize {
           fullRadius,
         ),
       ),
+      errorText: widget.errorMsg,
     );
   }
 

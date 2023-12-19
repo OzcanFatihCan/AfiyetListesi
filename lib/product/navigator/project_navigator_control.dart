@@ -6,8 +6,8 @@ import 'package:afiyetlistesi/view/FoodDetail/page/food_detail_page.dart';
 import 'package:afiyetlistesi/view/Home/page/home_page.dart';
 import 'package:afiyetlistesi/view/Loading/page/loading_page.dart';
 
-import 'package:afiyetlistesi/view/Login/page/user_login_page.dart';
-import 'package:afiyetlistesi/view/Login/page/user_register_page.dart';
+import 'package:afiyetlistesi/view/Authentication/page/login_page.dart';
+import 'package:afiyetlistesi/view/Authentication/page/register_page.dart';
 import 'package:afiyetlistesi/view/UserFood/page/user_food_page.dart';
 import 'package:flutter/material.dart';
 
@@ -30,9 +30,9 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
       case NavigateRoutes.init:
         return _navigateToNormal(AppInitPageView());
       case NavigateRoutes.login:
-        return _navigateToNormal(const UserLoginView());
+        return _navigateToNormal(const LoginPageView());
       case NavigateRoutes.register:
-        return _navigateToNormal(const UserRegisterView());
+        return _navigateToNormal(const RegisterPageView());
       case NavigateRoutes.home:
         return _navigateToNormal(const HomePageView());
       case NavigateRoutes.foodAdd:
