@@ -1,4 +1,3 @@
-import 'package:afiyetlistesi/main.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
 import 'package:afiyetlistesi/view/Error/page/error_page.dart';
 import 'package:afiyetlistesi/view/FoodAdd/page/food_add_page.dart';
@@ -10,6 +9,8 @@ import 'package:afiyetlistesi/view/Login/page/user_login_page.dart';
 import 'package:afiyetlistesi/view/Login/page/user_register_page.dart';
 import 'package:afiyetlistesi/view/UserFood/page/user_food_page.dart';
 import 'package:flutter/material.dart';
+
+import '../../app.dart';
 
 mixin NavigatorControl<T extends AfiyetListesi> on Widget {
   static const _firstUri = "/";

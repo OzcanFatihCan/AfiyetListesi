@@ -4,7 +4,6 @@ import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:flutter/material.dart';
-import 'package:afiyetlistesi/view/Login/bloc/state_manage_login.dart';
 
 class LoginPageView extends StatefulWidget {
   const LoginPageView({super.key});
@@ -13,7 +12,7 @@ class LoginPageView extends StatefulWidget {
   State<LoginPageView> createState() => _LoginPageViewState();
 }
 
-class _LoginPageViewState extends StateManageLogin
+class _LoginPageViewState extends State<LoginPageView>
     with _pageSize, _pageWord, _pageDuration {
   @override
   Widget build(BuildContext context) {

@@ -7,11 +7,13 @@ class MailTextField extends StatefulWidget {
     this.controller,
     this.validator,
     this.isEditing = true,
+    this.onChanged,
   }) : super(key: key);
 
   final TextEditingController? controller;
   final bool isEditing;
   final String? Function(String?)? validator;
+  final Function(String)? onChanged;
   @override
   State<MailTextField> createState() => _MailTextFieldState();
 }
@@ -31,6 +33,7 @@ class _MailTextFieldState extends State<MailTextField> with _pageSize {
         enabled: widget.isEditing,
         style: Theme.of(context).textTheme.labelSmall,
         validator: widget.validator,
+        onChanged: widget.onChanged,
       ),
     );
   }

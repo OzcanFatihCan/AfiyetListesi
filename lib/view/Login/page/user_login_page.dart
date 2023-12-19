@@ -6,14 +6,9 @@ import 'package:afiyetlistesi/product/constants/project_input_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
-import 'package:afiyetlistesi/view/Loading/page/loading_page.dart';
-import 'package:afiyetlistesi/view/Login/bloc/auth_bloc_manage.dart';
-import 'package:afiyetlistesi/view/Login/bloc/auth_event_manage.dart';
-import 'package:afiyetlistesi/view/Login/bloc/auth_state_manage.dart';
 import 'package:afiyetlistesi/view/Login/page/user_alternative_login.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserLoginView extends StatefulWidget {
   const UserLoginView({super.key});
@@ -24,7 +19,7 @@ class UserLoginView extends StatefulWidget {
 
 class _UserLoginViewState extends State<UserLoginView>
     with _pageSize, _pageWord, _pageDuration {
-  final GlobalKey<FormState> formLoginKey = GlobalKey();
+  final GlobalKey<FormState> _formLoginKey = GlobalKey();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   @override
@@ -32,36 +27,19 @@ class _UserLoginViewState extends State<UserLoginView>
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       resizeToAvoidBottomInset: false,
-      body: BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, state) {
-          if (state is AuthLoading) {
-            return const LoadingPageView();
-          }
-
-          if (state is AuthSuccess) {
-            NavigatorManager.instance.pushToPage(NavigateRoutes.home);
-          }
-
-          if (state is AuthFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error)),
-            );
-          }
-          return Form(
-            key: formLoginKey,
-            autovalidateMode: AutovalidateMode.always,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                BackGroundWidget(
-                  wallpaperUrl: ItemsofAsset.loginWallpaperUrl.fetchPhoto,
-                ),
-                _buildLoginBar(),
-                _buildAlternativeLoginButton(context),
-              ],
+      body: Form(
+        key: _formLoginKey,
+        autovalidateMode: AutovalidateMode.always,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            BackGroundWidget(
+              wallpaperUrl: ItemsofAsset.loginWallpaperUrl.fetchPhoto,
             ),
-          );
-        },
+            _buildLoginBar(),
+            _buildAlternativeLoginButton(context),
+          ],
+        ),
       ),
     );
   }
@@ -106,16 +84,7 @@ class _UserLoginViewState extends State<UserLoginView>
           width: MediaQuery.of(context).size.width * 0.35,
           child: ButtonDecorationWidget(
             buttonTitle: loginButton,
-            onPressed: () async {
-              /*
-              BlocProvider.of<AuthBloc>(context).add(
-                SignInEvent(
-                  email: _emailController.text,
-                  password: _passwordController.text,
-                ),
-              );*/
-              await NavigatorManager.instance.pushToPage(NavigateRoutes.home);
-            },
+            onPressed: () async {},
           ),
         ),
         SizedBox(

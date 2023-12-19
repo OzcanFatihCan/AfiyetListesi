@@ -1,7 +1,7 @@
 import 'package:afiyetlistesi/product/components/text/mail_text_field.dart';
 import 'package:afiyetlistesi/product/components/text/name_text_field.dart';
 import 'package:afiyetlistesi/product/components/text/password_text_field.dart';
-import 'package:afiyetlistesi/externalPackage/dotted/dotted_frame.dart';
+import 'package:afiyetlistesi/projectPackages/dotted/dotted_frame.dart';
 import 'package:afiyetlistesi/product/constants/project_input_control.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';

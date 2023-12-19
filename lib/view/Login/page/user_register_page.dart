@@ -5,8 +5,7 @@ import 'package:afiyetlistesi/product/components/text/password_text_field.dart';
 import 'package:afiyetlistesi/product/components/image/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/constants/project_input_control.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
-import 'package:afiyetlistesi/service/auth_service.dart';
-import 'package:afiyetlistesi/view/Login/model/login_user_model.dart';
+
 import 'package:flutter/material.dart';
 
 class UserRegisterView extends StatefulWidget {
@@ -87,15 +86,7 @@ class _UserRegisterViewState extends State<UserRegisterView>
           width: MediaQuery.of(context).size.width * 0.35,
           child: ButtonDecorationWidget(
             buttonTitle: registerButton,
-            onPressed: () async {
-              AuthService().signUpWithEmail(
-                UserModel(
-                  userEmail: _emailController.text,
-                  userPasw: _passwordController.text,
-                  userName: _nameController.text,
-                ),
-              );
-            },
+            onPressed: () async {},
           ),
         ),
       ],

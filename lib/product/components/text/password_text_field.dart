@@ -7,11 +7,13 @@ class PasswordTextField extends StatefulWidget {
     this.controller,
     this.validator,
     this.isEditing = true,
+    this.onChanged,
   }) : super(key: key);
 
   final bool isEditing;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final Function(String)? onChanged;
 
   @override
   State<PasswordTextField> createState() => _PasswordTextFieldState();
@@ -42,6 +44,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> with _pageSize {
         decoration: _paswTextDecoration(hintText),
         enabled: widget.isEditing,
         style: Theme.of(context).textTheme.labelSmall,
+        onChanged: widget.onChanged,
       ),
     );
   }
