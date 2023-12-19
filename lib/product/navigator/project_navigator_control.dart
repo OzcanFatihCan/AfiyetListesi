@@ -1,10 +1,11 @@
+import 'package:afiyetlistesi/app_view.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
 import 'package:afiyetlistesi/view/Error/page/error_page.dart';
 import 'package:afiyetlistesi/view/FoodAdd/page/food_add_page.dart';
 import 'package:afiyetlistesi/view/FoodDetail/page/food_detail_page.dart';
 import 'package:afiyetlistesi/view/Home/page/home_page.dart';
 import 'package:afiyetlistesi/view/Loading/page/loading_page.dart';
-import 'package:afiyetlistesi/view/Login/page/login_page.dart';
+
 import 'package:afiyetlistesi/view/Login/page/user_login_page.dart';
 import 'package:afiyetlistesi/view/Login/page/user_register_page.dart';
 import 'package:afiyetlistesi/view/UserFood/page/user_food_page.dart';
@@ -27,7 +28,7 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
     switch (routes) {
       //arguman yollarsan kontrolünü burada sağla.
       case NavigateRoutes.init:
-        return _navigateToNormal(const LoginPageView());
+        return _navigateToNormal(AppInitPageView());
       case NavigateRoutes.login:
         return _navigateToNormal(const UserLoginView());
       case NavigateRoutes.register:
