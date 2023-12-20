@@ -75,9 +75,9 @@ class AppTheme {
           color: _themeColor.whiteColor,
           fontWeight: _themeFont.w6Font,
           fontSize: _themeSize.fontSizeMid2,
-        ),
+        ), //- authenttabbar
         titleLarge: TextStyle(
-          color: _themeColor.blackColor,
+          color: _themeColor.whiteColor,
           fontWeight: _themeFont.w6Font,
           fontSize: _themeSize.fontSizeMid3,
         ),

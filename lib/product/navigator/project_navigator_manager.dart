@@ -16,4 +16,11 @@ class NavigatorManager {
       arguments: arguments,
     );
   }
+
+  void navigateToWidget(NavigateRoutes route, {Object? arguments}) {
+    _navigatorGlobalKey.currentState?.pushNamed(
+      route.withUrl,
+      arguments: arguments,
+    );
+  }
 }

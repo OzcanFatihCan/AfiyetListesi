@@ -131,6 +131,7 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget>
                       .getListTitle(),
                   onTap: () {
                     _updateSelectedOption(ListItemName.cikisYap.index);
+                    context.read<SignInBloc>().add(const SignOutRequired());
                   },
                   isSelected:
                       _selectedOptionIndex == ListItemName.cikisYap.index,

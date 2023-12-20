@@ -1,3 +1,4 @@
+import 'package:afiyetlistesi/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:afiyetlistesi/view/Popular/page/popular_page.dart';
 import 'package:afiyetlistesi/view/Favorite/page/favorite_page.dart';
 import 'package:afiyetlistesi/view/Food/page/food_page.dart';
 import 'package:afiyetlistesi/view/Profile/page/profile_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part '../widget/drawer_widget.dart';
 part '../widget/navigation_bar_widget.dart';

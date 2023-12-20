@@ -1,10 +1,11 @@
+import 'package:afiyetlistesi/blocs/sign_up_bloc/sign_up_bloc.dart';
 import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
 import 'package:afiyetlistesi/product/components/text/input_text_field.dart';
-import 'package:afiyetlistesi/product/components/image/wallpaper_widget.dart';
 import 'package:afiyetlistesi/product/constants/project_input_control.dart';
-import 'package:afiyetlistesi/product/constants/project_photo.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:user_repository/user_repository.dart';
 
 class RegisterPageView extends StatefulWidget {
   const RegisterPageView({super.key});
@@ -15,74 +16,92 @@ class RegisterPageView extends StatefulWidget {
 
 class _RegisterPageViewState extends State<RegisterPageView>
     with _pageSize, _pageWord, _pageDuration {
-  final GlobalKey<FormState> formRegisterKey = GlobalKey();
-
+  bool isLoading = false;
+  final GlobalKey<FormState> _formRegisterKey = GlobalKey();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  //Register func
+  void changeLoading() {
+    setState(
+      () {
+        isLoading = !isLoading;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      resizeToAvoidBottomInset: false,
-      body: Form(
-        key: formRegisterKey,
+    return BlocListener<SignUpBloc, SignUpState>(
+      listener: (context, state) {
+        if (state is SignUpSuccess) {
+          setState(() {
+            isLoading = false;
+          });
+        } else if (state is SignUpProcess) {
+          setState(() {
+            isLoading = true;
+          });
+        } else if (state is SignUpFailure) {
+          return;
+        }
+      },
+      child: Form(
+        key: _formRegisterKey,
         autovalidateMode: AutovalidateMode.always,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            BackGroundWidget(
-              wallpaperUrl: ItemsofAsset.loginWallpaperUrl.fetchPhoto,
-            ),
-            _buildLoginBar(),
-          ],
-        ),
+        child: _buildRegisterBar(),
       ),
     );
   }
 
-  Positioned _buildLoginBar() {
-    return Positioned(
-      bottom: positionBot,
-      left: inputBarSymetric,
-      right: inputBarSymetric,
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.42,
-        child: Card(
-          color: Theme.of(context).colorScheme.onBackground,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: inputPadding,
-                child: InputTextField(
-                  controller: _nameController,
-                  hintText: hintTextName,
-                  prefixIcon: const Icon(Icons.person),
-                  keyboardType: TextInputType.name,
-                ),
-              ),
-              InputTextField(
-                controller: _emailController,
-                hintText: hintTextEmail,
-                prefixIcon: const Icon(Icons.mail_rounded),
-                keyboardType: TextInputType.emailAddress,
-                autofillHints: const [AutofillHints.email],
-                validator: FormRegisterValidator().isNotEmptyMail,
-              ),
-              InputTextField(
-                controller: _passwordController,
-                hintText: hintTextPassword,
-                prefixIcon: const Icon(Icons.password_rounded),
-                keyboardType: TextInputType.visiblePassword,
-                autofillHints: const [AutofillHints.password],
-                validator: FormRegisterValidator().isNotEmptyPassword,
-              ),
-              _buildNavigateButton(context),
-            ],
+  Column _buildRegisterBar() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: inputPadding,
+          child: InputTextField(
+            controller: _nameController,
+            hintText: hintTextName,
+            prefixIcon: const Icon(Icons.person),
+            keyboardType: TextInputType.name,
           ),
         ),
-      ),
+        InputTextField(
+          controller: _emailController,
+          hintText: hintTextEmail,
+          prefixIcon: const Icon(Icons.mail_rounded),
+          keyboardType: TextInputType.emailAddress,
+          autofillHints: const [AutofillHints.email],
+          validator: (val) {
+            if (val!.isEmpty) {
+              return 'Email girişi yapınız';
+            } else if (val.isValidEmail == false) {
+              return 'Geçerli bir email adresi giriniz.';
+            }
+            return null;
+          },
+        ),
+        InputTextField(
+          controller: _passwordController,
+          hintText: hintTextPassword,
+          prefixIcon: const Icon(Icons.password_rounded),
+          keyboardType: TextInputType.visiblePassword,
+          autofillHints: const [AutofillHints.password],
+          validator: (val) {
+            if (val!.isEmpty) {
+              return 'Parola girişi yapınız';
+            } else if (val.isValidPassword == false) {
+              return 'En az 8 karakter, büyük küçük harf ve özel karakter olmalıdır.';
+            }
+            return null;
+          },
+        ),
+        !isLoading
+            ? _buildNavigateButton(context)
+            : const CircularProgressIndicator(),
+      ],
     );
   }
 
@@ -95,7 +114,21 @@ class _RegisterPageViewState extends State<RegisterPageView>
           width: MediaQuery.of(context).size.width * 0.35,
           child: ButtonDecorationWidget(
             buttonTitle: registerButton,
-            onPressed: () async {},
+            onPressed: () {
+              if (_formRegisterKey.currentState!.validate()) {
+                MyUser myUser = MyUser.empty;
+                myUser = myUser.copyWith(
+                  email: _emailController.text,
+                  name: _nameController.text,
+                );
+
+                setState(() {
+                  context
+                      .read<SignUpBloc>()
+                      .add(SignUpRequired(myUser, _passwordController.text));
+                });
+              }
+            },
           ),
         ),
       ],
@@ -114,7 +147,7 @@ mixin _pageSize {
   final double inputBarSymetric = 15;
 
   //padding
-  final inputPadding = const EdgeInsets.only(top: 14);
+  final inputPadding = const EdgeInsets.only(top: 15);
 }
 mixin _pageWord {
   final registerButton = "Kayıt Ol";
