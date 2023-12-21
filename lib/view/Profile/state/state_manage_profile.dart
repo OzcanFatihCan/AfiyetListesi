@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 
 abstract class StateManageProfile extends State<ProfilePageView> {
   final GlobalKey<FormState> formProfileKey = GlobalKey();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   bool isEditing = false;
 //profil func
   void changeEditing() {

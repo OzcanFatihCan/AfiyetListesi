@@ -100,7 +100,9 @@ class _RegisterPageViewState extends State<RegisterPageView>
         ),
         !isLoading
             ? _buildNavigateButton(context)
-            : const CircularProgressIndicator(),
+            : CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.background,
+              ),
       ],
     );
   }

@@ -1,4 +1,6 @@
+import 'package:afiyetlistesi/blocs/my_user_bloc/my_user_bloc.dart';
 import 'package:afiyetlistesi/blocs/sign_in_bloc/sign_in_bloc.dart';
+import 'package:afiyetlistesi/blocs/update_user_info_bloc/update_user_info_bloc.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:flutter/material.dart';
@@ -27,24 +29,33 @@ class HomePageView extends StatefulWidget {
 class _HomePageState extends StateManageHome with _pageWords {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        title: Text(
-          PageName.values[currentPage].getPageTitle(),
-          style: Theme.of(context).textTheme.headlineSmall,
+    return BlocListener<UpdateUserInfoBloc, UpdateUserInfoState>(
+      listener: (context, state) {
+        if (state is UploadPictureSuccess) {
+          setState(() {
+            context.read<MyUserBloc>().state.user!.picture = state.userImage;
+          });
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        appBar: AppBar(
+          title: Text(
+            PageName.values[currentPage].getPageTitle(),
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
         ),
-      ),
-      body: _buildPageViewWidget(),
-      bottomNavigationBar: _BottomNavigationBarWidget(
-        pageController: pageController,
-        currentPage: currentPage,
-      ),
-      drawer: _BuildDrawerWidget(
-        profilName: profilName,
-        profilEmail: profilEmail,
-        imageUrl: profilPhotoUrl,
-        pageController: pageController,
+        body: _buildPageViewWidget(),
+        bottomNavigationBar: _BottomNavigationBarWidget(
+          pageController: pageController,
+          currentPage: currentPage,
+        ),
+        drawer: _BuildDrawerWidget(
+          profilName: profilName,
+          profilEmail: profilEmail,
+          imageUrl: profilPhotoUrl,
+          pageController: pageController,
+        ),
       ),
     );
   }

@@ -42,151 +42,169 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          UserAccountsDrawerHeader(
-            accountName: _buildDrawerText(
-              widget.profilName,
-              textLimitx,
-            ),
-            accountEmail: _buildDrawerText(
-              widget.profilEmail,
-              textLimit2x,
-            ),
-            currentAccountPicture: _buildDrawerPhoto(context),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.onPrimary,
-              image: DecorationImage(
-                  image: AssetImage(ItemsofAsset.profilBannerUrl.fetchPhoto),
-                  fit: BoxFit.cover),
-            ),
-          ),
-          Padding(
-            padding: listPadding2x,
-            child: Column(
+    return BlocBuilder<MyUserBloc, MyUserState>(
+      builder: (context, state) {
+        if (state.status == MyUserStatus.success) {
+          return Drawer(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            child: ListView(
+              padding: EdgeInsets.zero,
               children: [
-                Divider(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                UserAccountsDrawerHeader(
+                  accountName: _buildDrawerText(
+                    state.user!.name,
+                    textLimitx,
+                  ),
+                  accountEmail: _buildDrawerText(
+                    state.user!.email,
+                    textLimit2x,
+                  ),
+                  currentAccountPicture:
+                      _buildDrawerProfilPhoto(context, state),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    image: DecorationImage(
+                      image:
+                          AssetImage(ItemsofAsset.profilBannerUrl.fetchPhoto),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-                SizedBox(
-                  height: spaceObjects,
-                ),
-                _BuildDrawerOptions(
-                  drawerIcon: Icons.assignment_add,
-                  drawerChoice: ListItemName
-                      .values[ListItemName.yemekEkle.index]
-                      .getListTitle(),
-                  onTap: () async {
-                    await NavigatorManager.instance
-                        .pushToPage(NavigateRoutes.foodAdd);
-                    _updateSelectedOption(ListItemName.yemekEkle.index);
-                  },
-                  isSelected:
-                      _selectedOptionIndex == ListItemName.yemekEkle.index,
-                ),
-                _BuildDrawerOptions(
-                  drawerIcon: Icons.local_restaurant_rounded,
-                  drawerChoice: ListItemName
-                      .values[ListItemName.yemeklerim.index]
-                      .getListTitle(),
-                  onTap: () async {
-                    await NavigatorManager.instance
-                        .pushToPage(NavigateRoutes.userFood);
-                    _updateSelectedOption(ListItemName.yemeklerim.index);
-                  },
-                  isSelected:
-                      _selectedOptionIndex == ListItemName.yemeklerim.index,
-                ),
-                _BuildDrawerOptions(
-                  drawerIcon: Icons.favorite_rounded,
-                  drawerChoice: ListItemName
-                      .values[ListItemName.favorilerim.index]
-                      .getListTitle(),
-                  onTap: () {
-                    _updateSelectedOption(ListItemName.favorilerim.index);
-                    _pageChangeDrawer(PageName.favorite.index);
-                    Navigator.pop(context);
-                  },
-                  isSelected:
-                      _selectedOptionIndex == ListItemName.favorilerim.index,
-                ),
-                _BuildDrawerOptions(
-                  drawerIcon: Icons.settings_rounded,
-                  drawerChoice: ListItemName.values[ListItemName.ayarlar.index]
-                      .getListTitle(),
-                  onTap: () {
-                    _updateSelectedOption(ListItemName.ayarlar.index);
-                    _pageChangeDrawer(PageName.profile.index);
-                    Navigator.pop(context);
-                  },
-                  isSelected:
-                      _selectedOptionIndex == ListItemName.ayarlar.index,
-                ),
-                _BuildDrawerOptions(
-                  drawerIcon: Icons.exit_to_app_rounded,
-                  drawerChoice: ListItemName.values[ListItemName.cikisYap.index]
-                      .getListTitle(),
-                  onTap: () {
-                    _updateSelectedOption(ListItemName.cikisYap.index);
-                    context.read<SignInBloc>().add(const SignOutRequired());
-                  },
-                  isSelected:
-                      _selectedOptionIndex == ListItemName.cikisYap.index,
+                Padding(
+                  padding: listPadding2x,
+                  child: Column(
+                    children: [
+                      Divider(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                      SizedBox(
+                        height: spaceObjects,
+                      ),
+                      _BuildDrawerOptions(
+                        drawerIcon: Icons.assignment_add,
+                        drawerChoice: ListItemName
+                            .values[ListItemName.yemekEkle.index]
+                            .getListTitle(),
+                        onTap: () async {
+                          await NavigatorManager.instance
+                              .pushToPage(NavigateRoutes.foodAdd);
+                          _updateSelectedOption(ListItemName.yemekEkle.index);
+                        },
+                        isSelected: _selectedOptionIndex ==
+                            ListItemName.yemekEkle.index,
+                      ),
+                      _BuildDrawerOptions(
+                        drawerIcon: Icons.local_restaurant_rounded,
+                        drawerChoice: ListItemName
+                            .values[ListItemName.yemeklerim.index]
+                            .getListTitle(),
+                        onTap: () async {
+                          await NavigatorManager.instance
+                              .pushToPage(NavigateRoutes.userFood);
+                          _updateSelectedOption(ListItemName.yemeklerim.index);
+                        },
+                        isSelected: _selectedOptionIndex ==
+                            ListItemName.yemeklerim.index,
+                      ),
+                      _BuildDrawerOptions(
+                        drawerIcon: Icons.favorite_rounded,
+                        drawerChoice: ListItemName
+                            .values[ListItemName.favorilerim.index]
+                            .getListTitle(),
+                        onTap: () {
+                          _updateSelectedOption(ListItemName.favorilerim.index);
+                          _pageChangeDrawer(PageName.favorite.index);
+                          Navigator.pop(context);
+                        },
+                        isSelected: _selectedOptionIndex ==
+                            ListItemName.favorilerim.index,
+                      ),
+                      _BuildDrawerOptions(
+                        drawerIcon: Icons.settings_rounded,
+                        drawerChoice: ListItemName
+                            .values[ListItemName.ayarlar.index]
+                            .getListTitle(),
+                        onTap: () {
+                          _updateSelectedOption(ListItemName.ayarlar.index);
+                          _pageChangeDrawer(PageName.profile.index);
+                          Navigator.pop(context);
+                        },
+                        isSelected:
+                            _selectedOptionIndex == ListItemName.ayarlar.index,
+                      ),
+                      _BuildDrawerOptions(
+                        drawerIcon: Icons.exit_to_app_rounded,
+                        drawerChoice: ListItemName
+                            .values[ListItemName.cikisYap.index]
+                            .getListTitle(),
+                        onTap: () {
+                          _updateSelectedOption(ListItemName.cikisYap.index);
+                          context
+                              .read<SignInBloc>()
+                              .add(const SignOutRequired());
+                        },
+                        isSelected:
+                            _selectedOptionIndex == ListItemName.cikisYap.index,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
-      ),
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
+          );
+        }
+      },
     );
   }
 
-  CircleAvatar _buildDrawerPhoto(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      child: DottedFrame(
-        child: ClipOval(
-          child: AspectRatio(
-            aspectRatio: aspectValue,
-            child: InkWell(
-              onTap: () {
-                _pageChangeDrawer(PageName.profile.index);
-                Navigator.pop(context);
-              },
-              child: widget.imageUrl.isNotEmpty
-                  ? Image.network(
-                      widget.imageUrl,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      },
-                    )
-                  : Center(
-                      child: SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.3,
-                        width: MediaQuery.of(context).size.width * 0.80,
-                        child: CircleAvatar(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.surface,
-                          backgroundImage: AssetImage(
-                            ItemsofAsset.profilPhotoUrl.fetchPhoto,
-                          ),
+  DottedFrame _buildDrawerProfilPhoto(BuildContext context, MyUserState state) {
+    return DottedFrame(
+      child: ClipOval(
+        child: GestureDetector(
+          onTap: () {
+            _pageChangeDrawer(PageName.profile.index);
+            Navigator.pop(context);
+          },
+          child: state.user!.picture == ""
+              ? Container(
+                  width: MediaQuery.of(context).size.width * 0.40,
+                  height: MediaQuery.of(context).size.height * 0.40,
+                  decoration: const BoxDecoration(shape: BoxShape.circle),
+                  child: Image.asset(
+                    ItemsofAsset.profilPhotoUrl.fetchPhoto,
+                  ),
+                )
+              : Container(
+                  width: MediaQuery.of(context).size.width * 0.40,
+                  height: MediaQuery.of(context).size.height * 0.40,
+                  decoration: const BoxDecoration(shape: BoxShape.circle),
+                  child: Image.network(
+                    state.user!.picture!,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: Theme.of(context).colorScheme.onPrimary,
                         ),
-                      ),
-                    ),
-            ),
-          ),
+                      );
+                    },
+                  ),
+                ),
         ),
       ),
     );
   }
 
-  Padding _buildDrawerText(String title, int limit) {
+  Padding _buildDrawerText(
+    String title,
+    int limit,
+  ) {
     return Padding(
       padding: listPaddingx,
       child: Text(

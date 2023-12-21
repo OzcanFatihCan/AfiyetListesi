@@ -13,6 +13,7 @@ class InputTextField extends StatefulWidget {
     this.autofillHints,
     required this.keyboardType,
     this.errorMsg,
+    this.initialValue,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -24,6 +25,7 @@ class InputTextField extends StatefulWidget {
   final String? hintText;
   final Widget? prefixIcon;
   final String? errorMsg;
+  final String? initialValue;
 
   @override
   State<InputTextField> createState() => _InputTextFieldState();
@@ -44,11 +46,12 @@ class _InputTextFieldState extends State<InputTextField> with _pageSize {
     return SizedBox(
       height: textFieldSize,
       child: TextFormField(
-        controller: widget.controller,
+        initialValue: widget.initialValue,
+        controller: widget.initialValue != null ? null : widget.controller,
         textInputAction: TextInputAction.next,
         autofillHints: widget.autofillHints,
         keyboardType: widget.keyboardType,
-        decoration: _mailTextDecoration(),
+        decoration: _textDecoration(),
         obscureText: widget.hintText == "Parola" ? _isSecure : false,
         enabled: widget.isEditing,
         style: Theme.of(context).textTheme.labelSmall,
@@ -58,7 +61,7 @@ class _InputTextFieldState extends State<InputTextField> with _pageSize {
     );
   }
 
-  InputDecoration _mailTextDecoration() {
+  InputDecoration _textDecoration() {
     return InputDecoration(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.all(fullRadius),

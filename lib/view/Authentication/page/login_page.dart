@@ -97,7 +97,9 @@ class _LoginPageViewState extends State<LoginPageView>
         ),
         !isLoading
             ? _buildNavigateButton(context)
-            : const CircularProgressIndicator(),
+            : CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.background,
+              ),
       ],
     );
   }
