@@ -1,6 +1,8 @@
 import 'package:afiyetlistesi/app_view.dart';
 import 'package:afiyetlistesi/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:afiyetlistesi/blocs/my_user_bloc/my_user_bloc.dart';
 import 'package:afiyetlistesi/blocs/sign_in_bloc/sign_in_bloc.dart';
+import 'package:afiyetlistesi/blocs/update_user_info_bloc/update_user_info_bloc.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
 import 'package:afiyetlistesi/view/Authentication/page/authentication_page.dart';
 import 'package:afiyetlistesi/view/Error/page/error_page.dart';
@@ -36,10 +38,35 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
           BlocBuilder<AuthenticationBloc, AuthenticationState>(
             builder: (context, state) {
               if (state.status == AuthenticationStatus.authenticated) {
-                return BlocProvider(
-                  create: (context) => SignInBloc(
-                      userRepository:
-                          context.read<AuthenticationBloc>().userRepository),
+                return MultiBlocProvider(
+                  providers: [
+                    BlocProvider(
+                      create: (context) => SignInBloc(
+                        userRepository:
+                            context.read<AuthenticationBloc>().userRepository,
+                      ),
+                    ),
+                    BlocProvider(
+                      create: (context) => UpdateUserInfoBloc(
+                        userRepository:
+                            context.read<AuthenticationBloc>().userRepository,
+                      ),
+                    ),
+                    BlocProvider(
+                      create: (context) => MyUserBloc(
+                        myUserRepository:
+                            context.read<AuthenticationBloc>().userRepository,
+                      )..add(
+                          GetMyUser(
+                            myUserId: context
+                                .read<AuthenticationBloc>()
+                                .state
+                                .user!
+                                .uid,
+                          ),
+                        ),
+                    ),
+                  ],
                   child: const HomePageView(),
                 );
               } else {
