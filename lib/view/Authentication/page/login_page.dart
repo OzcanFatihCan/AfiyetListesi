@@ -1,7 +1,7 @@
 import 'package:afiyetlistesi/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
 import 'package:afiyetlistesi/product/components/text/input_text_field.dart';
-import 'package:afiyetlistesi/product/constants/project_input_control.dart';
+import 'package:afiyetlistesi/product/constants/project_validate_regex.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

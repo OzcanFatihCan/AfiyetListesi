@@ -15,6 +15,7 @@ import 'package:afiyetlistesi/view/Favorite/page/favorite_page.dart';
 import 'package:afiyetlistesi/view/Food/page/food_page.dart';
 import 'package:afiyetlistesi/view/Profile/page/profile_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 part '../widget/drawer_widget.dart';
 part '../widget/navigation_bar_widget.dart';

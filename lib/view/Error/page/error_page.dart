@@ -29,12 +29,6 @@ class _ErrorPageViewState extends State<ErrorPageView> with _pageItem {
           ),
         ),
       ),
-      bottomNavigationBar: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.15,
-        child: Lottie.asset(
-          ItemsofAsset.lottieForkSpoon.fetchLottie,
-        ),
-      ),
     );
   }
 }

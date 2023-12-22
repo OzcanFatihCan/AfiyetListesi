@@ -154,8 +154,8 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget>
           );
         } else {
           return Center(
-            child: CircularProgressIndicator(
-              color: Theme.of(context).colorScheme.onPrimary,
+            child: Lottie.asset(
+              ItemsofAsset.lottieLoading.fetchLottie,
             ),
           );
         }

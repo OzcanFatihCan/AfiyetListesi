@@ -1,16 +1,16 @@
 import 'package:afiyetlistesi/blocs/my_user_bloc/my_user_bloc.dart';
 import 'package:afiyetlistesi/blocs/update_user_info_bloc/update_user_info_bloc.dart';
 import 'package:afiyetlistesi/product/components/text/input_text_field.dart';
+import 'package:afiyetlistesi/product/constants/project_validate_regex.dart';
 import 'package:afiyetlistesi/product/package/dotted/dotted_frame.dart';
-import 'package:afiyetlistesi/product/constants/project_input_control.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
+import 'package:afiyetlistesi/product/package/image/photo_picker.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
-
 import 'package:afiyetlistesi/view/Profile/state/state_manage_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 
 part '../widget/profil_photo_widget.dart';
 
@@ -56,10 +56,16 @@ class _ProfilePageViewState extends StateManageProfile
                       ],
                     );
                   } else {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: Lottie.asset(
+                            ItemsofAsset.lottieLoading.fetchLottie,
+                          ),
+                        ),
+                      ],
                     );
                   }
                 },
@@ -110,15 +116,6 @@ class _ProfilePageViewState extends StateManageProfile
                     keyboardType: TextInputType.emailAddress,
                     autofillHints: const [AutofillHints.email],
                     validator: FormProfilValidator().isNotEmptyMail,
-                  ),
-                  InputTextField(
-                    controller: passwordController,
-                    isEditing: isEditing,
-                    hintText: hintTextPassword,
-                    prefixIcon: const Icon(Icons.password_rounded),
-                    keyboardType: TextInputType.visiblePassword,
-                    autofillHints: const [AutofillHints.password],
-                    validator: FormProfilValidator().isNotEmptyPassword,
                   ),
                 ],
               ),

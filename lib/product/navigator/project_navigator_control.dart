@@ -9,7 +9,6 @@ import 'package:afiyetlistesi/view/Error/page/error_page.dart';
 import 'package:afiyetlistesi/view/FoodAdd/page/food_add_page.dart';
 import 'package:afiyetlistesi/view/FoodDetail/page/food_detail_page.dart';
 import 'package:afiyetlistesi/view/Home/page/home_page.dart';
-import 'package:afiyetlistesi/view/Loading/page/loading_page.dart';
 
 import 'package:afiyetlistesi/view/UserFood/page/user_food_page.dart';
 import 'package:flutter/material.dart';
@@ -86,8 +85,7 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
             FoodDetailPage(model: arguments as PopularFavoriteModel));
       case NavigateRoutes.userFood:
         return _navigateToNormal(const UserFoodPageView());
-      case NavigateRoutes.loading:
-        return _navigateToNormal(const LoadingPageView());
+
       default:
         return null;
     }
@@ -115,8 +113,7 @@ enum NavigateRoutes {
   home,
   foodAdd,
   foodDetail,
-  userFood,
-  loading
+  userFood
 }
 
 extension NavigateRoutesExtension on NavigateRoutes {

@@ -5,7 +5,6 @@ enum ItemsofAsset {
   profilPhotoUrl,
   lottieLoading,
   lottieFood,
-  lottieForkSpoon,
   lottieError
 }
 
@@ -24,8 +23,6 @@ extension ItemsofAssetExtension on ItemsofAsset {
         return 'LottieLoading';
       case ItemsofAsset.lottieFood:
         return 'LottieFood';
-      case ItemsofAsset.lottieForkSpoon:
-        return 'LottieForkSpoon';
       case ItemsofAsset.lottieError:
         return 'LottieError';
     }
