@@ -1,4 +1,5 @@
 import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
+import 'package:afiyetlistesi/product/components/text/large_text_field.dart';
 import 'package:flutter/material.dart';
 part '../widget/food_add_button_widget.dart';
 
@@ -11,6 +12,9 @@ class FoodAddPageView extends StatefulWidget {
 
 class _FoodAddPageViewState extends State<FoodAddPageView>
     with _pageSize, _pageWord {
+  final TextEditingController _materialController = TextEditingController();
+  final TextEditingController _recipeController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,36 +36,27 @@ class _FoodAddPageViewState extends State<FoodAddPageView>
               ),
             ),
             Expanded(
-                flex: 7,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.150,
-                        child: SingleChildScrollView(
-                          child: TextFormField(
-                            decoration:
-                                InputDecoration(labelText: 'Malzemeler'),
-                            maxLines: null,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: objectPadding,
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.250,
-                          child: SingleChildScrollView(
-                            child: TextFormField(
-                              decoration: InputDecoration(labelText: 'Yapılış'),
-                              maxLines: null,
-                            ),
-                          ),
-                        ),
-                      ),
-                      _BuildFoodAddButton(),
-                    ],
-                  ),
-                ))
+              flex: 8,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    LargeTextField(
+                      textController: _materialController,
+                      hintText: materialHint,
+                      maxLength: maxLengthMaterials,
+                      maxLines: maxLinesMaterials,
+                    ),
+                    LargeTextField(
+                      textController: _recipeController,
+                      hintText: recipeHint,
+                      maxLines: maxLinesRecipe,
+                      maxLength: maxLengthRecipe,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(flex: 1, child: _BuildFoodAddButton()),
           ],
         ),
       ),
@@ -74,9 +69,17 @@ mixin _pageWord {
   final camName = "Kamera";
   final galleryName = "Galeri";
   final buttonTitle = "Yemek Ekle";
+  final materialHint = "Malzemeleri giriniz...";
+  final recipeHint = "Tarifi giriniz";
 }
 
 mixin _pageSize {
+  //obj
+  final int maxLinesMaterials = 5;
+  final int maxLengthMaterials = 600;
+  final int maxLinesRecipe = 7;
+  final int maxLengthRecipe = 2000;
+
   //padding
   final EdgeInsets pagePadding = const EdgeInsets.all(16);
   final EdgeInsets objectPadding = const EdgeInsets.symmetric(vertical: 10);
