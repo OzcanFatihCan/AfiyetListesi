@@ -1,26 +1,33 @@
 part of '../page/profile_page.dart';
 
 class _BuildProfilPhoto extends StatefulWidget {
-  const _BuildProfilPhoto({required this.state});
+  const _BuildProfilPhoto({required this.state, required this.onTap});
 
   final MyUserState state;
-
+  final void Function()? onTap;
   @override
   State<_BuildProfilPhoto> createState() => _BuildProfilPhotoState();
 }
 
-class _BuildProfilPhotoState extends State<_BuildProfilPhoto> with _pageWord {
+class _BuildProfilPhotoState extends State<_BuildProfilPhoto>
+    with _pageWord, _pageSize {
   @override
   Widget build(BuildContext context) {
-    const double aspectValue = 1;
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.30,
       width: MediaQuery.of(context).size.width * 0.80,
       child: GestureDetector(
-        onTap: () async {
-          await showImagePicker();
-        },
-        child: _buildImageWidget(context, aspectValue),
+        onTap: widget.onTap,
+        child: Stack(
+          children: [
+            _buildImageWidget(context, aspectValue),
+            Positioned(
+              top: plusIconTop,
+              right: plusIconRight,
+              child: _buildPlusIcon(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -64,17 +71,16 @@ class _BuildProfilPhotoState extends State<_BuildProfilPhoto> with _pageWord {
     );
   }
 
-  showImagePicker() async {
-    await ImagePickerHandler(
-      context: context,
-      onCroppedFile: (CroppedFile croppedFile) {
-        setState(() {
-          context.read<UpdateUserInfoBloc>().add(
-                UploadPicture(croppedFile.path,
-                    context.read<MyUserBloc>().state.user!.id),
-              );
-        });
-      },
-    ).handleImageSelection();
+  Widget _buildPlusIcon() {
+    return Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Theme.of(context).colorScheme.onPrimary,
+      ),
+      child: Icon(
+        Icons.add,
+        color: Theme.of(context).colorScheme.secondary,
+      ),
+    );
   }
 }

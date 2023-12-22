@@ -22,12 +22,18 @@ class _RegisterPageViewState extends State<RegisterPageView>
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  //Register func
-  void changeLoading() {
-    setState(
-      () {
-        isLoading = !isLoading;
-      },
+  void showSnackbar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Theme.of(context).colorScheme.onPrimary,
+        content: Text(
+          message,
+          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+        ),
+        duration: Duration(
+          seconds: snackBarDuration,
+        ),
+      ),
     );
   }
 
@@ -44,7 +50,9 @@ class _RegisterPageViewState extends State<RegisterPageView>
             isLoading = true;
           });
         } else if (state is SignUpFailure) {
-          return;
+          setState(() {
+            showSnackbar(registerError);
+          });
         }
       },
       child: Form(
@@ -142,6 +150,8 @@ mixin _pageSize {
   final double loginButtonPositionBot = 175;
   final double loginButtonSymetric = 15;
   final double positionBot = 200;
+  //duration
+  final int snackBarDuration = 2;
 
   final double firstInputBarPositionBot = 430;
   final double secondInputBarPositionBot = 360;
@@ -156,22 +166,9 @@ mixin _pageWord {
   final hintTextEmail = "Email";
   final hintTextPassword = "Parola";
   final hintTextName = "Adınız";
+  final registerError = "Kullanıcı zaten mevcut";
 }
 
 mixin _pageDuration {
   final int duration = 2;
-}
-
-class FormRegisterValidator {
-  String? isNotEmptyMail(String? data) {
-    return (data?.isValidEmail ?? false)
-        ? null
-        : "Geçerli bir email adresi giriniz.";
-  }
-
-  String? isNotEmptyPassword(String? data) {
-    return (data?.isValidPassword ?? false)
-        ? null
-        : "En az 8 karakter, büyük küçük harf ve özel karakter olmalıdır.";
-  }
 }

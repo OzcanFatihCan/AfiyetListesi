@@ -1,5 +1,4 @@
-import 'package:afiyetlistesi/view/Profile/page/profile_page.dart';
-import 'package:flutter/material.dart';
+part of '../page/profile_page.dart';
 
 abstract class StateManageProfile extends State<ProfilePageView> {
   final GlobalKey<FormState> formProfileKey = GlobalKey();
@@ -14,5 +13,19 @@ abstract class StateManageProfile extends State<ProfilePageView> {
         isEditing = !isEditing;
       },
     );
+  }
+
+  showImagePicker() async {
+    await ImagePickerHandler(
+      context: context,
+      onCroppedFile: (CroppedFile croppedFile) {
+        setState(() {
+          context.read<UpdateUserInfoBloc>().add(
+                UploadPicture(croppedFile.path,
+                    context.read<MyUserBloc>().state.user!.id),
+              );
+        });
+      },
+    ).handleImageSelection();
   }
 }

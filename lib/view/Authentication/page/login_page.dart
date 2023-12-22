@@ -20,13 +20,19 @@ class _LoginPageViewState extends State<LoginPageView>
   final TextEditingController _passwordController = TextEditingController();
 
   bool isLoading = false;
-  String? errorMsg;
-//login func
-  void changeLoading() {
-    setState(
-      () {
-        isLoading = !isLoading;
-      },
+
+  void showSnackbar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Theme.of(context).colorScheme.onPrimary,
+        content: Text(
+          message,
+          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+        ),
+        duration: Duration(
+          seconds: snackBarDuration,
+        ),
+      ),
     );
   }
 
@@ -45,7 +51,7 @@ class _LoginPageViewState extends State<LoginPageView>
         } else if (state is SignInFailure) {
           setState(() {
             isLoading = false;
-            errorMsg = "Geçersiz email ve şifre";
+            showSnackbar(loginError);
           });
         }
       },
@@ -69,7 +75,6 @@ class _LoginPageViewState extends State<LoginPageView>
             prefixIcon: const Icon(Icons.mail_rounded),
             keyboardType: TextInputType.emailAddress,
             autofillHints: const [AutofillHints.email],
-            errorMsg: errorMsg,
             validator: (val) {
               if (val!.isEmpty) {
                 return 'Email girişi yapınız';
@@ -133,12 +138,15 @@ class _LoginPageViewState extends State<LoginPageView>
 mixin _pageSize {
   //padding
   final inputPadding = const EdgeInsets.only(top: 15);
+  //duration
+  final int snackBarDuration = 2;
 }
 mixin _pageWord {
   final loginButton = "Giriş Yap";
   final loginGoogle = "Google ile giriş yap";
   final hintTextEmail = "Email";
   final hintTextPassword = "Parola";
+  final loginError = "Geçersiz email ve şifre";
 }
 
 mixin _pageDuration {

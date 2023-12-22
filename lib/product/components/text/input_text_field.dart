@@ -12,7 +12,6 @@ class InputTextField extends StatefulWidget {
     required this.hintText,
     this.autofillHints,
     required this.keyboardType,
-    this.errorMsg,
     this.initialValue,
   }) : super(key: key);
 
@@ -24,7 +23,7 @@ class InputTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final String? hintText;
   final Widget? prefixIcon;
-  final String? errorMsg;
+
   final String? initialValue;
 
   @override
@@ -103,7 +102,6 @@ class _InputTextFieldState extends State<InputTextField> with _pageSize {
           fullRadius,
         ),
       ),
-      errorText: widget.errorMsg,
     );
   }
 
