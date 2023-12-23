@@ -1,4 +1,5 @@
 import 'package:afiyetlistesi/model/favorite_model_fake.dart';
+import 'package:afiyetlistesi/product/constants/project_category.dart';
 import 'package:afiyetlistesi/product/constants/project_words.dart';
 import 'package:afiyetlistesi/view/Favorite/page/favorite_page.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,8 @@ abstract class StateManageFavorite extends State<FavoritePageView> {
   PageController pageController = PageController();
   late List<FavoriteModell> cardItems;
   bool isLoading = false;
-  int currentFav = CategoryName.yemek.index;
+  int currentFav =
+      CategoryManager.instance.getCategoryIndex(CategoryName.yemek);
   final int duration = 1;
 
   @override
@@ -45,27 +47,7 @@ abstract class StateManageFavorite extends State<FavoritePageView> {
   }
 }
 
-enum CategoryName { yemek, tatli, tursu, recel, icecek }
-
-extension CategoryNameExtension on CategoryName {
-  String getListTitle() {
-    switch (this) {
-      case CategoryName.yemek:
-        return 'Yemek';
-      case CategoryName.tatli:
-        return 'Tatlı';
-      case CategoryName.tursu:
-        return 'Turşu';
-      case CategoryName.recel:
-        return 'Reçel';
-      case CategoryName.icecek:
-        return 'İçecek';
-      default:
-        return '';
-    }
-  }
-}
-
+//fake data
 class FavoriteItems {
   late List<FavoriteModell> cardItems;
   FavoriteItems() {

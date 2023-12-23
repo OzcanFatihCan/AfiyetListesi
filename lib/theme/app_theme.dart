@@ -52,7 +52,7 @@ class AppTheme {
           fontWeight: _themeFont.w5Font,
           fontSize: _themeSize.fontSizeMin2,
         ),
-        //card header
+        //card header, foodAddCategorytext
         labelMedium: TextStyle(
           color: _themeColor.blackColor,
           fontWeight: _themeFont.w5Font,
@@ -151,7 +151,7 @@ class AppTheme {
         fontWeight: _themeFont.w5Font,
         fontSize: _themeSize.fontSizeMin3,
       ),
-      //contentbutton custom and main
+      //contentbutton custom ,main
       labelLarge: TextStyle(
         color: _themeColor.whiteColor,
         fontWeight: _themeFont.w5Font,

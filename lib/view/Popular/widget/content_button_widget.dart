@@ -22,13 +22,12 @@ class _BuildContentButtonState extends State<_BuildContentButton>
     return Padding(
       padding: spaceObjectPaddingMin,
       child: Row(
-        //kategoriler internetten çekildiğinde düzenlenecek.
-        children: List.generate(contentButtonTitles.length, (index) {
+        children: List.generate(
+            CategoryManager.instance.getCategoryTitles().length, (index) {
           return Padding(
             padding: buttonPaddingx,
             child: _ButtonWidget(
-              //buton isimleri yemek, turşu, içecek, reçel, tatlı,
-              title: contentButtonTitles[index],
+              title: CategoryManager.instance.getCategoryTitles()[index],
               onPressed: () {
                 setState(() {
                   selectedButtonIndex = index;

@@ -1,3 +1,4 @@
+import 'package:afiyetlistesi/product/constants/project_category.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/model/favorite_model_fake.dart';
 import 'package:afiyetlistesi/view/Favorite/state/state_manage_favorite.dart';
@@ -37,7 +38,7 @@ class _FavoritePageViewState extends StateManageFavorite with _pageSize {
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: PageView.builder(
-            itemCount: CategoryName.values.length,
+            itemCount: CategoryManager.instance.getCategoryTitles().length,
             controller: pageController,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {

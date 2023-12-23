@@ -17,7 +17,7 @@ class _BuildFoodAddCategoryState extends State<_BuildFoodAddCategory>
       children: [
         Text(
           categoryTitle,
-          style: Theme.of(context).textTheme.labelSmall,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         DropdownButton<String>(
           icon: Icon(
@@ -34,13 +34,14 @@ class _BuildFoodAddCategoryState extends State<_BuildFoodAddCategory>
               selectedCategory = newValue;
             });
           },
-          items: <String>['Kategori 1', 'Kategori 2', 'Kategori 3', 'Diğer']
+          items: CategoryManager.instance
+              .getCategoryTitles()
               .map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(
                 value,
-                style: Theme.of(context).textTheme.labelSmall,
+                style: Theme.of(context).textTheme.labelMedium,
               ),
             );
           }).toList(),

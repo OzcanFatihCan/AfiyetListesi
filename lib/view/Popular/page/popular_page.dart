@@ -1,3 +1,4 @@
+import 'package:afiyetlistesi/product/constants/project_category.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
@@ -164,13 +165,6 @@ mixin _pageWord {
   final subtitleText = "Tarif için tıkla";
   final allFood = "Tümünü Gör";
   final foodNotFound = "Yemek adı yükleniyor...";
-  final contentButtonTitles = [
-    'Yemekler',
-    'Tatlılar',
-    'Turşular',
-    'Reçeller',
-    'İçecekler',
-  ];
 
   final photoUrl =
       "https://cdn.yemek.com/mncrop/940/625/uploads/2015/05/bulgur-pilavi-yemekcom.jpg";

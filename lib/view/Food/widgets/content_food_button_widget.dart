@@ -30,7 +30,7 @@ class __BuildContentButtonState extends State<_BuildContentButton>
         height: MediaQuery.of(context).size.height * 0.09,
         child: ListView.builder(
           physics: const AlwaysScrollableScrollPhysics(),
-          itemCount: CategoryName.values.length,
+          itemCount: CategoryManager.instance.getCategoryTitles().length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             return Column(
@@ -64,7 +64,7 @@ class __BuildContentButtonState extends State<_BuildContentButton>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            CategoryName.values[index].getListTitle(),
+                            CategoryManager.instance.getCategoryTitles()[index],
                             style: widget._currentFav == index
                                 ? Theme.of(context).textTheme.titleMedium
                                 : Theme.of(context).textTheme.titleSmall,
