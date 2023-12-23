@@ -1,6 +1,5 @@
 import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
 import 'package:afiyetlistesi/product/components/image/wallpaper_widget.dart';
-import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:flutter/material.dart';

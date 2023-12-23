@@ -1,5 +1,4 @@
-import 'package:afiyetlistesi/product/constants/project_category.dart';
-import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
+import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:flutter/material.dart';

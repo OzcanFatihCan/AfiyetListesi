@@ -2,8 +2,6 @@ import 'package:afiyetlistesi/blocs/authentication_bloc/authentication_bloc.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
-
-import 'product/navigator/project_navigator_control.dart';
 import 'product/navigator/project_navigator_manager.dart';
 import 'theme/app_theme.dart';
 

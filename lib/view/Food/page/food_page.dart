@@ -1,5 +1,5 @@
 import 'package:afiyetlistesi/model/favorite_model_fake.dart';
-import 'package:afiyetlistesi/product/constants/project_category.dart';
+import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/view/Food/state/state_manage_food.dart';
 import 'package:flutter/material.dart';
 

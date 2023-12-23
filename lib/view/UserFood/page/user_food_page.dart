@@ -1,6 +1,6 @@
 import 'package:afiyetlistesi/model/favorite_model_fake.dart';
-import 'package:afiyetlistesi/product/constants/project_category.dart';
-import 'package:afiyetlistesi/view/UserFood/viewModel/state_manage_user_food.dart';
+import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
+import 'package:afiyetlistesi/view/UserFood/state/state_manage_user_food.dart';
 import 'package:flutter/material.dart';
 
 part '../widget/content_ufood_button_widget.dart';

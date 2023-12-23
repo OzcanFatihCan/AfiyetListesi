@@ -1,7 +1,6 @@
 import 'package:afiyetlistesi/blocs/my_user_bloc/my_user_bloc.dart';
 import 'package:afiyetlistesi/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:afiyetlistesi/blocs/update_user_info_bloc/update_user_info_bloc.dart';
-import 'package:afiyetlistesi/product/navigator/project_navigator_control.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:flutter/material.dart';
 
