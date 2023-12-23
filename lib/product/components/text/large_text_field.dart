@@ -26,7 +26,7 @@ class LargeTextField extends StatelessWidget with _pageSize {
         enabledBorder: OutlineInputBorder(
           borderRadius: halfRadius,
           borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.onSecondary,
+            color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.6),
             width: textFieldBorderSize,
           ),
         ),

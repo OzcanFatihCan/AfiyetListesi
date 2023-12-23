@@ -1,7 +1,11 @@
 import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
 import 'package:afiyetlistesi/product/components/text/large_text_field.dart';
+import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:flutter/material.dart';
 part '../widget/food_add_button_widget.dart';
+part '../widget/food_add_category_widget.dart';
+part '../widget/food_add_photo_widget.dart';
+part '../widget/food_add_text_widget.dart';
 
 class FoodAddPageView extends StatefulWidget {
   const FoodAddPageView({super.key});
@@ -12,9 +16,6 @@ class FoodAddPageView extends StatefulWidget {
 
 class _FoodAddPageViewState extends State<FoodAddPageView>
     with _pageSize, _pageWord {
-  final TextEditingController _materialController = TextEditingController();
-  final TextEditingController _recipeController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,38 +27,30 @@ class _FoodAddPageViewState extends State<FoodAddPageView>
         ),
       ),
       body: Padding(
-        padding: pagePadding,
+        padding: fullPadding,
         child: Column(
           children: [
-            const Expanded(
-              flex: 3,
-              child: Stack(
-                children: [],
+            Expanded(
+              flex: 4,
+              child: _BuildFoodAddPhoto(
+                onTap: () {},
               ),
             ),
             Expanded(
-              flex: 8,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    LargeTextField(
-                      textController: _materialController,
-                      hintText: materialHint,
-                      maxLength: maxLengthMaterials,
-                      maxLines: maxLinesMaterials,
-                    ),
-                    LargeTextField(
-                      textController: _recipeController,
-                      hintText: recipeHint,
-                      maxLines: maxLinesRecipe,
-                      maxLength: maxLengthRecipe,
-                    ),
-                  ],
-                ),
+              flex: 7,
+              child: Padding(
+                padding: textFieldPadding,
+                child: const _BuildFoodAddText(),
               ),
             ),
-            Expanded(flex: 1, child: _BuildFoodAddButton()),
           ],
+        ),
+      ),
+      bottomNavigationBar: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.08,
+        child: Padding(
+          padding: halfPadding,
+          child: _BuildFoodAddButton(),
         ),
       ),
     );
@@ -70,17 +63,28 @@ mixin _pageWord {
   final galleryName = "Galeri";
   final buttonTitle = "Yemek Ekle";
   final materialHint = "Malzemeleri giriniz...";
-  final recipeHint = "Tarifi giriniz";
+  final recipeHint = "Tarifi giriniz...";
+  final categoryTitle = "Kategori seçiniz: ";
+  final foodNameHint = "Yemek adı giriniz...";
 }
 
 mixin _pageSize {
   //obj
-  final int maxLinesMaterials = 5;
+  final int maxLinesMaterials = 4;
   final int maxLengthMaterials = 600;
-  final int maxLinesRecipe = 7;
+  final int maxLinesRecipe = 6;
   final int maxLengthRecipe = 2000;
+  final int maxLinesFood = 1;
+  final int maxLengthFood = 100;
+  final double thickness = 2;
+  //radius
+  final dropdownRadius = BorderRadius.circular(15);
 
   //padding
-  final EdgeInsets pagePadding = const EdgeInsets.all(16);
+  final EdgeInsets fullPadding = const EdgeInsets.symmetric(horizontal: 16);
+  final EdgeInsets halfPadding = const EdgeInsets.all(8);
   final EdgeInsets objectPadding = const EdgeInsets.symmetric(vertical: 10);
+  final EdgeInsets textFieldPadding = const EdgeInsets.only(top: 15);
+  final EdgeInsets imageFieldPadding = const EdgeInsets.only(bottom: 15);
+  final EdgeInsets iconPadding = const EdgeInsets.all(6);
 }

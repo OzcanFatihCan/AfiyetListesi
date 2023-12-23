@@ -88,6 +88,7 @@ mixin _pageSize {
   final int textLimit2x = 50;
   final double bottomNavHeight = 60;
   final double aspectValue = 1;
+  final double thickness = 2;
 //padding
   final listPadding2x = const EdgeInsets.symmetric(horizontal: 15);
   final listPaddingx = const EdgeInsets.symmetric(horizontal: 10);

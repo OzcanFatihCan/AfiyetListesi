@@ -10,8 +10,6 @@ class ProjectWords {
   static const registerButton = "Kayıt Ol";
   static const allFood = "Tümünü Gör";
   static const alternativeLoginButton = "Alternatif Giriş";
-  static const profilName = "Elizabeth Olsen";
-  static const profilEmail = "ElizabethOlsen@gmail.com";
   static const materialFoodText = "Malzemeler";
   static const recipeText = "Yapılışı";
 
@@ -24,8 +22,6 @@ class ProjectWords {
   ];
   //PhotoUrl
 
-  static const profilPhotoUrl =
-      "https://image.tmdb.org/t/p/original/mbMsmQE5CyMVTIGMGCw2XpcPCOc.jpg";
   static const photoUrl =
       "https://cdn.yemek.com/mncrop/940/625/uploads/2015/05/bulgur-pilavi-yemekcom.jpg";
   static const photoUrl2 =

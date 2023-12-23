@@ -76,6 +76,7 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget>
                     children: [
                       Divider(
                         color: Theme.of(context).colorScheme.onPrimary,
+                        thickness: thickness,
                       ),
                       SizedBox(
                         height: spaceObjects,
