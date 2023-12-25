@@ -1,3 +1,3 @@
-import 'post_repo.dart';
+import 'food_repo.dart';
 
-class FirebasePostRepository implements PostRepository {}
+class FirebasePostRepository implements FoodRepository {}
