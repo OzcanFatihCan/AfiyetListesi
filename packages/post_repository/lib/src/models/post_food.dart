@@ -2,9 +2,8 @@ import 'package:equatable/equatable.dart';
 
 import '../entities/entities.dart';
 
-// ignore: must_be_immutable
 class PostFood extends Equatable {
-  PostFood({
+  const PostFood({
     required this.foodId,
     required this.foodName,
     required this.foodMaterial,
@@ -13,14 +12,14 @@ class PostFood extends Equatable {
     required this.foodPhoto,
   });
 
-  String foodId;
-  String foodName;
-  String foodMaterial;
-  String foodRecipe;
-  String foodCategory;
-  String foodPhoto;
+  final String foodId;
+  final String foodName;
+  final String foodMaterial;
+  final String foodRecipe;
+  final String foodCategory;
+  final String foodPhoto;
 
-  static final empty = PostFood(
+  static const empty = PostFood(
     foodId: '',
     foodName: '',
     foodMaterial: '',
