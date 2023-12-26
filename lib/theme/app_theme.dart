@@ -64,7 +64,7 @@ class AppTheme {
           fontWeight: _themeFont.w5Font,
           fontSize: _themeSize.fontSizeMid,
         ),
-        //textbutton popular
+        //textbutton popular - errorSetPost
         titleSmall: TextStyle(
           color: _themeColor.redColor,
           fontWeight: _themeFont.w6Font,

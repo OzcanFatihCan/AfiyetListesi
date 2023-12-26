@@ -16,9 +16,8 @@ class FirebasePostRepository implements PostRepository {
       final userFoodCollection =
           foodCollection.doc(food.myUser.id).collection('userFood');
 
-      Reference firebaseStoreRef = FirebaseStorage.instance
-          .ref()
-          .child('${food.myUser.id}/FoodPhoto/${food.foodId}_lead');
+      Reference firebaseStoreRef = FirebaseStorage.instance.ref().child(
+          '${food.myUser.id}/FoodPhoto/${food.myUser.id + food.foodName}_lead');
       await firebaseStoreRef.putFile(
         imageFile,
       );

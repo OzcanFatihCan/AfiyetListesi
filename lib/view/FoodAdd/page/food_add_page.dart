@@ -1,15 +1,20 @@
-import 'dart:developer';
+import 'dart:io';
 
+import 'package:afiyetlistesi/blocs/create_post_bloc/create_post_bloc.dart';
 import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
 import 'package:afiyetlistesi/product/components/text/large_text_field.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
+import 'package:afiyetlistesi/product/package/image/photo_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:post_repository/post_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 part '../widget/food_add_photo_widget.dart';
 part '../widget/food_add_text_widget.dart';
+part '../widget/food_add_category_widget.dart';
 
 class FoodAddPageView extends StatefulWidget {
   const FoodAddPageView({required this.myUser, super.key});
@@ -23,6 +28,7 @@ class _FoodAddPageViewState extends State<FoodAddPageView>
     with _pageSize, _pageWord {
   late Post post;
   String? selectedCategory;
+  CroppedFile? croppedFile;
   final TextEditingController _materialController = TextEditingController();
   final TextEditingController _recipeController = TextEditingController();
   final TextEditingController _foodNameController = TextEditingController();
@@ -36,7 +42,6 @@ class _FoodAddPageViewState extends State<FoodAddPageView>
 
   @override
   Widget build(BuildContext context) {
-    log(post.toString());
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
@@ -52,7 +57,10 @@ class _FoodAddPageViewState extends State<FoodAddPageView>
             Expanded(
               flex: 4,
               child: _BuildFoodAddPhoto(
-                onTap: () {},
+                croppedFile: croppedFile,
+                onTap: () {
+                  _foodPhotoPicker();
+                },
               ),
             ),
             Expanded(
@@ -66,7 +74,14 @@ class _FoodAddPageViewState extends State<FoodAddPageView>
                         color: Theme.of(context).colorScheme.onPrimary,
                         thickness: thickness,
                       ),
-                      _buildCategory(context),
+                      _BuildFoodAddCategory(
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedCategory = newValue!;
+                          });
+                        },
+                        selectedCategory: selectedCategory,
+                      ),
                       _BuildFoodAddText(
                         foodNameController: _foodNameController,
                         recipeController: _recipeController,
@@ -90,7 +105,22 @@ class _FoodAddPageViewState extends State<FoodAddPageView>
               width: MediaQuery.of(context).size.width,
               child: ButtonDecorationWidget(
                 onPressed: () {
-                  log(post.toString());
+                  if (_foodNameController.text.isNotEmpty &&
+                      _materialController.text.isNotEmpty &&
+                      _recipeController.text.isNotEmpty &&
+                      croppedFile!.path.isNotEmpty &&
+                      selectedCategory!.isNotEmpty) {
+                    setState(() {
+                      post.foodName = _foodNameController.text;
+                      post.foodPhoto = croppedFile!.path;
+                      post.foodCategory = selectedCategory!;
+                      post.foodRecipe = _recipeController.text;
+                      post.foodMaterial = _materialController.text;
+                    });
+                    context.read<CreatePostBloc>().add(CreatePost(post));
+                  } else {
+                    _showDialog(postError);
+                  }
                 },
                 buttonTitle: buttonTitle,
               ),
@@ -101,40 +131,40 @@ class _FoodAddPageViewState extends State<FoodAddPageView>
     );
   }
 
-  Row _buildCategory(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          categoryTitle,
-          style: Theme.of(context).textTheme.labelMedium,
-        ),
-        DropdownButton<String>(
-          icon: Icon(
-            Icons.restaurant_menu_rounded,
-            color: Theme.of(context).colorScheme.onPrimary,
+  _foodPhotoPicker() async {
+    ImagePickerHandler(
+      context: context,
+      onCroppedFile: (file) {
+        setState(() {
+          croppedFile = file;
+        });
+      },
+    ).handleImageSelection();
+  }
+
+  _showDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            alertTitle,
+            style: Theme.of(context).textTheme.labelLarge,
           ),
-          borderRadius: dropdownRadius,
-          dropdownColor:
-              Theme.of(context).colorScheme.onPrimary.withOpacity(0.7),
-          style: Theme.of(context).textTheme.labelSmall,
-          value: selectedCategory,
-          onChanged: (String? newValue) {
-            selectedCategory = newValue;
-          },
-          items: CategoryManager.instance
-              .getCategoryTitles()
-              .map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(
-                value,
-                style: Theme.of(context).textTheme.labelMedium,
-              ),
-            );
-          }).toList(),
-        ),
-      ],
+          content: Text(
+            message,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(okButton),
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -148,17 +178,22 @@ mixin _pageWord {
   final recipeHint = "Tarifi giriniz...";
   final categoryTitle = "Kategori seçiniz: ";
   final foodNameHint = "Yemek adı giriniz...";
+  final postError = "Lütfen bütün boşlukları doldurunuz";
+  final okButton = "Tamam";
+  final alertTitle = "Uyarı";
 }
 
 mixin _pageSize {
   //obj
   final int maxLinesMaterials = 4;
-  final int maxLengthMaterials = 600;
+  final int maxLengthMaterials = 1000;
   final int maxLinesRecipe = 6;
   final int maxLengthRecipe = 2000;
   final int maxLinesFood = 1;
   final int maxLengthFood = 100;
   final double thickness = 2;
+  //duration
+  final int snackBarDuration = 2;
   //radius
   final dropdownRadius = BorderRadius.circular(15);
 
@@ -169,4 +204,5 @@ mixin _pageSize {
   final EdgeInsets textFieldPadding = const EdgeInsets.only(top: 15);
   final EdgeInsets imageFieldPadding = const EdgeInsets.only(bottom: 15);
   final EdgeInsets iconPadding = const EdgeInsets.all(6);
+  final EdgeInsets dropdownPadding = const EdgeInsets.symmetric(horizontal: 10);
 }
