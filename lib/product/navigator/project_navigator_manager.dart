@@ -1,5 +1,6 @@
 import 'package:afiyetlistesi/app_view.dart';
 import 'package:afiyetlistesi/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:afiyetlistesi/blocs/create_post_bloc/create_post_bloc.dart';
 import 'package:afiyetlistesi/blocs/my_user_bloc/my_user_bloc.dart';
 import 'package:afiyetlistesi/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:afiyetlistesi/blocs/update_user_info_bloc/update_user_info_bloc.dart';
@@ -12,6 +13,8 @@ import 'package:afiyetlistesi/view/Home/page/home_page.dart';
 import 'package:afiyetlistesi/view/UserFood/page/user_food_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:post_repository/post_repository.dart';
+import 'package:user_repository/user_repository.dart';
 
 import '../../app.dart';
 
@@ -93,10 +96,18 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
           const HomePageView(),
         );
       case NavigateRoutes.foodAdd:
-        return _navigateToNormal(const FoodAddPageView());
+        return _navigateToNormal(
+          BlocProvider<CreatePostBloc>(
+            create: (context) => CreatePostBloc(
+              myPostRepository: FirebasePostRepository(),
+            ),
+            child: FoodAddPageView(myUser: arguments as MyUser),
+          ),
+        );
       case NavigateRoutes.foodDetail:
         return _navigateToNormal(
-            FoodDetailPage(model: arguments as PopularFavoriteModel));
+          FoodDetailPage(model: arguments as PopularFavoriteModel),
+        );
       case NavigateRoutes.userFood:
         return _navigateToNormal(const UserFoodPageView());
 

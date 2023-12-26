@@ -28,8 +28,8 @@ class __BuildFoodAddPhotoState extends State<_BuildFoodAddPhoto>
             ),
           ),
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.233,
-            left: MediaQuery.of(context).size.width * 0.41,
+            top: 182,
+            left: 160,
             child: _buildPlusIcon(),
           ),
         ],

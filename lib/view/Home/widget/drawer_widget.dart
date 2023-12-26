@@ -87,8 +87,9 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget>
                             .values[ListItemName.yemekEkle.index]
                             .getListTitle(),
                         onTap: () async {
-                          await NavigatorManager.instance
-                              .pushToPage(NavigateRoutes.foodAdd);
+                          await NavigatorManager.instance.pushToPage(
+                              NavigateRoutes.foodAdd,
+                              arguments: state.user!);
                           _updateSelectedOption(ListItemName.yemekEkle.index);
                         },
                         isSelected: _selectedOptionIndex ==

@@ -1,21 +1,25 @@
 import 'package:equatable/equatable.dart';
+import 'package:user_repository/user_repository.dart';
 
-class PostFoodEntity extends Equatable {
-  const PostFoodEntity({
+// ignore: must_be_immutable
+class PostEntity extends Equatable {
+  PostEntity({
     required this.foodId,
     required this.foodName,
     required this.foodMaterial,
     required this.foodRecipe,
     required this.foodCategory,
     required this.foodPhoto,
+    required this.myUser,
   });
 
-  final String foodId;
-  final String foodName;
-  final String foodMaterial;
-  final String foodRecipe;
-  final String foodCategory;
-  final String foodPhoto;
+  String foodId;
+  String foodName;
+  String foodMaterial;
+  String foodRecipe;
+  String foodCategory;
+  String foodPhoto;
+  MyUser myUser;
 
   Map<String, Object?> toDocument() {
     return {
@@ -25,17 +29,21 @@ class PostFoodEntity extends Equatable {
       'foodRecipe': foodRecipe,
       'foodCategory': foodCategory,
       'foodPhoto': foodPhoto,
+      'myUser': myUser.toEntity().toDocument(),
     };
   }
 
-  static PostFoodEntity fromDocument(Map<String, dynamic> doc) {
-    return PostFoodEntity(
+  static PostEntity fromDocument(Map<String, dynamic> doc) {
+    return PostEntity(
       foodId: doc['foodId'] as String,
       foodName: doc['foodName'] as String,
       foodMaterial: doc['foodMaterial'] as String,
       foodRecipe: doc['foodRecipe'] as String,
       foodCategory: doc['foodCategory'] as String,
       foodPhoto: doc['foodPhoto'] as String,
+      myUser: MyUser.fromEntity(
+        MyUserEntity.fromDocument(doc['myUser']),
+      ),
     );
   }
 
@@ -47,17 +55,19 @@ class PostFoodEntity extends Equatable {
         foodRecipe,
         foodCategory,
         foodPhoto,
+        myUser,
       ];
 
   @override
   String toString() {
-    return '''PostFoodEntity: {
+    return '''PostEntity: {
      'foodId': $foodId,
       'foodName': $foodName,
       'foodMaterial': $foodMaterial,
       'foodRecipe': $foodRecipe,
       'foodCategory': $foodCategory,
       'foodPhoto': $foodPhoto,
+      'myUser': $myUser
     }''';
   }
 }

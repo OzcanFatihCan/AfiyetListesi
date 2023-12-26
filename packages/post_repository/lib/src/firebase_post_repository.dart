@@ -1,25 +1,35 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:post_repository/post_repository.dart';
-import 'package:user_repository/user_repository.dart';
 
-class FirebasePostRepository implements FoodRepository {
-  FirebasePostRepository({
-    required MyUser myUser,
-  }) : _myUser = myUser;
-
-  final MyUser _myUser;
-
+class FirebasePostRepository implements PostRepository {
   final foodCollection = FirebaseFirestore.instance.collection('foods');
 
   @override
-  Future<PostFood> createFood(PostFood food) async {
+  Future<Post> createPost(Post food) async {
     try {
+      File imageFile = File(food.foodPhoto);
+
       final userFoodCollection =
-          foodCollection.doc(_myUser.id).collection('userFood');
-      await userFoodCollection.doc().set(food.toEntity().toDocument());
-      return food;
+          foodCollection.doc(food.myUser.id).collection('userFood');
+
+      Reference firebaseStoreRef = FirebaseStorage.instance
+          .ref()
+          .child('${food.myUser.id}/FoodPhoto/${food.foodId}_lead');
+      await firebaseStoreRef.putFile(
+        imageFile,
+      );
+      String url = await firebaseStoreRef.getDownloadURL();
+
+      await userFoodCollection.add({
+        ...food.toEntity().toDocument(),
+        'foodPhoto': url,
+      });
+
+      return food.copyWith(foodPhoto: url);
     } catch (e) {
       log(e.toString());
       rethrow;
@@ -27,14 +37,15 @@ class FirebasePostRepository implements FoodRepository {
   }
 
   @override
-  Future<List<PostFood>> getFood() {
+  Future<List<Post>> getPost() {
     try {
+      Post? food;
       final userFoodCollection =
-          foodCollection.doc(_myUser.id).collection('userFood');
+          foodCollection.doc(food!.myUser.id).collection('userFood');
       return userFoodCollection.get().then((value) => value.docs
           .map(
-            (e) => PostFood.fromEntity(
-              PostFoodEntity.fromDocument(
+            (e) => Post.fromEntity(
+              PostEntity.fromDocument(
                 e.data(),
               ),
             ),
