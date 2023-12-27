@@ -1,6 +1,7 @@
 import 'package:afiyetlistesi/app_view.dart';
 import 'package:afiyetlistesi/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:afiyetlistesi/blocs/create_post_bloc/create_post_bloc.dart';
+import 'package:afiyetlistesi/blocs/get_post_bloc/get_post_bloc.dart';
 import 'package:afiyetlistesi/blocs/my_user_bloc/my_user_bloc.dart';
 import 'package:afiyetlistesi/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:afiyetlistesi/blocs/update_user_info_bloc/update_user_info_bloc.dart';
@@ -109,7 +110,14 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
           FoodDetailPage(model: arguments as PopularFavoriteModel),
         );
       case NavigateRoutes.userFood:
-        return _navigateToNormal(const UserFoodPageView());
+        return _navigateToNormal(
+          BlocProvider(
+            create: (context) => GetPostBloc(
+              myPostRepository: FirebasePostRepository(),
+            )..add(GetPosts()),
+            child: const UserFoodPageView(),
+          ),
+        );
 
       default:
         return null;

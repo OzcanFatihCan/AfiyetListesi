@@ -1,7 +1,11 @@
+import 'dart:developer';
+
+import 'package:afiyetlistesi/blocs/get_post_bloc/get_post_bloc.dart';
 import 'package:afiyetlistesi/model/favorite_model_fake.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/view/UserFood/state/state_manage_user_food.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part '../widget/content_ufood_button_widget.dart';
 part '../widget/user_food_card_widget.dart';
@@ -52,10 +56,16 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
               List<FavoriteModell> filteredModels =
                   getFilteredModels(index + 1);
 
-              return ListView.builder(
-                itemCount: filteredModels.length,
-                itemBuilder: (context, modelIndex) {
-                  return _BuildFavoriteCard(model: filteredModels[modelIndex]);
+              return BlocBuilder<GetPostBloc, GetPostState>(
+                builder: (context, state) {
+                  log(state.toString());
+                  return ListView.builder(
+                    itemCount: filteredModels.length,
+                    itemBuilder: (context, modelIndex) {
+                      return _BuildFavoriteCard(
+                          model: filteredModels[modelIndex]);
+                    },
+                  );
                 },
               );
             },

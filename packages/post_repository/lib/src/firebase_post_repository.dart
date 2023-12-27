@@ -13,19 +13,22 @@ class FirebasePostRepository implements PostRepository {
     try {
       File imageFile = File(food.foodPhoto);
 
-      final userFoodCollection =
-          foodCollection.doc(food.myUser.id).collection('userFood');
-
-      Reference firebaseStoreRef = FirebaseStorage.instance.ref().child(
-          '${food.myUser.id}/FoodPhoto/${food.myUser.id + food.foodName}_lead');
-      await firebaseStoreRef.putFile(
-        imageFile,
-      );
-      String url = await firebaseStoreRef.getDownloadURL();
-
-      await userFoodCollection.add({
+      DocumentReference docRef =
+          await foodCollection.doc(food.myUser.id).collection('userFood').add({
         ...food.toEntity().toDocument(),
+      });
+
+      food.foodId = docRef.id;
+
+      Reference firebaseStorageRef = FirebaseStorage.instance
+          .ref()
+          .child('${food.myUser.id}/FoodPhoto/${food.foodId}foodPhoto_lead');
+      await firebaseStorageRef.putFile(imageFile);
+      String url = await firebaseStorageRef.getDownloadURL();
+
+      await docRef.update({
         'foodPhoto': url,
+        'foodId': food.foodId,
       });
 
       return food.copyWith(foodPhoto: url);

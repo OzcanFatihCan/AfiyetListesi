@@ -5,10 +5,12 @@ import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
 import 'package:afiyetlistesi/product/components/text/large_text_field.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
+import 'package:afiyetlistesi/product/constants/project_validate_regex.dart';
 import 'package:afiyetlistesi/product/package/image/photo_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:lottie/lottie.dart';
 import 'package:post_repository/post_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -42,91 +44,117 @@ class _FoodAddPageViewState extends State<FoodAddPageView>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        title: Text(
-          pageName,
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
-      ),
-      body: Padding(
-        padding: fullPadding,
-        child: Column(
-          children: [
-            Expanded(
-              flex: 4,
-              child: _BuildFoodAddPhoto(
-                croppedFile: croppedFile,
-                onTap: () {
-                  _foodPhotoPicker();
-                },
+    return BlocListener<CreatePostBloc, CreatePostState>(
+      listener: (context, state) {
+        if (state is CreatePostSuccess) {
+          Navigator.pop(context);
+        } else if (state is CreatePostFailure) {
+          _showDialog(postError);
+        }
+      },
+      child: BlocBuilder<CreatePostBloc, CreatePostState>(
+        builder: (context, state) {
+          return Scaffold(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            appBar: AppBar(
+              title: Text(
+                pageName,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
-            Expanded(
-              flex: 7,
-              child: Padding(
-                padding: textFieldPadding,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Divider(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        thickness: thickness,
-                      ),
-                      _BuildFoodAddCategory(
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            selectedCategory = newValue!;
-                          });
-                        },
-                        selectedCategory: selectedCategory,
-                      ),
-                      _BuildFoodAddText(
-                        foodNameController: _foodNameController,
-                        recipeController: _recipeController,
-                        materialController: _materialController,
-                      ),
-                    ],
+            body: Padding(
+              padding: fullPadding,
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 4,
+                    child: _BuildFoodAddPhoto(
+                      croppedFile: croppedFile,
+                      onTap: () {
+                        _foodPhotoPicker();
+                      },
+                    ),
                   ),
-                ),
+                  Expanded(
+                    flex: 7,
+                    child: Padding(
+                      padding: textFieldPadding,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Divider(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                              thickness: thickness,
+                            ),
+                            _BuildFoodAddCategory(
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  selectedCategory = newValue!;
+                                });
+                              },
+                              selectedCategory: selectedCategory,
+                            ),
+                            _BuildFoodAddText(
+                              foodNameController: _foodNameController,
+                              recipeController: _recipeController,
+                              materialController: _materialController,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.08,
-        child: Padding(
-          padding: halfPadding,
-          child: Center(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.100,
-              width: MediaQuery.of(context).size.width,
-              child: ButtonDecorationWidget(
-                onPressed: () {
-                  if (_foodNameController.text.isNotEmpty &&
-                      _materialController.text.isNotEmpty &&
-                      _recipeController.text.isNotEmpty &&
-                      croppedFile!.path.isNotEmpty &&
-                      selectedCategory!.isNotEmpty) {
-                    setState(() {
-                      post.foodName = _foodNameController.text;
-                      post.foodPhoto = croppedFile!.path;
-                      post.foodCategory = selectedCategory!;
-                      post.foodRecipe = _recipeController.text;
-                      post.foodMaterial = _materialController.text;
-                    });
-                    context.read<CreatePostBloc>().add(CreatePost(post));
-                  } else {
-                    _showDialog(postError);
-                  }
-                },
-                buttonTitle: buttonTitle,
-              ),
-            ),
-          ),
-        ),
+            bottomNavigationBar: state is CreatePostLoading
+                ? SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Lottie.asset(
+                        ItemsofAsset.lottieLoading.fetchLottie,
+                      ),
+                    ),
+                  )
+                : SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    child: Padding(
+                      padding: halfPadding,
+                      child: Center(
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.100,
+                          width: MediaQuery.of(context).size.width,
+                          child: ButtonDecorationWidget(
+                            onPressed: () {
+                              if (_foodNameController.text.isNotEmpty &&
+                                  _materialController.text.isNotEmpty &&
+                                  _recipeController.text.isNotEmpty &&
+                                  croppedFile != null &&
+                                  croppedFile!.path.isNotNullOrNoEmpty &&
+                                  selectedCategory!.isNotEmpty) {
+                                setState(() {
+                                  post.foodName = _foodNameController.text;
+                                  post.foodPhoto = croppedFile!.path;
+                                  post.foodCategory = selectedCategory!;
+                                  post.foodRecipe = _recipeController.text;
+                                  post.foodMaterial = _materialController.text;
+                                });
+                                context
+                                    .read<CreatePostBloc>()
+                                    .add(CreatePost(post));
+                              } else {
+                                _showDialog(postError);
+                              }
+                            },
+                            buttonTitle: buttonTitle,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+          );
+        },
       ),
     );
   }
@@ -178,7 +206,7 @@ mixin _pageWord {
   final recipeHint = "Tarifi giriniz...";
   final categoryTitle = "Kategori seçiniz: ";
   final foodNameHint = "Yemek adı giriniz...";
-  final postError = "Lütfen bütün boşlukları doldurunuz";
+  final postError = "Lütfen fotoğraf ekleyin ve tüm boşlukları doldurun";
   final okButton = "Tamam";
   final alertTitle = "Uyarı";
 }
