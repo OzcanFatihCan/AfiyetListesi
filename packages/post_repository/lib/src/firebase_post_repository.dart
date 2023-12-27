@@ -39,11 +39,10 @@ class FirebasePostRepository implements PostRepository {
   }
 
   @override
-  Future<List<Post>> getPost() {
+  Future<List<Post>> getPost(String userId) {
     try {
-      Post? food;
       final userFoodCollection =
-          foodCollection.doc(food!.myUser.id).collection('userFood');
+          foodCollection.doc(userId).collection('userFood');
       return userFoodCollection.get().then((value) => value.docs
           .map(
             (e) => Post.fromEntity(

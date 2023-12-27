@@ -5,5 +5,5 @@ abstract class PostRepository {
   Future<Post> createPost(Post food);
 
   //get food
-  Future<List<Post>> getPost();
+  Future<List<Post>> getPost(String userId);
 }

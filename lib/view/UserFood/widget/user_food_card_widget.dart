@@ -2,10 +2,10 @@ part of '../page/user_food_page.dart';
 
 class _BuildFavoriteCard extends StatelessWidget with _pageSize, _pageWord {
   _BuildFavoriteCard({
-    required FavoriteModell model,
+    required Post model,
   }) : _model = model;
 
-  final FavoriteModell _model;
+  final Post _model;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +17,9 @@ class _BuildFavoriteCard extends StatelessWidget with _pageSize, _pageWord {
           borderRadius: BorderRadius.all(
             halfRadius,
           ),
-          child: _model.imagePath.isNotEmpty
+          child: _model.foodPhoto.isNotEmpty
               ? Image.network(
-                  _model.imagePath,
+                  _model.foodPhoto,
                   height: listPhotoHeightSize,
                   width: listPhotoWidthSize,
                   fit: BoxFit.cover,
@@ -42,7 +42,7 @@ class _BuildFavoriteCard extends StatelessWidget with _pageSize, _pageWord {
                 ),
         ),
         title: Text(
-          _model.title.isNotEmpty ? _model.title : foodNotFound,
+          _model.foodName.isNotEmpty ? _model.foodName : foodNotFound,
           style: Theme.of(context).textTheme.labelMedium,
         ),
         subtitle: Text(
