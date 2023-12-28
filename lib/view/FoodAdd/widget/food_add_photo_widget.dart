@@ -20,25 +20,27 @@ class __BuildFoodAddPhotoState extends State<_BuildFoodAddPhoto>
       onTap: widget.onTap,
       child: Stack(
         children: [
-          Padding(
-            padding: imageFieldPadding,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: widget.croppedFile != null
-                  ? Image.file(
-                      File(widget.croppedFile!.path),
-                      fit: BoxFit.contain,
-                    )
-                  : Image.asset(
-                      fit: BoxFit.cover,
-                      ItemsofAsset.foodAdd.fetchPhoto,
-                    ),
+          Positioned.fill(
+            child: Padding(
+              padding: imageFieldPadding,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: widget.croppedFile != null
+                    ? Image.file(
+                        File(widget.croppedFile!.path),
+                        fit: BoxFit.contain,
+                      )
+                    : Image.asset(
+                        fit: BoxFit.cover,
+                        ItemsofAsset.foodAdd.fetchPhoto,
+                      ),
+              ),
             ),
           ),
           Positioned(
-            top: 182,
-            left: 160,
+            top: MediaQuery.of(context).size.height * 0.25,
+            left: MediaQuery.of(context).size.width * 0.41,
             child: _buildPlusIcon(),
           ),
         ],

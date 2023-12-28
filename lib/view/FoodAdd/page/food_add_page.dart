@@ -17,6 +17,7 @@ import 'package:user_repository/user_repository.dart';
 part '../widget/food_add_photo_widget.dart';
 part '../widget/food_add_text_widget.dart';
 part '../widget/food_add_category_widget.dart';
+part '../viewModel/state_manage_foodadd.dart';
 
 class FoodAddPageView extends StatefulWidget {
   const FoodAddPageView({required this.myUser, super.key});
@@ -26,30 +27,14 @@ class FoodAddPageView extends StatefulWidget {
   State<FoodAddPageView> createState() => _FoodAddPageViewState();
 }
 
-class _FoodAddPageViewState extends State<FoodAddPageView>
+class _FoodAddPageViewState extends StateManageFoodAdd
     with _pageSize, _pageWord {
-  late Post post;
-  String? selectedCategory;
-  CroppedFile? croppedFile;
-  final TextEditingController _materialController = TextEditingController();
-  final TextEditingController _recipeController = TextEditingController();
-  final TextEditingController _foodNameController = TextEditingController();
-
-  @override
-  void initState() {
-    post = Post.empty;
-    post.myUser = widget.myUser;
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<CreatePostBloc, CreatePostState>(
       listener: (context, state) {
         if (state is CreatePostSuccess) {
           Navigator.pop(context);
-        } else if (state is CreatePostFailure) {
-          _showDialog(postError);
         }
       },
       child: BlocBuilder<CreatePostBloc, CreatePostState>(
@@ -71,7 +56,7 @@ class _FoodAddPageViewState extends State<FoodAddPageView>
                     child: _BuildFoodAddPhoto(
                       croppedFile: croppedFile,
                       onTap: () {
-                        _foodPhotoPicker();
+                        foodPhotoPicker();
                       },
                     ),
                   ),
@@ -117,82 +102,47 @@ class _FoodAddPageViewState extends State<FoodAddPageView>
                       ),
                     ),
                   )
-                : SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.08,
-                    child: Padding(
-                      padding: halfPadding,
-                      child: Center(
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.100,
-                          width: MediaQuery.of(context).size.width,
-                          child: ButtonDecorationWidget(
-                            onPressed: () {
-                              if (_foodNameController.text.isNotEmpty &&
-                                  _materialController.text.isNotEmpty &&
-                                  _recipeController.text.isNotEmpty &&
-                                  croppedFile != null &&
-                                  croppedFile!.path.isNotNullOrNoEmpty &&
-                                  selectedCategory!.isNotEmpty) {
-                                setState(() {
-                                  post.foodName = _foodNameController.text;
-                                  post.foodPhoto = croppedFile!.path;
-                                  post.foodCategory = selectedCategory!;
-                                  post.foodRecipe = _recipeController.text;
-                                  post.foodMaterial = _materialController.text;
-                                });
-                                context
-                                    .read<CreatePostBloc>()
-                                    .add(CreatePost(post));
-                              } else {
-                                _showDialog(postError);
-                              }
-                            },
-                            buttonTitle: buttonTitle,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                : _buildOnPressed(context),
           );
         },
       ),
     );
   }
 
-  _foodPhotoPicker() async {
-    ImagePickerHandler(
-      context: context,
-      onCroppedFile: (file) {
-        setState(() {
-          croppedFile = file;
-        });
-      },
-    ).handleImageSelection();
-  }
-
-  _showDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            alertTitle,
-            style: Theme.of(context).textTheme.labelLarge,
-          ),
-          content: Text(
-            message,
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
-          actions: <Widget>[
-            TextButton(
+  SizedBox _buildOnPressed(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.08,
+      child: Padding(
+        padding: halfPadding,
+        child: Center(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.100,
+            width: MediaQuery.of(context).size.width,
+            child: ButtonDecorationWidget(
               onPressed: () {
-                Navigator.of(context).pop();
+                if (_foodNameController.text.isNotEmpty &&
+                    _materialController.text.isNotEmpty &&
+                    _recipeController.text.isNotEmpty &&
+                    croppedFile != null &&
+                    croppedFile!.path.isNotNullOrNoEmpty &&
+                    selectedCategory!.isNotEmpty) {
+                  setState(() {
+                    post.foodName = _foodNameController.text;
+                    post.foodPhoto = croppedFile!.path;
+                    post.foodCategory = selectedCategory!;
+                    post.foodRecipe = _recipeController.text;
+                    post.foodMaterial = _materialController.text;
+                  });
+                  context.read<CreatePostBloc>().add(CreatePost(post));
+                } else {
+                  myErrorDialog(postError);
+                }
               },
-              child: Text(okButton),
+              buttonTitle: buttonTitle,
             ),
-          ],
-        );
-      },
+          ),
+        ),
+      ),
     );
   }
 }
@@ -224,6 +174,7 @@ mixin _pageSize {
   final int snackBarDuration = 2;
   //radius
   final dropdownRadius = BorderRadius.circular(15);
+  final alertRadius = BorderRadius.circular(25);
 
   //padding
   final EdgeInsets fullPadding = const EdgeInsets.symmetric(horizontal: 16);

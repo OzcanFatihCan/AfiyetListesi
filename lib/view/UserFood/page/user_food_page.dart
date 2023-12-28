@@ -2,7 +2,6 @@ import 'package:afiyetlistesi/blocs/authentication_bloc/authentication_bloc.dart
 import 'package:afiyetlistesi/blocs/get_post_bloc/get_post_bloc.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
-import 'package:afiyetlistesi/view/UserFood/state/state_manage_user_food.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -10,6 +9,7 @@ import 'package:post_repository/post_repository.dart';
 
 part '../widget/content_ufood_button_widget.dart';
 part '../widget/user_food_card_widget.dart';
+part '../viewModel/state_manage_user_food.dart';
 
 class UserFoodPageView extends StatefulWidget {
   const UserFoodPageView({super.key});
@@ -19,16 +19,6 @@ class UserFoodPageView extends StatefulWidget {
 }
 
 class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
-  late List<Post> foodPosts;
-  late String userId;
-
-  @override
-  void initState() {
-    userId = context.read<AuthenticationBloc>().state.user!.uid;
-    super.initState();
-  }
-
-  final appText = "Yemeklerim";
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -83,8 +73,9 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
                     return ListView.builder(
                       itemCount: filteredModels.length,
                       itemBuilder: (context, modelIndex) {
-                        return _BuildFavoriteCard(
-                            model: filteredModels[modelIndex]);
+                        return _BuildUserFoodCard(
+                          model: filteredModels[modelIndex],
+                        );
                       },
                     );
                   },
