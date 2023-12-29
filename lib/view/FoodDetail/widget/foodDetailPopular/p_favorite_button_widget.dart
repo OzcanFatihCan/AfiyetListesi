@@ -1,4 +1,4 @@
-part of '../page/food_detail_page.dart';
+part of '../../page/food_detail_page.dart';
 
 class _BuildFavoriteButton extends StatelessWidget with _pageWord {
   _BuildFavoriteButton();

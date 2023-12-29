@@ -1,14 +1,22 @@
+import 'package:afiyetlistesi/product/components/text/large_text_field.dart';
+import 'package:afiyetlistesi/product/constants/project_food_detail_type.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
+import 'package:afiyetlistesi/view/Error/page/error_page.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
 
-part '../widget/food_photo_widget.dart';
-part '../widget/back_button_widget.dart';
-part '../widget/favorite_button_widget.dart';
-part '../widget/materials_content_widget.dart';
-part '../widget/recipe_content_widget.dart';
 part '../viewModel/state_manage_food_detail.dart';
+
+part '../widget/foodDetailPopular/p_food_photo_widget.dart';
+part '../widget/back_button_widget.dart';
+part '../widget/foodDetailPopular/p_favorite_button_widget.dart';
+part '../widget/foodDetailPopular/p_materials_content_widget.dart';
+part '../widget/foodDetailPopular/p_recipe_content_widget.dart';
+part '../widget/foodDetailUserFood/uf_text_widget.dart';
+
+part '../widget/foodDetailPopular/popular_detail_widget.dart';
+part '../widget/foodDetailUserFood/user_food_detail_widget.dart';
 
 class FoodDetailPage extends StatefulWidget {
   const FoodDetailPage({
@@ -28,107 +36,45 @@ class FoodDetailPage extends StatefulWidget {
 class _FoodDetailPageState extends StateManageFoodDetail
     with _pageSize, _pageWord {
   @override
-  void initState() {
-    print(widget._pageType);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    if (widget._pageType ==
+        FoodDetailManager.instance.getDetailType(FoodDetailType.userfood)) {
+      detailWidget = _UserFoodDetailWidget(
+        model: widget._model,
+      );
+    } else if (widget._pageType ==
+        FoodDetailManager.instance.getDetailType(FoodDetailType.popular)) {
+      detailWidget = _PopularDetailWidget(model: widget._model);
+    } else if (widget._pageType ==
+        FoodDetailManager.instance.getDetailType(FoodDetailType.favorite)) {
+      detailWidget = Container();
+    } else if (widget._pageType ==
+        FoodDetailManager.instance.getDetailType(FoodDetailType.food)) {
+      detailWidget = Container();
+    } else {
+      detailWidget = const ErrorPageView();
+    }
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Column(
-        children: [
-          Expanded(
-            flex: 4,
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                Positioned.fill(
-                  bottom: cardHeight / 2,
-                  child: _BuildFoodPhoto(model: widget._model),
-                ),
-                Positioned(
-                    height: cardHeight,
-                    width: cardWidth,
-                    bottom: cardBottom,
-                    child: _buildFoodTitle(context)),
-                Positioned(
-                  top: MediaQuery.of(context).padding.top,
-                  left: backLeft,
-                  bottom: backBottom,
-                  child: const _BackButtonWidget(),
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 6,
-            child: Padding(
-              padding: pagePadding2x,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    _buildMaterialTitle(context, materialFoodText),
-                    _BuildMaterials(model: widget._model),
-                    _buildRecipeTitle(context, recipeText),
-                    _BuildRecipe(model: widget._model),
-                    _BuildFavoriteButton()
-                  ],
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Card _buildFoodTitle(BuildContext context) {
-    return Card(
-      shape: Theme.of(context).cardTheme.shape,
-      color: Theme.of(context).colorScheme.onPrimary,
-      child: Center(
-        child: Text(
-          widget._model.title.isNotEmpty ? widget._model.title : foodNotFound,
-          style: AppTheme().customTextTheme().headlineSmall,
-          softWrap: true,
-          maxLines: maxLines,
-        ),
-      ),
-    );
-  }
-
-  Padding _buildMaterialTitle(BuildContext context, String materialFoodText) {
-    return Padding(
-      padding: spaceObjectsPadding,
-      child: Text(
-        materialFoodText,
-        textAlign: TextAlign.start,
-        style: Theme.of(context).textTheme.headlineMedium,
-      ),
-    );
-  }
-
-  Padding _buildRecipeTitle(BuildContext context, String recipeText) {
-    return Padding(
-      padding: spaceObjectsPadding,
-      child: Text(
-        recipeText,
-        style: Theme.of(context).textTheme.headlineMedium,
-      ),
+      body: detailWidget,
     );
   }
 }
 
 mixin _pageSize {
   //obj
+  final int maxLinesMaterials = 4;
+  final int maxLengthMaterials = 1000;
+  final int maxLinesRecipe = 6;
+  final int maxLengthRecipe = 2000;
+  final int maxLengthFood = 100;
   final cardHeight = 70.0;
   final cardWidth = 230.0;
   final cardBottom = 0.0;
+
   final backLeft = 20.0;
+  final backRight = 20.0;
   final backBottom = 200.0;
   final maxLines = 2;
   final double foodPhotoHeightSize = 130;
@@ -143,10 +89,14 @@ mixin _pageSize {
   //padding
   final pagePadding2x = const EdgeInsets.all(16.0);
   final objectPadding2x = const EdgeInsets.all(16.0);
-  final spaceObjectsPadding = const EdgeInsets.only(bottom: 7);
+  final spaceObjectPaddingPopular = const EdgeInsets.only(bottom: 7);
+  final spaceObjectsPadding = const EdgeInsets.only(bottom: 22);
+  final cardMargin = const EdgeInsets.all(0);
 }
 
 mixin _pageWord {
+  final materialHint = "Malzemeleri giriniz...";
+  final recipeHint = "Tarifi giriniz...";
   final subtitleText = "Tarif için tıkla";
   final foodNotFound = "Yemek adı yükleniyor...";
   final foodRecipeNotFound = "Yemek tarifi yükleniyor...";
@@ -154,8 +104,4 @@ mixin _pageWord {
   final materialFoodText = "Malzemeler";
   final recipeText = "Yapılışı";
   final foodMaterialNotFound = "Yemek malzeme yükleniyor...";
-}
-
-mixin _pageDuration {
-  final int duration = 1;
 }

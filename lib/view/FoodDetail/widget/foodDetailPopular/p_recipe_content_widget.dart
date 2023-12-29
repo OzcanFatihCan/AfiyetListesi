@@ -1,7 +1,7 @@
-part of '../page/food_detail_page.dart';
+part of '../../page/food_detail_page.dart';
 
-class _BuildMaterials extends StatelessWidget with _pageSize, _pageWord {
-  _BuildMaterials({
+class _BuildRecipe extends StatelessWidget with _pageSize, _pageWord {
+  _BuildRecipe({
     required PopularFavoriteModel model,
   }) : _model = model;
 
@@ -10,9 +10,9 @@ class _BuildMaterials extends StatelessWidget with _pageSize, _pageWord {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 4,
+      flex: 6,
       child: Padding(
-        padding: spaceObjectsPadding,
+        padding: spaceObjectPaddingPopular,
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Card(
@@ -23,9 +23,9 @@ class _BuildMaterials extends StatelessWidget with _pageSize, _pageWord {
               child: Padding(
                 padding: objectPadding2x,
                 child: Text(
-                  _model.materialsFood.isNotEmpty
-                      ? _model.materialsFood.join('\n')
-                      : foodMaterialNotFound,
+                  _model.recipe.isNotEmpty
+                      ? _model.recipe.join('\n')
+                      : foodRecipeNotFound,
                   style: AppTheme().customTextTheme().labelMedium,
                 ),
               ),

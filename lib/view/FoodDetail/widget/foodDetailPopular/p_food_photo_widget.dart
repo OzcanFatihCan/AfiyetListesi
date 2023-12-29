@@ -1,4 +1,4 @@
-part of '../page/food_detail_page.dart';
+part of '../../page/food_detail_page.dart';
 
 class _BuildFoodPhoto extends StatelessWidget with _pageSize, _pageWord {
   _BuildFoodPhoto({

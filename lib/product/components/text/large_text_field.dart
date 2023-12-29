@@ -7,20 +7,26 @@ class LargeTextField extends StatelessWidget with _pageSize {
     this.maxLines,
     this.maxLength,
     required this.hintText,
+    this.isEditing = true,
+    this.initialValue,
   });
 
   final TextEditingController? textController;
   final int? maxLines;
   final int? maxLength;
   final String? hintText;
+  final bool isEditing;
+  final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      initialValue: initialValue,
       style: TextStyle(color: Theme.of(context).colorScheme.primary),
       controller: textController,
       maxLines: maxLines ?? defaultLines,
       maxLength: maxLength ?? defaultLenght,
+      enabled: isEditing,
       decoration: InputDecoration(
         hintText: hintText,
         enabledBorder: OutlineInputBorder(
@@ -34,6 +40,13 @@ class LargeTextField extends StatelessWidget with _pageSize {
           borderRadius: halfRadius,
           borderSide: BorderSide(
             color: Theme.of(context).colorScheme.onPrimary,
+            width: textFieldBorderSize,
+          ),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: halfRadius,
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.2),
             width: textFieldBorderSize,
           ),
         ),

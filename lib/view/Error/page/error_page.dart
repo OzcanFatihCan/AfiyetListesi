@@ -12,21 +12,18 @@ class ErrorPageView extends StatefulWidget {
 class _ErrorPageViewState extends State<ErrorPageView> with _pageItem {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Padding(
-        padding: pagePadding2x,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Lottie.asset(
-                  ItemsofAsset.lottieError.fetchLottie,
-                ),
+    return Padding(
+      padding: pagePadding2x,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Lottie.asset(
+                ItemsofAsset.lottieError.fetchLottie,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
