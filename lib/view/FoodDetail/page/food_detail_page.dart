@@ -8,21 +8,31 @@ part '../widget/back_button_widget.dart';
 part '../widget/favorite_button_widget.dart';
 part '../widget/materials_content_widget.dart';
 part '../widget/recipe_content_widget.dart';
+part '../viewModel/state_manage_food_detail.dart';
 
 class FoodDetailPage extends StatefulWidget {
   const FoodDetailPage({
     super.key,
     required PopularFavoriteModel model,
-  }) : _model = model;
+    required String pageType,
+  })  : _model = model,
+        _pageType = pageType;
 
   final PopularFavoriteModel _model;
+  final String _pageType;
 
   @override
   State<FoodDetailPage> createState() => _FoodDetailPageState();
 }
 
-class _FoodDetailPageState extends State<FoodDetailPage>
+class _FoodDetailPageState extends StateManageFoodDetail
     with _pageSize, _pageWord {
+  @override
+  void initState() {
+    print(widget._pageType);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

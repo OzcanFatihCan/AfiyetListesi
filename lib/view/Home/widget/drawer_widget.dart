@@ -89,7 +89,7 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget>
                         onTap: () async {
                           await NavigatorManager.instance.pushToPage(
                               NavigateRoutes.foodAdd,
-                              arguments: state.user!);
+                              arguments: {'myUser': state.user!});
                           _updateSelectedOption(ListItemName.yemekEkle.index);
                         },
                         isSelected: _selectedOptionIndex ==

@@ -25,7 +25,8 @@ class NavigatorManager {
 
   GlobalKey<NavigatorState> get navigatorGlobalKey => _navigatorGlobalKey;
 
-  Future<void> pushToPage(NavigateRoutes route, {Object? arguments}) async {
+  Future<void> pushToPage(NavigateRoutes route,
+      {Map<String, Object>? arguments}) async {
     await _navigatorGlobalKey.currentState?.pushNamed(
       route.withUrl,
       arguments: arguments,
@@ -96,17 +97,25 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
           const HomePageView(),
         );
       case NavigateRoutes.foodAdd:
+        final user = (arguments as Map<String, Object>?)?['myUser'] as MyUser;
         return _navigateToNormal(
           BlocProvider<CreatePostBloc>(
             create: (context) => CreatePostBloc(
               myPostRepository: FirebasePostRepository(),
             ),
-            child: FoodAddPageView(myUser: arguments as MyUser),
+            child: FoodAddPageView(myUser: user),
           ),
         );
       case NavigateRoutes.foodDetail:
+        final model = (arguments as Map<String, Object>?)?['model']
+            as PopularFavoriteModel;
+        final pageType = (arguments)?['pageType'] as String;
+
         return _navigateToNormal(
-          FoodDetailPage(model: arguments as PopularFavoriteModel),
+          FoodDetailPage(
+            model: model,
+            pageType: pageType,
+          ),
         );
       case NavigateRoutes.userFood:
         return _navigateToNormal(
