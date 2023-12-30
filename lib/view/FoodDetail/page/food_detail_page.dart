@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:afiyetlistesi/product/components/text/large_text_field.dart';
+import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_food_detail_type.dart';
+import 'package:afiyetlistesi/product/package/image/photo_picker.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:afiyetlistesi/view/Error/page/error_page.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 part '../viewModel/state_manage_food_detail.dart';
 
@@ -14,6 +19,8 @@ part '../widget/foodDetailPopular/p_favorite_button_widget.dart';
 part '../widget/foodDetailPopular/p_materials_content_widget.dart';
 part '../widget/foodDetailPopular/p_recipe_content_widget.dart';
 part '../widget/foodDetailUserFood/uf_text_widget.dart';
+part '../widget/foodDetailUserFood/uf_category_widget.dart';
+part '../widget/foodDetailUserFood/uf_food_photo_widget.dart';
 
 part '../widget/foodDetailPopular/popular_detail_widget.dart';
 part '../widget/foodDetailUserFood/user_food_detail_widget.dart';
@@ -80,21 +87,29 @@ mixin _pageSize {
   final double foodPhotoHeightSize = 130;
   final double foodPhotoWidthSize = 120;
   final double spaceObjectsMin = 10;
+  final double foodTitleUnderlineWidth = 2;
+
+  final double iconPositionedBottom = 20;
+  final double iconPositionedRight = 20;
+
   //radius
   final halfRadius = const Radius.circular(15);
   final foodDetailRadius = const BorderRadius.only(
     bottomLeft: Radius.circular(30),
     bottomRight: Radius.circular(30),
   );
+  final dropdownRadius = BorderRadius.circular(15);
   //padding
   final pagePadding2x = const EdgeInsets.all(16.0);
   final objectPadding2x = const EdgeInsets.all(16.0);
   final spaceObjectPaddingPopular = const EdgeInsets.only(bottom: 7);
   final spaceObjectsPadding = const EdgeInsets.only(bottom: 22);
+  final EdgeInsets iconPadding = const EdgeInsets.all(6);
   final cardMargin = const EdgeInsets.all(0);
 }
 
 mixin _pageWord {
+  final categoryTitle = "Kategori: ";
   final materialHint = "Malzemeleri giriniz...";
   final recipeHint = "Tarifi giriniz...";
   final subtitleText = "Tarif için tıkla";

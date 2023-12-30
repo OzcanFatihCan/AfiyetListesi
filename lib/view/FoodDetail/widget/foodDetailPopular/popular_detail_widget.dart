@@ -16,7 +16,7 @@ class _PopularDetailWidget extends StatelessWidget with _pageSize, _pageWord {
             children: <Widget>[
               Positioned.fill(
                 bottom: cardHeight / 2,
-                child: _BuildFoodPhoto(model: _model),
+                child: _BuildPopularFoodPhoto(model: _model),
               ),
               Positioned(
                   height: cardHeight,

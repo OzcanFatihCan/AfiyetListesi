@@ -12,9 +12,12 @@ class _UserFoodDetailWidget extends StatefulWidget {
 
 class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
     with _pageSize, _pageWord {
+  String? selectedCategory;
+  CroppedFile? croppedFile;
+
   final TextEditingController _materialController = TextEditingController();
   final TextEditingController _recipeController = TextEditingController();
-  //final TextEditingController _foodNameController = TextEditingController();
+  final TextEditingController _foodNameController = TextEditingController();
   bool isEditing = false;
   @override
   Widget build(BuildContext context) {
@@ -27,13 +30,18 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
             children: <Widget>[
               Positioned.fill(
                 bottom: cardHeight / 2,
-                child: _BuildFoodPhoto(model: widget._model),
+                child: _BuildUserFoodPhoto(
+                  model: widget._model,
+                  isEditing: isEditing,
+                  croppedFile: croppedFile,
+                ),
               ),
               Positioned(
-                  height: cardHeight,
-                  width: cardWidth,
-                  bottom: cardBottom,
-                  child: _buildFoodTitle(context)),
+                height: cardHeight,
+                width: cardWidth,
+                bottom: cardBottom,
+                child: _buildFoodTitle(context),
+              ),
               Positioned(
                 top: MediaQuery.of(context).padding.top,
                 left: backLeft,
@@ -45,6 +53,11 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
                 right: backRight,
                 bottom: backBottom,
                 child: _buildEditButton(context),
+              ),
+              Positioned(
+                bottom: iconPositionedBottom,
+                right: iconPositionedRight,
+                child: isEditing ? _buildPlusIcon() : const SizedBox(),
               ),
             ],
           ),
@@ -79,9 +92,17 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
   Widget _buildCategory() {
     return Padding(
       padding: spaceObjectsPadding,
-      child: Text(
-        "Kategori:${widget._model.category}",
-        style: AppTheme().customTextTheme().labelMedium,
+      child: Center(
+        child: _BuildUserFoodCategory(
+          onChanged: isEditing
+              ? (String? newValue) {
+                  setState(() {
+                    selectedCategory = newValue!;
+                  });
+                }
+              : null,
+          selectedCategory: selectedCategory,
+        ),
       ),
     );
   }
@@ -92,8 +113,24 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
             shape: Theme.of(context).cardTheme.shape,
             color: Theme.of(context).colorScheme.onPrimary,
             child: Center(
-              child: TextFormField(
-                autofocus: true,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.46,
+                child: TextFormField(
+                  style: AppTheme().customTextTheme().headlineSmall,
+                  controller: _foodNameController,
+                  decoration: InputDecoration(
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        width: foodTitleUnderlineWidth,
+                      ),
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        width: foodTitleUnderlineWidth,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           )
@@ -140,5 +177,35 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
         ),
       ],
     );
+  }
+
+  Widget _buildPlusIcon() {
+    return Container(
+      padding: iconPadding,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Theme.of(context).colorScheme.onPrimary,
+      ),
+      child: GestureDetector(
+        onTap: () {
+          foodPhotoPicker();
+        },
+        child: Icon(
+          Icons.add,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+      ),
+    );
+  }
+
+  foodPhotoPicker() async {
+    ImagePickerHandler(
+      context: context,
+      onCroppedFile: (file) {
+        setState(() {
+          croppedFile = file;
+        });
+      },
+    ).handleImageSelection();
   }
 }
