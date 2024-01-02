@@ -109,7 +109,7 @@ class FirebaseUserRepository implements UserRepository {
     }
   }
 
-  // User Photo Upload
+  // User Photo Upload(update)
   @override
   Future<String> uploadPicture(String file, String userId) async {
     try {
@@ -124,6 +124,24 @@ class FirebaseUserRepository implements UserRepository {
         {'picture': url},
       );
       return url;
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  //user info update
+  @override
+  Future<void> updateUserData(MyUser user) async {
+    try {
+      User? currentUser = _firebaseAuth.currentUser;
+      if (currentUser != null) {
+        await currentUser.updateEmail(user.email);
+      }
+      await usersCollection.doc(user.id).update({
+        'email': user.email,
+        'name': user.name,
+      });
     } catch (e) {
       log(e.toString());
       rethrow;

@@ -18,4 +18,6 @@ abstract class UserRepository {
   Stream<User?> get user;
 
   Future<String> uploadPicture(String file, String userId);
+
+  Future<void> updateUserData(MyUser user);
 }
