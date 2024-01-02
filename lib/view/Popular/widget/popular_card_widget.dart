@@ -49,12 +49,13 @@ class _BuildPopularCard extends StatelessWidget with _pageSize, _pageWord {
       width: MediaQuery.of(context).size.width * 0.48,
       child: InkWell(
         onTap: () async {
+          /*
           await NavigatorManager.instance
               .pushToPage(NavigateRoutes.foodDetail, arguments: {
             'model': _model,
             'pageType': FoodDetailManager.instance
                 .getDetailType(FoodDetailType.popular),
-          });
+          });*/
         },
         child: Card(
           shape: Theme.of(context).cardTheme.shape,

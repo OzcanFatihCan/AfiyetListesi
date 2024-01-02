@@ -1,7 +1,9 @@
 import 'package:afiyetlistesi/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:afiyetlistesi/blocs/get_post_bloc/get_post_bloc.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
+import 'package:afiyetlistesi/product/constants/project_food_detail_type.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
+import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';

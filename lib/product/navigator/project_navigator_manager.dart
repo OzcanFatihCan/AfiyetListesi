@@ -4,7 +4,6 @@ import 'package:afiyetlistesi/blocs/create_post_bloc/create_post_bloc.dart';
 import 'package:afiyetlistesi/blocs/my_user_bloc/my_user_bloc.dart';
 import 'package:afiyetlistesi/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:afiyetlistesi/blocs/update_user_info_bloc/update_user_info_bloc.dart';
-import 'package:afiyetlistesi/model/popular_food_model.dart';
 import 'package:afiyetlistesi/view/Authentication/page/authentication_page.dart';
 import 'package:afiyetlistesi/view/Error/page/error_page.dart';
 import 'package:afiyetlistesi/view/FoodAdd/page/food_add_page.dart';
@@ -107,8 +106,7 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
           ),
         );
       case NavigateRoutes.foodDetail:
-        final model = (arguments as Map<String, Object>?)?['model']
-            as PopularFavoriteModel;
+        final model = (arguments as Map<String, Object>?)?['model'] as Post;
         final pageType = (arguments)?['pageType'] as String;
 
         return _navigateToNormal(

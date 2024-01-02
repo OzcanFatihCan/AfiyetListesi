@@ -23,8 +23,10 @@ abstract class StateManageProfile extends State<ProfilePageView> {
         if (selectedFile is CroppedFile) {
           setState(() {
             context.read<UpdateUserInfoBloc>().add(
-                  UploadPicture(selectedFile.path,
-                      context.read<MyUserBloc>().state.user!.id),
+                  UploadPicture(
+                    selectedFile.path,
+                    context.read<MyUserBloc>().state.user!.id,
+                  ),
                 );
           });
         }

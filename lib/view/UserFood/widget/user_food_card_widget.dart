@@ -57,7 +57,15 @@ class _BuildUserFoodCard extends StatelessWidget with _pageSize, _pageWord {
           ),
           onPressed: () {},
         ),
-        onTap: () {},
+        onTap: () async {
+          await NavigatorManager.instance
+              .pushToPage(NavigateRoutes.foodDetail, arguments: {
+            'model': _model,
+            'pageType': FoodDetailManager.instance.getDetailType(
+              FoodDetailType.userfood,
+            ),
+          });
+        },
       ),
     );
   }

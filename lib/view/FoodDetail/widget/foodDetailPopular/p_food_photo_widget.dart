@@ -2,15 +2,15 @@ part of '../../page/food_detail_page.dart';
 
 class _BuildPopularFoodPhoto extends StatelessWidget with _pageSize, _pageWord {
   _BuildPopularFoodPhoto({
-    required PopularFavoriteModel model,
+    required Post model,
   }) : _model = model;
 
-  final PopularFavoriteModel _model;
+  final Post _model;
 
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: 'food-image-${_model.imagePath}',
+      tag: 'food-image-${_model.foodPhoto}',
       createRectTween: (Rect? begin, Rect? end) {
         return MaterialRectCenterArcTween(begin: end, end: begin);
       },
@@ -19,9 +19,9 @@ class _BuildPopularFoodPhoto extends StatelessWidget with _pageSize, _pageWord {
         height: MediaQuery.of(context).size.height * 0.40,
         child: ClipRRect(
           borderRadius: foodDetailRadius,
-          child: _model.imagePath.isNotEmpty
+          child: _model.foodPhoto.isNotEmpty
               ? Image.network(
-                  _model.imagePath,
+                  _model.foodPhoto,
                   height: foodPhotoHeightSize,
                   width: foodPhotoWidthSize,
                   fit: BoxFit.cover,

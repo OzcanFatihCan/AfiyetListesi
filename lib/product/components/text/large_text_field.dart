@@ -23,10 +23,11 @@ class LargeTextField extends StatelessWidget with _pageSize {
     return TextFormField(
       initialValue: initialValue,
       style: TextStyle(color: Theme.of(context).colorScheme.primary),
-      controller: textController,
+      controller: initialValue != null ? null : textController,
       maxLines: maxLines ?? defaultLines,
       maxLength: maxLength ?? defaultLenght,
       enabled: isEditing,
+      keyboardType: TextInputType.text,
       decoration: InputDecoration(
         hintText: hintText,
         enabledBorder: OutlineInputBorder(

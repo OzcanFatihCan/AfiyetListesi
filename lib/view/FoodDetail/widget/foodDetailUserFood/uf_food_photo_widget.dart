@@ -2,13 +2,13 @@ part of '../../page/food_detail_page.dart';
 
 class _BuildUserFoodPhoto extends StatefulWidget {
   const _BuildUserFoodPhoto({
-    required PopularFavoriteModel model,
+    required Post model,
     required bool isEditing,
     required this.foodPhotoPick,
   })  : _model = model,
         _isEditing = isEditing;
 
-  final PopularFavoriteModel _model;
+  final Post _model;
 
   final bool _isEditing;
   final File? foodPhotoPick;
@@ -22,7 +22,7 @@ class _BuildUserFoodPhotoState extends State<_BuildUserFoodPhoto>
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: 'food-image-${widget._model.imagePath}',
+      tag: 'food-image-${widget._model.foodPhoto}',
       createRectTween: (Rect? begin, Rect? end) {
         return MaterialRectCenterArcTween(begin: end, end: begin);
       },
@@ -45,9 +45,9 @@ class _BuildUserFoodPhotoState extends State<_BuildUserFoodPhoto>
                 width: foodPhotoWidthSize,
                 fit: BoxFit.cover,
               )
-            : (widget._model.imagePath.isNotEmpty
+            : (widget._model.foodPhoto.isNotEmpty
                 ? Image.network(
-                    widget._model.imagePath,
+                    widget._model.foodPhoto,
                     height: foodPhotoHeightSize,
                     width: foodPhotoWidthSize,
                     fit: BoxFit.cover,
@@ -70,9 +70,9 @@ class _BuildUserFoodPhotoState extends State<_BuildUserFoodPhoto>
       height: MediaQuery.of(context).size.height * 0.40,
       child: ClipRRect(
         borderRadius: foodDetailRadius,
-        child: widget._model.imagePath.isNotEmpty
+        child: widget._model.foodPhoto.isNotEmpty
             ? Image.network(
-                widget._model.imagePath,
+                widget._model.foodPhoto,
                 height: foodPhotoHeightSize,
                 width: foodPhotoWidthSize,
                 fit: BoxFit.cover,

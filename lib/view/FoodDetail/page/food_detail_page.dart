@@ -8,7 +8,7 @@ import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:afiyetlistesi/view/Error/page/error_page.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
-import 'package:afiyetlistesi/model/popular_food_model.dart';
+import 'package:post_repository/post_repository.dart';
 
 part '../viewModel/state_manage_food_detail.dart';
 
@@ -20,6 +20,7 @@ part '../widget/foodDetailPopular/p_recipe_content_widget.dart';
 part '../widget/foodDetailUserFood/uf_text_widget.dart';
 part '../widget/foodDetailUserFood/uf_category_widget.dart';
 part '../widget/foodDetailUserFood/uf_food_photo_widget.dart';
+part '../widget/foodDetailUserFood/uf_title_widget.dart';
 
 part '../widget/foodDetailPopular/popular_detail_widget.dart';
 part '../widget/foodDetailUserFood/user_food_detail_widget.dart';
@@ -27,12 +28,12 @@ part '../widget/foodDetailUserFood/user_food_detail_widget.dart';
 class FoodDetailPage extends StatefulWidget {
   const FoodDetailPage({
     super.key,
-    required PopularFavoriteModel model,
+    required Post model,
     required String pageType,
   })  : _model = model,
         _pageType = pageType;
 
-  final PopularFavoriteModel _model;
+  final Post _model;
   final String _pageType;
 
   @override
@@ -47,6 +48,9 @@ class _FoodDetailPageState extends StateManageFoodDetail
         FoodDetailManager.instance.getDetailType(FoodDetailType.userfood)) {
       detailWidget = _UserFoodDetailWidget(
         model: widget._model,
+        foodNameController: foodNameController,
+        materialController: materialController,
+        recipeController: recipeController,
       );
     } else if (widget._pageType ==
         FoodDetailManager.instance.getDetailType(FoodDetailType.popular)) {
@@ -105,6 +109,7 @@ mixin _pageSize {
   final spaceObjectsPadding = const EdgeInsets.only(bottom: 22);
   final EdgeInsets iconPadding = const EdgeInsets.all(6);
   final cardMargin = const EdgeInsets.all(0);
+  final titlePadding = const EdgeInsets.symmetric(horizontal: 8);
 }
 
 mixin _pageWord {

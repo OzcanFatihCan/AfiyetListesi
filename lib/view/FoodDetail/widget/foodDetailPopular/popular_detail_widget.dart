@@ -2,9 +2,9 @@ part of '../../page/food_detail_page.dart';
 
 class _PopularDetailWidget extends StatelessWidget with _pageSize, _pageWord {
   _PopularDetailWidget({
-    required PopularFavoriteModel model,
+    required Post model,
   }) : _model = model;
-  final PopularFavoriteModel _model;
+  final Post _model;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -60,7 +60,7 @@ class _PopularDetailWidget extends StatelessWidget with _pageSize, _pageWord {
     return Padding(
       padding: spaceObjectPaddingPopular,
       child: Text(
-        "Kategori:${_model.category}",
+        "Kategori:${_model.foodCategory}",
         style: AppTheme().customTextTheme().labelMedium,
       ),
     );
@@ -72,7 +72,7 @@ class _PopularDetailWidget extends StatelessWidget with _pageSize, _pageWord {
       color: Theme.of(context).colorScheme.onPrimary,
       child: Center(
         child: Text(
-          _model.title.isNotEmpty ? _model.title : foodNotFound,
+          _model.foodName.isNotEmpty ? _model.foodName : foodNotFound,
           style: AppTheme().customTextTheme().headlineSmall,
           softWrap: true,
           maxLines: maxLines,

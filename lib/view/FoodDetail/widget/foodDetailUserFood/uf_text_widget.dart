@@ -2,18 +2,16 @@ part of '../../page/food_detail_page.dart';
 
 class _BuildUserFoodDetailTextWidget extends StatefulWidget {
   const _BuildUserFoodDetailTextWidget({
-    required PopularFavoriteModel model,
-    required TextEditingController materialController,
-    required TextEditingController recipeController,
+    required Post model,
+    required this.materialController,
+    required this.recipeController,
     required bool isEditing,
   })  : _model = model,
-        _isEditing = isEditing,
-        _materialController = materialController,
-        _recipeController = recipeController;
+        _isEditing = isEditing;
 
-  final TextEditingController _materialController;
-  final TextEditingController _recipeController;
-  final PopularFavoriteModel _model;
+  final TextEditingController? materialController;
+  final TextEditingController? recipeController;
+  final Post _model;
   final bool _isEditing;
 
   @override
@@ -37,19 +35,25 @@ class __BuildUserFoodDetailTextWidgetState
       children: [
         _buildMaterialTitle(context, materialFoodText),
         LargeTextField(
-          textController: widget._materialController,
+          initialValue: widget._model.foodMaterial.isNotEmpty
+              ? widget._model.foodMaterial
+              : foodMaterialNotFound,
           hintText: materialHint,
           maxLines: maxLinesMaterials,
           maxLength: maxLengthMaterials,
           isEditing: widget._isEditing,
+          textController: widget.materialController,
         ),
         _buildRecipeTitle(context, recipeText),
         LargeTextField(
-          textController: widget._recipeController,
+          initialValue: widget._model.foodRecipe.isNotEmpty
+              ? widget._model.foodRecipe
+              : foodRecipeNotFound,
           hintText: recipeHint,
           maxLines: maxLinesRecipe,
           maxLength: maxLengthRecipe,
           isEditing: widget._isEditing,
+          textController: widget.recipeController,
         ),
       ],
     );
@@ -73,8 +77,8 @@ class __BuildUserFoodDetailTextWidgetState
                 child: Padding(
                   padding: objectPadding2x,
                   child: Text(
-                    widget._model.materialsFood.isNotEmpty
-                        ? widget._model.materialsFood.join('\n')
+                    widget._model.foodMaterial.isNotEmpty
+                        ? widget._model.foodMaterial
                         : foodMaterialNotFound,
                     style: AppTheme().customTextTheme().labelMedium,
                   ),
@@ -96,8 +100,8 @@ class __BuildUserFoodDetailTextWidgetState
               child: Padding(
                 padding: objectPadding2x,
                 child: Text(
-                  widget._model.recipe.isNotEmpty
-                      ? widget._model.recipe.join('\n')
+                  widget._model.foodRecipe.isNotEmpty
+                      ? widget._model.foodRecipe
                       : foodRecipeNotFound,
                   style: AppTheme().customTextTheme().labelMedium,
                 ),

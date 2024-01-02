@@ -2,10 +2,10 @@ part of '../../page/food_detail_page.dart';
 
 class _BuildMaterials extends StatelessWidget with _pageSize, _pageWord {
   _BuildMaterials({
-    required PopularFavoriteModel model,
+    required Post model,
   }) : _model = model;
 
-  final PopularFavoriteModel _model;
+  final Post _model;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +23,8 @@ class _BuildMaterials extends StatelessWidget with _pageSize, _pageWord {
               child: Padding(
                 padding: objectPadding2x,
                 child: Text(
-                  _model.materialsFood.isNotEmpty
-                      ? _model.materialsFood.join('\n')
+                  _model.foodMaterial.isNotEmpty
+                      ? _model.foodMaterial
                       : foodMaterialNotFound,
                   style: AppTheme().customTextTheme().labelMedium,
                 ),

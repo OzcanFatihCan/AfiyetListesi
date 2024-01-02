@@ -2,9 +2,16 @@ part of '../../page/food_detail_page.dart';
 
 class _UserFoodDetailWidget extends StatefulWidget {
   const _UserFoodDetailWidget({
-    required PopularFavoriteModel model,
+    required Post model,
+    required this.materialController,
+    required this.recipeController,
+    required this.foodNameController,
   }) : _model = model;
-  final PopularFavoriteModel _model;
+
+  final Post _model;
+  final TextEditingController? materialController;
+  final TextEditingController? recipeController;
+  final TextEditingController? foodNameController;
 
   @override
   State<_UserFoodDetailWidget> createState() => _UserFoodDetailWidgetState();
@@ -14,11 +21,14 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
     with _pageSize, _pageWord {
   String? selectedCategory;
   File? foodPhoto;
-
-  final TextEditingController _materialController = TextEditingController();
-  final TextEditingController _recipeController = TextEditingController();
-  final TextEditingController _foodNameController = TextEditingController();
   bool isEditing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedCategory = widget._model.foodCategory;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,7 +50,11 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
                 height: cardHeight,
                 width: cardWidth,
                 bottom: cardBottom,
-                child: _buildFoodTitle(context),
+                child: _BuildUserFoodDetailTitleWidget(
+                  model: widget._model,
+                  isEditing: isEditing,
+                  foodNameController: widget.foodNameController,
+                ),
               ),
               Positioned(
                 top: MediaQuery.of(context).padding.top,
@@ -74,10 +88,10 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
                   children: <Widget>[
                     _buildCategory(),
                     _BuildUserFoodDetailTextWidget(
-                      materialController: _materialController,
-                      recipeController: _recipeController,
                       model: widget._model,
                       isEditing: isEditing,
+                      materialController: widget.materialController,
+                      recipeController: widget.recipeController,
                     ),
                   ],
                 ),
@@ -105,49 +119,6 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
         ),
       ),
     );
-  }
-
-  Widget _buildFoodTitle(BuildContext context) {
-    return isEditing
-        ? Card(
-            shape: Theme.of(context).cardTheme.shape,
-            color: Theme.of(context).colorScheme.onPrimary,
-            child: Center(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.46,
-                child: TextFormField(
-                  style: AppTheme().customTextTheme().headlineSmall,
-                  controller: _foodNameController,
-                  decoration: InputDecoration(
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        width: foodTitleUnderlineWidth,
-                      ),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        width: foodTitleUnderlineWidth,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          )
-        : Card(
-            shape: Theme.of(context).cardTheme.shape,
-            color: Theme.of(context).colorScheme.onPrimary,
-            child: Center(
-              child: Text(
-                widget._model.title.isNotEmpty
-                    ? widget._model.title
-                    : foodNotFound,
-                style: AppTheme().customTextTheme().headlineSmall,
-                softWrap: true,
-                maxLines: maxLines,
-              ),
-            ),
-          );
   }
 
   Row _buildEditButton(BuildContext context) {
