@@ -9,7 +9,6 @@ import 'package:afiyetlistesi/product/constants/project_validate_regex.dart';
 import 'package:afiyetlistesi/product/package/image/photo_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:lottie/lottie.dart';
 import 'package:post_repository/post_repository.dart';
 import 'package:user_repository/user_repository.dart';
@@ -54,7 +53,7 @@ class _FoodAddPageViewState extends StateManageFoodAdd
                   Expanded(
                     flex: 4,
                     child: _BuildFoodAddPhoto(
-                      croppedFile: croppedFile,
+                      foodPhotoPick: foodPhoto,
                       onTap: () {
                         foodPhotoPicker();
                       },
@@ -123,12 +122,12 @@ class _FoodAddPageViewState extends StateManageFoodAdd
                 if (_foodNameController.text.isNotEmpty &&
                     _materialController.text.isNotEmpty &&
                     _recipeController.text.isNotEmpty &&
-                    croppedFile != null &&
-                    croppedFile!.path.isNotNullOrNoEmpty &&
+                    foodPhoto != null &&
+                    foodPhoto!.path.isNotNullOrNoEmpty &&
                     selectedCategory!.isNotEmpty) {
                   setState(() {
                     post.foodName = _foodNameController.text;
-                    post.foodPhoto = croppedFile!.path;
+                    post.foodPhoto = foodPhoto!.path;
                     post.foodCategory = selectedCategory!;
                     post.foodRecipe = _recipeController.text;
                     post.foodMaterial = _materialController.text;

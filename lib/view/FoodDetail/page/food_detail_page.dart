@@ -9,7 +9,6 @@ import 'package:afiyetlistesi/view/Error/page/error_page.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
 import 'package:afiyetlistesi/model/popular_food_model.dart';
-import 'package:image_cropper/image_cropper.dart';
 
 part '../viewModel/state_manage_food_detail.dart';
 

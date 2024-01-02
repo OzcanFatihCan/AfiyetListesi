@@ -18,13 +18,16 @@ abstract class StateManageProfile extends State<ProfilePageView> {
   showImagePicker() async {
     await ImagePickerHandler(
       context: context,
-      onCroppedFile: (CroppedFile croppedFile) {
-        setState(() {
-          context.read<UpdateUserInfoBloc>().add(
-                UploadPicture(croppedFile.path,
-                    context.read<MyUserBloc>().state.user!.id),
-              );
-        });
+      pickerType: "ProfilPhoto",
+      onSelectionFile: (dynamic selectedFile) {
+        if (selectedFile is CroppedFile) {
+          setState(() {
+            context.read<UpdateUserInfoBloc>().add(
+                  UploadPicture(selectedFile.path,
+                      context.read<MyUserBloc>().state.user!.id),
+                );
+          });
+        }
       },
     ).handleImageSelection();
   }

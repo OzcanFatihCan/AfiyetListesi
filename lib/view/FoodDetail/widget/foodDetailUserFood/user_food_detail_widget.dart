@@ -13,7 +13,7 @@ class _UserFoodDetailWidget extends StatefulWidget {
 class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
     with _pageSize, _pageWord {
   String? selectedCategory;
-  CroppedFile? croppedFile;
+  File? foodPhoto;
 
   final TextEditingController _materialController = TextEditingController();
   final TextEditingController _recipeController = TextEditingController();
@@ -33,7 +33,7 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
                 child: _BuildUserFoodPhoto(
                   model: widget._model,
                   isEditing: isEditing,
-                  croppedFile: croppedFile,
+                  foodPhotoPick: foodPhoto,
                 ),
               ),
               Positioned(
@@ -201,9 +201,10 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
   foodPhotoPicker() async {
     ImagePickerHandler(
       context: context,
-      onCroppedFile: (file) {
+      pickerType: "FoodPhoto",
+      onSelectionFile: (file) {
         setState(() {
-          croppedFile = file;
+          foodPhoto = file;
         });
       },
     ).handleImageSelection();

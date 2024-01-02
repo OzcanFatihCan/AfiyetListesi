@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -5,12 +7,14 @@ import 'package:image_picker/image_picker.dart';
 class ImagePickerHandler {
   ImagePickerHandler({
     required BuildContext context,
-    required Function(CroppedFile) onCroppedFile,
+    required Function(dynamic) onSelectionFile,
+    this.pickerType = "ProfilPhoto",
   })  : _context = context,
-        _onCroppedFile = onCroppedFile;
+        _onSelectionFile = onSelectionFile;
 
   final BuildContext _context;
-  final Function(CroppedFile) _onCroppedFile;
+  final Function(dynamic) _onSelectionFile;
+  final String pickerType;
 
   Future<void> handleImageSelection() async {
     const cropperName = "Kırp";
@@ -24,25 +28,29 @@ class ImagePickerHandler {
       imageQuality: 40,
     );
     if (image != null) {
-      CroppedFile? croppedFile = await ImageCropper().cropImage(
-        sourcePath: image.path,
-        aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
-        aspectRatioPresets: [CropAspectRatioPreset.square],
-        uiSettings: [
-          AndroidUiSettings(
-            toolbarTitle: cropperName,
-            toolbarColor: toolbarColor,
-            toolbarWidgetColor: toolbarWidgetColor,
-            initAspectRatio: CropAspectRatioPreset.original,
-            lockAspectRatio: false,
-          ),
-          IOSUiSettings(
-            title: cropperName,
-          ),
-        ],
-      );
-      if (croppedFile != null) {
-        _onCroppedFile(croppedFile);
+      if (pickerType == "ProfilPhoto") {
+        CroppedFile? croppedFile = await ImageCropper().cropImage(
+          sourcePath: image.path,
+          aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+          aspectRatioPresets: [CropAspectRatioPreset.square],
+          uiSettings: [
+            AndroidUiSettings(
+              toolbarTitle: cropperName,
+              toolbarColor: toolbarColor,
+              toolbarWidgetColor: toolbarWidgetColor,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false,
+            ),
+            IOSUiSettings(
+              title: cropperName,
+            ),
+          ],
+        );
+        if (croppedFile != null) {
+          _onSelectionFile(croppedFile);
+        }
+      } else {
+        _onSelectionFile(File(image.path));
       }
     }
   }

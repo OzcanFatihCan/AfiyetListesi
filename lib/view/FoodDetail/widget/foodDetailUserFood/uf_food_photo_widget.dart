@@ -4,14 +4,14 @@ class _BuildUserFoodPhoto extends StatefulWidget {
   const _BuildUserFoodPhoto({
     required PopularFavoriteModel model,
     required bool isEditing,
-    required this.croppedFile,
+    required this.foodPhotoPick,
   })  : _model = model,
         _isEditing = isEditing;
 
   final PopularFavoriteModel _model;
 
   final bool _isEditing;
-  final CroppedFile? croppedFile;
+  final File? foodPhotoPick;
 
   @override
   State<_BuildUserFoodPhoto> createState() => _BuildUserFoodPhotoState();
@@ -38,9 +38,9 @@ class _BuildUserFoodPhotoState extends State<_BuildUserFoodPhoto>
       height: MediaQuery.of(context).size.height * 0.40,
       child: ClipRRect(
         borderRadius: foodDetailRadius,
-        child: widget.croppedFile != null
+        child: widget.foodPhotoPick != null
             ? Image.file(
-                File(widget.croppedFile!.path),
+                File(widget.foodPhotoPick!.path),
                 height: foodPhotoHeightSize,
                 width: foodPhotoWidthSize,
                 fit: BoxFit.cover,

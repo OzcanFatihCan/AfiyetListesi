@@ -3,11 +3,11 @@ part of '../page/food_add_page.dart';
 class _BuildFoodAddPhoto extends StatefulWidget {
   const _BuildFoodAddPhoto({
     required this.onTap,
-    required this.croppedFile,
+    required this.foodPhotoPick,
   });
 
   final Function()? onTap;
-  final CroppedFile? croppedFile;
+  final File? foodPhotoPick;
   @override
   State<_BuildFoodAddPhoto> createState() => __BuildFoodAddPhotoState();
 }
@@ -26,10 +26,10 @@ class __BuildFoodAddPhotoState extends State<_BuildFoodAddPhoto>
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
-                child: widget.croppedFile != null
+                child: widget.foodPhotoPick != null
                     ? Image.file(
-                        File(widget.croppedFile!.path),
-                        fit: BoxFit.contain,
+                        File(widget.foodPhotoPick!.path),
+                        fit: BoxFit.cover,
                       )
                     : Image.asset(
                         fit: BoxFit.cover,

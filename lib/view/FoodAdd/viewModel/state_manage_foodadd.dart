@@ -4,7 +4,7 @@ abstract class StateManageFoodAdd extends State<FoodAddPageView>
     with _pageSize, _pageWord {
   late Post post;
   String? selectedCategory;
-  CroppedFile? croppedFile;
+  File? foodPhoto;
   final TextEditingController _materialController = TextEditingController();
   final TextEditingController _recipeController = TextEditingController();
   final TextEditingController _foodNameController = TextEditingController();
@@ -20,9 +20,10 @@ abstract class StateManageFoodAdd extends State<FoodAddPageView>
   foodPhotoPicker() async {
     ImagePickerHandler(
       context: context,
-      onCroppedFile: (file) {
+      pickerType: "FoodPhoto",
+      onSelectionFile: (file) {
         setState(() {
-          croppedFile = file;
+          foodPhoto = file;
         });
       },
     ).handleImageSelection();

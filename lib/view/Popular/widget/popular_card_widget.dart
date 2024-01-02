@@ -53,7 +53,7 @@ class _BuildPopularCard extends StatelessWidget with _pageSize, _pageWord {
               .pushToPage(NavigateRoutes.foodDetail, arguments: {
             'model': _model,
             'pageType': FoodDetailManager.instance
-                .getDetailType(FoodDetailType.userfood),
+                .getDetailType(FoodDetailType.popular),
           });
         },
         child: Card(
