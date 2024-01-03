@@ -26,7 +26,7 @@ class HomePageView extends StatefulWidget {
   State<HomePageView> createState() => _HomePageState();
 }
 
-class _HomePageState extends StateManageHome with _pageWords {
+class _HomePageState extends StateManageHome {
   @override
   Widget build(BuildContext context) {
     return BlocListener<UpdateUserInfoBloc, UpdateUserInfoState>(
@@ -51,9 +51,6 @@ class _HomePageState extends StateManageHome with _pageWords {
           currentPage: currentPage,
         ),
         drawer: _BuildDrawerWidget(
-          profilName: profilName,
-          profilEmail: profilEmail,
-          imageUrl: profilPhotoUrl,
           pageController: pageController,
         ),
       ),
@@ -100,11 +97,4 @@ mixin _pageSize {
 
 mixin _pageDuration {
   final duration = 1;
-}
-
-mixin _pageWords {
-  final profilName = "Elizabeth Olsen";
-  final profilEmail = "ElizabethOlsen@gmail.com";
-  final profilPhotoUrl =
-      "https://image.tmdb.org/t/p/original/mbMsmQE5CyMVTIGMGCw2XpcPCOc.jpg";
 }

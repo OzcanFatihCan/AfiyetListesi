@@ -3,16 +3,10 @@ part of '../page/home_page.dart';
 class _BuildDrawerWidget extends StatefulWidget {
   const _BuildDrawerWidget({
     Key? key,
-    required this.profilName,
-    required this.profilEmail,
-    required this.imageUrl,
     required PageController pageController,
   })  : _pageController = pageController,
         super(key: key);
 
-  final String profilName;
-  final String profilEmail;
-  final String imageUrl;
   final PageController _pageController;
 
   @override

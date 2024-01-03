@@ -22,5 +22,17 @@ class UpdateUserInfoBloc
         emit(UploadPictureFailure());
       }
     });
+
+    on<UpdateUserData>(
+      (event, emit) async {
+        emit(UpdateUserDataLoading());
+        try {
+          await _userRepository.updateUserData(event.name, event.userId);
+          emit(UpdateUserDataSuccess());
+        } catch (e) {
+          emit(UpdateUserDataFailure());
+        }
+      },
+    );
   }
 }

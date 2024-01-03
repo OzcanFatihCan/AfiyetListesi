@@ -132,15 +132,10 @@ class FirebaseUserRepository implements UserRepository {
 
   //user info update
   @override
-  Future<void> updateUserData(MyUser user) async {
+  Future<void> updateUserData(String name, String userId) async {
     try {
-      User? currentUser = _firebaseAuth.currentUser;
-      if (currentUser != null) {
-        await currentUser.updateEmail(user.email);
-      }
-      await usersCollection.doc(user.id).update({
-        'email': user.email,
-        'name': user.name,
+      await usersCollection.doc(userId).update({
+        'name': name,
       });
     } catch (e) {
       log(e.toString());

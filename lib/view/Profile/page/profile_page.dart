@@ -1,3 +1,4 @@
+import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
 import 'package:afiyetlistesi/product/package/image/photo_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +9,6 @@ import 'package:afiyetlistesi/blocs/my_user_bloc/my_user_bloc.dart';
 import 'package:afiyetlistesi/blocs/update_user_info_bloc/update_user_info_bloc.dart';
 import 'package:afiyetlistesi/product/components/text/input_text_field.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
-import 'package:afiyetlistesi/product/constants/project_validate_regex.dart';
 import 'package:afiyetlistesi/product/package/dotted/dotted_frame.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 
@@ -39,49 +39,54 @@ class _ProfilePageViewState extends StateManageProfile
       },
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
-        body: Form(
-          key: formProfileKey,
-          autovalidateMode: AutovalidateMode.always,
-          child: Padding(
-            padding: pagePadding2x,
-            child: SingleChildScrollView(
-              child: BlocBuilder<MyUserBloc, MyUserState>(
-                builder: (context, state) {
-                  if (state.status == MyUserStatus.success) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        _BuildProfilPhoto(
-                          state: state,
-                          onTap: () async {
-                            await showImagePicker();
-                          },
-                        ),
-                        _BuildTextBody(
-                          state: state,
-                          emailController: emailController,
-                          nameController: nameController,
-                          isEditing: isEditing,
-                          onPressed: () {
-                            changeEditing();
-                          },
-                        ),
-                      ],
-                    );
-                  } else {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Align(
-                          alignment: Alignment.center,
-                          child: Lottie.asset(
-                            ItemsofAsset.lottieLoading.fetchLottie,
+        body: Center(
+          child: Form(
+            key: formProfileKey,
+            autovalidateMode: AutovalidateMode.always,
+            child: Padding(
+              padding: pagePadding2x,
+              child: SingleChildScrollView(
+                child: BlocBuilder<MyUserBloc, MyUserState>(
+                  builder: (context, state) {
+                    if (state.status == MyUserStatus.success) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          _BuildProfilPhoto(
+                            state: state,
+                            onTap: () async {
+                              await showImagePicker();
+                            },
                           ),
-                        ),
-                      ],
-                    );
-                  }
-                },
+                          _BuildTextBody(
+                            state: state,
+                            nameController: nameController,
+                            isEditing: isEditing,
+                            stateOnPressed: () {
+                              changeEditing();
+                            },
+                            buttonOnPressed: () {
+                              updateProfilInfo();
+                            },
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: Lottie.asset(
+                              ItemsofAsset.lottieLoading.fetchLottie,
+                            ),
+                          ),
+                        ],
+                      );
+                    }
+                  },
+                ),
               ),
             ),
           ),
@@ -102,6 +107,9 @@ mixin _pageSize {
   final pagePadding2x = const EdgeInsets.all(16.0);
   final objectPadding = const EdgeInsets.only(top: 20);
   final textPadding = const EdgeInsets.symmetric(vertical: 20);
+
+  //radius
+  final cardRadius = BorderRadius.circular(30);
   //elevation
   final double elevationValueOff = 0;
 }
@@ -109,18 +117,5 @@ mixin _pageWord {
   final profileTitle = "Profili Düzenle";
   final hintTextEmail = "Email";
   final hintTextName = "Adınız";
-}
-
-class FormProfilValidator {
-  String? isNotEmptyMail(String? data) {
-    return (data?.isValidEmail ?? false)
-        ? null
-        : "Geçerli bir email adresi giriniz.";
-  }
-
-  String? isNotEmptyPassword(String? data) {
-    return (data?.isValidPassword ?? false)
-        ? null
-        : "En az 8 karakter, büyük küçük harf ve özel karakter olmalıdır.";
-  }
+  final updateButtonText = "Güncelle";
 }

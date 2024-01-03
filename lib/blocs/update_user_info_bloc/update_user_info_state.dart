@@ -21,3 +21,9 @@ class UploadPictureSuccess extends UpdateUserInfoState {
   @override
   List<Object> get props => [userImage];
 }
+
+class UpdateUserDataFailure extends UpdateUserInfoState {}
+
+class UpdateUserDataLoading extends UpdateUserInfoState {}
+
+class UpdateUserDataSuccess extends UpdateUserInfoState {}

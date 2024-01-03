@@ -3,8 +3,6 @@ part of '../page/profile_page.dart';
 abstract class StateManageProfile extends State<ProfilePageView> {
   final GlobalKey<FormState> formProfileKey = GlobalKey();
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
   bool isEditing = false;
 //profil func
   void changeEditing() {
@@ -32,5 +30,16 @@ abstract class StateManageProfile extends State<ProfilePageView> {
         }
       },
     ).handleImageSelection();
+  }
+
+  updateProfilInfo() {
+    if (formProfileKey.currentState?.validate() ?? false) {
+      final name = nameController.text;
+      final userId = context.read<MyUserBloc>().state.user!.id;
+
+      context.read<UpdateUserInfoBloc>().add(
+            UpdateUserData(name, userId),
+          );
+    }
   }
 }

@@ -12,7 +12,6 @@ class InputTextField extends StatefulWidget {
     required this.hintText,
     this.autofillHints,
     required this.keyboardType,
-    this.initialValue,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -23,8 +22,6 @@ class InputTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final String? hintText;
   final Widget? prefixIcon;
-
-  final String? initialValue;
 
   @override
   State<InputTextField> createState() => _InputTextFieldState();
@@ -45,8 +42,7 @@ class _InputTextFieldState extends State<InputTextField> with _pageSize {
     return SizedBox(
       height: textFieldSize,
       child: TextFormField(
-        initialValue: widget.initialValue,
-        controller: widget.initialValue != null ? null : widget.controller,
+        controller: widget.controller,
         textInputAction: TextInputAction.next,
         autofillHints: widget.autofillHints,
         keyboardType: widget.keyboardType,
