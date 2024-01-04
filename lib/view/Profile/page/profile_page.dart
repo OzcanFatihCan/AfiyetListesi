@@ -36,6 +36,11 @@ class _ProfilePageViewState extends StateManageProfile
             context.read<MyUserBloc>().state.user!.picture = state.userImage;
           });
         }
+        if (state is UpdateUserDataSuccess) {
+          setState(() {
+            context.read<MyUserBloc>().state.user!.name = nameController.text;
+          });
+        }
       },
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,

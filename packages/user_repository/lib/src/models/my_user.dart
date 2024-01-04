@@ -13,7 +13,7 @@ class MyUser extends Equatable {
 
   final String id;
   final String email;
-  final String name;
+  String name;
   String? picture;
 
   static final empty = MyUser(

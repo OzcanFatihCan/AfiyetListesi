@@ -5,6 +5,7 @@ import 'package:afiyetlistesi/product/constants/project_validate_regex.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+part '../viewModel/state_manage_login.dart';
 
 class LoginPageView extends StatefulWidget {
   const LoginPageView({super.key});
@@ -13,29 +14,7 @@ class LoginPageView extends StatefulWidget {
   State<LoginPageView> createState() => _LoginPageViewState();
 }
 
-class _LoginPageViewState extends State<LoginPageView>
-    with _pageSize, _pageWord, _pageDuration {
-  final GlobalKey<FormState> _formLoginKey = GlobalKey();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
-  bool isLoading = false;
-
-  void showSnackbar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
-        content: Text(
-          message,
-          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
-        ),
-        duration: Duration(
-          seconds: snackBarDuration,
-        ),
-      ),
-    );
-  }
-
+class _LoginPageViewState extends StateManageLogin with _pageSize, _pageWord {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignInBloc, SignInState>(
@@ -119,14 +98,7 @@ class _LoginPageViewState extends State<LoginPageView>
           child: ButtonDecorationWidget(
             buttonTitle: loginButton,
             onPressed: () {
-              if (_formLoginKey.currentState!.validate()) {
-                context.read<SignInBloc>().add(
-                      SignInRequired(
-                        email: _emailController.text,
-                        password: _passwordController.text,
-                      ),
-                    );
-              }
+              loginProcess();
             },
           ),
         ),
@@ -147,8 +119,5 @@ mixin _pageWord {
   final hintTextEmail = "Email";
   final hintTextPassword = "Parola";
   final loginError = "Geçersiz email ve şifre";
-}
-
-mixin _pageDuration {
-  final int duration = 2;
+  final loginValidateError = "Lütfen tüm hücreleri doldurunuz";
 }

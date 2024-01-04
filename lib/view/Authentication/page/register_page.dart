@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 
+part '../viewModel/state_manage_register.dart';
+
 class RegisterPageView extends StatefulWidget {
   const RegisterPageView({super.key});
 
@@ -14,29 +16,8 @@ class RegisterPageView extends StatefulWidget {
   State<RegisterPageView> createState() => _RegisterPageViewState();
 }
 
-class _RegisterPageViewState extends State<RegisterPageView>
-    with _pageSize, _pageWord, _pageDuration {
-  bool isLoading = false;
-  final GlobalKey<FormState> _formRegisterKey = GlobalKey();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
-  void showSnackbar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
-        content: Text(
-          message,
-          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
-        ),
-        duration: Duration(
-          seconds: snackBarDuration,
-        ),
-      ),
-    );
-  }
-
+class _RegisterPageViewState extends StateManageRegister
+    with _pageSize, _pageWord {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
@@ -52,6 +33,7 @@ class _RegisterPageViewState extends State<RegisterPageView>
         } else if (state is SignUpFailure) {
           setState(() {
             showSnackbar(registerError);
+            isLoading = false;
           });
         }
       },
@@ -74,6 +56,12 @@ class _RegisterPageViewState extends State<RegisterPageView>
             hintText: hintTextName,
             prefixIcon: const Icon(Icons.person),
             keyboardType: TextInputType.name,
+            validator: (val) {
+              if (val!.isEmpty) {
+                return nameValidateEmpty;
+              }
+              return null;
+            },
           ),
         ),
         InputTextField(
@@ -84,9 +72,9 @@ class _RegisterPageViewState extends State<RegisterPageView>
           autofillHints: const [AutofillHints.email],
           validator: (val) {
             if (val!.isEmpty) {
-              return 'Email girişi yapınız';
+              return emailValidateEmpty;
             } else if (val.isValidEmail == false) {
-              return 'Geçerli bir email adresi giriniz.';
+              return emailValidateFalse;
             }
             return null;
           },
@@ -99,9 +87,9 @@ class _RegisterPageViewState extends State<RegisterPageView>
           autofillHints: const [AutofillHints.password],
           validator: (val) {
             if (val!.isEmpty) {
-              return 'Parola girişi yapınız';
+              return passwordValidateEmpty;
             } else if (val.isValidPassword == false) {
-              return 'En az 8 karakter, büyük küçük harf ve özel karakter olmalıdır.';
+              return passwordValidateFalse;
             }
             return null;
           },
@@ -125,19 +113,7 @@ class _RegisterPageViewState extends State<RegisterPageView>
           child: ButtonDecorationWidget(
             buttonTitle: registerButton,
             onPressed: () {
-              if (_formRegisterKey.currentState!.validate()) {
-                MyUser myUser = MyUser.empty;
-                myUser = myUser.copyWith(
-                  email: _emailController.text,
-                  name: _nameController.text,
-                );
-
-                setState(() {
-                  context
-                      .read<SignUpBloc>()
-                      .add(SignUpRequired(myUser, _passwordController.text));
-                });
-              }
+              registerProcess();
             },
           ),
         ),
@@ -167,8 +143,11 @@ mixin _pageWord {
   final hintTextPassword = "Parola";
   final hintTextName = "Adınız";
   final registerError = "Kullanıcı zaten mevcut";
-}
-
-mixin _pageDuration {
-  final int duration = 2;
+  final registerValidatorError = "Lütfen bütün hücreleri doldurunuz";
+  final emailValidateEmpty = "Email girişi yapınız";
+  final emailValidateFalse = "Geçerli bir email adresi giriniz";
+  final passwordValidateEmpty = "Parola girişi yapınız";
+  final passwordValidateFalse =
+      "En az 8 karakter, büyük küçük harf ve özel karakter olmalıdır";
+  final nameValidateEmpty = "Adınızı giriniz";
 }
