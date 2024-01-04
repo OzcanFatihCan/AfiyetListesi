@@ -4,9 +4,12 @@ part of '../page/user_food_page.dart';
 class _BuildUserFoodCard extends StatelessWidget with _pageSize, _pageWord {
   _BuildUserFoodCard({
     required Post model,
-  }) : _model = model;
+    required void Function()? onPressed,
+  })  : _model = model,
+        _onPressed = onPressed;
 
   final Post _model;
+  final Function()? _onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +58,9 @@ class _BuildUserFoodCard extends StatelessWidget with _pageSize, _pageWord {
             Icons.delete_forever_rounded,
             color: Theme.of(context).colorScheme.onPrimary,
           ),
-          onPressed: () {},
+          onPressed: () {
+            _showDeleteConfirmationDialog(context);
+          },
         ),
         onTap: () async {
           await NavigatorManager.instance
@@ -67,6 +72,36 @@ class _BuildUserFoodCard extends StatelessWidget with _pageSize, _pageWord {
           });
         },
       ),
+    );
+  }
+
+  Future<void> _showDeleteConfirmationDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            deleteFoodTitle,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          content: Text(
+            deleteFood,
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(cancelButton),
+            ),
+            TextButton(
+              onPressed: _onPressed,
+              child: Text(okButton),
+            ),
+          ],
+        );
+      },
     );
   }
 }

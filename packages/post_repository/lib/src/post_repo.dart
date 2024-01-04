@@ -1,9 +1,12 @@
 import 'models/models.dart';
 
 abstract class PostRepository {
-  //food create
+  //post create
   Future<Post> createPost(Post food);
 
-  //get food
+  //get post
   Future<List<Post>> getPost(String userId);
+
+  //delete post
+  Future<void> deletePost(String userId, String postId);
 }

@@ -57,4 +57,22 @@ class FirebasePostRepository implements PostRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<void> deletePost(String userId, String postId) async {
+    try {
+      final userFoodCollection =
+          foodCollection.doc(userId).collection('userFood');
+      final Reference firebaseStorageRef = FirebaseStorage.instance
+          .ref()
+          .child('$userId/FoodPhoto/${postId}foodPhoto_lead');
+      //collection delete
+      await userFoodCollection.doc(postId).delete();
+      //collection photo delete
+      await firebaseStorageRef.delete();
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
 }

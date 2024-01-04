@@ -1,4 +1,5 @@
 import 'package:afiyetlistesi/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:afiyetlistesi/blocs/delete_post_bloc/delete_post_bloc.dart';
 import 'package:afiyetlistesi/blocs/get_post_bloc/get_post_bloc.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_food_detail_type.dart';
@@ -23,12 +24,21 @@ class UserFoodPageView extends StatefulWidget {
 class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GetPostBloc(
-        postRepository: FirebasePostRepository(),
-      )..add(
-          GetPosts(userId: userId),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => GetPostBloc(
+            postRepository: FirebasePostRepository(),
+          )..add(
+              GetPosts(userId: userId),
+            ),
         ),
+        BlocProvider(
+          create: (context) => DeletePostBloc(
+            myPostRepository: FirebasePostRepository(),
+          ),
+        ),
+      ],
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
@@ -72,15 +82,42 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
                     List<Post> filteredModels = foodPosts
                         .where((post) => post.foodCategory == category)
                         .toList();
+
                     return ListView.builder(
                       itemCount: filteredModels.length,
                       itemBuilder: (context, modelIndex) {
                         return _BuildUserFoodCard(
                           model: filteredModels[modelIndex],
+                          onPressed: () {
+                            context.read<DeletePostBloc>().add(
+                                  DeletePost(
+                                    userId: userId,
+                                    postId: filteredModels[modelIndex].foodId,
+                                  ),
+                                );
+                            context.read<GetPostBloc>().add(
+                                  GetPosts(userId: userId),
+                                );
+                            Navigator.pop(context);
+                          },
                         );
                       },
                     );
                   },
+                );
+              } else if (state is GetPostLoading) {
+                return Align(
+                  alignment: Alignment.center,
+                  child: Lottie.asset(
+                    ItemsofAsset.lottieLoading.fetchLottie,
+                  ),
+                );
+              } else if (state is GetPostFailure) {
+                return Align(
+                  alignment: Alignment.center,
+                  child: Lottie.asset(
+                    ItemsofAsset.lottieLoading.fetchLottie,
+                  ),
                 );
               } else {
                 return Align(
@@ -122,4 +159,8 @@ mixin _pageSize {
 mixin _pageWord {
   final subtitleText = "Tarif için tıkla";
   final foodNotFound = "Yemek adı yükleniyor...";
+  final deleteFood = "Bu yemeği silmek istediğinizden emin misiniz?";
+  final deleteFoodTitle = "Yemeği Sil";
+  final cancelButton = "İptal";
+  final okButton = "Sil";
 }
