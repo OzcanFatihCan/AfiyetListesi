@@ -23,10 +23,8 @@ class _BuildUserFoodDetailTitleWidget extends StatelessWidget
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.46,
                 child: TextFormField(
-                  initialValue:
-                      _model.foodName.isNotEmpty ? _model.foodName : null,
                   style: AppTheme().customTextTheme().headlineSmall,
-                  controller: _model.foodName != "" ? null : foodNameController,
+                  controller: foodNameController,
                   decoration: InputDecoration(
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(

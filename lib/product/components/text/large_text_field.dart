@@ -8,7 +8,6 @@ class LargeTextField extends StatelessWidget with _pageSize {
     this.maxLength,
     required this.hintText,
     this.isEditing = true,
-    this.initialValue,
   });
 
   final TextEditingController? textController;
@@ -16,14 +15,12 @@ class LargeTextField extends StatelessWidget with _pageSize {
   final int? maxLength;
   final String? hintText;
   final bool isEditing;
-  final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: initialValue,
       style: TextStyle(color: Theme.of(context).colorScheme.primary),
-      controller: initialValue != null ? null : textController,
+      controller: textController,
       maxLines: maxLines ?? defaultLines,
       maxLength: maxLength ?? defaultLenght,
       enabled: isEditing,

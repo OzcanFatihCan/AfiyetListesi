@@ -35,9 +35,6 @@ class __BuildUserFoodDetailTextWidgetState
       children: [
         _buildMaterialTitle(context, materialFoodText),
         LargeTextField(
-          initialValue: widget._model.foodMaterial.isNotEmpty
-              ? widget._model.foodMaterial
-              : foodMaterialNotFound,
           hintText: materialHint,
           maxLines: maxLinesMaterials,
           maxLength: maxLengthMaterials,
@@ -46,9 +43,6 @@ class __BuildUserFoodDetailTextWidgetState
         ),
         _buildRecipeTitle(context, recipeText),
         LargeTextField(
-          initialValue: widget._model.foodRecipe.isNotEmpty
-              ? widget._model.foodRecipe
-              : foodRecipeNotFound,
           hintText: recipeHint,
           maxLines: maxLinesRecipe,
           maxLength: maxLengthRecipe,
