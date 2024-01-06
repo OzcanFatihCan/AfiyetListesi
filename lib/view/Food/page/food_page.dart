@@ -1,10 +1,16 @@
-import 'package:afiyetlistesi/model/favorite_model_fake.dart';
+import 'package:afiyetlistesi/blocs/get_post_bloc/get_post_bloc.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
-import 'package:afiyetlistesi/view/Food/state/state_manage_food.dart';
+import 'package:afiyetlistesi/product/constants/project_photo.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:lottie/lottie.dart';
+import 'package:post_repository/post_repository.dart';
 
 part '../widgets/content_food_button_widget.dart';
 part '../widgets/food_card_widget.dart';
+part '../viewModel/state_manage_food.dart';
 
 class FoodPageView extends StatefulWidget {
   const FoodPageView({super.key});
@@ -16,17 +22,24 @@ class FoodPageView extends StatefulWidget {
 class _FoodPageViewState extends StateManageFood with _pageSize {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Column(
-        children: [
-          _BuildContentButton(
-            currentFav: currentFav,
-            contentChange: contentChange,
-            pageChange: pageChange,
-          ),
-          _buildContent(context)
-        ],
+    return BlocProvider(
+      create: (context) => GetPostBloc(
+        postRepository: FirebasePostRepository(),
+      )..add(
+          GetPosts(userId: mainId),
+        ),
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: Column(
+          children: [
+            _BuildContentButton(
+              currentFav: currentFav,
+              contentChange: contentChange,
+              pageChange: pageChange,
+            ),
+            _buildContent(context)
+          ],
+        ),
       ),
     );
   }
@@ -37,23 +50,55 @@ class _FoodPageViewState extends StateManageFood with _pageSize {
         padding: pagePadding2x,
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
-          child: PageView.builder(
-            itemCount: CategoryManager.instance.getCategoryTitles().length,
-            controller: pageController,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              List<FavoriteModell> filteredModels =
-                  getFilteredModels(index + 1);
-
-              return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: foodColumn,
-                ),
-                itemCount: filteredModels.length,
-                itemBuilder: (context, modelIndex) {
-                  return _BuildFavoriteCard(model: filteredModels[modelIndex]);
-                },
-              );
+          child: BlocBuilder<GetPostBloc, GetPostState>(
+            builder: (context, state) {
+              if (state is GetPostSuccess) {
+                foodPosts = state.posts;
+                return PageView.builder(
+                  itemCount:
+                      CategoryManager.instance.getCategoryTitles().length,
+                  controller: pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    String category =
+                        CategoryManager.instance.getCategoryTitles()[index];
+                    List<Post> filteredModels = foodPosts
+                        .where((post) => post.foodCategory == category)
+                        .toList();
+                    return GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: foodColumn,
+                      ),
+                      itemCount: filteredModels.length,
+                      itemBuilder: (context, modelIndex) {
+                        return _BuildFavoriteCard(
+                            model: filteredModels[modelIndex]);
+                      },
+                    );
+                  },
+                );
+              } else if (state is GetPostLoading) {
+                return Align(
+                  alignment: Alignment.center,
+                  child: Lottie.asset(
+                    ItemsofAsset.lottieLoading.fetchLottie,
+                  ),
+                );
+              } else if (state is GetPostFailure) {
+                return Align(
+                  alignment: Alignment.center,
+                  child: Lottie.asset(
+                    ItemsofAsset.lottieLoading.fetchLottie,
+                  ),
+                );
+              } else {
+                return Align(
+                  alignment: Alignment.center,
+                  child: Lottie.asset(
+                    ItemsofAsset.lottieLoading.fetchLottie,
+                  ),
+                );
+              }
             },
           ),
         ),
