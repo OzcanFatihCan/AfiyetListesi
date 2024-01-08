@@ -1,7 +1,7 @@
 part of '../page/food_page.dart';
 
-class _BuildFavoriteCard extends StatelessWidget with _pageSize, _pageWord {
-  _BuildFavoriteCard({
+class _BuildFoodCard extends StatelessWidget with _pageSize, _pageWord {
+  _BuildFoodCard({
     required Post model,
   }) : _model = model;
 
@@ -59,7 +59,15 @@ class _BuildFavoriteCard extends StatelessWidget with _pageSize, _pageWord {
             ],
           ),
         ),
-        onTap: () {},
+        onTap: () async {
+          await NavigatorManager.instance
+              .pushToPage(NavigateRoutes.foodDetail, arguments: {
+            'model': _model,
+            'pageType': FoodDetailManager.instance.getDetailType(
+              FoodDetailType.mainFood,
+            ),
+          });
+        },
       ),
     );
   }

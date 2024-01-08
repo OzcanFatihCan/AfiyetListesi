@@ -1,7 +1,6 @@
 enum FoodDetailType {
   userfood,
-  food,
-  popular,
+  mainFood,
   favorite,
 }
 
@@ -10,10 +9,8 @@ extension FoodDetailTypeExtension on FoodDetailType {
     switch (this) {
       case FoodDetailType.userfood:
         return "UserFood";
-      case FoodDetailType.food:
-        return "Food";
-      case FoodDetailType.popular:
-        return "PopularFood";
+      case FoodDetailType.mainFood:
+        return "mainFood";
       case FoodDetailType.favorite:
         return "FavoriteFood";
       default:

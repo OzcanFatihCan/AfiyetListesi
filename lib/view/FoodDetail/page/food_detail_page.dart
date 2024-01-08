@@ -12,17 +12,17 @@ import 'package:post_repository/post_repository.dart';
 
 part '../viewModel/state_manage_food_detail.dart';
 
-part '../widget/foodDetailPopular/p_food_photo_widget.dart';
+part '../widget/foodDetailMainFood/mf_food_photo_widget.dart';
 part '../widget/back_button_widget.dart';
-part '../widget/foodDetailPopular/p_favorite_button_widget.dart';
-part '../widget/foodDetailPopular/p_materials_content_widget.dart';
-part '../widget/foodDetailPopular/p_recipe_content_widget.dart';
+part '../widget/foodDetailMainFood/mf_favorite_button_widget.dart';
+part '../widget/foodDetailMainFood/mf_materials_content_widget.dart';
+part '../widget/foodDetailMainFood/mf_recipe_content_widget.dart';
 part '../widget/foodDetailUserFood/uf_text_widget.dart';
 part '../widget/foodDetailUserFood/uf_category_widget.dart';
 part '../widget/foodDetailUserFood/uf_food_photo_widget.dart';
 part '../widget/foodDetailUserFood/uf_title_widget.dart';
 
-part '../widget/foodDetailPopular/popular_detail_widget.dart';
+part '../widget/foodDetailMainFood/main_food_detail_widget.dart';
 part '../widget/foodDetailUserFood/user_food_detail_widget.dart';
 
 class FoodDetailPage extends StatefulWidget {
@@ -53,13 +53,10 @@ class _FoodDetailPageState extends StateManageFoodDetail
         recipeController: recipeController,
       );
     } else if (widget._pageType ==
-        FoodDetailManager.instance.getDetailType(FoodDetailType.popular)) {
-      detailWidget = _PopularDetailWidget(model: widget._model);
+        FoodDetailManager.instance.getDetailType(FoodDetailType.mainFood)) {
+      detailWidget = _MainFoodDetailWidget(model: widget._model);
     } else if (widget._pageType ==
         FoodDetailManager.instance.getDetailType(FoodDetailType.favorite)) {
-      detailWidget = Container();
-    } else if (widget._pageType ==
-        FoodDetailManager.instance.getDetailType(FoodDetailType.food)) {
       detailWidget = Container();
     } else {
       detailWidget = const ErrorPageView();

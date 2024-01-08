@@ -1,7 +1,7 @@
 part of '../../page/food_detail_page.dart';
 
-class _BuildPopularFoodPhoto extends StatelessWidget with _pageSize, _pageWord {
-  _BuildPopularFoodPhoto({
+class _BuildMainFoodPhoto extends StatelessWidget with _pageSize, _pageWord {
+  _BuildMainFoodPhoto({
     required Post model,
   }) : _model = model;
 

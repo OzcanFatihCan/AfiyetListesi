@@ -1,7 +1,7 @@
 part of '../../page/food_detail_page.dart';
 
-class _PopularDetailWidget extends StatelessWidget with _pageSize, _pageWord {
-  _PopularDetailWidget({
+class _MainFoodDetailWidget extends StatelessWidget with _pageSize, _pageWord {
+  _MainFoodDetailWidget({
     required Post model,
   }) : _model = model;
   final Post _model;
@@ -16,19 +16,20 @@ class _PopularDetailWidget extends StatelessWidget with _pageSize, _pageWord {
             children: <Widget>[
               Positioned.fill(
                 bottom: cardHeight / 2,
-                child: _BuildPopularFoodPhoto(model: _model),
+                child: _BuildMainFoodPhoto(model: _model),
               ),
               Positioned(
-                  height: cardHeight,
-                  width: cardWidth,
-                  bottom: cardBottom,
-                  child: _buildFoodTitle(context)),
+                height: cardHeight,
+                width: cardWidth,
+                bottom: cardBottom,
+                child: _buildFoodTitle(context),
+              ),
               Positioned(
                 top: MediaQuery.of(context).padding.top,
                 left: backLeft,
                 bottom: backBottom,
                 child: const _BackButtonWidget(),
-              )
+              ),
             ],
           ),
         ),
