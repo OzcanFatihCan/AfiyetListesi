@@ -22,92 +22,131 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
   String? selectedCategory;
   File? foodPhoto;
   bool isEditing = false;
+  late Post post;
 
   @override
   void initState() {
     super.initState();
+    post = Post.empty;
+    post.myUser = widget._model.myUser;
     selectedCategory = widget._model.foodCategory;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          flex: 4,
-          child: Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
-              Positioned.fill(
-                bottom: cardHeight / 2,
-                child: _BuildUserFoodPhoto(
-                  model: widget._model,
-                  isEditing: isEditing,
-                  foodPhotoPick: foodPhoto,
-                ),
-              ),
-              Positioned(
-                height: cardHeight,
-                width: cardWidth,
-                bottom: cardBottom,
-                child: _BuildUserFoodDetailTitleWidget(
-                  model: widget._model,
-                  isEditing: isEditing,
-                  foodNameController: widget.foodNameController,
-                ),
-              ),
-              Positioned(
-                top: MediaQuery.of(context).padding.top,
-                left: backLeft,
-                bottom: backBottom,
-                child: const _BackButtonWidget(),
-              ),
-              Positioned(
-                top: MediaQuery.of(context).padding.top,
-                right: backRight,
-                bottom: backBottom,
-                child: _buildEditButton(context),
-              ),
-              Positioned(
-                bottom: iconPositionedBottom,
-                right: iconPositionedRight,
-                child: isEditing ? _buildPlusIcon() : const SizedBox(),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          flex: 6,
-          child: Padding(
-            padding: pagePaddingx,
-            child: SingleChildScrollView(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return BlocListener<UpdatePostBloc, UpdatePostState>(
+      listener: (context, state) {
+        if (state is UpdatePostSuccess) {
+          print("Güncelleme işlemi başarıyla tamamlandı.");
+        }
+      },
+      child: BlocBuilder<UpdatePostBloc, UpdatePostState>(
+        builder: (context, state) {
+          return Column(
+            children: [
+              Expanded(
+                flex: 4,
+                child: Stack(
+                  alignment: Alignment.center,
                   children: <Widget>[
-                    _buildCategory(),
-                    _BuildUserFoodDetailTextWidget(
-                      model: widget._model,
-                      isEditing: isEditing,
-                      materialController: widget.materialController,
-                      recipeController: widget.recipeController,
+                    Positioned.fill(
+                      bottom: cardHeight / 2,
+                      child: _BuildUserFoodPhoto(
+                        model: widget._model,
+                        isEditing: isEditing,
+                        foodPhotoPick: foodPhoto,
+                      ),
                     ),
-                    isEditing
-                        ? Center(
-                            child: ButtonDecorationWidget(
-                              onPressed: () {},
-                              buttonTitle: updateButtonText,
-                            ),
-                          )
-                        : const SizedBox(),
+                    Positioned(
+                      height: cardHeight,
+                      width: cardWidth,
+                      bottom: cardBottom,
+                      child: _BuildUserFoodDetailTitleWidget(
+                        model: widget._model,
+                        isEditing: isEditing,
+                        foodNameController: widget.foodNameController,
+                      ),
+                    ),
+                    Positioned(
+                      top: MediaQuery.of(context).padding.top,
+                      left: backLeft,
+                      bottom: backBottom,
+                      child: const _BackButtonWidget(),
+                    ),
+                    Positioned(
+                      top: MediaQuery.of(context).padding.top,
+                      right: backRight,
+                      bottom: backBottom,
+                      child: _buildEditButton(context),
+                    ),
+                    Positioned(
+                      bottom: iconPositionedBottom,
+                      right: iconPositionedRight,
+                      child: isEditing ? _buildPlusIcon() : const SizedBox(),
+                    ),
                   ],
                 ),
               ),
-            ),
-          ),
-        )
-      ],
+              Expanded(
+                flex: 6,
+                child: Padding(
+                  padding: pagePaddingx,
+                  child: SingleChildScrollView(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          _buildCategory(),
+                          _BuildUserFoodDetailTextWidget(
+                            model: widget._model,
+                            isEditing: isEditing,
+                            materialController: widget.materialController,
+                            recipeController: widget.recipeController,
+                          ),
+                          isEditing
+                              ? (state is UpdatePostLoading
+                                  ? Align(
+                                      alignment: Alignment.center,
+                                      child: Lottie.asset(
+                                        ItemsofAsset.lottieLoading.fetchLottie,
+                                      ),
+                                    )
+                                  : Center(
+                                      child: ButtonDecorationWidget(
+                                        onPressed: () {
+                                          setState(() {
+                                            post.foodId = widget._model.foodId;
+                                            post.foodName =
+                                                widget.foodNameController!.text;
+                                            post.foodMaterial =
+                                                widget.materialController!.text;
+                                            post.foodRecipe =
+                                                widget.recipeController!.text;
+                                            post.foodCategory =
+                                                selectedCategory.toString();
+                                            post.foodPhoto = foodPhoto != null
+                                                ? foodPhoto!.path
+                                                : widget._model.foodPhoto;
+                                          });
+                                          context.read<UpdatePostBloc>().add(
+                                                UpdatePost(post: post),
+                                              );
+                                        },
+                                        buttonTitle: updateButtonText,
+                                      ),
+                                    ))
+                              : const SizedBox(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          );
+        },
+      ),
     );
   }
 

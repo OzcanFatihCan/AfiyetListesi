@@ -1,14 +1,18 @@
-import 'dart:developer';
 import 'dart:io';
 
+import 'package:afiyetlistesi/blocs/update_post_bloc/update_post_bloc.dart';
 import 'package:afiyetlistesi/product/components/text/large_text_field.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_food_detail_type.dart';
+import 'package:afiyetlistesi/product/constants/project_photo.dart';
+import 'package:afiyetlistesi/product/constants/project_validate_regex.dart';
 import 'package:afiyetlistesi/product/package/image/photo_picker.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:afiyetlistesi/view/Error/page/error_page.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:post_repository/post_repository.dart';
 
 part '../viewModel/state_manage_food_detail.dart';
@@ -45,7 +49,6 @@ class _FoodDetailPageState extends StateManageFoodDetail
     with _pageSize, _pageWord {
   @override
   Widget build(BuildContext context) {
-    log(widget._model.copyWith().toString());
     if (widget._pageType ==
         FoodDetailManager.instance.getDetailType(FoodDetailType.userfood)) {
       detailWidget = _UserFoodDetailWidget(
