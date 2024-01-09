@@ -9,4 +9,7 @@ abstract class PostRepository {
 
   //delete post
   Future<void> deletePost(String userId, String postId);
+
+  //update post
+  Future<Post> updatePost(Post post);
 }

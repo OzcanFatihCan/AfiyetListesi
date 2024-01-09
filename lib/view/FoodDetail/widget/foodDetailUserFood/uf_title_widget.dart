@@ -15,6 +15,7 @@ class _BuildUserFoodDetailTitleWidget extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
+    foodNameController!.text = _model.foodName;
     return _isEditing
         ? Card(
             shape: Theme.of(context).cardTheme.shape,

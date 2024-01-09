@@ -22,6 +22,14 @@ class _BuildUserFoodDetailTextWidget extends StatefulWidget {
 class __BuildUserFoodDetailTextWidgetState
     extends State<_BuildUserFoodDetailTextWidget> with _pageSize, _pageWord {
   final GlobalKey _userFoodKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    widget.materialController?.text = widget._model.foodMaterial;
+    widget.recipeController?.text = widget._model.foodRecipe;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -49,10 +57,6 @@ class __BuildUserFoodDetailTextWidgetState
           isEditing: widget._isEditing,
           textController: widget.recipeController,
         ),
-        ButtonDecorationWidget(
-          onPressed: () {},
-          buttonTitle: updateButtonText,
-        )
       ],
     );
   }

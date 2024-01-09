@@ -93,6 +93,14 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
                       materialController: widget.materialController,
                       recipeController: widget.recipeController,
                     ),
+                    isEditing
+                        ? Center(
+                            child: ButtonDecorationWidget(
+                              onPressed: () {},
+                              buttonTitle: updateButtonText,
+                            ),
+                          )
+                        : const SizedBox(),
                   ],
                 ),
               ),

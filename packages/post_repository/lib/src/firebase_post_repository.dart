@@ -75,4 +75,39 @@ class FirebasePostRepository implements PostRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<Post> updatePost(Post post) async {
+    try {
+      File imageFile = File(post.foodPhoto);
+
+      await foodCollection
+          .doc(post.myUser.id)
+          .collection('userFood')
+          .doc(post.foodId)
+          .update({
+        ...post.toEntity().toDocument(),
+      });
+
+      Reference firebaseStorageRef = FirebaseStorage.instance
+          .ref()
+          .child('${post.myUser.id}/FoodPhoto/${post.foodId}foodPhoto_lead');
+      await firebaseStorageRef.putFile(imageFile);
+      String url = await firebaseStorageRef.getDownloadURL();
+
+      await foodCollection
+          .doc(post.myUser.id)
+          .collection('userFood')
+          .doc(post.foodId)
+          .update({
+        'foodPhoto': url,
+      });
+
+      // Güncellenmiş postu döndür
+      return post.copyWith(foodPhoto: url);
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
 }
