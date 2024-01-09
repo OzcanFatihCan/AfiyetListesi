@@ -3,6 +3,7 @@ import 'package:afiyetlistesi/blocs/authentication_bloc/authentication_bloc.dart
 import 'package:afiyetlistesi/blocs/create_post_bloc/create_post_bloc.dart';
 import 'package:afiyetlistesi/blocs/my_user_bloc/my_user_bloc.dart';
 import 'package:afiyetlistesi/blocs/sign_in_bloc/sign_in_bloc.dart';
+import 'package:afiyetlistesi/blocs/update_post_bloc/update_post_bloc.dart';
 import 'package:afiyetlistesi/blocs/update_user_info_bloc/update_user_info_bloc.dart';
 import 'package:afiyetlistesi/view/Authentication/page/authentication_page.dart';
 import 'package:afiyetlistesi/view/Error/page/error_page.dart';
@@ -110,9 +111,14 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
         final pageType = (arguments)?['pageType'] as String;
 
         return _navigateToNormal(
-          FoodDetailPage(
-            model: model,
-            pageType: pageType,
+          BlocProvider(
+            create: (context) => UpdatePostBloc(
+              myPostRepository: FirebasePostRepository(),
+            ),
+            child: FoodDetailPage(
+              model: model,
+              pageType: pageType,
+            ),
           ),
         );
       case NavigateRoutes.userFood:

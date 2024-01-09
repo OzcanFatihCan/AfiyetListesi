@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:afiyetlistesi/product/components/text/large_text_field.dart';
@@ -44,6 +45,7 @@ class _FoodDetailPageState extends StateManageFoodDetail
     with _pageSize, _pageWord {
   @override
   Widget build(BuildContext context) {
+    log(widget._model.copyWith().toString());
     if (widget._pageType ==
         FoodDetailManager.instance.getDetailType(FoodDetailType.userfood)) {
       detailWidget = _UserFoodDetailWidget(
