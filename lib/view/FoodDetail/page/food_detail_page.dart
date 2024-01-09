@@ -100,10 +100,16 @@ mixin _pageSize {
   );
   final dropdownRadius = BorderRadius.circular(15);
   //padding
-  final pagePadding2x = const EdgeInsets.all(16.0);
+  final pagePaddingx = const EdgeInsets.only(
+    left: 16,
+    right: 16,
+    top: 5,
+    bottom: 5,
+  );
   final objectPadding2x = const EdgeInsets.all(16.0);
   final spaceObjectPaddingPopular = const EdgeInsets.only(bottom: 7);
   final spaceObjectsPadding = const EdgeInsets.only(bottom: 22);
+  final titleTopPadding = const EdgeInsets.only(top: 19);
   final EdgeInsets iconPadding = const EdgeInsets.all(6);
   final cardMargin = const EdgeInsets.all(0);
   final titlePadding = const EdgeInsets.symmetric(horizontal: 8);
@@ -120,4 +126,5 @@ mixin _pageWord {
   final materialFoodText = "Malzemeler";
   final recipeText = "Yapılışı";
   final foodMaterialNotFound = "Yemek malzeme yükleniyor...";
+  final updateButtonText = "Güncelle";
 }

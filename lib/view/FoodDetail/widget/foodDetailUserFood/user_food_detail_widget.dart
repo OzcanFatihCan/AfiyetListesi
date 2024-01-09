@@ -79,7 +79,7 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
         Expanded(
           flex: 6,
           child: Padding(
-            padding: pagePadding2x,
+            padding: pagePaddingx,
             child: SingleChildScrollView(
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,

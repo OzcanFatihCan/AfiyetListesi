@@ -15,7 +15,7 @@ class _MainFoodDetailWidget extends StatelessWidget with _pageSize, _pageWord {
             alignment: Alignment.center,
             children: <Widget>[
               Positioned.fill(
-                bottom: cardHeight / 2,
+                bottom: cardHeight / 1.4,
                 child: _BuildMainFoodPhoto(model: _model),
               ),
               Positioned(
@@ -36,13 +36,12 @@ class _MainFoodDetailWidget extends StatelessWidget with _pageSize, _pageWord {
         Expanded(
           flex: 6,
           child: Padding(
-            padding: pagePadding2x,
+            padding: pagePaddingx,
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _buildCategory(),
                   _buildMaterialTitle(context, materialFoodText),
                   _BuildMaterials(model: _model),
                   _buildRecipeTitle(context, recipeText),
@@ -57,28 +56,47 @@ class _MainFoodDetailWidget extends StatelessWidget with _pageSize, _pageWord {
     );
   }
 
-  Widget _buildCategory() {
-    return Padding(
-      padding: spaceObjectPaddingPopular,
-      child: Text(
-        "Kategori:${_model.foodCategory}",
-        style: AppTheme().customTextTheme().labelMedium,
-      ),
-    );
-  }
-
-  Card _buildFoodTitle(BuildContext context) {
-    return Card(
-      shape: Theme.of(context).cardTheme.shape,
-      color: Theme.of(context).colorScheme.onPrimary,
-      child: Center(
-        child: Text(
-          _model.foodName.isNotEmpty ? _model.foodName : foodNotFound,
-          style: AppTheme().customTextTheme().headlineSmall,
-          softWrap: true,
-          maxLines: maxLines,
+  Widget _buildFoodTitle(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.05,
+          child: Card(
+            margin: EdgeInsets.zero,
+            shape: Theme.of(context).cardTheme.shape,
+            color: Theme.of(context).colorScheme.onPrimary,
+            child: Center(
+              child: Text(
+                _model.foodName.isNotEmpty ? _model.foodName : foodNotFound,
+                style: AppTheme().customTextTheme().headlineSmall,
+                softWrap: true,
+                maxLines: maxLines,
+              ),
+            ),
+          ),
         ),
-      ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.03,
+          width: MediaQuery.of(context).size.width * 0.40,
+          child: Card(
+            margin: EdgeInsets.zero,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: halfRadius,
+                bottomRight: halfRadius,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                "Kategori: ${_model.foodCategory}",
+                style: AppTheme().customTextTheme().labelMedium,
+                softWrap: true,
+                maxLines: maxLines,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 

@@ -49,6 +49,10 @@ class __BuildUserFoodDetailTextWidgetState
           isEditing: widget._isEditing,
           textController: widget.recipeController,
         ),
+        ButtonDecorationWidget(
+          onPressed: () {},
+          buttonTitle: updateButtonText,
+        )
       ],
     );
   }
