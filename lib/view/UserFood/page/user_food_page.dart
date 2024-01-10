@@ -82,7 +82,6 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
                     List<Post> filteredModels = foodPosts
                         .where((post) => post.foodCategory == category)
                         .toList();
-
                     return ListView.builder(
                       itemCount: filteredModels.length,
                       itemBuilder: (context, modelIndex) {
@@ -99,6 +98,23 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
                                   GetPosts(userId: userId),
                                 );
                             Navigator.pop(context);
+                          },
+                          itemOnTap: () async {
+                            await NavigatorManager.instance.pushToPageRotate(
+                                NavigateRoutes.foodDetail,
+                                arguments: {
+                                  'model': filteredModels[modelIndex],
+                                  'pageType':
+                                      FoodDetailManager.instance.getDetailType(
+                                    FoodDetailType.userfood,
+                                  ),
+                                }).then((value) {
+                              if (value) {
+                                context.read<GetPostBloc>().add(
+                                      GetPosts(userId: userId),
+                                    );
+                              }
+                            });
                           },
                         );
                       },

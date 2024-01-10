@@ -77,34 +77,56 @@ class FirebasePostRepository implements PostRepository {
   }
 
   @override
-  Future<Post> updatePost(Post post) async {
+  Future<void> updatePost(
+    String userId,
+    String foodId,
+    String foodName,
+    String foodPhoto,
+    String foodMaterial,
+    String foodRecipe,
+    String foodCategory,
+  ) async {
     try {
-      File imageFile = File(post.foodPhoto);
-
       await foodCollection
-          .doc(post.myUser.id)
+          .doc(userId)
           .collection('userFood')
-          .doc(post.foodId)
+          .doc(foodId)
           .update({
-        ...post.toEntity().toDocument(),
+        'foodName': foodName,
+        'foodMaterial': foodMaterial,
+        'foodCategory': foodCategory,
+        'foodRecipe': foodRecipe,
       });
 
-      Reference firebaseStorageRef = FirebaseStorage.instance
-          .ref()
-          .child('${post.myUser.id}/FoodPhoto/${post.foodId}foodPhoto_lead');
-      await firebaseStorageRef.putFile(imageFile);
-      String url = await firebaseStorageRef.getDownloadURL();
+      // ignore: unnecessary_null_comparison
+      if (foodPhoto != null && foodPhoto.isNotEmpty) {
+        File imageFile = File(foodPhoto);
 
-      await foodCollection
-          .doc(post.myUser.id)
-          .collection('userFood')
-          .doc(post.foodId)
-          .update({
-        'foodPhoto': url,
-      });
+        Reference firebaseStorageRef = FirebaseStorage.instance
+            .ref()
+            .child('$userId/FoodPhoto/${foodId}foodPhoto_lead');
+        await firebaseStorageRef.putFile(imageFile);
+        String url = await firebaseStorageRef.getDownloadURL();
 
-      // Güncellenmiş postu döndür
-      return post.copyWith(foodPhoto: url);
+        await foodCollection
+            .doc(userId)
+            .collection('userFood')
+            .doc(foodId)
+            .update({
+          'foodPhoto': url,
+        });
+      } else {
+        await foodCollection
+            .doc(userId)
+            .collection('userFood')
+            .doc(foodId)
+            .update({
+          'foodName': foodName,
+          'foodMaterial': foodMaterial,
+          'foodCategory': foodCategory,
+          'foodRecipe': foodRecipe,
+        });
+      }
     } catch (e) {
       log(e.toString());
       rethrow;

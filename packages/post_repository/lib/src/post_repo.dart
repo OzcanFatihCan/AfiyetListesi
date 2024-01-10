@@ -11,5 +11,13 @@ abstract class PostRepository {
   Future<void> deletePost(String userId, String postId);
 
   //update post
-  Future<Post> updatePost(Post post);
+  Future<void> updatePost(
+    String userId,
+    String foodId,
+    String foodName,
+    String foodPhoto,
+    String foodMaterial,
+    String foodRecipe,
+    String foodCategory,
+  );
 }

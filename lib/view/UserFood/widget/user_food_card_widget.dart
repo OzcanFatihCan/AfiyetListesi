@@ -1,15 +1,18 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of '../page/user_food_page.dart';
 
+// ignore: must_be_immutable
 class _BuildUserFoodCard extends StatelessWidget with _pageSize, _pageWord {
   _BuildUserFoodCard({
     required Post model,
     required void Function()? onPressed,
+    required void Function()? itemOnTap,
   })  : _model = model,
-        _onPressed = onPressed;
+        _onPressed = onPressed,
+        _itemOnTap = itemOnTap;
 
   final Post _model;
   final Function()? _onPressed;
+  final Function()? _itemOnTap;
 
   @override
   Widget build(BuildContext context) {
@@ -62,15 +65,7 @@ class _BuildUserFoodCard extends StatelessWidget with _pageSize, _pageWord {
             _showDeleteConfirmationDialog(context);
           },
         ),
-        onTap: () async {
-          await NavigatorManager.instance
-              .pushToPage(NavigateRoutes.foodDetail, arguments: {
-            'model': _model,
-            'pageType': FoodDetailManager.instance.getDetailType(
-              FoodDetailType.userfood,
-            ),
-          });
-        },
+        onTap: _itemOnTap,
       ),
     );
   }

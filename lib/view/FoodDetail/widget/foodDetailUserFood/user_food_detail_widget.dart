@@ -22,14 +22,20 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
   String? selectedCategory;
   File? foodPhoto;
   bool isEditing = false;
-  late Post post;
+  String? foodName,
+      foodMaterial,
+      foodRecipe,
+      foodCategory,
+      foodId,
+      userId,
+      photo;
 
   @override
   void initState() {
     super.initState();
-    post = Post.empty;
-    post.myUser = widget._model.myUser;
     selectedCategory = widget._model.foodCategory;
+    userId = widget._model.myUser.id;
+    foodId = widget._model.foodId;
   }
 
   @override
@@ -37,7 +43,7 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
     return BlocListener<UpdatePostBloc, UpdatePostState>(
       listener: (context, state) {
         if (state is UpdatePostSuccess) {
-          print("Güncelleme işlemi başarıyla tamamlandı.");
+          Navigator.pop(context, true);
         }
       },
       child: BlocBuilder<UpdatePostBloc, UpdatePostState>(
@@ -106,31 +112,43 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
                           ),
                           isEditing
                               ? (state is UpdatePostLoading
-                                  ? Align(
-                                      alignment: Alignment.center,
-                                      child: Lottie.asset(
-                                        ItemsofAsset.lottieLoading.fetchLottie,
+                                  ? Center(
+                                      child: SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.10,
+                                        child: Lottie.asset(
+                                          ItemsofAsset
+                                              .lottieLoading.fetchLottie,
+                                        ),
                                       ),
                                     )
                                   : Center(
                                       child: ButtonDecorationWidget(
                                         onPressed: () {
                                           setState(() {
-                                            post.foodId = widget._model.foodId;
-                                            post.foodName =
+                                            foodName =
                                                 widget.foodNameController!.text;
-                                            post.foodMaterial =
+                                            foodMaterial =
                                                 widget.materialController!.text;
-                                            post.foodRecipe =
+                                            foodRecipe =
                                                 widget.recipeController!.text;
-                                            post.foodCategory =
+                                            foodCategory =
                                                 selectedCategory.toString();
-                                            post.foodPhoto = foodPhoto != null
+                                            photo = foodPhoto != null
                                                 ? foodPhoto!.path
-                                                : widget._model.foodPhoto;
+                                                : "";
                                           });
                                           context.read<UpdatePostBloc>().add(
-                                                UpdatePost(post: post),
+                                                UpdatePost(
+                                                  userId: userId!,
+                                                  foodId: foodId!,
+                                                  foodName: foodName!,
+                                                  foodPhoto: photo!,
+                                                  foodMaterial: foodMaterial!,
+                                                  foodRecipe: foodRecipe!,
+                                                  foodCategory: foodCategory!,
+                                                ),
                                               );
                                         },
                                         buttonTitle: updateButtonText,

@@ -7,6 +7,7 @@ part 'update_post_state.dart';
 
 class UpdatePostBloc extends Bloc<UpdatePostEvent, UpdatePostState> {
   final PostRepository _postRepository;
+
   UpdatePostBloc({
     required PostRepository myPostRepository,
   })  : _postRepository = myPostRepository,
@@ -14,8 +15,16 @@ class UpdatePostBloc extends Bloc<UpdatePostEvent, UpdatePostState> {
     on<UpdatePost>((event, emit) async {
       emit(UpdatePostLoading());
       try {
-        Post post = await _postRepository.updatePost(event.post);
-        emit(UpdatePostSuccess(post: post));
+        await _postRepository.updatePost(
+          event.userId,
+          event.foodId,
+          event.foodName,
+          event.foodPhoto,
+          event.foodMaterial,
+          event.foodRecipe,
+          event.foodCategory,
+        );
+        emit(UpdatePostSuccess());
       } catch (e) {
         emit(UpdatePostFailed());
       }

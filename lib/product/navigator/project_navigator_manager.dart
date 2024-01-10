@@ -32,6 +32,15 @@ class NavigatorManager {
       arguments: arguments,
     );
   }
+
+  Future<dynamic> pushToPageRotate(NavigateRoutes route,
+      {Map<String, Object>? arguments}) async {
+    final result = await _navigatorGlobalKey.currentState?.pushNamed(
+      route.withUrl,
+      arguments: arguments,
+    );
+    return result;
+  }
 }
 
 mixin NavigatorControl<T extends AfiyetListesi> on Widget {

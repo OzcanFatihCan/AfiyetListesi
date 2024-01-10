@@ -13,7 +13,7 @@ class _BackButtonWidget extends StatelessWidget {
           color: Theme.of(context).colorScheme.onPrimary,
         ),
         onPressed: () {
-          Navigator.of(context).pop();
+          Navigator.pop(context, false);
         },
       ),
     );

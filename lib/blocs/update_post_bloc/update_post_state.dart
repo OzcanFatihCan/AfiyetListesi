@@ -13,7 +13,4 @@ final class UpdatePostFailed extends UpdatePostState {}
 
 final class UpdatePostLoading extends UpdatePostState {}
 
-final class UpdatePostSuccess extends UpdatePostState {
-  final Post post;
-  const UpdatePostSuccess({required this.post});
-}
+final class UpdatePostSuccess extends UpdatePostState {}
