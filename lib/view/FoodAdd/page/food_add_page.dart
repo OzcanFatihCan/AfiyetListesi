@@ -72,9 +72,11 @@ class _FoodAddPageViewState extends StateManageFoodAdd
                             ),
                             _BuildFoodAddCategory(
                               onChanged: (String? newValue) {
-                                setState(() {
-                                  selectedCategory = newValue!;
-                                });
+                                if (newValue != null) {
+                                  setState(() {
+                                    selectedCategory = newValue;
+                                  });
+                                }
                               },
                               selectedCategory: selectedCategory,
                             ),
@@ -124,6 +126,7 @@ class _FoodAddPageViewState extends StateManageFoodAdd
                     _recipeController.text.isNotEmpty &&
                     foodPhoto != null &&
                     foodPhoto!.path.isNotNullOrNoEmpty &&
+                    selectedCategory != null &&
                     selectedCategory!.isNotEmpty) {
                   setState(() {
                     post.foodName = _foodNameController.text;
