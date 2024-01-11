@@ -4,7 +4,7 @@ import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/product/components/text/search_text_field.dart';
-import 'package:afiyetlistesi/model/popular_food_model.dart';
+import 'package:afiyetlistesi/service/popular_food_model.dart';
 
 part '../widget/content_button_widget.dart';
 part '../widget/popular_card_widget.dart';

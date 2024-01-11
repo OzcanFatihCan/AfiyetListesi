@@ -4,15 +4,15 @@ part of '../page/user_food_page.dart';
 class _BuildUserFoodCard extends StatelessWidget with _pageSize, _pageWord {
   _BuildUserFoodCard({
     required Post model,
-    required void Function()? onPressed,
-    required void Function()? itemOnTap,
+    required void Function()? itemDeleteOnPressed,
+    required void Function()? itemDetailOnTap,
   })  : _model = model,
-        _onPressed = onPressed,
-        _itemOnTap = itemOnTap;
+        _itemDeleteOnPressed = itemDeleteOnPressed,
+        _itemDetailOnTap = itemDetailOnTap;
 
   final Post _model;
-  final Function()? _onPressed;
-  final Function()? _itemOnTap;
+  final Function()? _itemDeleteOnPressed;
+  final Function()? _itemDetailOnTap;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class _BuildUserFoodCard extends StatelessWidget with _pageSize, _pageWord {
             _showDeleteConfirmationDialog(context);
           },
         ),
-        onTap: _itemOnTap,
+        onTap: _itemDetailOnTap,
       ),
     );
   }
@@ -91,7 +91,7 @@ class _BuildUserFoodCard extends StatelessWidget with _pageSize, _pageWord {
               child: Text(cancelButton),
             ),
             TextButton(
-              onPressed: _onPressed,
+              onPressed: _itemDeleteOnPressed,
               child: Text(okButton),
             ),
           ],

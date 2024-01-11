@@ -1,4 +1,4 @@
-import 'package:afiyetlistesi/model/favorite_model_fake.dart';
+import 'package:afiyetlistesi/service/favorite_model_fake.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_words.dart';
 import 'package:afiyetlistesi/view/Favorite/page/favorite_page.dart';

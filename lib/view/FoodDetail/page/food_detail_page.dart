@@ -124,11 +124,11 @@ mixin _pageWord {
   final materialHint = "Malzemeleri giriniz...";
   final recipeHint = "Tarifi giriniz...";
   final subtitleText = "Tarif için tıkla";
-  final foodNotFound = "Yemek adı yükleniyor...";
-  final foodRecipeNotFound = "Yemek tarifi yükleniyor...";
+  final foodNotFound = "Yemek adı bulunamadı";
+  final foodRecipeNotFound = "Yemek tarifi bulunamadı";
   final buttonTitle = "Favoriye Ekle";
   final materialFoodText = "Malzemeler";
   final recipeText = "Yapılışı";
-  final foodMaterialNotFound = "Yemek malzeme yükleniyor...";
+  final foodMaterialNotFound = "Yemek malzemeleri bulunamadı";
   final updateButtonText = "Güncelle";
 }

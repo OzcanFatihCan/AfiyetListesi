@@ -1,6 +1,6 @@
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:afiyetlistesi/model/favorite_model_fake.dart';
+import 'package:afiyetlistesi/service/favorite_model_fake.dart';
 import 'package:afiyetlistesi/view/Favorite/state/state_manage_favorite.dart';
 
 part '../widget/favorite_card_widget.dart';

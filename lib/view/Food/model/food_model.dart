@@ -1,4 +1,4 @@
-import 'package:afiyetlistesi/model/base_model.dart';
+import 'package:afiyetlistesi/service/base_model.dart';
 
 class FoodModel extends BaseModel {
   String? adminId;

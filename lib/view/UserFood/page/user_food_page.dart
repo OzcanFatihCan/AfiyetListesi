@@ -87,7 +87,7 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
                       itemBuilder: (context, modelIndex) {
                         return _BuildUserFoodCard(
                           model: filteredModels[modelIndex],
-                          onPressed: () {
+                          itemDeleteOnPressed: () {
                             context.read<DeletePostBloc>().add(
                                   DeletePost(
                                     userId: userId,
@@ -99,7 +99,7 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
                                 );
                             Navigator.pop(context);
                           },
-                          itemOnTap: () async {
+                          itemDetailOnTap: () async {
                             await NavigatorManager.instance.pushToPageRotate(
                                 NavigateRoutes.foodDetail,
                                 arguments: {
@@ -174,7 +174,7 @@ mixin _pageSize {
 
 mixin _pageWord {
   final subtitleText = "Tarif için tıkla";
-  final foodNotFound = "Yemek adı yükleniyor...";
+  final foodNotFound = "Yemek adı bulunamadı";
   final deleteFood = "Bu yemeği silmek istediğinizden emin misiniz?";
   final deleteFoodTitle = "Yemeği Sil";
   final cancelButton = "İptal";
