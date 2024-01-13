@@ -43,7 +43,6 @@ class FirebaseProjectRepository implements ProjectRepository {
     }
   }
 
-  @override
   Future<void> createPopular(FavoriteModel userPopular) async {
     try {
       final Uint8List imagePopularData;
