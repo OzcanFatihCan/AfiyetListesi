@@ -3,8 +3,12 @@ part of '../../page/food_detail_page.dart';
 class _MainFoodDetailWidget extends StatelessWidget with _pageSize, _pageWord {
   _MainFoodDetailWidget({
     required Post model,
-  }) : _model = model;
+    required FavoriteModel favoritePost,
+  })  : _model = model,
+        _favoritePost = favoritePost;
   final Post _model;
+  final FavoriteModel _favoritePost;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -46,7 +50,10 @@ class _MainFoodDetailWidget extends StatelessWidget with _pageSize, _pageWord {
                   _BuildMaterials(model: _model),
                   _buildRecipeTitle(context, recipeText),
                   _BuildRecipe(model: _model),
-                  _BuildFavoriteButton()
+                  _BuildFavoriteButton(
+                    model: _model,
+                    favoritePost: _favoritePost,
+                  ),
                 ],
               ),
             ),

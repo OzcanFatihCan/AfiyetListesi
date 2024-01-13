@@ -1,4 +1,5 @@
 import 'package:afiyetlistesi/blocs/get_post_bloc/get_post_bloc.dart';
+import 'package:afiyetlistesi/blocs/my_user_bloc/my_user_bloc.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_food_detail_type.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';

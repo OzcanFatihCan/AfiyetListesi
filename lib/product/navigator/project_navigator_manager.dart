@@ -106,18 +106,21 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
           const HomePageView(),
         );
       case NavigateRoutes.foodAdd:
-        final user = (arguments as Map<String, Object>?)?['myUser'] as MyUser;
+        final currentUser =
+            (arguments as Map<String, Object>?)?['myUser'] as MyUser;
+
         return _navigateToNormal(
           BlocProvider<CreatePostBloc>(
             create: (context) => CreatePostBloc(
               myPostRepository: FirebasePostRepository(),
             ),
-            child: FoodAddPageView(myUser: user),
+            child: FoodAddPageView(myUser: currentUser),
           ),
         );
       case NavigateRoutes.foodDetail:
         final model = (arguments as Map<String, Object>?)?['model'] as Post;
         final pageType = (arguments)?['pageType'] as String;
+        final currentUser = (arguments)?['myUser'] as MyUser;
 
         return _navigateToNormal(
           BlocProvider(
@@ -127,6 +130,7 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
             child: FoodDetailPage(
               model: model,
               pageType: pageType,
+              myUser: currentUser,
             ),
           ),
         );

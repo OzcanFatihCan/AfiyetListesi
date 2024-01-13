@@ -1,11 +1,14 @@
 import 'dart:io';
 
+import 'package:afiyetlistesi/blocs/create_favorite_bloc/create_favorite_bloc.dart';
 import 'package:afiyetlistesi/blocs/update_post_bloc/update_post_bloc.dart';
 import 'package:afiyetlistesi/product/components/text/large_text_field.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_food_detail_type.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/product/package/image/photo_picker.dart';
+import 'package:afiyetlistesi/service/model/favorite/favorite_model.dart';
+import 'package:afiyetlistesi/service/repository/firebase_project_repository.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:afiyetlistesi/view/Error/page/error_page.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +16,7 @@ import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:post_repository/post_repository.dart';
+import 'package:user_repository/user_repository.dart';
 
 part '../viewModel/state_manage_food_detail.dart';
 
@@ -31,14 +35,16 @@ part '../widget/foodDetailUserFood/user_food_detail_widget.dart';
 
 class FoodDetailPage extends StatefulWidget {
   const FoodDetailPage({
-    super.key,
     required Post model,
     required String pageType,
+    required this.myUser,
+    super.key,
   })  : _model = model,
         _pageType = pageType;
 
   final Post _model;
   final String _pageType;
+  final MyUser myUser;
 
   @override
   State<FoodDetailPage> createState() => _FoodDetailPageState();
@@ -58,7 +64,10 @@ class _FoodDetailPageState extends StateManageFoodDetail
       );
     } else if (widget._pageType ==
         FoodDetailManager.instance.getDetailType(FoodDetailType.mainFood)) {
-      detailWidget = _MainFoodDetailWidget(model: widget._model);
+      detailWidget = _MainFoodDetailWidget(
+        model: widget._model,
+        favoritePost: favoritePost,
+      );
     } else if (widget._pageType ==
         FoodDetailManager.instance.getDetailType(FoodDetailType.favorite)) {
       detailWidget = Container();

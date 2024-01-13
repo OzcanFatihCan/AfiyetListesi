@@ -5,7 +5,6 @@ import 'package:afiyetlistesi/service/model/favorite/favorite_model.dart';
 import 'package:afiyetlistesi/service/model/popular/popular_model.dart';
 import 'package:afiyetlistesi/service/repository/project_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class FirebaseProjectRepository implements ProjectRepository {
@@ -23,7 +22,6 @@ class FirebaseProjectRepository implements ProjectRepository {
         ...userFavorite.toEntity().toDocument(),
       });
 
-      userFavorite.favorite.foodId = documentFavoriteRef.id;
       imageData = await getBytesFromUrl(userFavorite.favorite.foodPhoto);
 
       Reference storageFavoriteRef = FirebaseStorage.instance.ref().child(
@@ -33,7 +31,6 @@ class FirebaseProjectRepository implements ProjectRepository {
 
       await documentFavoriteRef.update({
         'foodPhoto': favoritePhotoUrl,
-        'foodId': userFavorite.favorite.foodId,
       });
 
       await createPopular(userFavorite);
@@ -86,15 +83,11 @@ class FirebaseProjectRepository implements ProjectRepository {
 
 Future<Uint8List> getBytesFromUrl(String url) async {
   try {
-    final response = await Dio().get<List<int>>(url);
+    final Reference ref = FirebaseStorage.instance.refFromURL(url);
+    final Uint8List? data = await ref.getData();
 
-    if (response.statusCode == 200 && response.data != null) {
-      return Uint8List.fromList(response.data!);
-    } else {
-      throw Exception(
-          'URL\'den veri alınamadı: $url, Hata Kodu: ${response.statusCode}');
-    }
+    return data!.buffer.asUint8List();
   } catch (e) {
-    throw Exception('URL\'den veri alınırken hata oluştu: $e');
+    throw Exception('Firebase Storage\'dan veri alınırken hata oluştu: $e');
   }
 }
