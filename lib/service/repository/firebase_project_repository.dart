@@ -27,7 +27,7 @@ class FirebaseProjectRepository implements ProjectRepository {
       imageData = await getBytesFromUrl(userFavorite.favorite.foodPhoto);
 
       Reference storageFavoriteRef = FirebaseStorage.instance.ref().child(
-          '${userFavorite.favorite.myUser.id}/FavoritePhoto/${userFavorite.favorite.foodId}foodPhoto_lead');
+          '${userFavorite.favorite.myUser.id}/FavoritePhoto/${userFavorite.favorite.foodId}foodFavoritePhoto_lead');
       await storageFavoriteRef.putData(imageData);
       String favoritePhotoUrl = await storageFavoriteRef.getDownloadURL();
 
@@ -35,6 +35,8 @@ class FirebaseProjectRepository implements ProjectRepository {
         'foodPhoto': favoritePhotoUrl,
         'foodId': userFavorite.favorite.foodId,
       });
+
+      await createPopular(userFavorite);
     } catch (e) {
       log(e.toString());
       rethrow;
@@ -42,12 +44,40 @@ class FirebaseProjectRepository implements ProjectRepository {
   }
 
   @override
-  Future<void> createPopular(PopularModel userPopular) async {
+  Future<void> createPopular(FavoriteModel userPopular) async {
     try {
-      DocumentReference documentPopularRef = await popularCollection.add({
-        ...userPopular.toEntity().toDocument(),
-      });
-      userPopular.foodId = documentPopularRef.id;
+      final Uint8List imagePopularData;
+      DocumentSnapshot documentPopularRef =
+          await popularCollection.doc(userPopular.favorite.foodId).get();
+
+      if (documentPopularRef.exists) {
+        await popularCollection.doc(userPopular.favorite.foodId).update({
+          'count': FieldValue.increment(1),
+        });
+      } else {
+        PopularModel popularModel = PopularModel(
+          foodId: userPopular.favorite.foodId,
+          foodName: userPopular.favorite.foodName,
+          foodMaterial: userPopular.favorite.foodMaterial,
+          foodRecipe: userPopular.favorite.foodRecipe,
+          foodCategory: userPopular.favorite.foodCategory,
+          foodPhoto: userPopular.favorite.foodPhoto,
+          count: 1,
+        );
+
+        imagePopularData = await getBytesFromUrl(popularModel.foodPhoto);
+
+        Reference storagePopularRef = FirebaseStorage.instance
+            .ref()
+            .child('popular/${popularModel.foodId}foodPopularPhoto_lead');
+        await storagePopularRef.putData(imagePopularData);
+        String popularPhotoUrl = await storagePopularRef.getDownloadURL();
+
+        await popularCollection.doc(userPopular.favorite.foodId).set({
+          'foodPhoto': popularPhotoUrl,
+          ...popularModel.toEntity().toDocument(),
+        });
+      }
     } catch (e) {
       log(e.toString());
       rethrow;
