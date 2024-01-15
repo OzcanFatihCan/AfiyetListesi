@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:typed_data';
 
 import 'package:afiyetlistesi/service/model/favorite/favorite_entity.dart';
 import 'package:afiyetlistesi/service/model/favorite/favorite_model.dart';
@@ -15,7 +14,6 @@ class FirebaseProjectRepository implements ProjectRepository {
   @override
   Future<void> createFavorite(FavoriteModel userFavorite) async {
     try {
-      final Uint8List imageData;
       DocumentReference documentFavoriteRef = await favoriteCollection
           .doc(userFavorite.favorite.myUser.id)
           .collection('userFavorite')
@@ -23,11 +21,14 @@ class FirebaseProjectRepository implements ProjectRepository {
         ...userFavorite.toEntity().toDocument(),
       });
 
-      imageData = await getBytesFromUrl(userFavorite.favorite.foodPhoto);
+      Reference sourceFoto =
+          FirebaseStorage.instance.refFromURL(userFavorite.favorite.foodPhoto);
+
+      final fotoUrl = await sourceFoto.getData();
 
       Reference storageFavoriteRef = FirebaseStorage.instance.ref().child(
           '${userFavorite.favorite.myUser.id}/FavoritePhoto/${userFavorite.favorite.foodId}foodFavoritePhoto_lead');
-      await storageFavoriteRef.putData(imageData);
+      await storageFavoriteRef.putData(fotoUrl!);
       String favoritePhotoUrl = await storageFavoriteRef.getDownloadURL();
 
       await documentFavoriteRef.update({
@@ -43,7 +44,6 @@ class FirebaseProjectRepository implements ProjectRepository {
 
   Future<void> createPopular(FavoriteModel userPopular) async {
     try {
-      final Uint8List imagePopularData;
       DocumentSnapshot documentPopularRef =
           await popularCollection.doc(userPopular.favorite.foodId).get();
 
@@ -62,12 +62,15 @@ class FirebaseProjectRepository implements ProjectRepository {
           count: 1,
         );
 
-        imagePopularData = await getBytesFromUrl(popularModel.foodPhoto);
+        Reference sourceFoto =
+            FirebaseStorage.instance.refFromURL(popularModel.foodPhoto);
+
+        final fotoUrl = await sourceFoto.getData();
 
         Reference storagePopularRef = FirebaseStorage.instance
             .ref()
             .child('popular/${popularModel.foodId}foodPopularPhoto_lead');
-        await storagePopularRef.putData(imagePopularData);
+        await storagePopularRef.putData(fotoUrl!);
         String popularPhotoUrl = await storagePopularRef.getDownloadURL();
 
         await popularCollection.doc(userPopular.favorite.foodId).set({
@@ -82,11 +85,11 @@ class FirebaseProjectRepository implements ProjectRepository {
   }
 
   @override
-  Future<List<FavoriteModel>> getFavorite(String userId) async {
+  Future<List<FavoriteModel>> getFavorite(String userId) {
     try {
       final documentFavoriRef =
           favoriteCollection.doc(userId).collection("userFavorite");
-      return await documentFavoriRef.get().then(
+      return documentFavoriRef.get().then(
             (value) => value.docs
                 .map(
                   (e) => FavoriteModel.fromEntity(
@@ -101,16 +104,5 @@ class FirebaseProjectRepository implements ProjectRepository {
       log(e.toString());
       rethrow;
     }
-  }
-}
-
-Future<Uint8List> getBytesFromUrl(String url) async {
-  try {
-    final Reference ref = FirebaseStorage.instance.refFromURL(url);
-    final Uint8List? data = await ref.getData();
-
-    return data!.buffer.asUint8List();
-  } catch (e) {
-    throw Exception('Firebase Storage\'dan veri alınırken hata oluştu: $e');
   }
 }

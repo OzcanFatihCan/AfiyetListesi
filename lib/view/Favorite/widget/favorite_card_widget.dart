@@ -2,10 +2,10 @@ part of '../page/favorite_page.dart';
 
 class _BuildFavoriteCard extends StatelessWidget with _pageSize, _pageWord {
   _BuildFavoriteCard({
-    required FavoriteModell model,
+    required FavoriteModel model,
   }) : _model = model;
 
-  final FavoriteModell _model;
+  final FavoriteModel _model;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +17,9 @@ class _BuildFavoriteCard extends StatelessWidget with _pageSize, _pageWord {
           borderRadius: BorderRadius.all(
             halfRadius,
           ),
-          child: _model.imagePath.isNotEmpty
+          child: _model.favorite.foodPhoto.isNotEmpty
               ? Image.network(
-                  _model.imagePath,
+                  _model.favorite.foodPhoto,
                   height: listPhotoHeightSize,
                   width: listPhotoWidthSize,
                   fit: BoxFit.cover,
@@ -27,8 +27,10 @@ class _BuildFavoriteCard extends StatelessWidget with _pageSize, _pageWord {
                     return SizedBox(
                       height: listPhotoHeightSize,
                       width: listPhotoWidthSize,
-                      child: const Center(
-                        child: CircularProgressIndicator(),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Theme.of(context).colorScheme.error,
+                        ),
                       ),
                     );
                   },
@@ -36,13 +38,17 @@ class _BuildFavoriteCard extends StatelessWidget with _pageSize, _pageWord {
               : SizedBox(
                   height: listPhotoHeightSize,
                   width: listPhotoWidthSize,
-                  child: const Center(
-                    child: CircularProgressIndicator(),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.error,
+                    ),
                   ),
                 ),
         ),
         title: Text(
-          _model.title.isNotEmpty ? _model.title : foodNotFound,
+          _model.favorite.foodName.isNotEmpty
+              ? _model.favorite.foodName
+              : foodNotFound,
           style: Theme.of(context).textTheme.labelMedium,
         ),
         subtitle: Text(

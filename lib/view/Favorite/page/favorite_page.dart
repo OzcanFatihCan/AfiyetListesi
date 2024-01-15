@@ -1,10 +1,17 @@
+import 'package:afiyetlistesi/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:afiyetlistesi/blocs/get_favorite_bloc/get_favorite_bloc.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
+import 'package:afiyetlistesi/product/constants/project_photo.dart';
+import 'package:afiyetlistesi/service/model/favorite/favorite_model.dart';
+import 'package:afiyetlistesi/service/repository/firebase_project_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:afiyetlistesi/service/favorite_model_fake.dart';
-import 'package:afiyetlistesi/view/Favorite/state/state_manage_favorite.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 part '../widget/favorite_card_widget.dart';
 part '../widget/content_button_widget.dart';
+part '../viewModel/state_manage_favorite.dart';
 
 class FavoritePageView extends StatefulWidget {
   const FavoritePageView({super.key});
@@ -16,17 +23,28 @@ class FavoritePageView extends StatefulWidget {
 class _FavoritePageViewState extends StateManageFavorite with _pageSize {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Column(
-        children: [
-          _BuildContentButton(
-            currentFav: currentFav,
-            contentChange: contentChange,
-            pageChange: pageChange,
-          ),
-          _buildContent(context)
-        ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => GetFavoriteBloc(
+            projectRepository: FirebaseProjectRepository(),
+          )..add(
+              GetFavorite(userId: userId),
+            ),
+        ),
+      ],
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: Column(
+          children: [
+            _BuildContentButton(
+              currentFav: currentFav,
+              contentChange: contentChange,
+              pageChange: pageChange,
+            ),
+            _buildContent(context)
+          ],
+        ),
       ),
     );
   }
@@ -37,20 +55,41 @@ class _FavoritePageViewState extends StateManageFavorite with _pageSize {
         padding: pagePadding2x,
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
-          child: PageView.builder(
-            itemCount: CategoryManager.instance.getCategoryTitles().length,
-            controller: pageController,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              List<FavoriteModell> filteredModels =
-                  getFilteredModels(index + 1);
-
-              return ListView.builder(
-                itemCount: filteredModels.length,
-                itemBuilder: (context, modelIndex) {
-                  return _BuildFavoriteCard(model: filteredModels[modelIndex]);
-                },
-              );
+          child: BlocBuilder<GetFavoriteBloc, GetFavoriteState>(
+            builder: (context, state) {
+              if (state is GetFavoriteSuccess) {
+                favoritePosts = state.favorite;
+                return PageView.builder(
+                  itemCount:
+                      CategoryManager.instance.getCategoryTitles().length,
+                  controller: pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    String category =
+                        CategoryManager.instance.getCategoryTitles()[index];
+                    List<FavoriteModel> filteredModels = favoritePosts
+                        .where(
+                          (value) => value.favorite.foodCategory == category,
+                        )
+                        .toList();
+                    return ListView.builder(
+                      itemCount: filteredModels.length,
+                      itemBuilder: (context, modelIndex) {
+                        return _BuildFavoriteCard(
+                          model: filteredModels[modelIndex],
+                        );
+                      },
+                    );
+                  },
+                );
+              } else {
+                return Align(
+                  alignment: Alignment.center,
+                  child: Lottie.asset(
+                    ItemsofAsset.lottieLoading.fetchLottie,
+                  ),
+                );
+              }
             },
           ),
         ),
