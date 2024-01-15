@@ -30,7 +30,7 @@ class FirebaseProjectRepository implements ProjectRepository {
       String favoritePhotoUrl = await storageFavoriteRef.getDownloadURL();
 
       await documentFavoriteRef.update({
-        'foodPhoto': favoritePhotoUrl,
+        'favorite.foodPhoto': favoritePhotoUrl,
       });
 
       await createPopular(userFavorite);
@@ -70,8 +70,8 @@ class FirebaseProjectRepository implements ProjectRepository {
         String popularPhotoUrl = await storagePopularRef.getDownloadURL();
 
         await popularCollection.doc(userPopular.favorite.foodId).set({
-          'foodPhoto': popularPhotoUrl,
           ...popularModel.toEntity().toDocument(),
+          'foodPhoto': popularPhotoUrl,
         });
       }
     } catch (e) {
