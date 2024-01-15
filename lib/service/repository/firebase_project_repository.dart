@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:typed_data';
 
+import 'package:afiyetlistesi/service/model/favorite/favorite_entity.dart';
 import 'package:afiyetlistesi/service/model/favorite/favorite_model.dart';
 import 'package:afiyetlistesi/service/model/popular/popular_model.dart';
 import 'package:afiyetlistesi/service/repository/project_repository.dart';
@@ -74,6 +75,28 @@ class FirebaseProjectRepository implements ProjectRepository {
           'foodPhoto': popularPhotoUrl,
         });
       }
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<FavoriteModel>> getFavorite(String userId) async {
+    try {
+      final documentFavoriRef =
+          favoriteCollection.doc(userId).collection("userFavorite");
+      return await documentFavoriRef.get().then(
+            (value) => value.docs
+                .map(
+                  (e) => FavoriteModel.fromEntity(
+                    FavoriteEntity.fromDocument(
+                      e.data(),
+                    ),
+                  ),
+                )
+                .toList(),
+          );
     } catch (e) {
       log(e.toString());
       rethrow;
