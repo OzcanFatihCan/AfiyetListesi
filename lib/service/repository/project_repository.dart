@@ -5,5 +5,5 @@ abstract class ProjectRepository {
 
   Future<List<FavoriteModel>> getFavorite(String userId);
 
-  Future<void> deleteFavorite(String userId, String favoriteId);
+  Future<void> deleteFavorite(String userId, String foodId);
 }

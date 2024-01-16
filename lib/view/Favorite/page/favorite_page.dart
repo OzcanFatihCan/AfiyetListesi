@@ -1,4 +1,5 @@
 import 'package:afiyetlistesi/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:afiyetlistesi/blocs/delete_favorite_bloc/delete_favorite_bloc.dart';
 import 'package:afiyetlistesi/blocs/get_favorite_bloc/get_favorite_bloc.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
@@ -32,6 +33,11 @@ class _FavoritePageViewState extends StateManageFavorite with _pageSize {
               GetFavorite(userId: userId),
             ),
         ),
+        BlocProvider(
+          create: (context) => DeleteFavoriteBloc(
+            projectRepository: FirebaseProjectRepository(),
+          ),
+        ),
       ],
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
@@ -41,6 +47,7 @@ class _FavoritePageViewState extends StateManageFavorite with _pageSize {
               currentFav: currentFav,
               contentChange: contentChange,
               pageChange: pageChange,
+              currentPageNotifier: currentPageNotifier,
             ),
             _buildContent(context)
           ],
@@ -77,6 +84,30 @@ class _FavoritePageViewState extends StateManageFavorite with _pageSize {
                       itemBuilder: (context, modelIndex) {
                         return _BuildFavoriteCard(
                           model: filteredModels[modelIndex],
+                          itemDeleteOnPressed: () {
+                            context.read<DeleteFavoriteBloc>().add(
+                                  DeleteFavorite(
+                                    userId: userId,
+                                    favoriteId: filteredModels[modelIndex]
+                                        .favorite
+                                        .foodId,
+                                  ),
+                                );
+                            context
+                                .read<DeleteFavoriteBloc>()
+                                .stream
+                                .listen((deleteState) {
+                              if (deleteState is DeleteFavoriteSuccess) {
+                                context.read<GetFavoriteBloc>().add(
+                                      GetFavorite(userId: userId),
+                                    );
+                                currentPageNotifier.value = CategoryManager
+                                    .instance
+                                    .getCategoryIndex(CategoryName.yemek);
+                              }
+                            });
+                            Navigator.pop(context);
+                          },
                         );
                       },
                     );
@@ -121,5 +152,9 @@ mixin _pageSize {
 
 mixin _pageWord {
   final subtitleText = "Tarif için tıkla";
-  final foodNotFound = "Yemek adı yükleniyor...";
+  final foodNotFound = "Yemek adı bulunamadı";
+  final deleteFood = "Bu favoriyi silmek istediğinizden emin misiniz?";
+  final deleteFoodTitle = "Favoriyi Sil";
+  final cancelButton = "İptal";
+  final okButton = "Sil";
 }

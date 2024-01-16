@@ -4,6 +4,7 @@ abstract class StateManageFavorite extends State<FavoritePageView>
     with _pageSize {
   PageController pageController = PageController();
   late List<FavoriteModel> favoritePosts;
+  late ValueNotifier<int> currentPageNotifier;
   late String userId;
   int currentFav =
       CategoryManager.instance.getCategoryIndex(CategoryName.yemek);
@@ -11,6 +12,7 @@ abstract class StateManageFavorite extends State<FavoritePageView>
   @override
   void initState() {
     userId = context.read<AuthenticationBloc>().state.user!.uid;
+    currentPageNotifier = ValueNotifier<int>(currentFav);
     super.initState();
   }
 

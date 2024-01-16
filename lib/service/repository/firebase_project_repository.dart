@@ -107,20 +107,27 @@ class FirebaseProjectRepository implements ProjectRepository {
   }
 
   @override
-  Future<void> deleteFavorite(String userId, String favoriteId) async {
+  Future<void> deleteFavorite(String userId, String foodId) async {
     try {
       final documentFavoriteRef =
           favoriteCollection.doc(userId).collection('userFavorite');
+
+      QuerySnapshot docSnap = await documentFavoriteRef.get();
+      for (QueryDocumentSnapshot doc in docSnap.docs) {
+        String favoritefoodId = doc.get('favorite.foodId');
+        if (favoritefoodId == foodId) {
+          String documentId = doc.id;
+          await documentFavoriteRef.doc(documentId).delete();
+        } else {
+          log('Favorite not found');
+        }
+      }
+
       final Reference storageFavoriteRef = FirebaseStorage.instance
           .ref()
-          .child("$userId/FavoritePhoto/${favoriteId}foodFavoritePhoto_lead");
-      DocumentSnapshot favoriteSnapshot =
-          await documentFavoriteRef.doc(favoriteId).get();
-      String foodId = favoriteSnapshot.get('favorite.foodId');
+          .child("$userId/FavoritePhoto/${foodId}foodFavoritePhoto_lead");
 
-      await documentFavoriteRef.doc(favoriteId).delete();
       await storageFavoriteRef.delete();
-
       await deletePopular(foodId);
     } catch (e) {
       log(e.toString());
