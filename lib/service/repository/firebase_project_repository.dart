@@ -105,4 +105,52 @@ class FirebaseProjectRepository implements ProjectRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<void> deleteFavorite(String userId, String favoriteId) async {
+    try {
+      final documentFavoriteRef =
+          favoriteCollection.doc(userId).collection('userFavorite');
+      final Reference storageFavoriteRef = FirebaseStorage.instance
+          .ref()
+          .child("$userId/FavoritePhoto/${favoriteId}foodFavoritePhoto_lead");
+      DocumentSnapshot favoriteSnapshot =
+          await documentFavoriteRef.doc(favoriteId).get();
+      String foodId = favoriteSnapshot.get('favorite.foodId');
+
+      await documentFavoriteRef.doc(favoriteId).delete();
+      await storageFavoriteRef.delete();
+
+      await deletePopular(foodId);
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> deletePopular(String foodId) async {
+    try {
+      DocumentSnapshot popularSnapshot =
+          await popularCollection.doc(foodId).get();
+      if (popularSnapshot.exists) {
+        int count = popularSnapshot.get('count');
+        if (count > 1) {
+          await popularCollection.doc(foodId).update({
+            'count': FieldValue.increment(-1),
+          });
+        } else {
+          Reference storagePopularRef = FirebaseStorage.instance
+              .ref()
+              .child('popular/${foodId}foodPopularPhoto_lead');
+          await popularCollection.doc(foodId).delete();
+          await storagePopularRef.delete();
+        }
+      } else {
+        log('Popular not found');
+      }
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
 }
