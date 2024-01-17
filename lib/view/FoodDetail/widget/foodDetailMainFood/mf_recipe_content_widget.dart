@@ -1,7 +1,7 @@
 part of '../../page/food_detail_page.dart';
 
-class _BuildRecipe extends StatelessWidget with _pageSize, _pageWord {
-  _BuildRecipe({
+class _BuildMainFoodRecipe extends StatelessWidget with _pageSize, _pageWord {
+  _BuildMainFoodRecipe({
     required Post model,
   }) : _model = model;
 

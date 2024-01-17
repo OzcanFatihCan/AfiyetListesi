@@ -1,5 +1,4 @@
 import 'package:afiyetlistesi/blocs/get_post_bloc/get_post_bloc.dart';
-import 'package:afiyetlistesi/blocs/my_user_bloc/my_user_bloc.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_food_detail_type.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
@@ -10,13 +9,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:lottie/lottie.dart';
 import 'package:post_repository/post_repository.dart';
+import 'package:user_repository/user_repository.dart';
 
 part '../widgets/content_food_button_widget.dart';
 part '../widgets/food_card_widget.dart';
 part '../viewModel/state_manage_food.dart';
 
 class FoodPageView extends StatefulWidget {
-  const FoodPageView({super.key});
+  const FoodPageView({
+    required MyUser myUser,
+    super.key,
+  }) : _myUser = myUser;
+  final MyUser _myUser;
 
   @override
   State<FoodPageView> createState() => _FoodPageViewState();
@@ -76,6 +80,7 @@ class _FoodPageViewState extends StateManageFood with _pageSize {
                       itemBuilder: (context, modelIndex) {
                         return _BuildFoodCard(
                           model: filteredModels[modelIndex],
+                          myUser: widget._myUser,
                         );
                       },
                     );

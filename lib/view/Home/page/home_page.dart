@@ -89,7 +89,9 @@ class _HomePageState extends StateManageHome {
           myUser: userState.user!,
         ),
         const ProfilePageView(),
-        const FoodPageView(),
+        FoodPageView(
+          myUser: userState.user!,
+        ),
       ],
     );
   }

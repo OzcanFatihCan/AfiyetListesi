@@ -1,7 +1,7 @@
 part of '../../page/food_detail_page.dart';
 
-class _BuildFavoriteButton extends StatefulWidget with _pageWord {
-  _BuildFavoriteButton({
+class _BuildMainFoodFavoriteButton extends StatefulWidget with _pageWord {
+  _BuildMainFoodFavoriteButton({
     required Post model,
     required MyUser myUser,
   })  : _model = model,
@@ -12,11 +12,12 @@ class _BuildFavoriteButton extends StatefulWidget with _pageWord {
   final MyUser _myUser;
 
   @override
-  State<_BuildFavoriteButton> createState() => _BuildFavoriteButtonState();
+  State<_BuildMainFoodFavoriteButton> createState() =>
+      _BuildMainFoodFavoriteButtonState();
 }
 
-class _BuildFavoriteButtonState extends State<_BuildFavoriteButton>
-    with _pageWord {
+class _BuildMainFoodFavoriteButtonState
+    extends State<_BuildMainFoodFavoriteButton> with _pageWord {
   late FavoriteModel favoritePost;
   @override
   void initState() {

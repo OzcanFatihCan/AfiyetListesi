@@ -29,9 +29,14 @@ part '../widget/foodDetailUserFood/uf_text_widget.dart';
 part '../widget/foodDetailUserFood/uf_category_widget.dart';
 part '../widget/foodDetailUserFood/uf_food_photo_widget.dart';
 part '../widget/foodDetailUserFood/uf_title_widget.dart';
+part '../widget/foodDetailFavorite/ff_food_photo_widget.dart';
+part '../widget/foodDetailFavorite/ff_favorite_button_widget.dart';
+part '../widget/foodDetailFavorite/ff_materials_content_widget.dart';
+part '../widget/foodDetailFavorite/ff_recipe_content_widget.dart';
 
 part '../widget/foodDetailMainFood/main_food_detail_widget.dart';
 part '../widget/foodDetailUserFood/user_food_detail_widget.dart';
+part '../widget/foodDetailFavorite/favorite_food_detail_widget.dart';
 
 class FoodDetailPage extends StatefulWidget {
   const FoodDetailPage({
@@ -70,7 +75,9 @@ class _FoodDetailPageState extends StateManageFoodDetail
       );
     } else if (widget._pageType ==
         FoodDetailManager.instance.getDetailType(FoodDetailType.favorite)) {
-      detailWidget = Container();
+      detailWidget = _FavoriteFoodDetailWidget(
+        model: widget._model,
+      );
     } else {
       detailWidget = const ErrorPageView();
     }
@@ -136,6 +143,7 @@ mixin _pageWord {
   final foodNotFound = "Yemek adı bulunamadı";
   final foodRecipeNotFound = "Yemek tarifi bulunamadı";
   final buttonTitle = "Favoriye Ekle";
+  final buttonTitle2 = "Favoriden Kaldır";
   final materialFoodText = "Malzemeler";
   final recipeText = "Yapılışı";
   final foodMaterialNotFound = "Yemek malzemeleri bulunamadı";

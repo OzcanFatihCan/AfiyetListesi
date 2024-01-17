@@ -1,13 +1,11 @@
 part of '../../page/food_detail_page.dart';
 
-class _MainFoodDetailWidget extends StatelessWidget with _pageSize, _pageWord {
-  _MainFoodDetailWidget({
-    required Post model,
-    required MyUser myUser,
-  })  : _model = model,
-        _myUser = myUser;
-  final Post _model;
-  final MyUser _myUser;
+class _FavoriteFoodDetailWidget extends StatelessWidget
+    with _pageSize, _pageWord {
+  _FavoriteFoodDetailWidget({
+    required FavoriteModel model,
+  }) : _model = model;
+  final FavoriteModel _model;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +18,7 @@ class _MainFoodDetailWidget extends StatelessWidget with _pageSize, _pageWord {
             children: <Widget>[
               Positioned.fill(
                 bottom: cardHeight / 1.4,
-                child: _BuildMainFoodPhoto(model: _model),
+                child: _BuildFavoriteFoodPhoto(model: _model),
               ),
               Positioned(
                 height: cardHeight,
@@ -47,13 +45,10 @@ class _MainFoodDetailWidget extends StatelessWidget with _pageSize, _pageWord {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   _buildMaterialTitle(context, materialFoodText),
-                  _BuildMainFoodMaterials(model: _model),
+                  _BuildFavoriteFoodMaterials(model: _model),
                   _buildRecipeTitle(context, recipeText),
-                  _BuildMainFoodRecipe(model: _model),
-                  _BuildMainFoodFavoriteButton(
-                    model: _model,
-                    myUser: _myUser,
-                  ),
+                  _BuildFavoriteFoodRecipe(model: _model),
+                  _BuildFavoriteFoodFavoriteButton(),
                 ],
               ),
             ),
@@ -74,7 +69,9 @@ class _MainFoodDetailWidget extends StatelessWidget with _pageSize, _pageWord {
             color: Theme.of(context).colorScheme.onPrimary,
             child: Center(
               child: Text(
-                _model.foodName.isNotEmpty ? _model.foodName : foodNotFound,
+                _model.favorite.foodName.isNotEmpty
+                    ? _model.favorite.foodName
+                    : foodNotFound,
                 style: AppTheme().customTextTheme().headlineSmall,
                 softWrap: true,
                 maxLines: maxLines,
@@ -95,7 +92,7 @@ class _MainFoodDetailWidget extends StatelessWidget with _pageSize, _pageWord {
             ),
             child: Center(
               child: Text(
-                "Kategori: ${_model.foodCategory}",
+                "Kategori: ${_model.favorite.foodCategory}",
                 style: AppTheme().customTextTheme().labelMedium,
                 softWrap: true,
                 maxLines: maxLines,
