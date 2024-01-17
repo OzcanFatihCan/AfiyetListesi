@@ -5,20 +5,21 @@ abstract class StateManageUserFood extends State<UserFoodPageView>
   PageController pageController = PageController();
   late List<Post> foodPosts;
   late String userId;
+  late ValueNotifier<int> currentPageNotifier;
   final appText = "Yemeklerim";
-  int currentFav =
-      CategoryManager.instance.getCategoryIndex(CategoryName.yemek);
 
   @override
   void initState() {
     userId = context.read<AuthenticationBloc>().state.user!.uid;
+    currentPageNotifier = ValueNotifier<int>(
+        CategoryManager.instance.getCategoryIndex(CategoryName.yemek));
     super.initState();
   }
 
   void pageChange(int index) {
     setState(
       () {
-        currentFav = index;
+        currentPageNotifier.value = index;
       },
     );
   }

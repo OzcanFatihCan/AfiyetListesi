@@ -6,20 +6,20 @@ abstract class StateManageFavorite extends State<FavoritePageView>
   late List<FavoriteModel> favoritePosts;
   late ValueNotifier<int> currentPageNotifier;
   late String userId;
-  int currentFav =
-      CategoryManager.instance.getCategoryIndex(CategoryName.yemek);
 
   @override
   void initState() {
     userId = context.read<AuthenticationBloc>().state.user!.uid;
-    currentPageNotifier = ValueNotifier<int>(currentFav);
+    currentPageNotifier = ValueNotifier<int>(
+      CategoryManager.instance.getCategoryIndex(CategoryName.yemek),
+    );
     super.initState();
   }
 
   void pageChange(int index) {
     setState(
       () {
-        currentFav = index;
+        currentPageNotifier.value = index;
       },
     );
   }

@@ -44,7 +44,6 @@ class _FavoritePageViewState extends StateManageFavorite with _pageSize {
         body: Column(
           children: [
             _BuildContentButton(
-              currentFav: currentFav,
               contentChange: contentChange,
               pageChange: pageChange,
               currentPageNotifier: currentPageNotifier,

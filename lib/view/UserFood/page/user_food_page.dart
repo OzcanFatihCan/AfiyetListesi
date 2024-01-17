@@ -50,7 +50,7 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
         body: Column(
           children: [
             _BuildContentButton(
-              currentFav: currentFav,
+              currentPageNotifier: currentPageNotifier,
               contentChange: contentChange,
               pageChange: pageChange,
             ),
@@ -94,9 +94,19 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
                                     postId: filteredModels[modelIndex].foodId,
                                   ),
                                 );
-                            context.read<GetPostBloc>().add(
-                                  GetPosts(userId: userId),
-                                );
+                            context
+                                .read<DeletePostBloc>()
+                                .stream
+                                .listen((deleteState) {
+                              if (deleteState is DeletePostSuccess) {
+                                context.read<GetPostBloc>().add(
+                                      GetPosts(userId: userId),
+                                    );
+                                currentPageNotifier.value = CategoryManager
+                                    .instance
+                                    .getCategoryIndex(CategoryName.yemek);
+                              }
+                            });
                             Navigator.pop(context);
                           },
                           itemDetailOnTap: () async {

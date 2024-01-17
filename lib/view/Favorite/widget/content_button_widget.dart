@@ -3,17 +3,14 @@ part of '../page/favorite_page.dart';
 class _BuildContentButton extends StatefulWidget {
   const _BuildContentButton({
     Key? key,
-    required int currentFav,
     required Function(int) pageChange,
     required Function(int) contentChange,
     required ValueNotifier<int> currentPageNotifier,
-  })  : _currentFav = currentFav,
-        _pageChange = pageChange,
+  })  : _pageChange = pageChange,
         _contentChange = contentChange,
         _currentPageNotifier = currentPageNotifier,
         super(key: key);
 
-  final int _currentFav;
   final Function(int) _pageChange;
   final Function(int) _contentChange;
   final ValueNotifier<int> _currentPageNotifier;
@@ -55,9 +52,10 @@ class __BuildContentButtonState extends State<_BuildContentButton>
                           color: widget._currentPageNotifier.value == index
                               ? Theme.of(context).colorScheme.onPrimary
                               : Theme.of(context).colorScheme.secondary,
-                          borderRadius: widget._currentFav == index
-                              ? buttonOnRadius
-                              : buttonOffRadius,
+                          borderRadius:
+                              widget._currentPageNotifier.value == index
+                                  ? buttonOnRadius
+                                  : buttonOffRadius,
                           border: widget._currentPageNotifier.value == index
                               ? Border.all(
                                   color:
@@ -73,7 +71,8 @@ class __BuildContentButtonState extends State<_BuildContentButton>
                               Text(
                                 CategoryManager.instance
                                     .getCategoryTitles()[index],
-                                style: widget._currentFav == index
+                                style: widget._currentPageNotifier.value ==
+                                        index
                                     ? Theme.of(context).textTheme.titleMedium
                                     : Theme.of(context).textTheme.titleSmall,
                               ),
