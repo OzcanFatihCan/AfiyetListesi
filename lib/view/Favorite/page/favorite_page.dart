@@ -2,20 +2,24 @@ import 'package:afiyetlistesi/blocs/authentication_bloc/authentication_bloc.dart
 import 'package:afiyetlistesi/blocs/delete_favorite_bloc/delete_favorite_bloc.dart';
 import 'package:afiyetlistesi/blocs/get_favorite_bloc/get_favorite_bloc.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
+import 'package:afiyetlistesi/product/constants/project_food_detail_type.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
+import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/service/model/favorite/favorite_model.dart';
 import 'package:afiyetlistesi/service/repository/firebase_project_repository.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:user_repository/user_repository.dart';
 
 part '../widget/favorite_card_widget.dart';
 part '../widget/content_button_widget.dart';
 part '../viewModel/state_manage_favorite.dart';
 
 class FavoritePageView extends StatefulWidget {
-  const FavoritePageView({super.key});
+  const FavoritePageView({required this.myUser, super.key});
+  final MyUser myUser;
 
   @override
   State<FavoritePageView> createState() => _FavoritePageViewState();
@@ -106,6 +110,18 @@ class _FavoritePageViewState extends StateManageFavorite with _pageSize {
                               }
                             });
                             Navigator.pop(context);
+                          },
+                          itemDetailOnTap: () async {
+                            await NavigatorManager.instance.pushToPageRotate(
+                                NavigateRoutes.foodDetail,
+                                arguments: {
+                                  'model': filteredModels[modelIndex],
+                                  'pageType':
+                                      FoodDetailManager.instance.getDetailType(
+                                    FoodDetailType.favorite,
+                                  ),
+                                  'myUser': widget.myUser,
+                                });
                           },
                         );
                       },

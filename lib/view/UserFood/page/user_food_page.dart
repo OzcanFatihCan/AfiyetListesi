@@ -9,13 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:post_repository/post_repository.dart';
+import 'package:user_repository/user_repository.dart';
 
 part '../widget/content_ufood_button_widget.dart';
 part '../widget/user_food_card_widget.dart';
 part '../viewModel/state_manage_user_food.dart';
 
 class UserFoodPageView extends StatefulWidget {
-  const UserFoodPageView({super.key});
+  const UserFoodPageView({required this.myUser, super.key});
+  final MyUser myUser;
 
   @override
   State<UserFoodPageView> createState() => _UserFoodPageViewState();
@@ -68,9 +70,9 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: BlocBuilder<GetPostBloc, GetPostState>(
-            builder: (context, state) {
-              if (state is GetPostSuccess) {
-                foodPosts = state.posts;
+            builder: (context, postState) {
+              if (postState is GetPostSuccess) {
+                foodPosts = postState.posts;
                 return PageView.builder(
                   itemCount:
                       CategoryManager.instance.getCategoryTitles().length,
@@ -118,6 +120,7 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
                                       FoodDetailManager.instance.getDetailType(
                                     FoodDetailType.userfood,
                                   ),
+                                  'myUser': widget.myUser,
                                 }).then((value) {
                               if (value) {
                                 context.read<GetPostBloc>().add(
@@ -131,14 +134,14 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
                     );
                   },
                 );
-              } else if (state is GetPostLoading) {
+              } else if (postState is GetPostLoading) {
                 return Align(
                   alignment: Alignment.center,
                   child: Lottie.asset(
                     ItemsofAsset.lottieLoading.fetchLottie,
                   ),
                 );
-              } else if (state is GetPostFailure) {
+              } else if (postState is GetPostFailure) {
                 return Align(
                   alignment: Alignment.center,
                   child: Lottie.asset(

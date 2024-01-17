@@ -35,14 +35,14 @@ part '../widget/foodDetailUserFood/user_food_detail_widget.dart';
 
 class FoodDetailPage extends StatefulWidget {
   const FoodDetailPage({
-    required Post model,
+    required dynamic model,
     required String pageType,
     required this.myUser,
     super.key,
   })  : _model = model,
         _pageType = pageType;
 
-  final Post _model;
+  final dynamic _model;
   final String _pageType;
   final MyUser myUser;
 
@@ -66,7 +66,7 @@ class _FoodDetailPageState extends StateManageFoodDetail
         FoodDetailManager.instance.getDetailType(FoodDetailType.mainFood)) {
       detailWidget = _MainFoodDetailWidget(
         model: widget._model,
-        favoritePost: favoritePost,
+        myUser: widget.myUser,
       );
     } else if (widget._pageType ==
         FoodDetailManager.instance.getDetailType(FoodDetailType.favorite)) {

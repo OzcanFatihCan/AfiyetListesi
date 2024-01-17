@@ -4,7 +4,6 @@ import 'package:afiyetlistesi/blocs/update_user_info_bloc/update_user_info_bloc.
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:flutter/material.dart';
 
-import 'package:afiyetlistesi/view/Home/state/state_manage_home.dart';
 import 'package:afiyetlistesi/product/package/dotted/dotted_frame.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
@@ -15,9 +14,11 @@ import 'package:afiyetlistesi/view/Food/page/food_page.dart';
 import 'package:afiyetlistesi/view/Profile/page/profile_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:user_repository/user_repository.dart';
 
 part '../widget/drawer_widget.dart';
 part '../widget/navigation_bar_widget.dart';
+part '../viewModel/state_manage_home.dart';
 
 class HomePageView extends StatefulWidget {
   const HomePageView({Key? key}) : super(key: key);
@@ -37,27 +38,43 @@ class _HomePageState extends StateManageHome {
           });
         }
       },
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        appBar: AppBar(
-          title: Text(
-            PageName.values[currentPage].getPageTitle(),
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-        ),
-        body: _buildPageViewWidget(),
-        bottomNavigationBar: _BottomNavigationBarWidget(
-          pageController: pageController,
-          currentPage: currentPage,
-        ),
-        drawer: _BuildDrawerWidget(
-          pageController: pageController,
-        ),
+      child: BlocBuilder<MyUserBloc, MyUserState>(
+        builder: (context, userState) {
+          if (userState.status == MyUserStatus.success) {
+            return Scaffold(
+              backgroundColor: Theme.of(context).colorScheme.background,
+              appBar: AppBar(
+                title: Text(
+                  PageName.values[currentPage].getPageTitle(),
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+              ),
+              body: _buildPageViewWidget(userState),
+              bottomNavigationBar: _BottomNavigationBarWidget(
+                pageController: pageController,
+                currentPage: currentPage,
+              ),
+              drawer: _BuildDrawerWidget(
+                pageController: pageController,
+                myUser: userState.user!,
+              ),
+            );
+          } else {
+            return Scaffold(
+              backgroundColor: Theme.of(context).colorScheme.background,
+              body: Center(
+                child: Lottie.asset(
+                  ItemsofAsset.lottieLoading.fetchLottie,
+                ),
+              ),
+            );
+          }
+        },
       ),
     );
   }
 
-  PageView _buildPageViewWidget() {
+  PageView _buildPageViewWidget(MyUserState userState) {
     return PageView(
       physics: const NeverScrollableScrollPhysics(),
       controller: pageController,
@@ -68,7 +85,9 @@ class _HomePageState extends StateManageHome {
         PopularPageView(
           pageController: pageController,
         ),
-        const FavoritePageView(),
+        FavoritePageView(
+          myUser: userState.user!,
+        ),
         const ProfilePageView(),
         const FoodPageView(),
       ],

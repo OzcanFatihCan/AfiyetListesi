@@ -5,11 +5,4 @@ abstract class StateManageFoodDetail extends State<FoodDetailPage> {
   TextEditingController foodNameController = TextEditingController();
   TextEditingController materialController = TextEditingController();
   TextEditingController recipeController = TextEditingController();
-  late FavoriteModel favoritePost;
-  @override
-  void initState() {
-    favoritePost = FavoriteModel.empty;
-    favoritePost.favorite.myUser = widget.myUser;
-    super.initState();
-  }
 }

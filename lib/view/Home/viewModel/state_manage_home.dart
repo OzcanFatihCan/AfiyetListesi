@@ -1,7 +1,4 @@
-import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
-import 'package:afiyetlistesi/view/Home/page/home_page.dart';
-
-import 'package:flutter/material.dart';
+part of '../page/home_page.dart';
 
 abstract class StateManageHome extends State<HomePageView> {
   final pageController = PageController(viewportFraction: 1.0);

@@ -3,12 +3,15 @@ part of '../page/favorite_page.dart';
 class _BuildFavoriteCard extends StatelessWidget with _pageSize, _pageWord {
   _BuildFavoriteCard({
     required FavoriteModel model,
-    required Function()? itemDeleteOnPressed,
+    required void Function()? itemDeleteOnPressed,
+    required void Function()? itemDetailOnTap,
   })  : _model = model,
-        _itemDeleteOnPressed = itemDeleteOnPressed;
+        _itemDeleteOnPressed = itemDeleteOnPressed,
+        _itemDetailOnTap = itemDetailOnTap;
 
   final FavoriteModel _model;
   final Function()? _itemDeleteOnPressed;
+  final Function()? _itemDetailOnTap;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +70,7 @@ class _BuildFavoriteCard extends StatelessWidget with _pageSize, _pageWord {
             _showDeleteConfirmationDialog(context);
           },
         ),
-        onTap: () {},
+        onTap: _itemDetailOnTap,
       ),
     );
   }

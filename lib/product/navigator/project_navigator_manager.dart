@@ -118,7 +118,7 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
           ),
         );
       case NavigateRoutes.foodDetail:
-        final model = (arguments as Map<String, Object>?)?['model'] as Post;
+        final model = (arguments as Map<String, Object>?)?['model'];
         final pageType = (arguments)?['pageType'] as String;
         final currentUser = (arguments)?['myUser'] as MyUser;
 
@@ -135,8 +135,12 @@ mixin NavigatorControl<T extends AfiyetListesi> on Widget {
           ),
         );
       case NavigateRoutes.userFood:
+        final currentUser =
+            (arguments as Map<String, Object>?)?['myUser'] as MyUser;
         return _navigateToNormal(
-          const UserFoodPageView(),
+          UserFoodPageView(
+            myUser: currentUser,
+          ),
         );
 
       default:
