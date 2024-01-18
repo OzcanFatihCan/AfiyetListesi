@@ -1,15 +1,12 @@
 part of '../../page/food_detail_page.dart';
 
-class _BuildFavoriteFoodFavoriteButton extends StatefulWidget with _pageWord {
-  _BuildFavoriteFoodFavoriteButton();
+class _BuildFavoriteFoodFavoriteButton extends StatelessWidget with _pageWord {
+  _BuildFavoriteFoodFavoriteButton({
+    required Function() onPressed,
+  }) : _onPressed = onPressed;
 
-  @override
-  State<_BuildFavoriteFoodFavoriteButton> createState() =>
-      _BuildFavoriteFoodFavoriteButtonState();
-}
+  final Function() _onPressed;
 
-class _BuildFavoriteFoodFavoriteButtonState
-    extends State<_BuildFavoriteFoodFavoriteButton> with _pageWord {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -19,7 +16,7 @@ class _BuildFavoriteFoodFavoriteButtonState
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: ButtonDecorationWidget(
-            onPressed: () {},
+            onPressed: _onPressed,
             buttonTitle: buttonTitle2,
           ),
         ),

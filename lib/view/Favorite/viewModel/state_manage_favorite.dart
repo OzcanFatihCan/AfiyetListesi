@@ -33,4 +33,46 @@ abstract class StateManageFavorite extends State<FavoritePageView>
       );
     });
   }
+
+  favoriteDetailFunc(List<FavoriteModel> filteredModels, int modelIndex) async {
+    await NavigatorManager.instance
+        .pushToPageRotate(NavigateRoutes.foodDetail, arguments: {
+      'model': filteredModels[modelIndex],
+      'pageType': FoodDetailManager.instance.getDetailType(
+        FoodDetailType.favorite,
+      ),
+      'myUser': widget.myUser,
+    }).then((value) {
+      if (value) {
+        context.read<GetFavoriteBloc>().add(
+              GetFavorite(userId: userId),
+            );
+        currentPageNotifier.value =
+            CategoryManager.instance.getCategoryIndex(CategoryName.yemek);
+      }
+    });
+  }
+
+  favoriteDeleteFunc(
+    List<FavoriteModel> filteredModels,
+    int modelIndex,
+    BuildContext context,
+  ) {
+    context.read<DeleteFavoriteBloc>().add(
+          DeleteFavorite(
+            userId: userId,
+            favoriteId: filteredModels[modelIndex].favorite.foodId,
+          ),
+        );
+    context.read<DeleteFavoriteBloc>().stream.listen((deleteState) {
+      if (deleteState is DeleteFavoriteSuccess) {
+        context.read<GetFavoriteBloc>().add(
+              GetFavorite(userId: userId),
+            );
+        currentPageNotifier.value =
+            CategoryManager.instance.getCategoryIndex(CategoryName.yemek);
+      }
+    });
+    Navigator.pop(context);
+  }
 }
