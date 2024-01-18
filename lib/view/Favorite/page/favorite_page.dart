@@ -98,6 +98,7 @@ class _FavoritePageViewState extends StateManageFavorite with _pageSize {
                             favoriteDetailFunc(
                               filteredModels,
                               modelIndex,
+                              context,
                             );
                           },
                         );

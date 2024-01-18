@@ -3,12 +3,12 @@ part of '../page/food_page.dart';
 class _BuildFoodCard extends StatelessWidget with _pageSize, _pageWord {
   _BuildFoodCard({
     required Post model,
-    required MyUser myUser,
+    required Function()? onTap,
   })  : _model = model,
-        _myUser = myUser;
+        _onTap = onTap;
 
-  final MyUser _myUser;
   final Post _model;
+  final Function()? _onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -62,16 +62,7 @@ class _BuildFoodCard extends StatelessWidget with _pageSize, _pageWord {
             ],
           ),
         ),
-        onTap: () async {
-          await NavigatorManager.instance
-              .pushToPage(NavigateRoutes.foodDetail, arguments: {
-            'model': _model,
-            'pageType': FoodDetailManager.instance.getDetailType(
-              FoodDetailType.mainFood,
-            ),
-            'myUser': _myUser,
-          });
-        },
+        onTap: _onTap,
       ),
     );
   }

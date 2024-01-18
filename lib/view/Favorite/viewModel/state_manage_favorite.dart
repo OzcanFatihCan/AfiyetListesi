@@ -34,7 +34,11 @@ abstract class StateManageFavorite extends State<FavoritePageView>
     });
   }
 
-  favoriteDetailFunc(List<FavoriteModel> filteredModels, int modelIndex) async {
+  favoriteDetailFunc(
+    List<FavoriteModel> filteredModels,
+    int modelIndex,
+    BuildContext context,
+  ) async {
     await NavigatorManager.instance
         .pushToPageRotate(NavigateRoutes.foodDetail, arguments: {
       'model': filteredModels[modelIndex],

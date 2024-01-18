@@ -32,4 +32,18 @@ abstract class StateManageFood extends State<FoodPageView> {
       );
     });
   }
+
+  foodDetailFunc(
+    List<Post> filteredModels,
+    int modelIndex,
+  ) async {
+    await NavigatorManager.instance
+        .pushToPageRotate(NavigateRoutes.foodDetail, arguments: {
+      'model': filteredModels[modelIndex],
+      'pageType': FoodDetailManager.instance.getDetailType(
+        FoodDetailType.mainFood,
+      ),
+      'myUser': widget._myUser,
+    }).then((value) {});
+  }
 }

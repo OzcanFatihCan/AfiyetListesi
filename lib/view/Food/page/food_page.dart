@@ -80,7 +80,12 @@ class _FoodPageViewState extends StateManageFood with _pageSize {
                       itemBuilder: (context, modelIndex) {
                         return _BuildFoodCard(
                           model: filteredModels[modelIndex],
-                          myUser: widget._myUser,
+                          onTap: () async {
+                            foodDetailFunc(
+                              filteredModels,
+                              modelIndex,
+                            );
+                          },
                         );
                       },
                     );

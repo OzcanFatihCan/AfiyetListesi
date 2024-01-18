@@ -11,55 +11,96 @@ class _MainFoodDetailWidget extends StatelessWidget with _pageSize, _pageWord {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          flex: 4,
-          child: Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
-              Positioned.fill(
-                bottom: cardHeight / 1.4,
-                child: _BuildMainFoodPhoto(model: _model),
-              ),
-              Positioned(
-                height: cardHeight,
-                width: cardWidth,
-                bottom: cardBottom,
-                child: _buildFoodTitle(context),
-              ),
-              Positioned(
-                top: MediaQuery.of(context).padding.top,
-                left: backLeft,
-                bottom: backBottom,
-                child: const _BackButtonWidget(),
-              ),
-            ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CreateFavoriteBloc(
+            projectRepository: FirebaseProjectRepository(),
           ),
         ),
-        Expanded(
-          flex: 6,
-          child: Padding(
-            padding: pagePaddingx,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        BlocProvider(
+          create: (context) => DeleteFavoriteBloc(
+            projectRepository: FirebaseProjectRepository(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => GetFavoriteBloc(
+            projectRepository: FirebaseProjectRepository(),
+          )..add(
+              GetFavorite(
+                userId: _myUser.id,
+              ),
+            ),
+        )
+      ],
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<DeleteFavoriteBloc, DeleteFavoriteState>(
+            listener: (context, deleteFavoriteState) {
+              if (deleteFavoriteState is DeleteFavoriteSuccess) {
+                Navigator.pop(context, true);
+              }
+            },
+          ),
+          BlocListener<CreateFavoriteBloc, CreateFavoriteState>(
+            listener: (context, createFavoriteState) {
+              if (createFavoriteState is CreateFavoriteSuccess) {
+                Navigator.pop(context, true);
+              }
+            },
+          ),
+        ],
+        child: Column(
+          children: [
+            Expanded(
+              flex: 4,
+              child: Stack(
+                alignment: Alignment.center,
                 children: <Widget>[
-                  _buildMaterialTitle(context, materialFoodText),
-                  _BuildMainFoodMaterials(model: _model),
-                  _buildRecipeTitle(context, recipeText),
-                  _BuildMainFoodRecipe(model: _model),
-                  _BuildMainFoodFavoriteButton(
-                    model: _model,
-                    myUser: _myUser,
+                  Positioned.fill(
+                    bottom: cardHeight / 1.4,
+                    child: _BuildMainFoodPhoto(model: _model),
+                  ),
+                  Positioned(
+                    height: cardHeight,
+                    width: cardWidth,
+                    bottom: cardBottom,
+                    child: _buildFoodTitle(context),
+                  ),
+                  Positioned(
+                    top: MediaQuery.of(context).padding.top,
+                    left: backLeft,
+                    bottom: backBottom,
+                    child: const _BackButtonWidget(),
                   ),
                 ],
               ),
             ),
-          ),
-        )
-      ],
+            Expanded(
+              flex: 6,
+              child: Padding(
+                padding: pagePaddingx,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      _buildMaterialTitle(context, materialFoodText),
+                      _BuildMainFoodMaterials(model: _model),
+                      _buildRecipeTitle(context, recipeText),
+                      _BuildMainFoodRecipe(model: _model),
+                      _BuildMainFoodFavoriteButton(
+                        model: _model,
+                        myUser: _myUser,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 
