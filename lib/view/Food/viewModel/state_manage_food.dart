@@ -33,6 +33,18 @@ abstract class StateManageFood extends State<FoodPageView> {
     });
   }
 
+  void _pageChangeFood(int index) {
+    setState(
+      () {
+        widget._pageController.animateToPage(
+          index,
+          duration: Duration(seconds: duration),
+          curve: Curves.decelerate,
+        );
+      },
+    );
+  }
+
   foodDetailFunc(
     List<Post> filteredModels,
     int modelIndex,
@@ -44,6 +56,10 @@ abstract class StateManageFood extends State<FoodPageView> {
         FoodDetailType.mainFood,
       ),
       'myUser': widget._myUser,
-    }).then((value) {});
+    }).then((value) {
+      if (value == true) {
+        _pageChangeFood(PageName.favorite.index);
+      }
+    });
   }
 }

@@ -19,8 +19,12 @@ class FoodPageView extends StatefulWidget {
   const FoodPageView({
     required MyUser myUser,
     super.key,
-  }) : _myUser = myUser;
+    required PageController pageController,
+  })  : _pageController = pageController,
+        _myUser = myUser;
   final MyUser _myUser;
+
+  final PageController _pageController;
 
   @override
   State<FoodPageView> createState() => _FoodPageViewState();

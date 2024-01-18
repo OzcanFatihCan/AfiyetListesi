@@ -1,5 +1,4 @@
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
-//import 'package:afiyetlistesi/product/constants/project_food_detail_type.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:afiyetlistesi/service/popular_food_model.dart';
 
 part '../widget/content_button_widget.dart';
 part '../widget/popular_card_widget.dart';
+part '../viewModel/state_manage_popular.dart';
 
 class PopularPageView extends StatefulWidget {
   const PopularPageView({
@@ -22,20 +22,8 @@ class PopularPageView extends StatefulWidget {
   State<PopularPageView> createState() => _PopularPageViewState();
 }
 
-class _PopularPageViewState extends State<PopularPageView>
-    with _pageSize, _pageWord, _pageDuration {
-  void _pageChangePopular(int index) {
-    setState(
-      () {
-        widget._pageController.animateToPage(
-          index,
-          duration: Duration(seconds: duration),
-          curve: Curves.decelerate,
-        );
-      },
-    );
-  }
-
+class _PopularPageViewState extends StateManagePopular
+    with _pageSize, _pageWord {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,6 +145,9 @@ mixin _pageSize {
   //elevation
   final double elevationValue = 8;
   final double elevationValueOff = 0;
+
+  //duration
+  final duration = 1;
 }
 
 mixin _pageWord {
@@ -200,8 +191,4 @@ mixin _pageWord {
     "Bulgurlar göz göz olup suyunu çektiğinde ocağın altını kapatın.",
     "Pilavınızın altını kapatın ve dinlenmeye bırakın.",
   ];
-}
-
-mixin _pageDuration {
-  final duration = 1;
 }
