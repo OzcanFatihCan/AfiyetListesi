@@ -1,9 +1,15 @@
+import 'package:afiyetlistesi/blocs/get_popular_bloc/get_popular_bloc.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
+import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/service/model/popular/popular_model.dart';
+import 'package:afiyetlistesi/service/repository/firebase_project_repository.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
+import 'package:afiyetlistesi/view/FoodNotFound/page/food_not_found_page.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/product/components/text/search_text_field.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 part '../widget/content_popular_button_widget.dart';
 part '../widget/popular_card_widget.dart';
@@ -26,12 +32,15 @@ class _PopularPageViewState extends StateManagePopular
     with _pageSize, _pageWord {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: SingleChildScrollView(
-        padding: EdgeInsets.zero,
-        child: Padding(
+    return BlocProvider(
+      create: (context) => GetPopularBloc(
+        projectRepository: FirebaseProjectRepository(),
+      )..add(
+          GetPopular(),
+        ),
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: Padding(
           padding: pagePadding2x,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,37 +67,53 @@ class _PopularPageViewState extends StateManagePopular
   Expanded _buildContent(BuildContext context) {
     return Expanded(
       child: Padding(
-          padding: pagePadding2x,
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Container(),
-            /*
-              PageView.builder(
-                  itemCount:
-                      CategoryManager.instance.getCategoryTitles().length,
-                  controller: popularController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    
-                    return ListView.builder(
-                       scrollDirection: Axis.horizontal,
-                      itemCount: filteredModels.length,
-                      itemBuilder: (context, modelIndex) {
-                        return _BuildPopularCard(
-                          model: filteredModels[modelIndex],
-                          onTap: () async {
-                            foodDetailFunc(
-                              filteredModels,
-                              modelIndex,
+        padding: pagePaddingx,
+        child: BlocBuilder<GetPopularBloc, GetPopularState>(
+          builder: (context, popularState) {
+            if (popularState is GetPopularSuccess) {
+              popularPost = popularState.popular;
+              return PageView.builder(
+                itemCount: CategoryManager.instance.getCategoryTitles().length,
+                controller: popularController,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  String category =
+                      CategoryManager.instance.getCategoryTitles()[index];
+                  List<PopularModel> filteredModels = popularPost
+                      .where(
+                        (value) => value.foodCategory == category,
+                      )
+                      .toList();
+                  return filteredModels.isNotEmpty
+                      ? ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: filteredModels.length,
+                          itemBuilder: (context, modelIndex) {
+                            return _BuildPopularCard(
+                              model: filteredModels[modelIndex],
+                              itemDetailOnTap: () {
+                                //populer detay sayfası oluşturulacak.
+                              },
                             );
                           },
+                        )
+                      : FoodErrorPage(
+                          pagePaddingx: pagePaddingx,
+                          errorTitle: populerError,
                         );
-                      },
-                    );
-                  },
-                );
-            */
-          )),
+                },
+              );
+            } else {
+              return Align(
+                alignment: Alignment.center,
+                child: Lottie.asset(
+                  ItemsofAsset.lottieLoading.fetchLottie,
+                ),
+              );
+            }
+          },
+        ),
+      ),
     );
   }
 
@@ -132,10 +157,6 @@ class _PopularPageViewState extends StateManagePopular
 
 mixin _pageSize {
   //obj
-  final double spaceObjects = 20;
-  final double spaceObjectsMin = 10;
-  final double foodPhotoHeightSize = 130;
-  final double foodPhotoWidthSize = 120;
   final double optionDot = 7;
 
   //radius
@@ -145,12 +166,9 @@ mixin _pageSize {
   final pagePaddingx = const EdgeInsets.all(8.0);
   final pagePadding2x = const EdgeInsets.all(16.0);
   final buttonPaddingx = const EdgeInsets.symmetric(horizontal: 15);
-  final listPaddingx = const EdgeInsets.symmetric(horizontal: 10);
   final spaceObjectPadding = const EdgeInsets.only(bottom: 20);
   final spaceObjectPaddingMin = const EdgeInsets.only(bottom: 5, top: 5);
-
-  final imagePadding =
-      const EdgeInsets.only(bottom: 16, right: 16, left: 16, top: 32);
+  final imagePadding = const EdgeInsets.all(16);
 
   //elevation
   final double elevationValue = 8;
@@ -166,4 +184,5 @@ mixin _pageWord {
   final subtitleText = "Tarif için tıkla";
   final allFood = "Tümünü Gör";
   final foodNotFound = "Yemek adı yükleniyor...";
+  final populerError = "Bu kategoride popüler bulunamadı";
 }

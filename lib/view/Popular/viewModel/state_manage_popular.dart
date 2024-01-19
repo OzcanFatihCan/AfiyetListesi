@@ -3,6 +3,7 @@ part of '../page/popular_page.dart';
 abstract class StateManagePopular extends State<PopularPageView>
     with _pageSize {
   PageController popularController = PageController();
+  late List<PopularModel> popularPost;
   int currentFav =
       CategoryManager.instance.getCategoryIndex(CategoryName.yemek);
   void _pageChangePopular(int index) {
@@ -26,12 +27,16 @@ abstract class StateManagePopular extends State<PopularPageView>
   }
 
   void contentChange(int currentFav) {
-    setState(() {
-      popularController.animateToPage(
-        currentFav,
-        duration: Duration(seconds: duration),
-        curve: Curves.decelerate,
-      );
-    });
+    if (popularController.positions.isNotEmpty) {
+      if (popularController.page != currentFav) {
+        setState(() {
+          popularController.animateToPage(
+            currentFav,
+            duration: Duration(seconds: duration),
+            curve: Curves.decelerate,
+          );
+        });
+      }
+    }
   }
 }

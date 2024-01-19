@@ -13,28 +13,30 @@ class _BuildPopularCard extends StatelessWidget with _pageSize, _pageWord {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.48,
-      child: InkWell(
+      width: MediaQuery.of(context).size.width * 0.52,
+      child: GestureDetector(
         onTap: _itemDetailOnTap,
         child: Card(
           shape: Theme.of(context).cardTheme.shape,
-          color: Theme.of(context).cardTheme.color,
+          color: Theme.of(context).cardColor,
           child: Column(
             children: <Widget>[
               Padding(
                 padding: imagePadding,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.all(halfRadius),
+                  borderRadius: BorderRadius.all(
+                    halfRadius,
+                  ),
                   child: _model.foodPhoto.isNotEmpty
                       ? Image.network(
                           _model.foodPhoto,
-                          height: foodPhotoHeightSize,
-                          width: foodPhotoWidthSize,
-                          fit: BoxFit.fitHeight,
+                          height: MediaQuery.of(context).size.height * 0.19,
+                          width: MediaQuery.of(context).size.width * 0.38,
+                          fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) {
                             return SizedBox(
-                              width: foodPhotoWidthSize,
-                              height: foodPhotoHeightSize,
+                              height: MediaQuery.of(context).size.height * 0.19,
+                              width: MediaQuery.of(context).size.width * 0.38,
                               child: Center(
                                 child: CircularProgressIndicator(
                                   color: Theme.of(context).colorScheme.error,
@@ -44,8 +46,8 @@ class _BuildPopularCard extends StatelessWidget with _pageSize, _pageWord {
                           },
                         )
                       : SizedBox(
-                          height: foodPhotoHeightSize,
-                          width: foodPhotoWidthSize,
+                          height: MediaQuery.of(context).size.height * 0.19,
+                          width: MediaQuery.of(context).size.width * 0.38,
                           child: Center(
                             child: CircularProgressIndicator(
                               color: Theme.of(context).colorScheme.error,
@@ -53,9 +55,6 @@ class _BuildPopularCard extends StatelessWidget with _pageSize, _pageWord {
                           ),
                         ),
                 ),
-              ),
-              SizedBox(
-                height: spaceObjects,
               ),
               Text(
                 softWrap: true,
