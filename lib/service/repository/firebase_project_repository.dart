@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:afiyetlistesi/service/model/favorite/favorite_entity.dart';
 import 'package:afiyetlistesi/service/model/favorite/favorite_model.dart';
+import 'package:afiyetlistesi/service/model/popular/popular_entity.dart';
 import 'package:afiyetlistesi/service/model/popular/popular_model.dart';
 import 'package:afiyetlistesi/service/repository/project_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -155,6 +156,32 @@ class FirebaseProjectRepository implements ProjectRepository {
       } else {
         log('Popular not found');
       }
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<PopularModel>> getPopular() {
+    try {
+      return popularCollection
+          .where(
+            'count',
+            isGreaterThanOrEqualTo: 3,
+          )
+          .get()
+          .then(
+            (value) => value.docs
+                .map(
+                  (e) => PopularModel.fromEntity(
+                    PopularEntity.fromDocument(
+                      e.data(),
+                    ),
+                  ),
+                )
+                .toList(),
+          );
     } catch (e) {
       log(e.toString());
       rethrow;
