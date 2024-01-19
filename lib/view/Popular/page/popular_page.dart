@@ -1,11 +1,11 @@
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
+import 'package:afiyetlistesi/service/model/popular/popular_model.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/product/components/text/search_text_field.dart';
-import 'package:afiyetlistesi/service/popular_food_model.dart';
 
-part '../widget/content_button_widget.dart';
+part '../widget/content_popular_button_widget.dart';
 part '../widget/popular_card_widget.dart';
 part '../viewModel/state_manage_popular.dart';
 
@@ -41,19 +41,54 @@ class _PopularPageViewState extends StateManagePopular
                 padding: spaceObjectPadding,
                 child: const SearchTextField(),
               ),
-              const SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: _BuildContentButton(),
+              _BuildContentButton(
+                currentFav: currentFav,
+                contentChange: contentChange,
+                pageChange: popularChange,
               ),
               _buildMiddleTextWidget(context),
-              const SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: _BuildPopularWidget(),
-              ),
+              _buildContent(context),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Expanded _buildContent(BuildContext context) {
+    return Expanded(
+      child: Padding(
+          padding: pagePadding2x,
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Container(),
+            /*
+              PageView.builder(
+                  itemCount:
+                      CategoryManager.instance.getCategoryTitles().length,
+                  controller: popularController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    
+                    return ListView.builder(
+                       scrollDirection: Axis.horizontal,
+                      itemCount: filteredModels.length,
+                      itemBuilder: (context, modelIndex) {
+                        return _BuildPopularCard(
+                          model: filteredModels[modelIndex],
+                          onTap: () async {
+                            foodDetailFunc(
+                              filteredModels,
+                              modelIndex,
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                );
+            */
+          )),
     );
   }
 
@@ -95,38 +130,13 @@ class _PopularPageViewState extends StateManagePopular
   }
 }
 
-class PopularFavoriteItems with _pageWord {
-  late List<PopularFavoriteModel> cardItems;
-  PopularFavoriteItems() {
-    cardItems = [
-      PopularFavoriteModel(
-        id: 1,
-        imagePath: photoUrl,
-        title: "Bulgur Pilavı",
-        category: 1,
-        materialsFood: materialsFood,
-        recipe: cookingRecipe,
-      ),
-      PopularFavoriteModel(
-          id: 2, imagePath: photoUrl2, title: "Sütlaç", category: 2),
-      PopularFavoriteModel(
-          id: 3, imagePath: photoUrl3, title: "Taze Fasulye", category: 1),
-      PopularFavoriteModel(
-          id: 4, imagePath: photoUrl, title: "Bulgur Pilavı", category: 1),
-      PopularFavoriteModel(
-          id: 5, imagePath: photoUrl2, title: "Sütlaç", category: 2),
-      PopularFavoriteModel(
-          id: 6, imagePath: photoUrl3, title: "Taze Fasulye", category: 1),
-    ];
-  }
-}
-
 mixin _pageSize {
   //obj
   final double spaceObjects = 20;
   final double spaceObjectsMin = 10;
   final double foodPhotoHeightSize = 130;
   final double foodPhotoWidthSize = 120;
+  final double optionDot = 7;
 
   //radius
   final halfRadius = const Radius.circular(15);
@@ -137,7 +147,7 @@ mixin _pageSize {
   final buttonPaddingx = const EdgeInsets.symmetric(horizontal: 15);
   final listPaddingx = const EdgeInsets.symmetric(horizontal: 10);
   final spaceObjectPadding = const EdgeInsets.only(bottom: 20);
-  final spaceObjectPaddingMin = const EdgeInsets.only(bottom: 10);
+  final spaceObjectPaddingMin = const EdgeInsets.only(bottom: 5, top: 5);
 
   final imagePadding =
       const EdgeInsets.only(bottom: 16, right: 16, left: 16, top: 32);
@@ -156,39 +166,4 @@ mixin _pageWord {
   final subtitleText = "Tarif için tıkla";
   final allFood = "Tümünü Gör";
   final foodNotFound = "Yemek adı yükleniyor...";
-
-  final photoUrl =
-      "https://cdn.yemek.com/mncrop/940/625/uploads/2015/05/bulgur-pilavi-yemekcom.jpg";
-  final photoUrl2 =
-      "https://cdn.yemek.com/mnresize/940/940/uploads/2015/03/ytk-firin-sutlac-site.jpg";
-  final photoUrl3 =
-      "https://www.diyetkolik.com/site_media/media/foodrecipe_images/tazefasulyeyemegi_1.jpg";
-
-  final materialsFood = [
-    "1 yemek kaşığı tereyağı",
-    "1 yemek kaşığı zeytinyağı",
-    "2 adet kuru soğan (yemeklik doğranmış)",
-    "1 diş sarımsak",
-    "2 adet yeşil biber (doğranmış)",
-    "1 yemek kaşığı domates salçası",
-    "1/2 yemek kaşığı biber salçası",
-    "2 su bardağı pilavlık bulgur",
-    "1 çay kaşığı tuz",
-    "1 çay kaşığı karabiber",
-    "1 çay kaşığı pul biber",
-    "1 tatlı kaşığı kekik",
-    "2 adet domates (rendelenmiş)",
-    "4 su bardağı su",
-  ];
-  final cookingRecipe = [
-    "Birer yemek kaşığı tereyağı ve zeytinyağını bir pilav tenceresinde kızdırın. Üzerine soğanları ilave edin.",
-    "2 adet yemeklik doğranmış kuru soğanı da tencereye ekleyin ve pembeleşinceye kadar kavurun. 1 adet ezilmiş sarımsak ve 2 adet doğranmış yeşil biberi de ekleyin ve kavurun.",
-    "1 yemek kaşığı domates salçası ve yarım yemek kaşığı biber salçasını da ekleyip kokusu çıkana kadar kavurun.",
-    "Sonra 2 su bardağı pilavlık bulguru ekleyin.",
-    "Baharat olarak 1'er çay kaşığı tuz, karabiber, pul biber ve 1 tatlı kaşığı kekik ilave edin.",
-    "2 adet rendelenmiş domatesi ilave edin.",
-    "4 su bardağı su ekledikten sonra tencerenin kapağını kapatıp pişmeye bırakın",
-    "Bulgurlar göz göz olup suyunu çektiğinde ocağın altını kapatın.",
-    "Pilavınızın altını kapatın ve dinlenmeye bırakın.",
-  ];
 }
