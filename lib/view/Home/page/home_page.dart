@@ -84,6 +84,7 @@ class _HomePageState extends StateManageHome {
       children: [
         PopularPageView(
           pageController: pageController,
+          myUser: userState.user!,
         ),
         FavoritePageView(
           myUser: userState.user!,

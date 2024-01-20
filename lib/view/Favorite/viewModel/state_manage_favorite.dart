@@ -43,7 +43,7 @@ abstract class StateManageFavorite extends State<FavoritePageView>
         .pushToPageRotate(NavigateRoutes.foodDetail, arguments: {
       'model': filteredModels[modelIndex],
       'pageType': FoodDetailManager.instance.getDetailType(
-        FoodDetailType.favorite,
+        FoodDetailType.favoriteFood,
       ),
       'myUser': widget.myUser,
     }).then((value) {

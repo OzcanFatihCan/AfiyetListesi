@@ -1,5 +1,6 @@
 import 'package:afiyetlistesi/blocs/get_popular_bloc/get_popular_bloc.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
+import 'package:afiyetlistesi/product/constants/project_food_detail_type.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/service/model/popular/popular_model.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/product/components/text/search_text_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:user_repository/user_repository.dart';
 
 part '../widget/content_popular_button_widget.dart';
 part '../widget/popular_card_widget.dart';
@@ -19,10 +21,12 @@ class PopularPageView extends StatefulWidget {
   const PopularPageView({
     Key? key,
     required PageController pageController,
+    required this.myUser,
   })  : _pageController = pageController,
         super(key: key);
 
   final PageController _pageController;
+  final MyUser myUser;
 
   @override
   State<PopularPageView> createState() => _PopularPageViewState();
@@ -91,8 +95,17 @@ class _PopularPageViewState extends StateManagePopular
                           itemBuilder: (context, modelIndex) {
                             return _BuildPopularCard(
                               model: filteredModels[modelIndex],
-                              itemDetailOnTap: () {
-                                //populer detay sayfası oluşturulacak.
+                              itemDetailOnTap: () async {
+                                await NavigatorManager.instance.pushToPage(
+                                    NavigateRoutes.foodDetail,
+                                    arguments: {
+                                      'model': filteredModels[modelIndex],
+                                      'pageType': FoodDetailManager.instance
+                                          .getDetailType(
+                                        FoodDetailType.popularFood,
+                                      ),
+                                      'myUser': widget.myUser,
+                                    });
                               },
                             );
                           },

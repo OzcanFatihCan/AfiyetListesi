@@ -1,18 +1,21 @@
 enum FoodDetailType {
   userfood,
   mainFood,
-  favorite,
+  favoriteFood,
+  popularFood,
 }
 
 extension FoodDetailTypeExtension on FoodDetailType {
   String getListTitle() {
     switch (this) {
       case FoodDetailType.userfood:
-        return "UserFood";
+        return "userFood";
       case FoodDetailType.mainFood:
         return "mainFood";
-      case FoodDetailType.favorite:
-        return "FavoriteFood";
+      case FoodDetailType.favoriteFood:
+        return "favoriteFood";
+      case FoodDetailType.popularFood:
+        return "popularFood";
       default:
         return "";
     }

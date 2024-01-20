@@ -10,6 +10,7 @@ import 'package:afiyetlistesi/product/constants/project_food_detail_type.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/product/package/image/photo_picker.dart';
 import 'package:afiyetlistesi/service/model/favorite/favorite_model.dart';
+import 'package:afiyetlistesi/service/model/popular/popular_model.dart';
 import 'package:afiyetlistesi/service/repository/firebase_project_repository.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
 import 'package:afiyetlistesi/view/Error/page/error_page.dart';
@@ -31,14 +32,18 @@ part '../widget/foodDetailUserFood/uf_text_widget.dart';
 part '../widget/foodDetailUserFood/uf_category_widget.dart';
 part '../widget/foodDetailUserFood/uf_food_photo_widget.dart';
 part '../widget/foodDetailUserFood/uf_title_widget.dart';
-part '../widget/foodDetailFavorite/ff_food_photo_widget.dart';
-part '../widget/foodDetailFavorite/ff_favorite_button_widget.dart';
-part '../widget/foodDetailFavorite/ff_materials_content_widget.dart';
-part '../widget/foodDetailFavorite/ff_recipe_content_widget.dart';
+part '../widget/foodDetailFavoriteFood/ff_food_photo_widget.dart';
+part '../widget/foodDetailFavoriteFood/ff_favorite_button_widget.dart';
+part '../widget/foodDetailFavoriteFood/ff_materials_content_widget.dart';
+part '../widget/foodDetailFavoriteFood/ff_recipe_content_widget.dart';
+part '../widget/foodDetailPopularFood/pf_food_photo_widget.dart';
+part '../widget/foodDetailPopularFood/pf_materials_content_widget.dart';
 
 part '../widget/foodDetailMainFood/main_food_detail_widget.dart';
 part '../widget/foodDetailUserFood/user_food_detail_widget.dart';
-part '../widget/foodDetailFavorite/favorite_food_detail_widget.dart';
+part '../widget/foodDetailFavoriteFood/favorite_food_detail_widget.dart';
+part '../widget/foodDetailPopularFood/popular_food_detail_widget.dart';
+part '../widget/foodDetailPopularFood/pf_recipe_content_widget.dart';
 
 class FoodDetailPage extends StatefulWidget {
   const FoodDetailPage({
@@ -76,8 +81,13 @@ class _FoodDetailPageState extends StateManageFoodDetail
         myUser: widget.myUser,
       );
     } else if (widget._pageType ==
-        FoodDetailManager.instance.getDetailType(FoodDetailType.favorite)) {
+        FoodDetailManager.instance.getDetailType(FoodDetailType.favoriteFood)) {
       detailWidget = _FavoriteFoodDetailWidget(
+        model: widget._model,
+      );
+    } else if (widget._pageType ==
+        FoodDetailManager.instance.getDetailType(FoodDetailType.popularFood)) {
+      detailWidget = _PopularFoodDetailWidget(
         model: widget._model,
       );
     } else {
