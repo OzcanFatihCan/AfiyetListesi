@@ -3,6 +3,7 @@ import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_food_detail_type.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
+import 'package:afiyetlistesi/view/Error/page/error_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +31,7 @@ class FoodPageView extends StatefulWidget {
   State<FoodPageView> createState() => _FoodPageViewState();
 }
 
-class _FoodPageViewState extends StateManageFood with _pageSize {
+class _FoodPageViewState extends StateManageFood with _pageSize, _pageWord {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -76,23 +77,31 @@ class _FoodPageViewState extends StateManageFood with _pageSize {
                     List<Post> filteredModels = foodPosts
                         .where((post) => post.foodCategory == category)
                         .toList();
-                    return GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: foodColumn,
-                      ),
-                      itemCount: filteredModels.length,
-                      itemBuilder: (context, modelIndex) {
-                        return _BuildFoodCard(
-                          model: filteredModels[modelIndex],
-                          onTap: () async {
-                            foodDetailFunc(
-                              filteredModels,
-                              modelIndex,
-                            );
-                          },
-                        );
-                      },
-                    );
+                    return filteredModels.isNotEmpty
+                        ? GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: foodColumn,
+                            ),
+                            itemCount: filteredModels.length,
+                            itemBuilder: (context, modelIndex) {
+                              return _BuildFoodCard(
+                                model: filteredModels[modelIndex],
+                                onTap: () async {
+                                  foodDetailFunc(
+                                    filteredModels,
+                                    modelIndex,
+                                  );
+                                },
+                              );
+                            },
+                          )
+                        : ErrorPageView(
+                            errorTitle: foodError,
+                            errorType: FoodErrorManager.instance.getErrorType(
+                              FoodErrorType.foodNotFound,
+                            ),
+                          );
                   },
                 );
               } else if (state is GetPostLoading) {
@@ -152,4 +161,5 @@ mixin _pageSize {
 mixin _pageWord {
   final subtitleText = "Tarif için tıkla";
   final foodNotFound = "Yemek adı yükleniyor...";
+  final foodError = "Bu kategoride henüz yemek eklenmedi";
 }

@@ -6,7 +6,7 @@ import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/service/model/popular/popular_model.dart';
 import 'package:afiyetlistesi/service/repository/firebase_project_repository.dart';
 import 'package:afiyetlistesi/theme/app_theme.dart';
-import 'package:afiyetlistesi/view/FoodNotFound/page/food_not_found_page.dart';
+import 'package:afiyetlistesi/view/Error/page/error_page.dart';
 import 'package:flutter/material.dart';
 import 'package:afiyetlistesi/product/components/text/search_text_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -110,8 +110,10 @@ class _PopularPageViewState extends StateManagePopular
                             );
                           },
                         )
-                      : FoodErrorPage(
-                          pagePaddingx: pagePaddingx,
+                      : ErrorPageView(
+                          errorType: FoodErrorManager.instance.getErrorType(
+                            FoodErrorType.specialFoodNotFound,
+                          ),
                           errorTitle: populerError,
                         );
                 },

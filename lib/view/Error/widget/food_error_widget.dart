@@ -1,20 +1,17 @@
-import 'package:afiyetlistesi/product/constants/project_photo.dart';
-import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+part of '../page/error_page.dart';
 
-class FoodErrorPage extends StatelessWidget {
-  const FoodErrorPage({
-    super.key,
-    required this.pagePaddingx,
+class _FoodErrorWidget extends StatelessWidget with _pageItem {
+  _FoodErrorWidget({
+    Key? key,
     required this.errorTitle,
-  });
+  }) : super(key: key);
 
-  final EdgeInsets pagePaddingx;
   final String errorTitle;
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: pagePaddingx,
@@ -23,13 +20,13 @@ class FoodErrorPage extends StatelessWidget {
             child: Align(
               alignment: Alignment.center,
               child: Lottie.asset(
-                ItemsofAsset.lottieLoading2.fetchLottie,
+                ItemsofAsset.lottieFood.fetchLottie,
               ),
             ),
           ),
         ),
         Text(
-          errorTitle,
+          errorTitle.isNotEmpty ? errorTitle : errorTitleNotFound,
           style: Theme.of(context).textTheme.labelLarge,
         ),
       ],

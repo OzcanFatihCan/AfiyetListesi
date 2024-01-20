@@ -7,6 +7,7 @@ import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/service/model/favorite/favorite_model.dart';
 import 'package:afiyetlistesi/service/repository/firebase_project_repository.dart';
+import 'package:afiyetlistesi/view/Error/page/error_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +26,8 @@ class FavoritePageView extends StatefulWidget {
   State<FavoritePageView> createState() => _FavoritePageViewState();
 }
 
-class _FavoritePageViewState extends StateManageFavorite with _pageSize {
+class _FavoritePageViewState extends StateManageFavorite
+    with _pageSize, _pageWord {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -82,28 +84,35 @@ class _FavoritePageViewState extends StateManageFavorite with _pageSize {
                           (value) => value.favorite.foodCategory == category,
                         )
                         .toList();
-                    return ListView.builder(
-                      itemCount: filteredModels.length,
-                      itemBuilder: (context, modelIndex) {
-                        return _BuildFavoriteCard(
-                          model: filteredModels[modelIndex],
-                          itemDeleteOnPressed: () {
-                            favoriteDeleteFunc(
-                              filteredModels,
-                              modelIndex,
-                              context,
-                            );
-                          },
-                          itemDetailOnTap: () async {
-                            favoriteDetailFunc(
-                              filteredModels,
-                              modelIndex,
-                              context,
-                            );
-                          },
-                        );
-                      },
-                    );
+                    return filteredModels.isNotEmpty
+                        ? ListView.builder(
+                            itemCount: filteredModels.length,
+                            itemBuilder: (context, modelIndex) {
+                              return _BuildFavoriteCard(
+                                model: filteredModels[modelIndex],
+                                itemDeleteOnPressed: () {
+                                  favoriteDeleteFunc(
+                                    filteredModels,
+                                    modelIndex,
+                                    context,
+                                  );
+                                },
+                                itemDetailOnTap: () async {
+                                  favoriteDetailFunc(
+                                    filteredModels,
+                                    modelIndex,
+                                    context,
+                                  );
+                                },
+                              );
+                            },
+                          )
+                        : ErrorPageView(
+                            errorType: FoodErrorManager.instance.getErrorType(
+                              FoodErrorType.specialFoodNotFound,
+                            ),
+                            errorTitle: favoriError,
+                          );
                   },
                 );
               } else {
@@ -150,4 +159,5 @@ mixin _pageWord {
   final deleteFoodTitle = "Favoriyi Sil";
   final cancelButton = "İptal";
   final okButton = "Sil";
+  final favoriError = "Bu kategoride favoriniz bulunamadı";
 }

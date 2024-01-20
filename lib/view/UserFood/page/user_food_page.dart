@@ -5,6 +5,7 @@ import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_food_detail_type.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
+import 'package:afiyetlistesi/view/Error/page/error_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -84,54 +85,64 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
                     List<Post> filteredModels = foodPosts
                         .where((post) => post.foodCategory == category)
                         .toList();
-                    return ListView.builder(
-                      itemCount: filteredModels.length,
-                      itemBuilder: (context, modelIndex) {
-                        return _BuildUserFoodCard(
-                          model: filteredModels[modelIndex],
-                          itemDeleteOnPressed: () {
-                            context.read<DeletePostBloc>().add(
-                                  DeletePost(
-                                    userId: userId,
-                                    postId: filteredModels[modelIndex].foodId,
-                                  ),
-                                );
-                            context
-                                .read<DeletePostBloc>()
-                                .stream
-                                .listen((deleteState) {
-                              if (deleteState is DeletePostSuccess) {
-                                context.read<GetPostBloc>().add(
-                                      GetPosts(userId: userId),
-                                    );
-                                currentPageNotifier.value = CategoryManager
-                                    .instance
-                                    .getCategoryIndex(CategoryName.yemek);
-                              }
-                            });
-                            Navigator.pop(context);
-                          },
-                          itemDetailOnTap: () async {
-                            await NavigatorManager.instance.pushToPageRotate(
-                                NavigateRoutes.foodDetail,
-                                arguments: {
-                                  'model': filteredModels[modelIndex],
-                                  'pageType':
-                                      FoodDetailManager.instance.getDetailType(
-                                    FoodDetailType.userfood,
-                                  ),
-                                  'myUser': widget.myUser,
-                                }).then((value) {
-                              if (value) {
-                                context.read<GetPostBloc>().add(
-                                      GetPosts(userId: userId),
-                                    );
-                              }
-                            });
-                          },
-                        );
-                      },
-                    );
+                    return filteredModels.isNotEmpty
+                        ? ListView.builder(
+                            itemCount: filteredModels.length,
+                            itemBuilder: (context, modelIndex) {
+                              return _BuildUserFoodCard(
+                                model: filteredModels[modelIndex],
+                                itemDeleteOnPressed: () {
+                                  context.read<DeletePostBloc>().add(
+                                        DeletePost(
+                                          userId: userId,
+                                          postId:
+                                              filteredModels[modelIndex].foodId,
+                                        ),
+                                      );
+                                  context
+                                      .read<DeletePostBloc>()
+                                      .stream
+                                      .listen((deleteState) {
+                                    if (deleteState is DeletePostSuccess) {
+                                      context.read<GetPostBloc>().add(
+                                            GetPosts(userId: userId),
+                                          );
+                                      currentPageNotifier.value =
+                                          CategoryManager.instance
+                                              .getCategoryIndex(
+                                                  CategoryName.yemek);
+                                    }
+                                  });
+                                  Navigator.pop(context);
+                                },
+                                itemDetailOnTap: () async {
+                                  await NavigatorManager.instance
+                                      .pushToPageRotate(
+                                          NavigateRoutes.foodDetail,
+                                          arguments: {
+                                        'model': filteredModels[modelIndex],
+                                        'pageType': FoodDetailManager.instance
+                                            .getDetailType(
+                                          FoodDetailType.userfood,
+                                        ),
+                                        'myUser': widget.myUser,
+                                      }).then((value) {
+                                    if (value) {
+                                      context.read<GetPostBloc>().add(
+                                            GetPosts(userId: userId),
+                                          );
+                                    }
+                                  });
+                                },
+                              );
+                            },
+                          )
+                        : ErrorPageView(
+                            errorTitle: userFoodError,
+                            errorType: FoodErrorManager.instance.getErrorType(
+                              FoodErrorType.specialFoodNotFound,
+                            ),
+                          );
                   },
                 );
               } else if (postState is GetPostLoading) {
@@ -192,4 +203,5 @@ mixin _pageWord {
   final deleteFoodTitle = "Yemeği Sil";
   final cancelButton = "İptal";
   final okButton = "Sil";
+  final userFoodError = "Henüz bu kategoride ekleme yapmadınız";
 }
