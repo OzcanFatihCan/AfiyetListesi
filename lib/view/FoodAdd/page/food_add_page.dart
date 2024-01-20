@@ -172,6 +172,8 @@ mixin _pageSize {
   final int maxLinesFood = 1;
   final int maxLengthFood = 100;
   final double thickness = 2;
+  var fotoHeight = 40.0;
+  var fotoBottom = 0.0;
   //duration
   final int snackBarDuration = 2;
   //radius
@@ -182,8 +184,8 @@ mixin _pageSize {
   final EdgeInsets fullPadding = const EdgeInsets.symmetric(horizontal: 16);
   final EdgeInsets halfPadding = const EdgeInsets.all(8);
   final EdgeInsets objectPadding = const EdgeInsets.symmetric(vertical: 10);
-  final EdgeInsets textFieldPadding = const EdgeInsets.only(top: 15);
-  final EdgeInsets imageFieldPadding = const EdgeInsets.only(bottom: 15);
+  final EdgeInsets textFieldPadding = const EdgeInsets.only(top: 5);
+  final EdgeInsets imageFieldPadding = const EdgeInsets.only(bottom: 5);
   final EdgeInsets iconPadding = const EdgeInsets.all(6);
   final EdgeInsets dropdownPadding = const EdgeInsets.symmetric(horizontal: 10);
 }

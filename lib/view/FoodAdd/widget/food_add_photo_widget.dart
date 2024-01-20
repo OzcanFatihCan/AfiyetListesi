@@ -19,13 +19,14 @@ class __BuildFoodAddPhotoState extends State<_BuildFoodAddPhoto>
     return GestureDetector(
       onTap: widget.onTap,
       child: Stack(
+        alignment: Alignment.center,
         children: [
           Positioned.fill(
+            bottom: fotoHeight / 2.5,
             child: Padding(
               padding: imageFieldPadding,
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
                 child: widget.foodPhotoPick != null
                     ? Image.file(
                         File(widget.foodPhotoPick!.path),
@@ -39,8 +40,8 @@ class __BuildFoodAddPhotoState extends State<_BuildFoodAddPhoto>
             ),
           ),
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.25,
-            left: MediaQuery.of(context).size.width * 0.41,
+            height: fotoHeight,
+            bottom: fotoBottom,
             child: _buildPlusIcon(),
           ),
         ],
