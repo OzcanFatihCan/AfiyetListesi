@@ -2,6 +2,7 @@ import 'package:afiyetlistesi/blocs/my_user_bloc/my_user_bloc.dart';
 import 'package:afiyetlistesi/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:afiyetlistesi/blocs/update_user_info_bloc/update_user_info_bloc.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
+import 'package:afiyetlistesi/view/Loading/loading_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:afiyetlistesi/product/package/dotted/dotted_frame.dart';
@@ -13,7 +14,7 @@ import 'package:afiyetlistesi/view/Favorite/page/favorite_page.dart';
 import 'package:afiyetlistesi/view/Food/page/food_page.dart';
 import 'package:afiyetlistesi/view/Profile/page/profile_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
+
 import 'package:user_repository/user_repository.dart';
 
 part '../widget/drawer_widget.dart';
@@ -60,14 +61,7 @@ class _HomePageState extends StateManageHome {
               ),
             );
           } else {
-            return Scaffold(
-              backgroundColor: Theme.of(context).colorScheme.background,
-              body: Center(
-                child: Lottie.asset(
-                  ItemsofAsset.lottieLoading.fetchLottie,
-                ),
-              ),
-            );
+            return const LoadingPage();
           }
         },
       ),
