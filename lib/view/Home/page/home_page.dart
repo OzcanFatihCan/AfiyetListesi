@@ -43,6 +43,7 @@ class _HomePageState extends StateManageHome {
         builder: (context, userState) {
           if (userState.status == MyUserStatus.success) {
             return Scaffold(
+              resizeToAvoidBottomInset: false,
               backgroundColor: Theme.of(context).colorScheme.background,
               appBar: AppBar(
                 title: Text(

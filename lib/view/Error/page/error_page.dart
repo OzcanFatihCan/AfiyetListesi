@@ -68,6 +68,7 @@ class _ErrorPageViewState extends State<ErrorPageView> with _pageItem {
       detailWidget = _FoodErrorWidget(errorTitle: widget.errorTitle!);
     }
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: detailWidget,
     );

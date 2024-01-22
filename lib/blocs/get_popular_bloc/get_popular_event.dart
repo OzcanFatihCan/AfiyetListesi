@@ -8,3 +8,9 @@ abstract class GetPopularEvent extends Equatable {
 }
 
 class GetPopular extends GetPopularEvent {}
+
+class SearchPopular extends GetPopularEvent {
+  final String query;
+
+  const SearchPopular({required this.query});
+}

@@ -16,6 +16,9 @@ import 'package:user_repository/user_repository.dart';
 part '../widget/content_popular_button_widget.dart';
 part '../widget/popular_card_widget.dart';
 part '../viewModel/state_manage_popular.dart';
+part '../widget/popular_search_widget.dart';
+part '../widget/category_builder_widget.dart';
+part '../widget/search_builder_widget.dart';
 
 class PopularPageView extends StatefulWidget {
   const PopularPageView({
@@ -43,6 +46,7 @@ class _PopularPageViewState extends StateManagePopular
           GetPopular(),
         ),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).colorScheme.background,
         body: Padding(
           padding: pagePadding2x,
@@ -50,12 +54,12 @@ class _PopularPageViewState extends StateManagePopular
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildHeadTextWidget(context),
-              Padding(
-                padding: spaceObjectPadding,
-                child: const SearchTextField(),
+              _PopularSearchWidget(
+                currentPageNotifer: currentPageNotifier,
+                searchController: searchController,
               ),
               _BuildContentButton(
-                currentFav: currentFav,
+                currentPageNotifier: currentPageNotifier,
                 contentChange: contentChange,
                 pageChange: popularChange,
               ),
@@ -76,47 +80,20 @@ class _PopularPageViewState extends StateManagePopular
           builder: (context, popularState) {
             if (popularState is GetPopularSuccess) {
               popularPost = popularState.popular;
-              return PageView.builder(
-                itemCount: CategoryManager.instance.getCategoryTitles().length,
-                controller: popularController,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  String category =
-                      CategoryManager.instance.getCategoryTitles()[index];
-                  List<PopularModel> filteredModels = popularPost
-                      .where(
-                        (value) => value.foodCategory == category,
-                      )
-                      .toList();
-                  return filteredModels.isNotEmpty
-                      ? ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: filteredModels.length,
-                          itemBuilder: (context, modelIndex) {
-                            return _BuildPopularCard(
-                              model: filteredModels[modelIndex],
-                              itemDetailOnTap: () async {
-                                await NavigatorManager.instance.pushToPage(
-                                    NavigateRoutes.foodDetail,
-                                    arguments: {
-                                      'model': filteredModels[modelIndex],
-                                      'pageType': FoodDetailManager.instance
-                                          .getDetailType(
-                                        FoodDetailType.popularFood,
-                                      ),
-                                      'myUser': widget.myUser,
-                                    });
-                              },
-                            );
-                          },
-                        )
-                      : ErrorPageView(
-                          errorType: FoodErrorManager.instance.getErrorType(
-                            FoodErrorType.specialFoodNotFound,
-                          ),
-                          errorTitle: populerError,
-                        );
-                },
+              return _CategoryBuilderPopular(
+                popularController: popularController,
+                popularPost: popularPost,
+                widget: widget,
+                populerError: populerError,
+              );
+            } else if (popularState is GetPopularSearchSuccess) {
+              searchPost = popularState.searchResults;
+              return _SearchBuilderPopular(
+                popularController: popularController,
+                searchPost: searchPost,
+                searchController: searchController,
+                widget: widget,
+                populerError: populerError,
               );
             } else {
               return Align(

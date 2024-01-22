@@ -5,10 +5,11 @@ class SearchTextField extends StatefulWidget {
   const SearchTextField({
     Key? key,
     this.controller,
+    this.onChanged,
   }) : super(key: key);
 
   final TextEditingController? controller;
-
+  final Function(String)? onChanged;
   @override
   State<SearchTextField> createState() => _SearchTextFieldState();
 }
@@ -21,6 +22,7 @@ class _SearchTextFieldState extends State<SearchTextField> with _pageSize {
       height: textFieldSize,
       child: TextFormField(
         controller: widget.controller,
+        onChanged: widget.onChanged,
         keyboardType: TextInputType.text,
         decoration: _inputDecoration(hintText, context),
         style: Theme.of(context).textTheme.labelSmall,

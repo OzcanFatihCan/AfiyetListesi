@@ -8,6 +8,7 @@ part 'get_popular_state.dart';
 
 class GetPopularBloc extends Bloc<GetPopularEvent, GetPopularState> {
   final ProjectRepository _projectRepository;
+
   GetPopularBloc({
     required ProjectRepository projectRepository,
   })  : _projectRepository = projectRepository,
@@ -21,6 +22,27 @@ class GetPopularBloc extends Bloc<GetPopularEvent, GetPopularState> {
         );
       } catch (e) {
         emit(GetPopularFailure());
+      }
+    });
+
+    on<SearchPopular>((event, emit) async {
+      emit(GetPopularSearchLoading());
+      try {
+        String query = event.query.toLowerCase();
+
+        List<PopularModel> popularPost = await _projectRepository.getPopular();
+        List<PopularModel> searchResults = popularPost
+            .where((item) => item.foodName.toLowerCase().contains(query))
+            .toList();
+        if (searchResults.isNotEmpty) {
+          emit(GetPopularSearchSuccess(searchResults: searchResults));
+        } else {
+          emit(GetPopularSuccess(popular: popularPost));
+        }
+
+        emit(GetPopularSearchSuccess(searchResults: searchResults));
+      } catch (e) {
+        emit(GetPopularSearchFailure());
       }
     });
   }
