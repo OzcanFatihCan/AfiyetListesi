@@ -52,4 +52,19 @@ abstract class StateManagePopular extends State<PopularPageView>
       }
     }
   }
+
+  popularDetailFunc(
+    List<PopularModel> model,
+    int modelIndex,
+    BuildContext context,
+  ) async {
+    await NavigatorManager.instance
+        .pushToPage(NavigateRoutes.foodDetail, arguments: {
+      'model': model[modelIndex],
+      'pageType': FoodDetailManager.instance.getDetailType(
+        FoodDetailType.popularFood,
+      ),
+      'myUser': widget.myUser,
+    });
+  }
 }

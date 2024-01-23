@@ -1,6 +1,6 @@
 import 'package:afiyetlistesi/blocs/get_popular_bloc/get_popular_bloc.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
-import 'package:afiyetlistesi/product/constants/project_food_detail_type.dart';
+import 'package:afiyetlistesi/product/constants/project_food_detail_type_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/service/model/popular/popular_model.dart';
@@ -85,6 +85,7 @@ class _PopularPageViewState extends StateManagePopular
                 popularPost: popularPost,
                 widget: widget,
                 populerError: populerError,
+                popularDetailFunc: popularDetailFunc,
               );
             } else if (popularState is GetPopularSearchSuccess) {
               searchPost = popularState.searchResults;
@@ -94,6 +95,7 @@ class _PopularPageViewState extends StateManagePopular
                 searchController: searchController,
                 widget: widget,
                 populerError: populerError,
+                popularDetailFunc: popularDetailFunc,
               );
             } else {
               return Align(

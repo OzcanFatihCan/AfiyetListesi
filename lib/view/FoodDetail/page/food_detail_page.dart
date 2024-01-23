@@ -6,7 +6,7 @@ import 'package:afiyetlistesi/blocs/get_favorite_bloc/get_favorite_bloc.dart';
 import 'package:afiyetlistesi/blocs/update_post_bloc/update_post_bloc.dart';
 import 'package:afiyetlistesi/product/components/text/large_text_field.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
-import 'package:afiyetlistesi/product/constants/project_food_detail_type.dart';
+import 'package:afiyetlistesi/product/constants/project_food_detail_type_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/product/package/image/photo_picker.dart';
 import 'package:afiyetlistesi/service/model/favorite/favorite_model.dart';

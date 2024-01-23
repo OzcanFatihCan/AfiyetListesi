@@ -2,7 +2,7 @@ import 'package:afiyetlistesi/blocs/authentication_bloc/authentication_bloc.dart
 import 'package:afiyetlistesi/blocs/delete_post_bloc/delete_post_bloc.dart';
 import 'package:afiyetlistesi/blocs/get_post_bloc/get_post_bloc.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
-import 'package:afiyetlistesi/product/constants/project_food_detail_type.dart';
+import 'package:afiyetlistesi/product/constants/project_food_detail_type_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/view/Error/page/error_page.dart';
@@ -15,6 +15,7 @@ import 'package:user_repository/user_repository.dart';
 part '../widget/content_ufood_button_widget.dart';
 part '../widget/user_food_card_widget.dart';
 part '../viewModel/state_manage_user_food.dart';
+part '../widget/post_builder.dart';
 
 class UserFoodPageView extends StatefulWidget {
   const UserFoodPageView({required this.myUser, super.key});
@@ -85,63 +86,14 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
             builder: (context, postState) {
               if (postState is GetPostSuccess) {
                 foodPosts = postState.posts;
-                return PageView.builder(
-                  itemCount:
-                      CategoryManager.instance.getCategoryTitles().length,
-                  controller: pageController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    String category =
-                        CategoryManager.instance.getCategoryTitles()[index];
-                    List<Post> filteredModels = foodPosts
-                        .where((post) => post.foodCategory == category)
-                        .toList();
-                    return filteredModels.isNotEmpty
-                        ? ListView.builder(
-                            itemCount: filteredModels.length,
-                            itemBuilder: (context, modelIndex) {
-                              return _BuildUserFoodCard(
-                                model: filteredModels[modelIndex],
-                                itemDeleteOnPressed: () {
-                                  context.read<DeletePostBloc>().add(
-                                        DeletePost(
-                                          userId: userId,
-                                          postId:
-                                              filteredModels[modelIndex].foodId,
-                                        ),
-                                      );
-
-                                  Navigator.pop(context);
-                                },
-                                itemDetailOnTap: () async {
-                                  await NavigatorManager.instance
-                                      .pushToPageRotate(
-                                          NavigateRoutes.foodDetail,
-                                          arguments: {
-                                        'model': filteredModels[modelIndex],
-                                        'pageType': FoodDetailManager.instance
-                                            .getDetailType(
-                                          FoodDetailType.userfood,
-                                        ),
-                                        'myUser': widget.myUser,
-                                      }).then((value) {
-                                    if (value) {
-                                      context.read<GetPostBloc>().add(
-                                            GetPosts(userId: userId),
-                                          );
-                                    }
-                                  });
-                                },
-                              );
-                            },
-                          )
-                        : ErrorPageView(
-                            errorTitle: userFoodError,
-                            errorType: FoodErrorManager.instance.getErrorType(
-                              FoodErrorType.specialFoodNotFound,
-                            ),
-                          );
-                  },
+                return _PostBuilder(
+                  pageController: pageController,
+                  foodPosts: foodPosts,
+                  userId: userId,
+                  widget: widget,
+                  userFoodError: userFoodError,
+                  deletePostFunc: postDeleteFunc,
+                  detailPostFunc: postDetailFunc,
                 );
               } else {
                 return Align(
@@ -181,6 +133,7 @@ mixin _pageSize {
 }
 
 mixin _pageWord {
+  final appText = "Yemeklerim";
   final subtitleText = "Tarif için tıkla";
   final foodNotFound = "Yemek adı bulunamadı";
   final deleteFood = "Bu yemeği silmek istediğinizden emin misiniz?";

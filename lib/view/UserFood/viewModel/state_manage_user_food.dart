@@ -6,7 +6,6 @@ abstract class StateManageUserFood extends State<UserFoodPageView>
   late List<Post> foodPosts;
   late String userId;
   late ValueNotifier<int> currentPageNotifier;
-  final appText = "Yemeklerim";
 
   @override
   void initState() {
@@ -31,6 +30,44 @@ abstract class StateManageUserFood extends State<UserFoodPageView>
         duration: Duration(seconds: duration),
         curve: Curves.decelerate,
       );
+    });
+  }
+
+  postDeleteFunc(
+    List<Post> filteredModels,
+    int modelIndex,
+    BuildContext context,
+  ) {
+    context.read<DeletePostBloc>().add(
+          DeletePost(
+            userId: userId,
+            postId: filteredModels[modelIndex].foodId,
+          ),
+        );
+
+    Navigator.pop(context);
+  }
+
+  postDetailFunc(
+    List<Post> filteredModels,
+    int modelIndex,
+    BuildContext context,
+  ) async {
+    await NavigatorManager.instance
+        .pushToPageRotate(NavigateRoutes.foodDetail, arguments: {
+      'model': filteredModels[modelIndex],
+      'pageType': FoodDetailManager.instance.getDetailType(
+        FoodDetailType.userfood,
+      ),
+      'myUser': widget.myUser,
+    }).then((value) {
+      if (value) {
+        context.read<GetPostBloc>().add(
+              GetPosts(userId: userId),
+            );
+        currentPageNotifier.value =
+            CategoryManager.instance.getCategoryIndex(CategoryName.yemek);
+      }
     });
   }
 }

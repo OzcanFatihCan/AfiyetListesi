@@ -2,17 +2,26 @@ part of '../page/popular_page.dart';
 
 class _CategoryBuilderPopular extends StatelessWidget {
   const _CategoryBuilderPopular({
-    super.key,
     required this.popularController,
     required this.popularPost,
     required this.widget,
     required this.populerError,
-  });
+    required Function(
+      List<PopularModel> model,
+      int modelIndex,
+      BuildContext context,
+    ) popularDetailFunc,
+  }) : _popularDetailFunc = popularDetailFunc;
 
   final PageController popularController;
   final List<PopularModel> popularPost;
   final PopularPageView widget;
   final String populerError;
+  final Function(
+    List<PopularModel> model,
+    int modelIndex,
+    BuildContext context,
+  ) _popularDetailFunc;
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +45,11 @@ class _CategoryBuilderPopular extends StatelessWidget {
                   return _BuildPopularCard(
                     model: filteredModels[modelIndex],
                     itemDetailOnTap: () async {
-                      await NavigatorManager.instance
-                          .pushToPage(NavigateRoutes.foodDetail, arguments: {
-                        'model': filteredModels[modelIndex],
-                        'pageType': FoodDetailManager.instance.getDetailType(
-                          FoodDetailType.popularFood,
-                        ),
-                        'myUser': widget.myUser,
-                      });
+                      _popularDetailFunc(
+                        filteredModels,
+                        modelIndex,
+                        context,
+                      );
                     },
                   );
                 },

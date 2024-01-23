@@ -6,6 +6,7 @@ import 'package:afiyetlistesi/product/components/text/large_text_field.dart';
 import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/product/constants/project_validate_regex.dart';
+import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/package/image/photo_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,9 +32,12 @@ class _FoodAddPageViewState extends StateManageFoodAdd
   @override
   Widget build(BuildContext context) {
     return BlocListener<CreatePostBloc, CreatePostState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is CreatePostSuccess) {
           Navigator.pop(context);
+
+          await NavigatorManager.instance.pushToPage(NavigateRoutes.userFood,
+              arguments: {'myUser': widget.myUser});
         }
       },
       child: BlocBuilder<CreatePostBloc, CreatePostState>(
