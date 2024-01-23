@@ -42,23 +42,34 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
           ),
         ),
       ],
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        appBar: AppBar(
-          title: Text(
-            appText,
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-        ),
-        body: Column(
-          children: [
-            _BuildContentButton(
-              currentPageNotifier: currentPageNotifier,
-              contentChange: contentChange,
-              pageChange: pageChange,
+      child: BlocListener<DeletePostBloc, DeletePostState>(
+        listener: (context, deleteState) {
+          if (deleteState is DeletePostSuccess) {
+            context.read<GetPostBloc>().add(
+                  GetPosts(userId: userId),
+                );
+            currentPageNotifier.value =
+                CategoryManager.instance.getCategoryIndex(CategoryName.yemek);
+          }
+        },
+        child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          appBar: AppBar(
+            title: Text(
+              appText,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
-            _buildContent(context),
-          ],
+          ),
+          body: Column(
+            children: [
+              _BuildContentButton(
+                currentPageNotifier: currentPageNotifier,
+                contentChange: contentChange,
+                pageChange: pageChange,
+              ),
+              _buildContent(context),
+            ],
+          ),
         ),
       ),
     );
@@ -99,20 +110,7 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
                                               filteredModels[modelIndex].foodId,
                                         ),
                                       );
-                                  context
-                                      .read<DeletePostBloc>()
-                                      .stream
-                                      .listen((deleteState) {
-                                    if (deleteState is DeletePostSuccess) {
-                                      context.read<GetPostBloc>().add(
-                                            GetPosts(userId: userId),
-                                          );
-                                      currentPageNotifier.value =
-                                          CategoryManager.instance
-                                              .getCategoryIndex(
-                                                  CategoryName.yemek);
-                                    }
-                                  });
+
                                   Navigator.pop(context);
                                 },
                                 itemDetailOnTap: () async {
@@ -144,20 +142,6 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
                             ),
                           );
                   },
-                );
-              } else if (postState is GetPostLoading) {
-                return Align(
-                  alignment: Alignment.center,
-                  child: Lottie.asset(
-                    ItemsofAsset.lottieLoading.fetchLottie,
-                  ),
-                );
-              } else if (postState is GetPostFailure) {
-                return Align(
-                  alignment: Alignment.center,
-                  child: Lottie.asset(
-                    ItemsofAsset.lottieLoading.fetchLottie,
-                  ),
                 );
               } else {
                 return Align(

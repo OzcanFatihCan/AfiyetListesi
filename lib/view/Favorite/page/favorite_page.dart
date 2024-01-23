@@ -45,17 +45,28 @@ class _FavoritePageViewState extends StateManageFavorite
           ),
         ),
       ],
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: Column(
-          children: [
-            _BuildContentButton(
-              contentChange: contentChange,
-              pageChange: pageChange,
-              currentPageNotifier: currentPageNotifier,
-            ),
-            _buildContent(context)
-          ],
+      child: BlocListener<DeleteFavoriteBloc, DeleteFavoriteState>(
+        listener: (context, deleteState) {
+          if (deleteState is DeleteFavoriteSuccess) {
+            context.read<GetFavoriteBloc>().add(
+                  GetFavorite(userId: userId),
+                );
+            currentPageNotifier.value =
+                CategoryManager.instance.getCategoryIndex(CategoryName.yemek);
+          }
+        },
+        child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          body: Column(
+            children: [
+              _BuildContentButton(
+                contentChange: contentChange,
+                pageChange: pageChange,
+                currentPageNotifier: currentPageNotifier,
+              ),
+              _buildContent(context)
+            ],
+          ),
         ),
       ),
     );

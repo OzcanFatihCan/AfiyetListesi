@@ -68,15 +68,6 @@ abstract class StateManageFavorite extends State<FavoritePageView>
             favoriteId: filteredModels[modelIndex].favorite.foodId,
           ),
         );
-    context.read<DeleteFavoriteBloc>().stream.listen((deleteState) {
-      if (deleteState is DeleteFavoriteSuccess) {
-        context.read<GetFavoriteBloc>().add(
-              GetFavorite(userId: userId),
-            );
-        currentPageNotifier.value =
-            CategoryManager.instance.getCategoryIndex(CategoryName.yemek);
-      }
-    });
     Navigator.pop(context);
   }
 }
