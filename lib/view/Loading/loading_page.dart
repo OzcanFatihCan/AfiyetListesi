@@ -15,23 +15,25 @@ class _LoadingPageState extends State<LoadingPage> with _pageSize {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: pagePaddingx,
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.4,
-              child: Lottie.asset(
-                ItemsofAsset.lottieLoading.fetchLottie,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: pagePaddingx,
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.4,
+                child: Lottie.asset(
+                  ItemsofAsset.lottieLoading.fetchLottie,
+                ),
               ),
             ),
-          ),
-          Text(
-            "Afiyet Listesi",
-            style: AppTheme().customTextTheme().titleLarge,
-          ),
-        ],
+            Text(
+              "Afiyet Listesi",
+              style: AppTheme().customTextTheme().titleLarge,
+            ),
+          ],
+        ),
       ),
     );
   }
