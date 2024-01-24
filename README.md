@@ -90,6 +90,7 @@ delicious recipes. The purpose is to present recipes that family friends often a
 - Animasyonlar/Animations: https://lottiefiles.com
 - Harici Paketler/External Packages: https://pub.dev/
 - Bloc Mimarisi/Bloc Architecture: https://bloclibrary.dev/#/
+- Uygulama İçi Görseller Yapay Zeka Kullanılarak Üretilmiştir(DALL-E3): https://www.bing.com/images/create
  
 
 ## Ekran Kayıtları ve Ekran Görüntüleri / Screen Recordings and Screenshots
