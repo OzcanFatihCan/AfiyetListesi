@@ -1,6 +1,6 @@
 # Afiyet Listesi
 
-## Projenin Amacı / The Purpose of the Project 
+## Projenin Amacı / Project's Purpose
 Merhaba,
 
 Uygulamanın temel amacı kendi tariflerinizi kaydetmek, tariflerinizin listesini tutmak ve aynı zamanda sevgili annemin lezzetli 
@@ -10,6 +10,17 @@ Hello,
 
 The main purpose of the application is to save your own recipes, keep a list of your recipes, and also access my beloved mother's 
 delicious recipes. The purpose is to present recipes that family friends often ask my mother about.
+
+
+## Projenin Açıklaması / Project's Explanation 
+- Projenin geliştirilmesi sırasında temiz kod yazmaya ve MVVM mimarisine uymaya mümkün olduğunca özen gösterdim.
+- Modelleri oluştururken verileri temsil edecek bir model ve verilerle işlem yapacak bir varlık oluşturdum.
+- Polimorfizm ve Arayüz kullanımına ilişkin örnekleri uygulama içerisinde bulabilirsiniz.
+---
+- During the development of the project, I took as much care as possible to write clean code and comply with the MVVM architecture.
+- While creating the models, I created a model to represent the data and an entity to process the data.
+- You can find examples of Polymorphism and Interface usage in the application.
+  
 
 ## Kurulum Talimatları / Installation Instructions 
 1. Uygulamayı klonlayın: https://github.com/OzcanFatihCan/AfiyetListesi.git (Dilerseniz direkt ZIP olarak da indirebilirsiniz)
@@ -74,6 +85,13 @@ delicious recipes. The purpose is to present recipes that family friends often a
 
 
 
+## Referanslar / References
+- Firebase İşlemleri/Firebase transaction: https://firebase.google.com/docs/build?hl=tr
+- Animasyonlar/Animations: https://lottiefiles.com
+- Harici Paketler/External Packages: https://pub.dev/
+- Bloc Mimarisi/Bloc Architecture: https://bloclibrary.dev/#/
+ 
+
 ## Ekran Kayıtları ve Ekran Görüntüleri / Screen Recordings and Screenshots
 #### Giriş 
 ![First](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/09e55a6f-6523-477d-bb9c-63ae64c83a97)
@@ -90,10 +108,8 @@ https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/14f6548b-de2e-419
 ![GoogleLogin](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/15d98d21-e2fd-41e2-8fc2-60dada347e01)
 
 #### Yemek Tarifi Ekleme
-![Foodadd1](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/d7883cf6-736a-491f-bef6-5e44df300645)
-![Foodadd2](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/93b96c8b-4b06-42bf-9692-129266d478f7)
-![Foodadd3](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/45191e12-0419-4925-ada4-b503581dd30b)
-![Foodadd4](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/05a8efdb-4f86-46b5-b15d-1114c8403a9b)
+![Foodadd1](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/45191e12-0419-4925-ada4-b503581dd30b)
+![Foodadd2](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/05a8efdb-4f86-46b5-b15d-1114c8403a9b)
 
 https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/ea7352b9-d7d5-4a39-8eff-2db58b46eb87
 
@@ -118,10 +134,18 @@ https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/940c5abe-5b89-425
 https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/476c2ded-a4d4-47a0-b5fc-3d3fa9299c6a
 
 #### Kullanıcılar Arasındaki Populer Yemekleri Kategorik Listeleme
-![image](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/04d98bdb-5492-4907-a91f-cd5a33731779)
+![PopularList](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/04d98bdb-5492-4907-a91f-cd5a33731779)
 
 #### Kullanıcılar Arasındaki Populer Yemekleri Aratma
-![image](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/ce5a56f2-f599-437d-9079-b41bd8ed976b)
+![PopularSearch](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/ce5a56f2-f599-437d-9079-b41bd8ed976b)
 
 #### Yemek Detaylarına Erişme (Populer, Kullanıcı, Favori, Uygulama yemekleri)
+
+https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/e247016f-994d-43b6-b0c7-2d886d8934dc
+
+#### Kullanıcı Yemeği Güncellenmesi
+
+https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/6831f61b-e7bf-42e9-8e47-f955f1c5f4bf
+
+
 
