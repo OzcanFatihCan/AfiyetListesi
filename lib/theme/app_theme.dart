@@ -101,11 +101,13 @@ class AppTheme {
         ),
       ),
       cardTheme: CardTheme(
+        elevation: _themeSize.elevationValue,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             _themeSize.halfRadius(),
           ),
         ),
+        color: _themeColor.whiteColor,
       ),
     );
   }
@@ -271,7 +273,7 @@ class _ThemeSizes {
       );
 
 //elevation
-  final double elevationValue = 8;
+  final double elevationValue = 0.1;
   final double elevationValueOff = 0;
 }
 

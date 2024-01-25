@@ -37,7 +37,7 @@ class _BottomNavigationBarWidgetState extends State<_BottomNavigationBarWidget>
         width: MediaQuery.of(context).size.width,
         height: bottomNavHeight,
         child: Card(
-          elevation: elevationValue,
+          elevation: elevationValueOff,
           shape: Theme.of(context).cardTheme.shape,
           color: Theme.of(context).cardTheme.color,
           child: Row(

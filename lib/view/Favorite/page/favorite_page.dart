@@ -150,6 +150,7 @@ mixin _pageSize {
   final double contentButtonWidght = 100;
   final double optionDot = 7;
   final double cardLineThickness = 3;
+  final double elevationValueOff = 0;
   //radius
   final halfRadius = const Radius.circular(15);
   final buttonOnRadius = BorderRadius.circular(15);

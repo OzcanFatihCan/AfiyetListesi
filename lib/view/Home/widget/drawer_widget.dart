@@ -40,6 +40,7 @@ class _BuildDrawerWidgetState extends State<_BuildDrawerWidget>
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: Theme.of(context).colorScheme.background,
+      elevation: elevationValueOff,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [

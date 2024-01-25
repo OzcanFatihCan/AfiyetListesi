@@ -94,7 +94,7 @@ class _LoginPageViewState extends StateManageLogin with _pageSize, _pageWord {
       children: [
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.06,
-          width: MediaQuery.of(context).size.width * 0.35,
+          width: MediaQuery.of(context).size.width * 0.37,
           child: ButtonDecorationWidget(
             buttonTitle: loginButton,
             onPressed: () {

@@ -143,6 +143,7 @@ mixin _pageSize {
   final double optionDot = 7;
   final double cardLineThickness = 3;
   final int foodColumn = 2;
+  final double elevationValue = 0.1;
   //radius
   final halfRadius = const Radius.circular(15);
   final buttonOnRadius = BorderRadius.circular(15);
