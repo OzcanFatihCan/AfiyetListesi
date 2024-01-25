@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:user_repository/src/models/my_user.dart';
 
 import 'entities/entities.dart';
@@ -12,10 +13,13 @@ import 'user_repo.dart';
 class FirebaseUserRepository implements UserRepository {
   FirebaseUserRepository({
     FirebaseAuth? firebaseAuth,
-  }) : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+    GoogleSignIn? googleSignIn,
+  })  : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
+        _googleSignIn = googleSignIn ?? GoogleSignIn();
 
   //Auth Variables
   final FirebaseAuth _firebaseAuth;
+  final GoogleSignIn _googleSignIn;
   final usersCollection = FirebaseFirestore.instance.collection('users');
 
   //Stream get current User
@@ -141,5 +145,27 @@ class FirebaseUserRepository implements UserRepository {
       log(e.toString());
       rethrow;
     }
+  }
+
+  //google signIn
+  @override
+  Future<UserCredential?> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+        return await _firebaseAuth.signInWithCredential(credential);
+      }
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+    return null;
   }
 }
