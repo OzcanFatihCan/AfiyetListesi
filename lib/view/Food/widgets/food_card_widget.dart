@@ -14,7 +14,8 @@ class _BuildFoodCard extends StatelessWidget with _pageSize, _pageWord {
   Widget build(BuildContext context) {
     return Card(
       shape: Theme.of(context).cardTheme.shape,
-      color: Theme.of(context).cardColor,
+      color: Theme.of(context).cardTheme.color,
+      elevation: elevationValue,
       child: ListTile(
         title: Padding(
           padding: foodPadding,

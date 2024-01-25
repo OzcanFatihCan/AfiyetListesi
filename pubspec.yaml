@@ -37,6 +37,7 @@ dependencies:
   firebase_auth: ^4.15.3
   cloud_firestore: ^4.13.6
   firebase_storage: ^11.5.6
+  google_sign_in: ^6.2.1
   
   #CUSTOM PACKAGE
   #Repository

@@ -20,4 +20,6 @@ abstract class UserRepository {
   Future<String> uploadPicture(String file, String userId);
 
   Future<void> updateUserData(String name, String userId);
+
+  Future<UserCredential?> signInWithGoogle();
 }

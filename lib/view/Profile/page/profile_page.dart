@@ -73,7 +73,7 @@ class _ProfilePageViewState extends StateManageProfile
                             buttonOnPressed: () {
                               updateProfilInfo();
                             },
-                          ),
+                          )
                         ],
                       );
                     } else {

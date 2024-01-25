@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 
 part '../viewModel/state_manage_register.dart';
+part '../widget/register_widget.dart';
 
 class RegisterPageView extends StatefulWidget {
   const RegisterPageView({super.key});
@@ -40,84 +41,14 @@ class _RegisterPageViewState extends StateManageRegister
       child: Form(
         key: _formRegisterKey,
         autovalidateMode: AutovalidateMode.always,
-        child: _buildRegisterBar(),
+        child: _BuildRegisterBar(
+          emailController: _emailController,
+          nameController: _nameController,
+          passwordController: _passwordController,
+          isLoading: isLoading,
+          registerProcess: registerProcess,
+        ),
       ),
-    );
-  }
-
-  Column _buildRegisterBar() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: inputPadding,
-          child: InputTextField(
-            controller: _nameController,
-            hintText: hintTextName,
-            prefixIcon: const Icon(Icons.person),
-            keyboardType: TextInputType.name,
-            validator: (val) {
-              if (val!.isEmpty) {
-                return nameValidateEmpty;
-              }
-              return null;
-            },
-          ),
-        ),
-        InputTextField(
-          controller: _emailController,
-          hintText: hintTextEmail,
-          prefixIcon: const Icon(Icons.mail_rounded),
-          keyboardType: TextInputType.emailAddress,
-          autofillHints: const [AutofillHints.email],
-          validator: (val) {
-            if (val!.isEmpty) {
-              return emailValidateEmpty;
-            } else if (val.isValidEmail == false) {
-              return emailValidateFalse;
-            }
-            return null;
-          },
-        ),
-        InputTextField(
-          controller: _passwordController,
-          hintText: hintTextPassword,
-          prefixIcon: const Icon(Icons.password_rounded),
-          keyboardType: TextInputType.visiblePassword,
-          autofillHints: const [AutofillHints.password],
-          validator: (val) {
-            if (val!.isEmpty) {
-              return passwordValidateEmpty;
-            } else if (val.isValidPassword == false) {
-              return passwordValidateFalse;
-            }
-            return null;
-          },
-        ),
-        !isLoading
-            ? _buildNavigateButton(context)
-            : CircularProgressIndicator(
-                color: Theme.of(context).colorScheme.background,
-              ),
-      ],
-    );
-  }
-
-  ButtonBar _buildNavigateButton(BuildContext context) {
-    return ButtonBar(
-      alignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.06,
-          width: MediaQuery.of(context).size.width * 0.35,
-          child: ButtonDecorationWidget(
-            buttonTitle: registerButton,
-            onPressed: () {
-              registerProcess();
-            },
-          ),
-        ),
-      ],
     );
   }
 }

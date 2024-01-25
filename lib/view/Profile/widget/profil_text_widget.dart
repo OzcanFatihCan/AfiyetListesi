@@ -68,7 +68,7 @@ class _BuildTextBodyState extends State<_BuildTextBody>
         ButtonDecorationWidget(
           onPressed: widget.buttonOnPressed,
           buttonTitle: updateButtonText,
-        )
+        ),
       ],
     );
   }
@@ -86,6 +86,7 @@ class _BuildTextBodyState extends State<_BuildTextBody>
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.07,
           child: Card(
+            elevation: Theme.of(context).cardTheme.elevation,
             shape: RoundedRectangleBorder(borderRadius: cardRadius),
             child: Center(
               child: Text(
@@ -100,6 +101,7 @@ class _BuildTextBodyState extends State<_BuildTextBody>
           child: SizedBox(
             height: MediaQuery.of(context).size.height * 0.07,
             child: Card(
+              elevation: Theme.of(context).cardTheme.elevation,
               shape: RoundedRectangleBorder(borderRadius: cardRadius),
               child: Center(
                 child: Text(
