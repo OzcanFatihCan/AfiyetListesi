@@ -70,6 +70,7 @@ class FirebaseUserRepository implements UserRepository {
   Future<void> logOut() async {
     try {
       await _firebaseAuth.signOut();
+      await _googleSignIn.signOut();
     } catch (e) {
       log(e.toString());
       rethrow;
@@ -160,7 +161,36 @@ class FirebaseUserRepository implements UserRepository {
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken,
         );
-        return await _firebaseAuth.signInWithCredential(credential);
+        final UserCredential userCredential =
+            await _firebaseAuth.signInWithCredential(credential);
+
+        final String? email = userCredential.user?.email;
+        final String? name = userCredential.user?.displayName;
+
+        final DocumentSnapshot data =
+            await usersCollection.doc(userCredential.user!.uid).get();
+        final docState = data.exists;
+
+        log(docState.toString());
+
+        if (docState == false) {
+          if (email != null && name != null) {
+            final MyUser newUser = MyUser(
+              id: userCredential.user!.uid,
+              email: email,
+              name: name,
+              picture: "",
+            );
+            await setUserData(newUser);
+            return userCredential;
+          } else {
+            log("${user.toString()} not found");
+          }
+        } else {
+          await getMyUser(userCredential.user!.uid);
+        }
+
+        return userCredential;
       }
     } catch (e) {
       log(e.toString());

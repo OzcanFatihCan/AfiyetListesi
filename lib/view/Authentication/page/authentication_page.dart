@@ -9,6 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'alternative_login_page.dart';
+part '../widget/authentication_tab_widget.dart';
+part '../widget/authentication_auth_widget.dart';
+part '../viewModel/state_manage_authenticationpage.dart';
 
 class AuthenticationPage extends StatefulWidget {
   const AuthenticationPage({super.key});
@@ -17,20 +20,8 @@ class AuthenticationPage extends StatefulWidget {
   State<AuthenticationPage> createState() => _AuthenticationPageState();
 }
 
-class _AuthenticationPageState extends State<AuthenticationPage>
-    with TickerProviderStateMixin, _pageSize, _pageWord, _pageDuration {
-  late TabController tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    tabController = TabController(
-      initialIndex: 0,
-      length: 2,
-      vsync: this,
-    );
-  }
-
+class _AuthenticationPageState extends StateManageAuthenticationPage
+    with _pageSize, _pageWord, _pageDuration {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,95 +33,10 @@ class _AuthenticationPageState extends State<AuthenticationPage>
           BackGroundWidget(
             wallpaperUrl: ItemsofAsset.loginWallpaperUrl.fetchPhoto,
           ),
-          _buildTabBar(),
-          _buildAuthBar(),
+          _BuildTabBar(tabController: tabController),
+          _BuildAuthBar(tabController: tabController),
           _buildAlternativeLoginButton(context),
         ],
-      ),
-    );
-  }
-
-  Positioned _buildTabBar() {
-    return Positioned(
-      bottom: tabBarPositionBot,
-      left: tabBarSymetric,
-      right: tabBarSymetric,
-      child: Container(
-        height: tabBarSize,
-        color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
-        child: TabBar(
-          indicatorColor: Theme.of(context).colorScheme.secondary,
-          indicatorWeight: indicatorWeight,
-          controller: tabController,
-          tabs: [
-            Padding(
-              padding: textTabBarPadding,
-              child: Text(
-                loginTitle,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  shadows: [
-                    Shadow(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withOpacity(0.8),
-                      offset: buttonOffset,
-                      blurRadius: blur,
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: textTabBarPadding,
-              child: Text(
-                registerTitle,
-                style:
-                    Theme.of(context).textTheme.titleLarge?.copyWith(shadows: [
-                  Shadow(
-                    color:
-                        Theme.of(context).colorScheme.primary.withOpacity(0.8),
-                    offset: buttonOffset,
-                    blurRadius: blur,
-                  )
-                ]),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Positioned _buildAuthBar() {
-    return Positioned(
-      bottom: authBarPositionBot,
-      left: authBarSymetric,
-      right: authBarSymetric,
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.42,
-        child: Card(
-          color: Theme.of(context).colorScheme.onBackground,
-          child: TabBarView(
-            controller: tabController,
-            children: [
-              BlocProvider<SignInBloc>(
-                create: (context) => SignInBloc(
-                  userRepository:
-                      context.read<AuthenticationBloc>().userRepository,
-                ),
-                child: const LoginPageView(),
-              ),
-              BlocProvider<SignUpBloc>(
-                create: (context) => SignUpBloc(
-                  userRepository:
-                      context.read<AuthenticationBloc>().userRepository,
-                ),
-                child: const RegisterPageView(),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
@@ -140,7 +46,23 @@ class _AuthenticationPageState extends State<AuthenticationPage>
       bottom: alternativeButtonPositionBot,
       left: loginButtonSymetric,
       right: loginButtonSymetric,
-      child: AlternativeLoginPageView(),
+      child: BlocProvider(
+        create: (context) => SignInBloc(
+          userRepository: context.read<AuthenticationBloc>().userRepository,
+        ),
+        child: BlocBuilder<SignInBloc, SignInState>(
+          builder: (context, state) {
+            return AlternativeLoginPageView(
+              googleOnTap: () {
+                context.read<SignInBloc>().add(
+                      GoogleSignInRequired(),
+                    );
+                Navigator.pop(context);
+              },
+            );
+          },
+        ),
+      ),
     );
   }
 }

@@ -25,6 +25,25 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     on<SignOutRequired>((event, emit) async {
       await _userRepository.logOut();
     });
+
+    on<GoogleSignInRequired>((event, emit) async {
+      emit(SignInProcess());
+      try {
+        final userCredential = await _userRepository.signInWithGoogle();
+        if (userCredential != null) {
+          emit(SignInSuccess());
+        } else {
+          emit(const SignInFailure(message: "User not found"));
+        }
+      } catch (e) {
+        log(e.toString());
+        emit(
+          SignInFailure(
+            message: e.toString(),
+          ),
+        );
+      }
+    });
   }
 
   final UserRepository _userRepository;

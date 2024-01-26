@@ -5,9 +5,11 @@ part '../widget/alternative_login_widget.dart';
 class AlternativeLoginPageView extends StatelessWidget
     with _pageWord, _pageSize {
   AlternativeLoginPageView({
+    required Function() googleOnTap,
     super.key,
-  });
+  }) : _googleOnTap = googleOnTap;
 
+  final Function() _googleOnTap;
   @override
   Widget build(BuildContext context) {
     return ButtonBar(
@@ -33,7 +35,7 @@ class AlternativeLoginPageView extends StatelessWidget
                       _AlternativeOptions(
                         text: loginGoogle,
                         logo: Logo(Logos.google),
-                        onTap: () {},
+                        onTap: _googleOnTap,
                       ),
                     ],
                   ),
