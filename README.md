@@ -56,7 +56,7 @@ delicious recipes. The purpose is to present recipes that family friends often a
 ## Kullanıcı Kılavuzu / User guide
 
 - [x] Login İşlemi
-- [ ] Google ile Login İşlemi
+- [x] Google ile Login İşlemi
 - [x] Yemek Tarifi Ekleme
 - [x] Yemek Tariflerini Kategorik Listeleme
 - [x] Favori Yemek Ekleme
@@ -71,7 +71,7 @@ delicious recipes. The purpose is to present recipes that family friends often a
 ---
 
 - [x] Login Process
-- [ ] Login Process with Google
+- [x] Login Process with Google
 - [x] Add Recipe 
 - [x] Listing Recipes Categorically
 - [x] Add Favorite Food
