@@ -19,7 +19,7 @@ class LargeTextField extends StatelessWidget with _pageSize {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: TextStyle(color: Theme.of(context).colorScheme.primary),
+      style: Theme.of(context).textTheme.labelLarge,
       controller: textController,
       maxLines: maxLines ?? defaultLines,
       maxLength: maxLength ?? defaultLenght,
@@ -47,6 +47,9 @@ class LargeTextField extends StatelessWidget with _pageSize {
             color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.2),
             width: textFieldBorderSize,
           ),
+        ),
+        counterStyle: TextStyle(
+          color: Theme.of(context).colorScheme.primary,
         ),
       ),
     );

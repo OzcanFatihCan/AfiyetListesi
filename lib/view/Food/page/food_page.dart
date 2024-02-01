@@ -136,8 +136,6 @@ class _FoodPageViewState extends StateManageFood with _pageSize, _pageWord {
 
 mixin _pageSize {
   //obj
-  final double listPhotoHeightSize = 60;
-  final double listPhotoWidthSize = 80;
   final double contentButtonHeight = 50;
   final double contentButtonWidght = 100;
   final double optionDot = 7;
@@ -150,7 +148,7 @@ mixin _pageSize {
   final buttonOffRadius = BorderRadius.circular(7);
   //padding - margin
   final pagePadding2x = const EdgeInsets.all(16.0);
-  final foodPadding = const EdgeInsets.only(top: 10);
+  final foodPadding = const EdgeInsets.only(left: 6.8);
   final foodTextPadding = const EdgeInsets.only(top: 3, bottom: 8);
   final contentButtonPadding = const EdgeInsets.symmetric(horizontal: 16);
   final contentButtonMargin = const EdgeInsets.all(5);

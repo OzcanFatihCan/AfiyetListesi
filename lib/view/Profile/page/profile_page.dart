@@ -15,7 +15,7 @@ import 'package:afiyetlistesi/theme/app_theme.dart';
 
 part '../widget/profil_photo_widget.dart';
 part '../widget/profil_text_widget.dart';
-part '../state/state_manage_profile.dart';
+part '../viewModel/state_manage_profile.dart';
 
 class ProfilePageView extends StatefulWidget {
   const ProfilePageView({

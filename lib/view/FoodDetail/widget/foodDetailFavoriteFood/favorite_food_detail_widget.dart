@@ -18,6 +18,11 @@ class _FavoriteFoodDetailWidgetState extends State<_FavoriteFoodDetailWidget>
     return BlocListener<DeleteFavoriteBloc, DeleteFavoriteState>(
       listener: (context, state) {
         if (state is DeleteFavoriteSuccess) {
+          ToastService.showToast(
+            icon: Icons.check_circle,
+            message: favoriteDeleteSuccess,
+            context: context,
+          );
           Navigator.pop(context, true);
         }
       },

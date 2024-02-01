@@ -58,4 +58,25 @@ abstract class StateManageFoodAdd extends State<FoodAddPageView>
       },
     );
   }
+
+  foodAddFunc(BuildContext context) {
+    if (_foodNameController.text.isNotEmpty &&
+        _materialController.text.isNotEmpty &&
+        _recipeController.text.isNotEmpty &&
+        foodPhoto != null &&
+        foodPhoto!.path.isNotNullOrNoEmpty &&
+        selectedCategory != null &&
+        selectedCategory!.isNotEmpty) {
+      setState(() {
+        post.foodName = _foodNameController.text;
+        post.foodPhoto = foodPhoto!.path;
+        post.foodCategory = selectedCategory!;
+        post.foodRecipe = _recipeController.text;
+        post.foodMaterial = _materialController.text;
+      });
+      context.read<CreatePostBloc>().add(CreatePost(post));
+    } else {
+      myErrorDialog(postError);
+    }
+  }
 }

@@ -5,6 +5,7 @@ import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_food_detail_type_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
+import 'package:afiyetlistesi/product/package/toast/toast_message.dart';
 import 'package:afiyetlistesi/service/model/favorite/favorite_model.dart';
 import 'package:afiyetlistesi/service/repository/firebase_project_repository.dart';
 import 'package:afiyetlistesi/view/Error/page/error_page.dart';
@@ -48,6 +49,11 @@ class _FavoritePageViewState extends StateManageFavorite
       child: BlocListener<DeleteFavoriteBloc, DeleteFavoriteState>(
         listener: (context, deleteState) {
           if (deleteState is DeleteFavoriteSuccess) {
+            ToastService.showToast(
+              icon: Icons.check_circle,
+              message: favoriteDeleteSuccess,
+              context: context,
+            );
             context.read<GetFavoriteBloc>().add(
                   GetFavorite(userId: userId),
                 );
@@ -172,4 +178,5 @@ mixin _pageWord {
   final cancelButton = "İptal";
   final okButton = "Sil";
   final favoriError = "Bu kategoride favoriniz bulunamadı";
+  final favoriteDeleteSuccess = "Favoriniz kaldırıldı";
 }

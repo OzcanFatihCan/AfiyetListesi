@@ -8,6 +8,7 @@ import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/product/constants/project_validate_regex.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
 import 'package:afiyetlistesi/product/package/image/photo_picker.dart';
+import 'package:afiyetlistesi/product/package/toast/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -34,10 +35,16 @@ class _FoodAddPageViewState extends StateManageFoodAdd
     return BlocListener<CreatePostBloc, CreatePostState>(
       listener: (context, state) async {
         if (state is CreatePostSuccess) {
+          ToastService.showToast(
+            icon: Icons.check_circle,
+            message: foodAddSucces,
+            context: context,
+          );
           Navigator.pop(context);
-
-          await NavigatorManager.instance.pushToPage(NavigateRoutes.userFood,
-              arguments: {'myUser': widget.myUser});
+          await NavigatorManager.instance.pushToPage(
+            NavigateRoutes.userFood,
+            arguments: {'myUser': widget.myUser},
+          );
         }
       },
       child: BlocBuilder<CreatePostBloc, CreatePostState>(
@@ -121,28 +128,11 @@ class _FoodAddPageViewState extends StateManageFoodAdd
         padding: halfPadding,
         child: Center(
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.100,
+            height: MediaQuery.of(context).size.height * 0.1,
             width: MediaQuery.of(context).size.width,
             child: ButtonDecorationWidget(
               onPressed: () {
-                if (_foodNameController.text.isNotEmpty &&
-                    _materialController.text.isNotEmpty &&
-                    _recipeController.text.isNotEmpty &&
-                    foodPhoto != null &&
-                    foodPhoto!.path.isNotNullOrNoEmpty &&
-                    selectedCategory != null &&
-                    selectedCategory!.isNotEmpty) {
-                  setState(() {
-                    post.foodName = _foodNameController.text;
-                    post.foodPhoto = foodPhoto!.path;
-                    post.foodCategory = selectedCategory!;
-                    post.foodRecipe = _recipeController.text;
-                    post.foodMaterial = _materialController.text;
-                  });
-                  context.read<CreatePostBloc>().add(CreatePost(post));
-                } else {
-                  myErrorDialog(postError);
-                }
+                foodAddFunc(context);
               },
               buttonTitle: buttonTitle,
             ),
@@ -165,6 +155,7 @@ mixin _pageWord {
   final postError = "Lütfen fotoğraf ekleyin ve tüm boşlukları doldurun";
   final okButton = "Tamam";
   final alertTitle = "Uyarı";
+  final foodAddSucces = "Yemek eklendi";
 }
 
 mixin _pageSize {

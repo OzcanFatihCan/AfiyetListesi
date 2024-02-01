@@ -38,6 +38,11 @@ class _MainFoodDetailWidget extends StatelessWidget with _pageSize, _pageWord {
           BlocListener<DeleteFavoriteBloc, DeleteFavoriteState>(
             listener: (context, deleteFavoriteState) {
               if (deleteFavoriteState is DeleteFavoriteSuccess) {
+                ToastService.showToast(
+                  icon: Icons.check_circle,
+                  message: favoriteDeleteSuccess,
+                  context: context,
+                );
                 Navigator.pop(context, true);
               }
             },
@@ -45,6 +50,11 @@ class _MainFoodDetailWidget extends StatelessWidget with _pageSize, _pageWord {
           BlocListener<CreateFavoriteBloc, CreateFavoriteState>(
             listener: (context, createFavoriteState) {
               if (createFavoriteState is CreateFavoriteSuccess) {
+                ToastService.showToast(
+                  icon: Icons.check_circle,
+                  message: favoriteAddSuccess,
+                  context: context,
+                );
                 Navigator.pop(context, true);
               }
             },

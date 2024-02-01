@@ -9,6 +9,7 @@ import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_food_detail_type_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/product/package/image/photo_picker.dart';
+import 'package:afiyetlistesi/product/package/toast/toast_message.dart';
 import 'package:afiyetlistesi/service/model/favorite/favorite_model.dart';
 import 'package:afiyetlistesi/service/model/popular/popular_model.dart';
 import 'package:afiyetlistesi/service/repository/firebase_project_repository.dart';
@@ -160,4 +161,7 @@ mixin _pageWord {
   final recipeText = "Yapılışı";
   final foodMaterialNotFound = "Yemek malzemeleri bulunamadı";
   final updateButtonText = "Güncelle";
+  final foodUpdateSuccess = "Yemek Güncellendi";
+  final favoriteDeleteSuccess = "Favoriniz kaldırıldı";
+  final favoriteAddSuccess = "Favoriniz eklendi";
 }

@@ -43,6 +43,11 @@ class _UserFoodDetailWidgetState extends State<_UserFoodDetailWidget>
     return BlocListener<UpdatePostBloc, UpdatePostState>(
       listener: (context, state) {
         if (state is UpdatePostSuccess) {
+          ToastService.showToast(
+            icon: Icons.check_circle,
+            message: foodUpdateSuccess,
+            context: context,
+          );
           Navigator.pop(context, true);
         }
       },

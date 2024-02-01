@@ -5,6 +5,7 @@ import 'package:afiyetlistesi/product/constants/project_category_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_food_detail_type_manager.dart';
 import 'package:afiyetlistesi/product/constants/project_photo.dart';
 import 'package:afiyetlistesi/product/navigator/project_navigator_manager.dart';
+import 'package:afiyetlistesi/product/package/toast/toast_message.dart';
 import 'package:afiyetlistesi/view/Error/page/error_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,6 +47,11 @@ class _UserFoodPageViewState extends StateManageUserFood with _pageSize {
       child: BlocListener<DeletePostBloc, DeletePostState>(
         listener: (context, deleteState) {
           if (deleteState is DeletePostSuccess) {
+            ToastService.showToast(
+              icon: Icons.check_circle,
+              message: foodDeleteSucces,
+              context: context,
+            );
             context.read<GetPostBloc>().add(
                   GetPosts(userId: userId),
                 );
@@ -141,4 +147,5 @@ mixin _pageWord {
   final cancelButton = "İptal";
   final okButton = "Sil";
   final userFoodError = "Henüz bu kategoride ekleme yapmadınız";
+  final foodDeleteSucces = "Yemek silindi";
 }

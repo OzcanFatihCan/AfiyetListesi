@@ -57,23 +57,6 @@ class _PostBuilder extends StatelessWidget {
                     },
                     itemDetailOnTap: () async {
                       _detailPostFunc(filteredModels, modelIndex, context);
-                      /*
-                      await NavigatorManager.instance.pushToPageRotate(
-                          NavigateRoutes.foodDetail,
-                          arguments: {
-                            'model': filteredModels[modelIndex],
-                            'pageType':
-                                FoodDetailManager.instance.getDetailType(
-                              FoodDetailType.userfood,
-                            ),
-                            'myUser': widget.myUser,
-                          }).then((value) {
-                        if (value) {
-                          context.read<GetPostBloc>().add(
-                                GetPosts(userId: userId),
-                              );
-                        }
-                      });*/
                     },
                   );
                 },

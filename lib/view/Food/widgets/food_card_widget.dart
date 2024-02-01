@@ -20,6 +20,7 @@ class _BuildFoodCard extends StatelessWidget with _pageSize, _pageWord {
         title: Padding(
           padding: foodPadding,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.all(
