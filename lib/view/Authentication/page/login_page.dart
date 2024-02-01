@@ -61,5 +61,5 @@ mixin _pageWord {
   final hintTextEmail = "Email";
   final hintTextPassword = "Parola";
   final loginError = "Geçersiz email ve şifre";
-  final loginValidateError = "Lütfen tüm hücreleri doldurunuz";
+  final loginValidateError = "Hücreleri şartlara göre doldurunuz";
 }

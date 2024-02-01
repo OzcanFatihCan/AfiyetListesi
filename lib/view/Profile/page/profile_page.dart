@@ -1,5 +1,6 @@
 import 'package:afiyetlistesi/product/components/button/button_decoration.dart';
 import 'package:afiyetlistesi/product/package/image/photo_picker.dart';
+import 'package:afiyetlistesi/product/package/toast/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -34,11 +35,21 @@ class _ProfilePageViewState extends StateManageProfile
         if (state is UploadPictureSuccess) {
           setState(() {
             context.read<MyUserBloc>().state.user!.picture = state.userImage;
+            ToastService.showToast(
+              icon: Icons.check_circle,
+              message: updatePhoto,
+              context: context,
+            );
           });
         }
         if (state is UpdateUserDataSuccess) {
           setState(() {
             context.read<MyUserBloc>().state.user!.name = nameController.text;
+            ToastService.showToast(
+              icon: Icons.check_circle,
+              message: updateSuccess,
+              context: context,
+            );
           });
         }
       },
@@ -71,7 +82,7 @@ class _ProfilePageViewState extends StateManageProfile
                               changeEditing();
                             },
                             buttonOnPressed: () {
-                              updateProfilInfo();
+                              updateProfilInfo(context);
                             },
                           )
                         ],
@@ -123,4 +134,8 @@ mixin _pageWord {
   final hintTextEmail = "Email";
   final hintTextName = "Adınız";
   final updateButtonText = "Güncelle";
+  final updateSuccess = "Adınız güncellendi";
+  final updatePhoto = "Fotoğrafınız güncellendi";
+  final errorName = "Lütfen ismi boş bırakmayınız";
+  final profilPhoto = "Profile Photo";
 }

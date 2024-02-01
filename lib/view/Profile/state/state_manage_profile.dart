@@ -1,6 +1,7 @@
 part of '../page/profile_page.dart';
 
-abstract class StateManageProfile extends State<ProfilePageView> {
+abstract class StateManageProfile extends State<ProfilePageView>
+    with _pageWord {
   final GlobalKey<FormState> formProfileKey = GlobalKey();
   final TextEditingController nameController = TextEditingController();
   bool isEditing = false;
@@ -16,7 +17,7 @@ abstract class StateManageProfile extends State<ProfilePageView> {
   showImagePicker() async {
     await ImagePickerHandler(
       context: context,
-      pickerType: "ProfilPhoto",
+      pickerType: profilPhoto,
       onSelectionFile: (dynamic selectedFile) {
         if (selectedFile is CroppedFile) {
           setState(() {
@@ -32,14 +33,17 @@ abstract class StateManageProfile extends State<ProfilePageView> {
     ).handleImageSelection();
   }
 
-  updateProfilInfo() {
-    if (formProfileKey.currentState?.validate() ?? false) {
+  updateProfilInfo(BuildContext context) {
+    if (nameController.text.isNotEmpty) {
       final name = nameController.text;
       final userId = context.read<MyUserBloc>().state.user!.id;
 
       context.read<UpdateUserInfoBloc>().add(
             UpdateUserData(name, userId),
           );
+    } else {
+      ToastService.showToast(
+          icon: Icons.error, message: errorName, context: context);
     }
   }
 }
