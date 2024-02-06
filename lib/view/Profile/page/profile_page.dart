@@ -137,5 +137,5 @@ mixin _pageWord {
   final updateSuccess = "Adınız güncellendi";
   final updatePhoto = "Fotoğrafınız güncellendi";
   final errorName = "Lütfen ismi boş bırakmayınız";
-  final profilPhoto = "Profile Photo";
+  final profilPhoto = "ProfilePhoto";
 }
