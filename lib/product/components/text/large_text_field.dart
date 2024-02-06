@@ -24,7 +24,8 @@ class LargeTextField extends StatelessWidget with _pageSize {
       maxLines: maxLines ?? defaultLines,
       maxLength: maxLength ?? defaultLenght,
       enabled: isEditing,
-      keyboardType: TextInputType.text,
+      textInputAction: TextInputAction.none,
+      keyboardType: TextInputType.multiline,
       decoration: InputDecoration(
         hintText: hintText,
         enabledBorder: OutlineInputBorder(
