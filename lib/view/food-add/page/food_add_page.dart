@@ -18,7 +18,7 @@ import 'package:user_repository/user_repository.dart';
 part '../widget/food_add_photo_widget.dart';
 part '../widget/food_add_text_widget.dart';
 part '../widget/food_add_category_widget.dart';
-part '../viewModel/state_manage_foodadd.dart';
+part '../view-model/state_manage_foodadd.dart';
 
 class FoodAddPageView extends StatefulWidget {
   const FoodAddPageView({required this.myUser, super.key});

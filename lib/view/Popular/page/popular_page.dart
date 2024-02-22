@@ -15,7 +15,7 @@ import 'package:user_repository/user_repository.dart';
 
 part '../widget/content_popular_button_widget.dart';
 part '../widget/popular_card_widget.dart';
-part '../viewModel/state_manage_popular.dart';
+part '../view-model/state_manage_popular.dart';
 part '../widget/popular_search_widget.dart';
 part '../widget/category_builder_widget.dart';
 part '../widget/search_builder_widget.dart';

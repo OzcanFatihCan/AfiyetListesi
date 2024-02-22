@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 
-part '../viewModel/state_manage_register.dart';
+part '../view-model/state_manage_register.dart';
 part '../widget/register_widget.dart';
 
 class RegisterPageView extends StatefulWidget {

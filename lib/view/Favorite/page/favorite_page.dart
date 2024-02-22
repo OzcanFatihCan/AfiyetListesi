@@ -17,7 +17,7 @@ import 'package:user_repository/user_repository.dart';
 
 part '../widget/favorite_card_widget.dart';
 part '../widget/content_button_widget.dart';
-part '../viewModel/state_manage_favorite.dart';
+part '../view-model/state_manage_favorite.dart';
 
 class FavoritePageView extends StatefulWidget {
   const FavoritePageView({required this.myUser, super.key});

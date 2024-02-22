@@ -19,7 +19,7 @@ import 'package:user_repository/user_repository.dart';
 
 part '../widget/drawer_widget.dart';
 part '../widget/navigation_bar_widget.dart';
-part '../viewModel/state_manage_home.dart';
+part '../view-model/state_manage_home.dart';
 
 class HomePageView extends StatefulWidget {
   const HomePageView({Key? key}) : super(key: key);

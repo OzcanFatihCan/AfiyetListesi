@@ -14,7 +14,7 @@ import 'package:user_repository/user_repository.dart';
 
 part '../widgets/content_food_button_widget.dart';
 part '../widgets/food_card_widget.dart';
-part '../viewModel/state_manage_food.dart';
+part '../view-model/state_manage_food.dart';
 
 class FoodPageView extends StatefulWidget {
   const FoodPageView({

@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'alternative_login_page.dart';
 part '../widget/authentication_tab_widget.dart';
 part '../widget/authentication_auth_widget.dart';
-part '../viewModel/state_manage_authenticationpage.dart';
+part '../view-model/state_manage_authenticationpage.dart';
 
 class AuthenticationPage extends StatefulWidget {
   const AuthenticationPage({super.key});

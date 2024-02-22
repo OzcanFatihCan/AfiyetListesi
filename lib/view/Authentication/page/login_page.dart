@@ -5,7 +5,7 @@ import 'package:afiyetlistesi/product/constants/project_validate_regex.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-part '../viewModel/state_manage_login.dart';
+part '../view-model/state_manage_login.dart';
 part '../widget/login_widget.dart';
 
 class LoginPageView extends StatefulWidget {

@@ -22,7 +22,7 @@ import 'package:lottie/lottie.dart';
 import 'package:post_repository/post_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
-part '../viewModel/state_manage_food_detail.dart';
+part '../view-model/state_manage_food_detail.dart';
 
 part '../widget/foodDetailMainFood/mf_food_photo_widget.dart';
 part '../widget/back_button_widget.dart';
