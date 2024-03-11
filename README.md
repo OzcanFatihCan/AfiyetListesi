@@ -95,22 +95,22 @@ delicious recipes. The purpose is to present recipes that family friends often a
 
 ## Ekran Kayıtları ve Ekran Görüntüleri / Screen Recordings and Screenshots
 #### Giriş 
-![First](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/09e55a6f-6523-477d-bb9c-63ae64c83a97)
+<img src="https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/09e55a6f-6523-477d-bb9c-63ae64c83a97" height="800" width="400"> 
 
 #### Login İşlemi
 
-![Login](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/b009b7dd-1888-43e0-8b88-4d947a1f6cc1)
-![Register](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/643738d2-dc83-427c-99d2-86e56663d1b6)
+<img src="https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/b009b7dd-1888-43e0-8b88-4d947a1f6cc1" height="800" width="400"> 
+<img src="https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/643738d2-dc83-427c-99d2-86e56663d1b6" height="800" width="400"> 
 
 https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/14f6548b-de2e-4196-9a4e-14afbd0a7a5a
 
 #### Google ile Login İşlemi
 
-![GoogleLogin](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/15d98d21-e2fd-41e2-8fc2-60dada347e01)
+<img src="https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/15d98d21-e2fd-41e2-8fc2-60dada347e01" height="800" width="400"> 
 
 #### Yemek Tarifi Ekleme
-![Foodadd1](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/45191e12-0419-4925-ada4-b503581dd30b)
-![Foodadd2](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/05a8efdb-4f86-46b5-b15d-1114c8403a9b)
+<img src="https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/45191e12-0419-4925-ada4-b503581dd30b" height="800" width="400"> 
+<img src="https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/05a8efdb-4f86-46b5-b15d-1114c8403a9b" height="800" width="400"> 
 
 https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/ea7352b9-d7d5-4a39-8eff-2db58b46eb87
 
@@ -135,10 +135,10 @@ https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/940c5abe-5b89-425
 https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/476c2ded-a4d4-47a0-b5fc-3d3fa9299c6a
 
 #### Kullanıcılar Arasındaki Populer Yemekleri Kategorik Listeleme
-![PopularList](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/04d98bdb-5492-4907-a91f-cd5a33731779)
+<img src="https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/04d98bdb-5492-4907-a91f-cd5a33731779" height="800" width="400"> 
 
 #### Kullanıcılar Arasındaki Populer Yemekleri Aratma
-![PopularSearch](https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/ce5a56f2-f599-437d-9079-b41bd8ed976b)
+<img src="https://github.com/OzcanFatihCan/AfiyetListesi/assets/93872480/ce5a56f2-f599-437d-9079-b41bd8ed976b" height="800" width="400"> 
 
 #### Yemek Detaylarına Erişme (Populer, Kullanıcı, Favori, Uygulama yemekleri)
 
